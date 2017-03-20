@@ -1,0 +1,458 @@
+﻿
+@model SmartLabours.Models.TBL_NotificationGroupList
+@{
+    ViewBag.Title = "PushMessageGroupMemberAdd";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<link href="~/Content/themes/base/base.css" rel="stylesheet" />
+<link href="~/Content/themes/base/jquery.ui.autocomplete.css" rel="stylesheet" />
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<style type="text/css" >   
+    .HeaderDiv {
+        width:500px;text-align:center;padding-top:10px;
+    }
+    .continn{
+        width:965px !important;
+    }
+</style>
+
+<script type="text/javascript">
+     //Send to Previous page
+    function PreviousPage() {
+        window.location = "/PushMessageGroupMember/PushMessageGroupMasterList";
+    }
+
+
+    function Validate(e) {
+        var i = 0;
+        if ($('#Orgname').val() == '') {
+            $('#lblOrgError').text('');
+            $('#lblOrgError').text('Please Select Organization');           
+            i = 1;
+        }
+        if ($('#GroupName').val() == '') {
+            $('#lblGroupError').text('');
+            $('#lblGroupError').text('Please Select Group');          
+            i = 1;
+        }
+        if(i==1)
+        {
+            (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
+            return false;
+        }
+        return true;
+    }
+
+
+    $(document).ready(function () {
+
+
+
+        $("#GroupName").keypress(function (event) {           
+            $('#lblGroupError').text('');
+            return true;
+
+        });
+
+        $("#Orgname").keypress(function (e) {
+            //if (!((e.which >= 65 && e.which <= 90) || (e.which >= 97 && e.which <= 122) || e.which == 8 || e.which == 44 || e.which == 39 || e.which == 45 || e.which == 95 || e.which == 38 || e.which == 46 || (e.which >= 48 && e.which <= 57))) {
+            //    e.preventDefault();
+            //    return false;
+            //}
+            $('#lblOrgError').text('');
+            return true;
+
+        });
+
+
+        $("#Orgname").keyup(function (event) {
+            if (event.keyCode == 8 || event.keyCode == 46) {
+                $('#lblOrgError').text('');
+            }
+        });
+        $("#GroupName").keyup(function (event) {
+            if (event.keyCode == 8 || event.keyCode == 46) {
+                $('#lblGroupError').text('');
+            }
+        });
+
+        ////Contact number Only Allowed Numeric
+        //$("#OrganisationContactno").keydown(function (e) {
+        //    AllowNumericOnly(e);
+        //});
+
+        $('#Orgname').autocomplete({
+
+            source: function (request, response) {
+                $.ajax({
+                    url: '@Url.Action("OrgNameAutoComplete", "OrganizationSubAdmin")',
+                    dataType: "json",
+                    cache: false,
+                    delay: 10,
+                    type: "get",
+                    data: { term: request.term }
+                }).done(function (data) {
+                    response(data);
+                });
+            },
+            change: function (event, ui) {  //CheckOrganizationName
+                if ($('#Orgname').val() != '') {
+                    $('#lblOrgError').text('');
+                    $.ajax({
+                        url: '@Url.Action("CheckOrganizationName", "Organization")',
+                        dataType: "json",
+                        cache: false,
+                        type: "get",
+                        data: { OrgName: $('#Orgname').val() },
+                        success: function (data) {
+                            // debugger
+                            if ($('#Orgname').val() == '') {
+                                data = 'Please Select Organization';
+                            }
+                            if (data != '1') {
+
+                                $('#lblOrgError').text(data);
+                            }
+                            else {
+                                $('#lblOrgError').text('');
+                            }
+                        },
+                        error: function (data) {
+                            // debugger
+                        }
+                    });
+                }
+                else {
+                    $('#lblOrgError').text('');
+                    $('#lblOrgError').text('Please Select Organization');
+                }
+            }
+        });
+
+
+       
+
+$('#GroupName').autocomplete(
+   {
+       source: function (request, response) {
+           //  debugger
+           var str = $("#Orgname").val();
+           // var str1 = $("#OrgName").val();
+           $.ajax({
+               url: '@Url.Action("GroupNameAutoComplete", "PushMessageGroupMaster")',
+                       dataType: "json",
+                       cache: false,
+                       type: "get",
+                       data: { term: request.term, org: str }
+                   }).done(function (data) {
+                       //debugger
+                       response(data);
+                   });
+       },
+       change: function (event, ui) {
+           if ($('#GroupName').val() != '') {
+               $.ajax({
+                   url: '@Url.Action("CheckGroupName", "PushMessageGroupMaster")',
+                   dataType: "json",
+                   cache: false,
+                   type: "get",
+                   data: { GroupName: $('#GroupName').val() },
+                   success: function (data) {                     
+                       if (data != '1') {
+                           $('#lblGroupError').text('');
+                           $('#lblGroupError').text(data);
+                           $("#LabourList").empty();
+                           $("#LabourList").append('');
+                           return false;
+                       }
+                       else {
+                           $('#lblGroupError').text('');
+                       }
+                   },
+                   error: function (data) {
+                       // debugger
+                   }
+               });
+           }
+           else {
+               $('#lblGroupError').text('');
+               $('#lblGroupError').text('Please Select Group');
+           }
+       }
+       });
+      
+        $('#btnload').click(function () {            
+            $.ajax({
+                url: '@Url.Action("NonGroupMemberList", "PushMessageGroupMember")',
+                cache: false,
+                type: "post",
+                data: { GroupId: $('#GroupName').val() },
+                success: function (data) {
+
+                    $("#LabourList").empty();
+                    $("#LabourList").append(data);
+
+                },
+                error: function (data) {
+                    // debugger
+                    // alert("Ther was Processing Errorsearch");
+                }
+            });
+
+
+        });
+
+
+
+    })
+
+    function AddMembers() {
+       // debugger
+        var chk = document.getElementsByName("chkname");
+        var status = '0';
+        var chkchecked = "";
+        for (var i = 0; i < chk.length; i++) {
+            if (chk[i].checked == true) {
+                chkchecked += chk[i].id + ",";
+                status = '1';
+            }
+        }
+        if (status=='0')
+        {
+            alert("Please select a record to assign to the group");
+            return false;
+        }
+        var chk = document.getElementsByName("chkname1");       
+        for (var i = 0; i < chk.length; i++) {
+                chkchecked += chk[i].id + ",";
+            }
+        UpdateView(chkchecked, "Are you sure, You want to add members?");
+
+    }
+
+    function UpdateView(id,message) {
+       // debugger
+
+        if (id != "") {
+            if (confirm(message) == true) {
+                $.ajax({
+                    url: '@Url.Action("UpdateGroupMaster", "PushMessageGroupMember")',
+                    cache: false,
+                    contentType: "application/json; charset=utf-8",
+                    type: "get",
+                    data: { id: id, GroupId: $('#GroupName').val() },
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        if (data == "1") {
+                            $.ajax({
+                                url: '@Url.Action("NonGroupMemberList", "PushMessageGroupMember")',
+                                    cache: false,
+                                    type: "post",
+                                    data: { GroupId: $('#GroupName').val() },
+                                    success: function (data) {
+                                        //debugger
+                                        $("#LabourList").empty();
+                                        $("#LabourList").append(data);
+                                    },
+                                    error: function (data) {
+                                       // debugger
+                                       // alert("Ther was Processing Errorsearch");
+                                    }
+                                });
+                        } else {
+                           // debugger
+                        }
+
+                        },
+                    error: function (data) {
+
+                    }
+                });
+
+                }
+            }
+            else {
+                alert('Please Select Any One Record To Move');
+            }
+    }
+
+    function RemoveMembers() {
+        //debugger
+        var chk = document.getElementsByName("chkname1");
+        var chkchecked = "";
+        var status='0';
+        for (var i = 0; i < chk.length; i++) {
+            if (chk[i].checked == false) {
+                chkchecked += chk[i].id + ",";               
+            }
+            else if (chk[i].checked == true) {
+                status = '1';
+            }
+        }
+        if (status=='0')
+        {
+            alert("Please select a record to remove from the group");
+            return false;
+        }
+        if (chkchecked == "" && status=='1')
+        {
+            chkchecked = "0";
+        }
+        UpdateView(chkchecked, "Are you sure, You want to remove members?");
+    }
+
+    
+    function checkAllInRemove(thisobj) {
+       // debugger
+        var chk = document.getElementsByName("chkname1");
+        for (var i = 0; i < chk.length; i++) {
+            if (chk[i].type == 'checkbox') {
+                if (thisobj.checked) {
+                    chk[i].checked = true;
+                }
+                else {
+                    chk[i].checked = false;
+                }
+            }
+        }
+    }
+
+
+
+    function checkAll(thisobj) {
+        //debugger
+        var chk = document.getElementsByName("chkname");
+        for (var i = 0; i < chk.length; i++) {
+            if (chk[i].type == 'checkbox') {
+                if (thisobj.checked) {
+                    chk[i].checked = true;
+                }
+                else {
+                    chk[i].checked = false;
+                }
+            }
+        }
+    }
+
+</script>
+
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                  Add Group Member
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1" >
+                    <b>
+                        <label id="lblErrormsg" >
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="suss_mesg" id="msShow2" >
+                    <b>
+                        <label id="lblError1" >
+                        </label>
+                    </b>
+                </div>
+                <div class="fld_fd">
+                    @using (Html.BeginForm("PushMessageGroupMemberAdd", "PushMessageGroupMember", FormMethod.Post, new { id = "GroupId", @class = "form-horizontal", enctype = "multipart/form-data", autocomplete = "off" }))
+                    {
+                        <div>
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span>   Organization 
+                                </dd>
+                                <dt>
+                                    @{
+                                        if (HttpContext.Current.Session["USERID"].ToString() == "1")
+                                        {
+                                            @Html.TextBoxFor(model => model.OrgName, new { maxlength = 35, id = "Orgname" })
+                                                      
+                                                        <span class="error">
+                                                          <label id="lblOrgError" >@ViewBag.OrgAlert</label>
+                                                       </span>
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBox("OrgId", (string)ViewBag.GetOrganizationName, new { id = "txtOrgName", disabled = "disabled" })
+                                        }
+                                    }
+                                </dt>
+                            </dl>
+
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span>  Group 
+                                </dd>
+                                <dt>
+                                    @Html.TextBoxFor(model => model.GroupName, new { maxlength = 50 ,@id="GroupName"})
+                                    <span class="error">
+                                        <label id="lblGroupError" ></label>
+                                    </span>
+                                </dt>
+                            </dl>
+
+
+@*                                    <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span>  Emirates ID
+                                </dd>
+                                <dt>
+                                    @Html.TextBoxFor(model => model.LabourId, new { maxlength = 50 })
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.LabourId)
+                                    </span>
+                                </dt>
+                            </dl>
+*@
+
+
+                 @*           <dl style="padding-top:7px">
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span> Status
+                                </dd>
+                                <dt>
+                                    @Html.RadioButtonFor(model => model.Status, true, new { @checked = true })
+                                    <label>
+                                        Active
+                                    </label>
+                                    @Html.RadioButtonFor(model => model.Status, false)
+                                    <label>
+                                        InActive
+                                    </label>
+                                </dt>
+                            </dl>*@
+
+                            <div class="btn1 btn1-form">
+                                <input type="button" value="Load" title="Load Members" id="btnload" onclick="Validate(this);" />
+                                <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </fieldset>
+
+        </div>
+
+      
+          
+     <div id="LabourList">
+
+     </div>
+
+    </div>
+</div>

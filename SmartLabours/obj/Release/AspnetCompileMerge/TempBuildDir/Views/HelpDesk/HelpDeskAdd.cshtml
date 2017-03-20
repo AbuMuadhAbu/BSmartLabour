@@ -1,0 +1,144 @@
+﻿
+
+@model SmartLabours.Models.Ticket
+@{
+    ViewBag.Title = "Help Desk Add";
+    Layout = "~/Views/Shared/_AccountMenuLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+
+<script type="text/javascript" >
+
+    $(document).ready(function () {
+
+        var Priority = '<option value=' + 'Low' + ' >' + 'Low' + '</option>';
+        Priority += '<option value="' + 'Normal' + '" >' + 'Normal' + '</option>';
+        Priority += '<option value="' + 'High' + '" >' + 'High' + '</option>';
+        Priority += '<option value="' + 'Urgent' + '" >' + 'Urgent' + '</option>';
+        $("#priority").html(Priority);
+
+        var type = '<option value=' + 'Question' + ' >' + 'Question' + '</option>';
+        type += '<option value="' + 'Incident' + '" >' + 'Incident' + '</option>';
+        type += '<option value="' + 'Problem' + '" >' + 'Problem' + '</option>';
+        type += '<option value="' + 'Task' + '" >' + 'Task' + '</option>';
+        $("#type").html(type);
+
+    });
+
+    function PreviousPage() {
+
+        window.location.href = "/";
+    }
+
+    function Clear()
+    {
+        $("#Priority").val(0);
+        $("#type").val('');
+        $("#status").val('');
+        $("#subject").val('');
+        $("#comment").val('');
+        //$("#Issue").val('');
+        //$("#Remarks").val('');
+    }
+
+</script>
+
+<div class="main">
+
+    <div class="inner_titlebg">
+        <div class="wrapper">
+            <h2> <a href="/HelpDesk/HelpDeskAdd1" title="Go To Help Desk"> Help Desk </a>  Zen Desk </h2> 
+        </div>
+    </div>
+
+    @using (Html.BeginForm("HelpDeskAdd", "HelpDesk", FormMethod.Post, new { @id = "HelpDeskAdd", enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary(true)
+    <div class="wrapper">
+
+
+        <div class="inner_contentarea1 clearfix">
+            <div class="contact_panel register_panel clearfix">
+
+                          <div class="input">
+                    <label>
+                        Type <span style="color: rgb(255, 0, 0); font-size: 17px;position:relative; padding-left:1px;">*</span>
+                    </label>
+                    @Html.DropDownListFor(model => model.type, new SelectList(string.Empty, "Value", "Text"), "Select", new { @class = "drop_down" })
+                    <span class="error_msg">
+                        @Html.ValidationMessageFor(model => model.type)
+                    </span>
+                </div>
+                @*<div class="input">
+                    <label>
+                        Status
+                    </label>
+                    @Html.TextBoxFor(model => model.status, new { maxlength = 50 })
+                    <span class="error_msg">
+                        @Html.ValidationMessageFor(model => model.status)
+                    </span>
+                </div>*@       
+
+                <div class="input">
+                    <label>
+                        Priority<span style="color: rgb(255, 0, 0); font-size: 17px;position:relative; padding-left:1px;">*</span>
+                    </label>
+                    @Html.DropDownListFor(model => model.priority, new SelectList(string.Empty, "Value", "Text"), "Select", new { @class = "drop_down" })
+                    <span class="error_msg">
+                        @Html.ValidationMessageFor(model => model.priority)
+                    </span>
+                </div>
+
+                <div class="input">
+                    <label>
+                        Subject <span style="color: rgb(255, 0, 0); font-size: 17px;position:relative; padding-left:1px;">*</span>
+                    </label>
+                    @Html.TextBoxFor(model => model.subject, new { maxlength = 50 })
+                    <span class="error_msg">
+                        @Html.ValidationMessageFor(model => model.subject)
+                        @*<label id="ErrorOrg" class="errorLabel"></label>*@
+                    </span>
+                </div>
+
+          
+                <div class="input textarea">
+                    <label>
+                        Comment <span style="color: rgb(255, 0, 0); font-size: 17px;position:relative; padding-left:1px;">*</span>
+                    </label>
+                    @Html.TextAreaFor(model => model.comment, new { maxlength = 500, rows = "8", style = "height:40px" })
+
+                    <span class="error_msg">
+                        @Html.ValidationMessageFor(model => model.comment)
+
+                    </span>
+                </div>
+
+                <div class="submit default">
+                    <input type="Submit" value="Submit" />@* onclick="return validation();"*@
+                    <input class="cancel" type="button" value="Cancel" onclick="PreviousPage();" />
+                </div>
+
+            </div>
+
+          
+
+        </div>
+        </div>
+
+        }
+
+    </div>
+
+
+
+
+
+
+
+
+                      

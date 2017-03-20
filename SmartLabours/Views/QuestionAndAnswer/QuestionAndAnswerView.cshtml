@@ -1,0 +1,117 @@
+﻿
+
+@model SmartLabours.Models.Course
+
+@{
+    ViewBag.Title = "QuestionAndAnswerView";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@Styles.Render("~/Content/Front/css")
+<link rel="shortcut icon" type="image/x-icon" href="~/Content/Front/images/favicon.ico">
+<link rel="shortcut" type="image/x-icon" href="~/Content/Front/images/favicon.ico">
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+@section Scripts {
+    @Scripts.Render("~/Content/Front/js")
+
+    <script type="text/javascript">
+        function PreviousPage() {
+            window.location = "/QuestionAndAnswer/QuestionAndAnswerlist";
+        }
+     </script>
+    }
+ <div class="content">
+        <div class="wrapper">
+            <div class="continn">
+    <fieldset>
+        <legend></legend>
+        <h3>
+                  Question And Answer View
+                </h3>
+     <div class="clr2">
+                </div>
+           <div class="fld_fd view-blk fnt-bold">
+    <dl>
+    <dd>
+       Course:</dd>
+       <dt>
+            @Html.DisplayFor(n => n.CourseName)</dt>
+       
+    </dl>
+
+     </div>
+  
+      <div id="bind" style="width: 100%; float: left;" class="fld_fd">
+                          @{ 
+                              
+                             List<SmartLabours.Models.TBL_QUESTION_SMT> LstQuestion = ViewBag.Questionlist;
+                             List<SmartLabours.Models.TBL_ANSWER_SMT> LstAnswer = ViewBag.Answerlist;
+                             List<SmartLabours.Models.TBL_ANSWER_SMT> LstAnswer1;
+                             
+                            }
+                          <div class="question_list lbl-spac">
+                                @foreach (var item in LstQuestion.OrderBy(n=>n.QuestionID))
+                                  {                                             
+                                      LstAnswer1 = LstAnswer.Where(n => n.QuestionID == item.QuestionID).OrderBy(n => n.AnswerID).ToList();
+                                      if(@item.QuestionType==true)
+                                       {
+                                          <br><span class="fnt-bold">Question : <label>@item.QuestionDesc</label></span><br><br>
+                                       }
+                                       else
+                                       {
+                                           <div id="@item.QuestionID" style="display: none;">
+                                               <video width="420" height="340" controls autoplay>
+                                                   <source src="~/Uplodify/QuestionVideos/@item.QuestionDesc" type="video/mp4"><!--for Firefox browsers-->
+                                                   <source src="~/Uplodify/QuestionVideos/@item.QuestionDesc" type="video/webm"><!--for non-Firefox browsers-->
+                                                   Your browser does not support HTML5 Video<!--this displays if neither of the above can be played-->
+                                               </video>
+                                          </div>
+                                    <br> <span class="fnt-bold">Question : </span>
+                                            <a class="fancybox" href="#@item.QuestionID">
+                                                <label>@item.QuestionDesc</label><br><br>
+                                            </a>
+                                       }                             
+
+                                    <span>Credit Points:</span><label>@item.CreditPoints</label><br><br>
+                                    if (LstAnswer1.Count > 0)
+                                    {
+                                        <label>Options:</label>
+                                        @:A:<label>@LstAnswer1[0].AnswerDesc</label>
+                                        @:B:<label>@LstAnswer1[1].AnswerDesc</label>
+                                        @:C:<label>@LstAnswer1[2].AnswerDesc</label>
+                                        @:D:<label>@LstAnswer1[3].AnswerDesc</label>
+                                        @:Answer:
+
+                                        if (LstAnswer1[0].IsCorrect == true)
+                                        {
+                                            <label>A</label>
+                                        }
+                                        else if (LstAnswer1[1].IsCorrect == true)
+                                        {
+                                            <label>B</label>
+                                        }
+                                        else if (LstAnswer1[2].IsCorrect == true)
+                                        {
+                                            <label>C</label>
+                                        }
+                                        else if (LstAnswer1[3].IsCorrect == true)
+                                        {
+                                            <label>D</label>
+                                        }
+                                    }
+                                  }
+                       </div>                                          
+              </div>
+              <div class="btn1 btn1-form">            
+                <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+              </div>   
+       
+    </fieldset>
+   </div>
+   </div>
+   </div>

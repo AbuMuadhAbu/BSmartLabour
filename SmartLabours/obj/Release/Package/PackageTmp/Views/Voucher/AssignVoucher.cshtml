@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "AssignVoucher";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style type="text/css">
+
+    .ui-multiselect {
+        margin-left: 15px !important;
+    }
+
+</style>
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<link href="~/Content/Multi/jquery.multiselect.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css" />
+
+<script src="~/Content/Multi/jquery.multiselect.js"></script>
+
+<script type="text/javascript">
+
+    function Assignvoucher() {
+       //debugger
+        try {
+            $('#submit_profile').html("Processing...");     
+            var OrgName = "";
+            $('#OrgName1 :selected').each(function (i, selected) {
+                OrgName = OrgName+ $(selected).text() + ",";
+            });
+
+            if (OrgName == "" &&  $('#SessionId').val()=='1') {
+                $('#submit_profile').html("Assign Voucher");
+                alert('Please select any Organization.');              
+                return false;
+            }
+            else {
+                $.ajax({
+                    url: '@Url.Action("RunVoucherSchedular", "Home")',
+                    dataType: "json",
+                    cache: false,
+                    type: "get",
+                    data: { OrgName: OrgName }
+                }).done(function (data) {
+                    alert(data);
+                    $('#submit_profile').html("Assign Voucher");
+                    window.location = "/Voucher/AssignVoucher";
+                });
+            }
+            }
+            catch (ex) {
+            }
+    } 
+
+    $(document).ready(function () {
+        $("#OrgName1").multiselect();
+      
+        
+    });
+
+</script>
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            @*<ul class="breadcrumbs-list clearfix">
+             @*<li><a href="javascript:voi(0);">Others</a></li>
+                <li><a href="/Smart/Dashboard">Dashboard</a></li>
+                <li>Smart Labour Dashboard</li>
+            </ul>*@
+            <fieldset>
+                <legend></legend>
+                <h3>
+                    Assign Voucher
+                </h3>
+                <div class="clr2">
+                </div>
+@{
+    <input id="SessionId" value="@HttpContext.Current.Session["USERID"].ToString()" style="display:none">
+        if (HttpContext.Current.Session["USERID"].ToString() == "1")
+        {
+                <div>
+                    <div style="float:left">
+
+                        <span style="color:red;padding-right :2px;">  </span>   Organization  :
+
+                    </div>
+                    <div style="color:red;margin-left :15px;">
+                      
+                                <dl>
+
+                                    <dt></dt>
+                                    <dd>
+
+                                        @Html.DropDownList("OrgName", ViewBag.OrganizationList as MultiSelectList, new { id = "OrgName1", @class = "form-control", data_placeholder = "Select Organization", @multiple = "multiple", style = "margin-left:15px !important" })
+                                    </dd>
+                                </dl>
+                        
+                    </div>          
+                                        
+
+                </div>
+        }
+                        }
+
+
+                <div class="btn1 ">
+                                @*<input type="button" value="Assign Voucher" title="Assign Voucher" onclick="Assignvoucher();" />*@
+                                @*<input type="button" value="Back" title="Back" />*@
+
+                    <a title="Assign Voucher" href="javascript:void(0)" id="submit_profile" type="submit" class="green1" style="margin-left:90px"
+                       onclick="return Assignvoucher();" >Assign Voucher</a> 
+                    
+                    
+                    
+                            </div>
+               
+                </fieldset>
+
+</div></div></div>

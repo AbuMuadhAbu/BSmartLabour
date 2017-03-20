@@ -1,0 +1,35 @@
+﻿@model SmartLabours.Models.LocalPasswordModel
+@{
+    ViewBag.Title = "Manage Account";
+}
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+<p class="message-success">@ViewBag.StatusMessage</p>
+
+<p>You're logged in as <strong>@User.Identity.Name</strong>.</p>
+
+@if (ViewBag.HasLocalPassword)
+{
+    @Html.Partial("_ChangePasswordPartial")
+}
+else
+{ 
+    @Html.Partial("_SetPasswordPartial")
+}
+
+<section id="externalLogins">
+    @Html.Action("RemoveExternalLogins")
+
+    <h3>Add an external login</h3>
+    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "ApkDownload";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+<link rel="stylesheet" href="~/Content/Front/css/jquery-ui.css">
+<script type="text/javascript">
+
+    function PreviousPage() {
+        window.location = '@Url.Action("Dashboard", "smart")';
+    }
+
+    $(document).ready(function () {
+
+        $('#btnDownload').click(function (e) {         
+            e.preventDefault();  //stop the browser from following
+            window.location.href = '@Url.Content("~/Upload_Files/ApkFiles/android-debug.apk")';
+        });
+
+        $('#btnDownloadNew').click(function (e) {           
+            e.preventDefault();  //stop the browser from following
+            window.location.href = '@Url.Content("~/Upload_Files/ApkFiles/android-debugVr2.apk")';
+        });
+        
+        $('#btnDownload09').click(function (e) {
+            e.preventDefault();  //stop the browser from following
+            window.location.href = '@Url.Content("~/Upload_Files/ApkFiles/android-debugVr3.apk")';
+        });
+
+
+    });
+   
+
+</script>
+
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                    APK Downloader
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1" >
+                    <b>
+                        <label id="lblErrormsg" >
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="suss_mesg" id="msShow2" >
+                    <b>
+                        <label id="lblError1" >
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="fld_fd">                 
+                      
+                        <div>
+
+                            <div class="btn1 btn1-form">                            
+                                <input type="button" value="Download" title="Download Version 1.0" id="btnDownload" />
+                                <input type="button" value="Download New" title="Download Version 2.0" id="btnDownloadNew" />
+                                <input type="button" value="DownloadApkOn09Apr2016" title="Download Version 3.0" id="btnDownload09" />
+                                <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                            </div>
+                        </div>
+
+                  
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

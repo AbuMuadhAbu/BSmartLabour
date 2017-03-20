@@ -1,0 +1,758 @@
+.menu_icons{
+	display:none;
+}
+a,a:focus{
+	outline:none;
+}
+.mobile_only{
+	display:none;
+}
+
+/*ipad css*/
+@media  screen and ( min-width:786px) and (max-width:1024px){
+     
+	.wrapper{
+		width:960px;
+	}
+	.top_right{
+		width:730px;
+	}
+	.main-nav ul li{
+		padding:0 31px;
+	}
+	.search_left{
+		width:460px;
+	}
+	.search_left div.input{
+		width:178px;
+	}
+	.apps_panel span{
+		padding-left:60px;
+	}
+	.generate_left{
+		width:440px;
+	}
+	.recent_list{
+			margin-left:0;
+	}
+	.recent_list li{
+		width:23%;
+	}
+	.footer_left{
+		width:690px;
+	}
+	.footer_left ul li{
+		padding:0 13px;
+	}
+	.left_contectarea{
+		width:665px;
+	}
+	.testimonialpage_list li{
+		width:285px;
+		padding:0 25px;
+	}
+	.contact_panel{
+		padding-left:125px;
+	}
+	.contact_panel div.input input,.contact_panel div.input select,.contact_panel div.input textarea{
+		width:300px;
+	}
+	.contact_panel div.input{
+		margin-right:50px;
+	}
+	.contact_panel div.textarea textarea{
+		width:673px;
+	}
+	.contact_page div.submit{
+		margin-left:425px;
+	}
+	.acc_profile div.input{
+		margin:0 15px 15px 0;
+	}
+	div.input input, div.input select, div.input textarea{
+		width:300px;
+	}
+	div.input select{
+		width:329px !important
+	}
+	.right_content{
+		width:552px;
+	}
+	.acc_profile div.textarea textarea{
+		width:515px;
+	}
+	.request_form div.input{
+		margin:0 15px 15px 0;
+	}
+    .acc_profile div.input{
+    height:55px;
+}
+    	.register_panel div.input.dob select{
+		width:31% !important;
+        padding-left:39px !important;
+	}
+
+}
+
+/*/*ipad css*/
+@media  screen and ( min-width:740px) and (max-width:785px){
+     
+	.wrapper{
+		width:609px;
+	}
+	.top_right{
+		width:500px;
+	}
+	.main-nav ul li{
+		padding:0 31px;
+	}
+	.search_left{
+		width:460px;
+	}
+	.search_left div.input{
+		width:178px;
+	}
+	.apps_panel span{
+		padding-left:60px;
+	}
+	.generate_left{
+		width:440px;
+	}
+	.recent_list{
+			margin-left:0;
+	}
+	.recent_list li{
+		width:23%;
+	}
+	.footer_left{
+		width:609px;
+	}
+	.footer_left ul li{
+		padding:0 13px;
+	}
+	.left_contectarea{
+		width:665px;
+	}
+	.testimonialpage_list li{
+		width:285px;
+		padding:0 25px;
+	}
+	.contact_panel{
+		padding-left:125px;
+	}
+	.contact_panel div.input input,.contact_panel div.input select,.contact_panel div.input textarea{
+		width:300px;
+	}
+	.contact_panel div.input{
+		margin-right:50px;
+	}
+	.contact_panel div.textarea textarea{
+		width:673px;
+	}
+	.contact_page div.submit{
+		margin-left:425px;
+	}
+	.acc_profile div.input{
+		margin:0 15px 15px 0;
+	}
+	div.input input, div.input select, div.input textarea{
+		width:300px;
+	}
+	div.input select{
+		width:329px !important
+	}
+	.right_content{
+		width:552px;
+	}
+	.acc_profile div.textarea textarea{
+		width:515px;
+	}
+	.request_form div.input{
+		margin:0 15px 15px 0;
+	}
+    .acc_profile div.input{
+    height:55px;
+}
+    	.register_panel div.input.dob select{
+		width:31% !important;
+        padding-left:39px !important;
+	}
+
+}
+
+/* IPOD and Tablet css */
+@media screen and ( min-width:701px) and (max-width:736px) {
+
+      select, input[type="text"]{ 
+             
+      -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+    }
+
+    #CountryCode {
+
+    }
+      .header
+      {
+          height:160px;
+      }
+      .wrapper{
+		width:672px;
+	}
+	.top_right{
+		width:430px;
+	}  
+
+       .main-nav{          
+           width: 626px; 
+           margin-top: 21px; 
+           margin-left: -220px;
+	   }
+	.main-nav ul li{
+		padding:0 20px;
+	}
+	.search_left{
+		width:350px;
+	}
+	.search_left div.input{
+		width:178px;
+	}
+	.apps_panel span{
+		padding-left:60px;
+	}
+	.generate_left{
+		width:340px;
+	}
+	.recent_list{
+			margin-left:0;
+	}
+	.recent_list li{
+		width:23%;
+	}
+	.footer_left{
+		width:670px;
+	}
+	.footer_left ul li{
+		padding:0 13px;
+	}
+    .footer_right
+    {
+width:670px;
+    }
+
+    .f_social_list
+    {
+       margin-left:185px;
+    }
+	.left_contectarea{
+		width:505px;
+	}
+	.testimonialpage_list li{
+		width:285px;
+		padding:0 25px;
+	}
+	.contact_panel{
+		padding-left:65px;
+	}
+	.contact_panel div.input input,.contact_panel div.input select,.contact_panel div.input textarea, div.input[type="password"]{
+		width:512px;
+	}
+    .desktop_only
+    {
+        text-align:center;
+    }
+
+    #CountryCode
+    {
+          width:60px !important;
+          float:left;
+    }
+      .PhoneNumber{
+        width:450px !important;
+        padding:0px;
+        float:left;
+        margin-left:0.5% !important;
+    }
+    .PhoneNumberInput {
+        width:110% !important;
+    }
+
+     .Phone_C_Code{
+      width:62px; padding: 0 1%
+    }
+
+   .register_panel div.input.dob select {
+        width:168px !important;
+    }
+
+	.contact_panel div.input{
+		margin-right:50px;
+	}
+	.contact_panel div.textarea textarea{
+		width:490px;
+	}
+	.contact_page div.submit{
+		margin-left:355px;
+	}
+	.acc_profile div.input{
+		margin:0 15px 15px 0;
+	}
+	div.input input, div.input select, div.input textarea, div.input[type="password"]{
+		width:239px;
+	}
+
+
+	div.input select{
+		width:260px;
+	}
+	.right_content{
+		width:252px;
+	}
+	.acc_profile div.textarea textarea{
+		width:345px;
+	}
+	.request_form div.input{
+		margin:0 15px 15px 0;
+	}
+    .acc_profile div.input{
+    height:55px;
+}
+    
+    .social_list,.main-nav{
+		display:none;
+	}
+	.search_left div.input{
+		margin-bottom:10px;
+	}
+	.search_left{
+		margin-bottom:15px;
+	}
+	.search_left div.input input{
+		width:100%;
+        height:32px;
+        padding:0px;
+	}
+
+
+
+}
+
+/*Mobile css*/
+@media screen and ( min-width:100px) and (max-width:700px){
+
+     select, input[type="text"]{
+     
+      -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+    }
+.mobile_only{
+	display:block;
+	color: #8e8e8e;
+    font: 14px proxima_novalight,arial;
+    padding-top: 20px;
+	clear:both;
+	text-align:center;
+}
+.footer_left span.desktop_only{
+	display:none;
+}
+
+
+.main-nav{
+	padding:0;	
+	background:#262626;
+	position:absolute;
+	top:105px;
+	width:100%;
+	left:0;
+}
+.main-nav ul li{
+	list-style:none;
+	border-bottom:#2f2f2f 1px solid;
+	padding:0;
+	float:none;
+	background:none;
+}
+.main-nav ul li a{
+	font-size:14px;
+	color:#fff;
+	display:block;
+	text-align:left;
+	text-transform:uppercase;
+	line-height:35px;
+	padding:0 20px;
+	text-decoration:none;
+}
+.main-nav ul li a:hover,.main-nav ul li.active a{
+	text-decoration:none;
+	color:#fff;
+	background:#d14528;
+}
+	.wrapper{
+		width:auto;
+		margin:0 15px;
+	}	
+	.menu_icons a{
+		font-size:14px;
+		color:#888;
+		width:34px;
+		height:34px;
+		float:right;
+		background:url(../images/menu.png) 0 top no-repeat;
+		text-indent:-9999px;
+		position:absolute;
+		right:15px;
+		top:60px;
+	}
+	.menu_icons a:hover{
+		background:url(../images/menu.png) 0 bottom no-repeat;
+		color:#fff;
+	}
+	.menu_icons{
+		display:block;
+		padding:10px 0 0 0;
+	}
+	.header{
+		background:#d14528;
+		height:auto;
+	}
+	.top_left,.top_right,.search_left,.search_left div.input{
+		float:none;
+		width:auto;
+	}
+	.social_list,.main-nav{
+		display:none;
+	}
+	.search_left div.input{
+		margin-bottom:10px;
+	}
+	.search_left{
+		margin-bottom:15px;
+	}
+	.search_left div.input input{
+		width:100%;
+        height:32px;
+        padding:0px;
+	}
+	.top_left h1 a{
+		background-size:85%;
+		width:150px;
+		height:100px;
+	}
+	.nbs-flexisel-item img{
+		max-width:100%;
+		height:auto;
+	}
+	.slider_caption{
+		display:none;
+	}
+	.search_panel{
+		margin-top:10px;
+	}
+	.banner_slider{
+		height:auto;
+	}
+	.nbs-flexisel-nav-left, .nbs-flexisel-nav-right{
+		top:30px!important;
+	}
+	.smart_welcometext{
+		padding:20px 0;
+	}
+	.smart_welcometext h2{
+		font-size:23px;
+	}
+	.smart_welcometext p{
+		padding:0 0 20px;
+	}
+	.apps_panel{
+		height:auto;
+		float:left;
+		width:100%;
+		padding:15px 0;
+	}
+	.apps_panel span,.apps_panel img{
+		padding:0 0 10px;
+		float:none;
+		display:block;
+		margin:0 auto;
+		font-size:20px;
+	}
+	.generate_left{
+		width:auto;
+		margin:0 0 20px;		
+		clear:both;
+	}
+	.generate_left h2{
+		margin:10px 0 10px;
+	}
+	img{
+		max-width:100%;
+		height:auto;
+	}
+	.generate_right{
+		float:none;
+		clear:both;
+		margin:0;
+	}
+	.generate_panel{
+		clear:both;
+		padding:10px 0 30px;
+	}
+	.testimonial_panel .nbs-flexisel-nav-left,.testimonial_panel .nbs-flexisel-nav-right{
+		background-size:70%;
+	}
+	.testimonial_panel .nbs-flexisel-nav-left{
+		left:0;
+	}
+	.testimonial_panel .nbs-flexisel-nav-right{
+		right:0;
+	}
+	.testimonial_slider{
+		margin-left:0;
+	}
+	.testimonial_slider{
+		width:260px!important;
+		margin:0 auto;
+	}
+	.recent_list{
+		margin:0;
+	}
+	.recent_list li{
+		float:none;
+		width:auto;
+		min-height:0;
+		margin:0 0 15px;
+	}
+	.recent_list li p{
+		min-height:0;
+	}
+	.footer{
+		margin:20px 0 0;
+	}
+	.footer_left,.footer_right{
+		float:none;
+		width:auto;
+	}
+	.footer_left ul li{
+		background:none;
+		padding:0 0 5px;
+		width:50%;
+	}
+	.left_contectarea,.right_menu,.left_menu,.right_content{
+		float:none;
+		width:auto;
+	}
+	.testimonial_des{
+		padding-bottom:20px;
+		font-size:18px;
+	}
+	.testimonialpage_list li{
+		width:auto;
+		background:none;
+		padding:15px 0;
+		height:auto;
+	}
+	.testpager{
+		margin:0;
+	}
+	.contact_map{
+		font-size:18px;
+	}
+	.contact_map span{
+		font-size:20px;
+		line-height:25px;
+	}
+	.contact_panel{
+		padding:15px;
+	}
+	.contact_panel div.input{
+		float:none;
+		width:auto;
+		margin:0 0 20px 0;
+	}
+	.contact_panel div.input input,.contact_panel div.textarea textarea{
+		width:92%;
+	}
+	.contact_page div.submit{
+		margin:20px 0 0 0;
+	}
+	.left_menu{
+		margin:0 0 20px 0;
+	}
+	.acc_profile div.input,.request_form div.input{
+		float:none;
+		margin:0 0 20px 0;
+	}
+	div.input input,  div.input textarea,.acc_profile div.textarea textarea,.contact_panel div.input input, .contact_panel div.input textarea,div.input select, .contact_panel div.input select , div.input[type="password"]{
+		width:92%;
+        padding:0px;
+	}
+   /*.PhoneNumber{
+        width:85% !important;
+        padding:0px;
+        margin-left:0.5% !important;
+    }
+     .Phone_C_Code{
+        width: 92%; padding: 0 1%
+    }*/
+     .right_content h2
+     {
+         font-size:18px;
+     }
+
+
+	div.submit{
+		float:none;
+	}
+	.acc_profile div.input select,.request_form div.input select{
+		width:92%;
+	}
+	div.input.available_txt label{
+		padding:0;
+	}
+	.request_form div.input{
+		min-height:0;
+	}
+	.phone_history table th{
+		display:none;
+	}
+	.phone_history table{
+		border:none;
+	}	
+	.phone_history table td.sno, .phone_history table th.sno{
+		text-align:left;
+	}
+	.phone_history table td{
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50%;
+	}
+	table, thead, tbody, th, td, tr {
+			display: block;
+	}
+	.phone_history table td:before{
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 13px;
+		left: 10px;
+		width: 45%;
+		padding-right: 10px;
+		white-space: nowrap;
+		font-weight:bold;
+	}
+	.phone_history table tr:nth-child(2n) td{
+		
+	}
+	.phone_history table td:nth-of-type(1):before{
+		content:"S.No";
+	}
+	.phone_history table td:nth-of-type(2):before{
+		content:"Phone Brand Name";
+	}
+	.phone_history table td:nth-of-type(3):before{
+		content:"Phone Mode Number";
+	}
+	.phone_history table td:nth-of-type(4):before{
+		content:"IMEA Number";
+	}
+	.phone_history table td:nth-of-type(5):before{
+		content:"Status";
+	}
+	.phone_history table td:nth-of-type(6):before{
+		content:"Transaction ID";
+	}
+	.phone_history table td:nth-of-type(7):before{
+		content:"Delivery Date";
+	}
+	.phone_history table td:nth-of-type(8):before{
+		content:"Courier Name & Details";
+	}
+	.register_panel div.input.dob select{
+		width:31%;
+	}
+	.Homeimg_div{
+		width:auto;
+		min-height:inherit;
+	}	
+	.banner_slider ul#mainslider li{
+		width:100%!important;
+		height:auto;
+	}
+        .acc_profile div.input{
+    height:auto !important;
+    }
+
+    .PhoneNumberInput {
+    width:100% !important;
+    }
+
+    .Phone_C_Code{
+       width:10% !important;
+    }
+    .PhoneNumber
+    {
+        width:81% !important;
+        float:left;
+    }
+    .PhoneNumberDetails
+    {
+         width:81% !important;
+        float:left;
+    }
+    .Phone_C_CodeDetails
+    {
+        width:100%;
+    }
+	/*login css start*/
+	.login-popup{
+		width:100%;
+		padding:0;		
+	}
+	.login-popup .radio-panel{
+		padding:0 15px;
+	}
+	.login-popup h3{
+		padding-left:15px;
+	}
+	.login-left{
+		width:90%;
+		padding:20px 15px 0;
+		background:none;
+	}
+	.login-right{
+		width:90%;
+		padding:0 15px;
+	}
+	.forgot-text{		
+		margin:0 0 0 15px;
+	}
+	.login-left div.input input{
+		width:100%;
+	}
+	.login-btn input{
+		width:100%;
+	}
+	#myModal{
+		width:auto!important;
+	}
+	.m-reg{
+		position:absolute;
+		right:15px;
+		top:15px;
+		display:block;
+	}
+	.login-left div.submit{
+		width:100%;
+	}
+	.login-left div.submit input{
+		width:100%;
+	}
+	/*login css end*/
+	.Homeimg_div  iframe{
+		width:100%;
+	}
+}

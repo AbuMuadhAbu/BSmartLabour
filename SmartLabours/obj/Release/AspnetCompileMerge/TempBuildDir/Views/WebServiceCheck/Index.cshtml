@@ -1,0 +1,222 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@*<script src="~/Content/FlowPlayer/flowplayer-3.2.12.min.js"></script>
+<h2 style="text-align:center"> Check </h2>
+<a class="player" style="height: 300px; width: 300px; display: block" href='http://www.smartlabour.ae:88/Uplodify/Testimonialvideo/HD_Option_01.mp4'>123</a> 
+
+<script type="text/javascript">
+  
+    flowplayer("a.player", "/Content/FlowPlayer/flowplayer-3.2.16.swf", {
+        plugins: {
+            pseudo: { url: "/Content/FlowPlayer/flowplayer.pseudostreaming-3.2.12.swf" }
+        },
+        clip: { provider: 'pseudo', autoPlay: false },
+    });
+</script>*@
+
+
+
+
+<script type="text/javascript" >
+
+    function b64toBlob(b64Data, contentType, sliceSize) {
+        debugger
+        contentType = contentType || '';
+        sliceSize = sliceSize || 512;
+
+        var byteCharacters = atob(b64Data);
+        var byteArrays = [];
+
+        for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+            var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+            var byteNumbers = new Array(slice.length);
+            for (var i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+
+            var byteArray = new Uint8Array(byteNumbers);
+
+            byteArrays.push(byteArray);
+        }
+
+        var blob = new Blob(byteArrays, { type: contentType });
+        return blob;
+    }
+
+    function BAse64toImage()
+    {
+        debugger
+        var blob = b64toBlob($('#txtBase64').val(),$('#txtUsername').val());
+        var blobUrl = URL.createObjectURL(blob);
+
+        var img = document.getElementById('imgSource');
+        img.src = blobUrl;
+        document.body.appendChild(img);
+    }
+    function BAse64toImage1() {
+        debugger
+        var blob = b64toBlob($('#txtBase64').val(), $('#txtUsername').val());
+        var blobUrl = URL.createObjectURL(blob);
+
+        var img = document.getElementById('audiotag');
+        img.src = blobUrl;
+        document.body.appendChild(img);
+    }
+
+    //For PhoneGap image to Base64
+    function encodeImageUri(imageUri) {
+        var c = document.createElement('canvas');
+        var ctx = c.getContext("2d");
+        var img = new Image();
+        img.onload = function () {
+            c.width = this.width;
+            c.height = this.height;
+            ctx.drawImage(img, 0, 0);
+        };
+        img.src = imageUri;
+        var dataURL = c.toDataURL("image/jpeg");
+        return dataURL;
+    }
+
+
+</script>
+
+
+
+
+<script type='text/javascript'>
+
+    function encodeImageFileAsURL() {
+
+        var filesSelected = document.getElementById("inputFileToLoad").files;
+        if (filesSelected.length > 0) {
+            var fileToLoad = filesSelected[0];
+            var fileReader = new FileReader();
+            fileReader.onload = function (fileLoadedEvent) {
+                var srcData = fileLoadedEvent.target.result; // <--- data: base64
+                var newImage = document.getElementById('imagetag');
+                newImage.src = srcData;
+                $('#txtBase64string').val(newImage.outerHTML);
+            }
+            fileReader.readAsDataURL(fileToLoad);
+        }
+    }
+
+    function encodeAudioFileAsURL() {
+
+        var filesSelected = document.getElementById("inputFileToLoad").files;
+        if (filesSelected.length > 0) {
+            var fileToLoad = filesSelected[0];
+            var fileReader = new FileReader();
+            fileReader.onload = function (fileLoadedEvent) {
+                var srcData = fileLoadedEvent.target.result; // <--- data: base64
+                var newImage = document.getElementById('audiotag');
+                newImage.src = srcData;
+                $('#txtBase64string').val(newImage.outerHTML);
+            }
+            fileReader.readAsDataURL(fileToLoad);
+        }
+    }
+
+    function encodeVideoFileAsURL() {
+
+        var filesSelected = document.getElementById("inputFileToLoad").files;
+        if (filesSelected.length > 0) {
+            var fileToLoad = filesSelected[0];
+            var fileReader = new FileReader();
+            fileReader.onload = function (fileLoadedEvent) {
+                var srcData = fileLoadedEvent.target.result; // <--- data: base64
+                var newImage = document.getElementById('videotag');
+                newImage.src = srcData;
+                $('#txtBase64string').val(newImage.outerHTML);
+            }
+            fileReader.readAsDataURL(fileToLoad);
+        }
+    }
+
+</script>
+
+
+
+File Upload:
+<form action="SmartLabourServices.asmx/AttachFilesTest" enctype="multipart/form-data" method="post">
+    <input type="text" name="subject" /><br />
+    <input type="text" name="content" /><br />
+    <input type="file" name="filedata" /><br />
+    <input type="submit" value="UploadImage" />
+</form>
+
+
+File To Base 64
+<div style="width:100%">
+    <div style="width: 10%; float: left"></div>
+
+        <div style="width: 20%; float: left">
+            File :
+            <input id="inputFileToLoad" type="file" />
+        </div>
+        <div style="width:5%;float:left">         
+            <input type="button" id="btnGenerate1" onclick="return encodeImageFileAsURL()" value="Image" />
+
+        </div>
+        <div style="width: 5%; float: left">         
+            <input type="button" id="btnGenerate2" onclick="return encodeAudioFileAsURL()" value="Audio" />
+
+        </div>
+        <div style="width: 5%; float: left">          
+            <input type="button" id="btnGenerate3" onclick="return encodeVideoFileAsURL()" value="Video" />
+        </div>
+
+        <div style="width: 40%; float: left">
+            Base64
+            <textarea rows="5" cols="70" id="txtBase64string"> </textarea>
+        </div>
+    <div style="width: 10%; float: left"></div>
+    </div>
+<br />
+
+<div style="width:100%">
+    <div style="width:33%;float:left">
+        <img id="imagetag" height="500" width="500" />
+    </div>
+    <div style="width: 30%; float: left">
+        <audio preload="auto" controls style="padding-top:5px" id="audiotag">
+            <source type="audio/mp3"><!--for Firefox browsers-->
+            <source type="audio/ogg"><!--for non-Firefox browsers-->
+            Your browser does not support HTML5 Audio<!--this displays if neither of the above can be played-->
+        </audio>
+    </div>
+
+    <div style="width: 33%; float: left">
+        <video preload="auto" controls style="padding-top:5px" id="videotag" height="500" width="500">
+            <source type="video/mp4"><!--for Firefox browsers-->
+            <source type="video/ogg"><!--for non-Firefox browsers-->
+            Your browser does not support HTML5 Audio<!--this displays if neither of the above can be played-->
+        </video>
+    </div>
+        </div>
+<br />
+<br />
+
+
+@*<div style="width:100%">
+    File To Base 64
+    File Type
+    <input type="text" id="txtUsername" />
+    Base 64
+    <textarea rows="4" cols="50" id="txtBase64"> </textarea>
+
+    <input type="button" id="btnGenerate" onclick="return BAse64toImage()" value="GenerateImage" />
+
+    <input type="button" id="btnGenerateAudio" onclick="return BAse64toImage1()" value="GenerateAudio" />
+
+    <input type="button" id="btnGenerateAudio" onclick="return BAse64toImage2()" value="GenerateVideo" />
+</div>*@
+
+@*<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMwAAACKCAMAAADR/VWxAAAAdVBMVEX///8AAADk5OTz8/N1dXXW1tY5OTm2trYVFRX8/Pz5+fm+vr7g4OAkJCTo6Oja2trPz8/u7u5ZWVlvb29NTU0/Pz+fn5/FxcVeXl57e3suLi68vLwQEBCsrKwrKytnZ2eTk5NHR0eoqKiPj48bGxuGhoaBgYHGzbkPAAAE7ElEQVR4nO1c6ZqqMAwFUVxwQxFQ3HDU93/Ey9x7p0lrWcbJQMnX8zOtmiNk7eI4FhYWFhYWFhYWFhYmYxo/94+gay1oMIjcApPNumtFCOBt3P/YjGZdK/NTjF3AM+lamx/iisi4i+e8a31+gqlExnX9XnuCsavgEXatUgWm1cPzXGVjrF8LH8Ptvlq50V1lc7i1pN33kOw+lbvHlZMGZ5WNu2lJv+9gfPyvXFYz76I+ncg4w8kmX7pdvOqZ0+yisEmX7ejYFAH83eda1cLbRGazMerZBAuk2qB+friR2RwMSm4y6Z9uQKYwnUhi4zf6UBsI5LemmV7Lh+wFDGGTLNw3yDizWPrU1og3LVC4NCWjvp3X31OxMTLFM+nJTNfxMB6pTmud4891n9kEL1x0ZLx/+fJ2rCRvcx87ga5LAtVeSsh8mcfxopRkI/z5bbfh5sVe9GTWBxhNB6VD7rUm6/5VZC9JsJ6MXMcEkt+S2HRYSmvspQkZ90NKeBI0cmhNdxU6e2lExo1WePQDjXRV3WjtRU9msFHnYDYeyqJ33SQCgdZe9GScdaTMOeKgMt/BwKM1AghJKRdt0JyrNYyPbR39MYdRWwwAyWv5W0nG8U4Ke0nrLcj3redopfZSSqZILJ9HadoRVaQekred1ZTbSwWZItxvJV+eomeAMui8DQaACnupJOPMxhIb1MgJcxC32hGospdqMsXDwWzuyAmgUHT9Zf0xKu2ljoyzxCEHFcshuLuopr3zHqaeBtX2UktGDqBXkN+EcDKmpzKPH0MN6p5LbaU5QCES2ccSxA/y5DnwX9VsBplMcI2VomuF5g5B/BRCf+XQYvAuFZnM6q/BR4kUCTOYOwEfgGIN9Xumph/vkRHOK8VPZ4a6TKgpkwvhhTYLCNXM8C0ys6EQ+hkyBJRZHiDgn4RwQevPVm9bDCazykE6OaGvRwEfKhj0ZtM2A0YkZNaS68OFF3x9LhT3UiGkNRoaMvjJuFIKOdZJIdRsDSQz20sDOXgBD54ZKJ6ItPpsIBkcCT/xAU4AWQ38KMwmDZtEZBwnlYbglRpBcSNcF8rPSHtOZGSmMe6LXcQ/vtRZOyQBVyPJFF+FM0vIxWC3xl4jI+1rEJJBe5kKqxFSsTrtRkJ2ErK9QwhKMjidWAghtGV9YTTQViT1zaRknEz84xMxuBQMD0K2FjXsxVwyIVg7JDVCdhZNp5V4Wqm5ZBxIk8FohB9eCD+8FL+6ocybiclAiHwKmWj8QZnsiaiZU7ZoiMno3JRIdY7w6uVfsh3lkqAlU06G1WvGyQGwcs0QNI+9D5qc0hlOiSajEoBVccaobFYaGtc+NzSUVhPautjDVhOrJqDcnsU911bbs/SN8zveVt9u45x8SWOHD/7ULWmciZdoiRebLthft73YRLwMuO52GZBwgfb23QXaHfUCLa+lc4fVpoYy1LIxc7tJCThtBCrY6LcA15MxcIuW7jBDIzJGbp7jta2xfIN2KZnwZuyG09Kt82Vk5qkyyaStwFV2079N2ry2z/M62MDryEmZ3fTzMBCvY1q8DtDxOtrI69Apr+PAr4c2+nxQ++VN6/URel6XG/C6dkJK4hd9vxCE11UtvC7R4XW9Ea+Lpz7B50qwevTrsrZq8LpGj9MFh7yunmR1KSir61p5XaRrYWFhYWFhYWFh0Qv8AUp6WcyaHrseAAAAAElFTkSuQmCC" alt="Red dot">*@
+
+
+
+    <!--Video.Flash(path: "http://www.youtube.com/embed/pIv6yR9Q1IA", width: "100", height: "200", play: true, loop: true, menu: true, bgColor: "red", quality: "medium", scale: "exactfit", windowMode: "transparent")-->

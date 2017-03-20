@@ -1,0 +1,199 @@
+﻿
+
+    @model IEnumerable<SmartLabours.Models.ReportModel>
+
+    <script type="text/javascript" >
+      
+
+        $(document).ready(function () {
+
+            var SearchText = '@ViewData["SearchText"]';
+            
+            if (SearchText.length != 0) {
+                $("#txtSearch").val(SearchText.split(',')[0]);
+
+                $("#ddlSearchCondition").val(SearchText.split(',')[1]);
+                $("#ddlSearchBy").val(SearchText.split(',')[2]);
+
+                var count = @(ViewBag.TotalRecordcount);
+
+            if(parseInt(count) >0)
+            {
+                $("#lblErrormsg").removeAttr("style").hide();
+            }
+            else
+            {
+                $("#lblErrormsg").removeAttr("style").show();
+                $("#noRecordbutton").removeAttr("style").hide();
+
+            }
+        }
+
+            
+            function PartialView(OrgName,Report,Id,Search)
+            {               
+                $.ajax({
+                url: '@Url.Action("ReportGenerate", "Reports")',
+                cache: false,
+                type: "post", 
+                data: {OrgName:OrgName,Report:Report,id:Id,search:Search },
+                success: function (data) {                   
+                    $("#ReportView").empty();
+                    $("#ReportView").append(data);
+                    var rowCount = $('#GridTable >tbody >tr').length;
+                    if (rowCount > 0) {
+                        $("#btnExcel").show();
+                        $("#btnPDF").show();
+                    }
+                    else {
+                        $("#btnExcel").hide();
+                        $("#btnPDF").hide();
+                    }
+                },
+                error: function (data) {
+                    $("#btnExcel").hide();
+                    $("#btnPDF").hide();                   
+                }
+            });
+
+        }
+
+
+            $('#anhSearch').click(function () {         
+                PartialView($('#Orgname').val(),$('#ddlReports').val(),null, $('#txtSearch').val()+","+ $('#ddlSearchCondition').val() +"," + $('#ddlSearchBy').val() );               
+            });
+        });
+
+
+
+
+    </script>
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<div class="content" style="background:none">
+    <div class="wrapper">
+        <asp:label id="lbldisplay" >
+        </asp:label>
+        <div class="sarh">
+            <div class="search">
+                <b>Search By</b>
+                <select id="ddlSearchBy">
+                    <option value="1">Emirates ID </option>
+                    <option value="2"> Name</option>
+                    <option value="3">Course </option>
+                    <option value="4">Course Type</option>
+                </select>
+
+                <select id="ddlSearchCondition">
+                          <option value="1">Begins With</option>
+                        <option value="2">Equal To</option>
+                        <option value="3">Found Anymore</option>
+
+                    </select>
+                    <input id="txtSearch" type="text" />
+                    <a href="#" class="green" id="anhSearch">Search</a>
+                    <a href="#" class="green" id="searchClear" onclick="SearchClear()">Clear</a>
+
+            </div>
+        </div>
+        <div class="continn" style="   width: 1100px !important;margin-left: -50px;">
+            <h3>
+                <asp:label id="lblHeading" text="Category List" >
+                   Labours - Course Started  Report
+                </asp:label>
+            </h3>
+            <div class="clr">
+            </div>
+            <div class="error_mesg" id="msShow1" >
+                <b>
+                    <label id="lblErrormsg"  style="display:none;">
+                        No records found
+                    </label>
+                </b>
+            </div>
+            <div class="suss_mesg" id="msShow2" >
+                <b>
+                    <label id="lblError1" >
+                        @ViewBag.messagealert
+                    </label>
+                </b>
+            </div>
+            <div class="posit" style=" width:1090px;">
+                <div class="posit_hd" style=" width:1090px;">
+
+                    <table width="1090" border="0" cellspacing="0" cellpadding="3" style=" border-spacing: 3px;">
+                        <tr>
+                            <td width="50" class="left">
+                                S.No.
+                            </td>
+                            <td width="190" class="left">
+                                Emirates ID
+                            </td>
+
+                            <td width="200" class="left">
+                                Name
+                            </td>
+
+                            <td width="200" class="left">
+                                Course 
+                            </td>
+
+                            <td width="200" class="left">
+                                Course Type 
+                            </td>
+
+                        </tr>
+                    </table>
+                </div>
+                <div class="posit_bt" style=" width:1090px;">
+                    <table width="1090" border="0" cellspacing="0" cellpadding="3" style=" border-spacing: 5px;" id="GridTable">
+                        @{
+
+                            int sno = 0;
+                            foreach (var item in Model)
+                            {
+
+                                sno = sno + 1;
+                                <tr class="posit_txt">
+                                    <td width="50" class="left">
+                                        @(sno)
+                                    </td>
+
+                                    <td width="190" class="left">
+                                        @Html.DisplayFor(modelItem => item.LabourId)
+                                    </td>
+
+                                    <td width="200" class="left">
+                                        @Html.DisplayFor(modelItem => item.LabourName)
+                                    </td>
+
+
+                                    <td width="200" class="left">
+                                        @Html.DisplayFor(modelItem => item.CourseName)
+                                    </td>
+
+
+                                    <td width="200" class="left">
+                                        @Html.DisplayFor(modelItem => item.CourseTypeName)
+                                    </td>
+                                </tr>
+
+                            }
+                        }
+                    </table>
+
+                </div>
+            </div>
+
+
+
+
+            <div class="btns-rgt1" id="noRecordbutton">
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,367 @@
+﻿
+@model SmartLabours.Models.TBL_CourseContentsFileMaster
+@{
+    ViewBag.Title = "Course Content Add";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Google Analytics Code -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End Here  -->
+
+<style type="text/css">
+    .CheckBoxClass {
+        width: 15px !important;
+    }
+
+    input[type='file']{
+        width:218px !important;
+    }
+</style>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#DivAudio").hide();
+
+        $('.FileTypes').change(function () {
+            var val = $(this).val();
+            if (val == 'True') {
+                $('#DivImage').hide();
+                $('#DivAudio').show();
+            }
+            else {
+                $('#DivImage').show();
+                $('#DivAudio').hide();
+
+            }
+        });
+
+        $("#CourseContentsAudioAdd").submit(function (e) {
+            // debugger
+            var status = 0;
+
+            if ($("#Orgname").val() == "") {
+                $("#lblOrgError").text('Please Select Organization');
+                status = 1;
+            }
+            else {
+                $("#lblErrormsg").text('');
+            }
+
+            if ($('#FolderName').val() == '') {
+                $('#lblFolderError1').text('Select the Directory');
+                status = 1;
+            }
+            else {
+                if ($('#lblFolderError1').text() != '') {
+                    status = 1;
+                }
+                if (status == 0)
+                    $('#lblFolderError1').text('');
+            }
+
+            if ($("#AudioUpload").val() == "") {
+                $("#lblFileErrorMsg").text('Please select the Audio');
+                status = 1;
+            }
+            else {
+                $("#lblFileErrorMsg").text('');
+            }
+
+            if (status == 1) {
+                e.preventDefault(e);
+            }
+            else {
+
+                return true;
+            }
+        });
+
+        @*$("#FolderName").change(function () {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetDirectoriesValidate", "CourseContentUpload")',
+                dataType: 'json',
+                data: { FileName: $("#FolderName").val() },
+                success: function (providers) {
+                    if (providers != "" && providers != null) {
+                    }
+                    else {
+                        $('#lblFolderError1').text('');
+                    }
+                }
+                , error: function (error) {
+                }
+            });
+
+        });*@
+
+        $("#FolderNameExist").keyup(function (e) {
+            if (isValid($("#FolderNameExist").val())) {
+            }
+            else {
+                $("#FolderNameExist").val('');
+                return false;
+            }
+        });
+
+        $("#FolderName").keypress(function (e) {
+            $('#lblFolderError1').text('');
+            if ($("#FolderName").val() != "") {
+                if (isValid($("#FolderName").val())) {
+                    var k;
+                    document.all ? k = e.keycode : k = e.which;
+                    return ((k > 47 && k < 58) || (k > 64 && k < 91) || (k > 96 && k < 123) || k == 0);
+                }
+                else {
+                    return false;
+                }
+            }
+        });
+
+        function isValid(fname) {
+            var rg1 = /^[^\\/:\*\?"<>\|]+$/; // forbidden characters \ / : * ? " < > |
+            var rg2 = /^\./; // cannot start with dot (.)
+            var rg3 = /^(nul|prn|con|lpt[0-9]|com[0-9])(\.|$)/i; // forbidden file names
+            var a = rg1.test(fname);
+            var b = rg2.test(fname);
+            var c = rg3.test(fname);
+            return rg1.test(fname) && !rg2.test(fname) && !rg3.test(fname);
+        }
+
+
+
+        $("#Orgname").keypress(function (e) {
+            $('#lblOrgError').text('');
+        });
+
+        $('#Orgname').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '@Url.Action("OrgNameAutoComplete", "OrganizationSubAdmin")',
+                    dataType: "json",
+                    cache: false,
+                    delay: 10,
+                    type: "get",
+                    data: { term: request.term }
+                }).done(function (data) {
+                    response(data);
+                });
+            },
+            change: function (event, ui) {
+                if ($('#Orgname').val() != '') {
+                    $('#lblOrgError').text('');
+                    $.ajax({
+                        url: '@Url.Action("CheckOrganizationName", "Organization")',
+                        dataType: "json",
+                        cache: false,
+                        type: "get",
+                        data: { OrgName: $('#Orgname').val() },
+                        success: function (data) {
+
+                            if (data != '1') {
+                                $('#lblOrgError').text(data);
+                            }
+                            else {
+                                $('#lblOrgError').text('');
+                            }
+                        },
+                        error: function (data) {
+                        }
+                    });
+                }
+                else
+                {
+                    $('#lblOrgError').text('');
+                }
+            }
+        });
+
+   $('#FolderName').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '@Url.Action("GetDirectories", "CourseContentUpload")',
+                    dataType: "json",
+                    cache: false,
+                    delay: 10,
+                    type: "get",
+                    data: { term: request.term, FileType: 'Audio', OrgName: $('#Orgname').val() }
+                }).done(function (data) {
+                  response(data);
+                });
+            },
+
+            change: function (event, ui) {
+                if ($('#FolderName').val() != '') {
+                    $.ajax({
+                        url: '@Url.Action("GetDirectoriesValidate", "CourseContentUpload")',
+                        dataType: "json",
+                        cache: false,
+                        type: "get",
+                        data: { FileName: $('#FolderName').val(), FileType: 'Audio', Orgname: $('#Orgname').val() },
+                        success: function (data) {
+                            //debugger
+                            if(data == "" || data == null) 
+                            {
+                                $('#lblFolderError1').text('Directory Does Not Exists');
+                                $('#FolderName').val('');
+                            }
+                            else {
+                                $('#lblFolderError1').text('');
+                            }
+                        },
+                        error: function (data) {
+                           // debugger
+                        }
+                    });
+                }
+
+                else {
+                    $('#lblOrgError').text('');
+                }
+            }
+        });
+
+
+    });
+   
+
+    function validate_Audiofileupload(fileName) {
+        $("#lblFileErrorMsg").text('');
+                if (fileName == '') {
+                    return false;
+                }
+                var allowedFiles = [".mp3", ".wav"];
+                var fileUpload = $("#AudioUpload").val();
+                var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
+                if (!regex.test(fileUpload)) {
+                    $("#lblFileErrorMsg").text('Please Upload .mp3 or .wav file formats only');
+                    $("#AudioUpload").val('');
+                    $("#AudioUpload").focus();
+                    return false;
+                }
+                else{
+                    // Checking whether FormData is available in browser
+                    if (window.FormData !== undefined) {
+
+                        var AudiofileUpload = $("#AudioUpload").get(0);
+                        var Audiofiles = AudiofileUpload.files;
+                        if (Audiofiles.length > 5) {
+                            $("#lblFileErrorMsg").text('Cannot upload the more than 5 audio files');
+                            $("#AudioUpload").val('');
+                            $("#AudioUpload").focus();
+                            return false;
+                        }
+                    }
+                    $("#lblFileErrorMsg").text('');
+                    return true;
+                }
+            }
+
+    function numericFilter(txb)
+    {
+        txb.value = txb.value.replace(/[^\0-9]/ig, "");
+    }
+
+    function PreviousPage()
+    {
+        window.location = "/CourseContentUpload/CourseContentAudioList";
+
+    }
+
+</script>
+
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                    Course Content Audio Add
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1" >
+                    <b>
+                        <label id="lblErrormsg" >
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="suss_mesg" id="msShow2" >
+                    <b>
+                        <label id="lblError1" >
+                        </label>
+                    </b>
+                </div>
+                <div class="fld_fd">
+                    @using (Html.BeginForm("CourseContentsAudioAdd", "CourseContentUpload", FormMethod.Post, new { @id = "CourseContentsAudioAdd", enctype = "multipart/form-data" }))
+                    {
+                        <div>
+
+                            @{
+                                if (HttpContext.Current.Session["USERID"].ToString() == "1")
+                                {
+                                    <dl>
+                                        <dd>
+                                            <span style="color:red;padding-right :2px;"> * </span>  Organization
+                                        </dd>
+                                        <dt>
+                                            @Html.TextBoxFor(model => model.OrgName, new { maxlength = 35, id = "Orgname",disabled="disabled" })
+                                            <span class="error">
+                                                <label id="lblOrgError" ></label>
+                                            </span>
+
+                                        </dt>
+                                    </dl>
+
+                                }
+                             }
+
+                            <dl>
+                            <dd>
+                                <span style="color:red;padding-right :2px;"> * </span>   Directory
+                            </dd>                     
+                            <dt >
+                                @Html.HiddenFor(model => model.FolderName)
+                                @Html.HiddenFor(model => model.OrgName)
+                                @Html.HiddenFor(model => model.OrgId) 
+                                 @Html.HiddenFor(model => model.CourseContentFolderId)
+                                @Html.TextBoxFor(model => model.FolderName, new { maxlength = 50, disabled = "disabled" })
+                                <span class="error">
+                                    <label id="lblFolderError1"></label>
+                                </span>
+                            </dt>
+                        </dl>
+
+                            <dl style="width: 500px;">
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span>  Course Audio
+                                </dd>
+                                <dt style="width: 260px;">
+                                    <span style="width: 200px;">
+                                        <input type="file" id="AudioUpload" name="AudioFiles" onchange="return validate_Audiofileupload(this)" multiple="multiple" />
+                                    </span>
+                                    <span class="error">
+                                        <label id="lblFileErrorMsg"></label>                                    
+                                    </span>
+                                </dt>
+                            </dl>
+                          
+                            <div class="btn1 btn1-form">
+                                <input type="submit" value="Save" title="Save" />
+                                @Html.ActionLink("Back", "CourseContentAudioList", new { id = @ViewBag.FolderId }, new { @class = "green1" })
+                                @*<input type="button" value="Back" title="Back" onclick="PreviousPage();" />*@
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+

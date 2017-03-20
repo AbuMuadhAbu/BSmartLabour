@@ -1,0 +1,104 @@
+﻿@model SmartLabours.Models.TBL_CONTACTUS_SMT
+@{
+    ViewBag.Title = "Contactus";
+    Layout = "~/Views/Shared/_AccountMenuLayout.cshtml";
+}
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        
+        $("#PHONENO").keydown(function (e) {           
+            AllowNumericOnly(e);          
+        });
+
+        if ('@TempData["messagealert"]' != null && '@TempData["messagealert"]' != "") {
+            //debugger
+            alert('Thank you! Your message has been successfully sent. We will contact you very soon!');
+        }
+
+    });
+</script>
+<div class="main">
+    <div class="contact_map">
+    @if (ViewBag.Contactus != null)
+    {
+    foreach (var item in ViewBag.Contactus)
+    {
+        <span>
+           @item.ADDRESS1,@item.ADDRESS2<br>
+            @item.CITY ,@item.COUNTRY<br>
+            P.O Box @item.POBOXNO
+            <br>
+        </span> @:Telephone:(+971) @item.PHONENO <br>
+        @:E-mail: <a href="mailto:@item.EMAILID">@item.EMAILID </a>
+    }
+    }
+    </div>
+    @using (Html.BeginForm("Contactus", "Contactus", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary(true)
+        <div class="wrapper">
+            <div class="contact_page clearfix">
+                <h3>
+                    CONTACT US</h3>
+                <p>
+                    Feel free to Contact Us anytime</p>
+                <div class="contact_panel clearfix">
+                    <div class="input">
+                        <label>
+                            First Name<span  style="color: rgb(255, 0, 0); font-size: 17px;position:relative; padding-left:1px;">*</span></label>
+                        @Html.TextBoxFor(m => m.FIRSTNAME)
+                        <span class="error_msg">
+                            @Html.ValidationMessageFor(model => model.FIRSTNAME)
+                        </span>
+                    </div>
+                    <div class="input">
+                        <label>
+                            Last Name</label>
+                        @Html.TextBoxFor(m => m.LASTNAME)
+                    </div>
+                    <div class="input">
+                        <label>
+                            Email ID<span  style="color: rgb(255, 0, 0); font-size: 17px;position:relative; padding-left:1px;">*</span></label>
+                        @Html.TextBoxFor(m => m.EMAILID)
+                        <span class="error_msg">
+                            @Html.ValidationMessageFor(model => model.EMAILID)
+                        </span>
+                    </div>
+                    <div class="input">
+                        <label>
+                            Phone Number<span  style="color: rgb(255, 0, 0); font-size: 17px;position:relative; padding-left:1px;">*</span></label>
+                        @Html.TextBoxFor(m => m.PHONENO)
+                        <span class="error_msg">
+                            @Html.ValidationMessageFor(model => model.PHONENO)
+                        </span>
+                    </div>
+                    <div class="input textarea">
+                        <label>
+                            Comments<span  style="color: rgb(255, 0, 0); font-size: 17px;position:relative; padding-left:1px;">*</span></label>
+                        @Html.TextAreaFor(m => m.COMMENTS)
+                        <span class="error_msg">
+                            @Html.ValidationMessageFor(model => model.COMMENTS)
+                        </span>
+                    </div>
+                </div>
+                <div class="submit default">
+                    <input type="submit" value="SUBMIT" />
+                </div>
+            </div>
+        </div>	
+    }
+</div>
+<div class="apps_panel inner_apps">	
+		<div class="wrapper">
+			<span>Take a look at what's included</span> 
+            <a target="_blank" href="https://itunes.apple.com/in/app/id1062647626" class="futureApp"> <img src="../../Content/Front/images/app_store.png" alt="App Store" /></a>
+        <a target="_blank" href="https://play.google.com/store/search?q=smartlabour&hl=en"> <img src="../../Content/Front/images/google_play.png" alt="Google Play" /></a>
+      <a href="javascript:;" class="futureApp" >   <img src="../../Content/Front/images/win_store.png" alt="Windows Store" /></a>
+		</div>		
+	</div>

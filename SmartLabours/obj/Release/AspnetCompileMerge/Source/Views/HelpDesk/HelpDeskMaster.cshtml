@@ -1,0 +1,733 @@
+﻿
+    @model IEnumerable<SmartLabours.Models.TBL_HelpDeskMaster>
+    @{
+        ViewBag.Title = "Help Desk";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+
+                          @* Google Analytics COde  *@
+                          <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+                          <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+                          <!-- End here -->
+
+
+    <style type="text/css">
+        .continn {
+            width: 1200px !important;
+            margin-left: -80px;
+        }
+        .posit {
+            width: 1200px;
+        }
+        .posit_hd {
+            width: 1200px;
+        }
+        .Closed 
+        {
+           color:green;
+        }
+        .Re-Opened {
+           color:#D90303;
+        }
+        .Pending {
+           color:darkred;
+        }
+       .In-Progress  {
+           color:#001BE1;
+        }
+             .Resolved  {
+           color:mediumorchid;
+        }   
+
+    </style>
+
+    @*<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>*@
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+   
+    <style type="text/css">
+                                        /*.myClass {
+                        margin:0 auto;
+                    }*/
+                                        .ui-widget-header {
+                                            border: 1px solid #a6c9e2 !important;
+                                            background: #deedf7 url(images/ui-bg_highlight-soft_100_deedf7_1x100.png) 50% 50% repeat-x !important;
+                                        }
+
+                                        .myClass {
+                                            border-color: #6d1b81 !important;
+                                        }
+
+                                        .ui-dialog .ui-dialog-titlebar-close span {
+                                            margin: -8px !important;
+                                        }
+
+                                        #txtDescription {
+                                            height: 60px !important;
+                                            margin-left: 10px;
+                                        }
+                </style>
+ 
+         @*  Organization Script*@
+<script type="text/javascript">
+    function Download(FileName) {
+         //debugger
+        //e.preventDefault();  //stop the browser from following
+        var Path1 = '@Url.Content("~/HelpDeskFiles/")'
+        window.location.href = Path1 + FileName ;
+    }
+    var SearchText = '@ViewData["SearchText"]';
+
+    $(document).ready(function () {
+
+        BindSerachCondtionText();
+
+        $("#ddlSearchBy").change(function() {
+
+            $("#txtSearch").val('');
+            var Search = $('option:selected', this).text();
+            if(Search =="Status")
+            {
+                BindSearchConditionStatus();
+            }
+            else if(Search =="Issue Type"){
+                BindSearchConditionType();
+            }
+            else if(Search =="Priority"){
+                BindSearchConditionPriority();
+            }
+            else{
+                BindSerachCondtionText();
+            }
+        });
+
+        function BindSearchConditionType()
+        {
+            var ddlSearchCondition = $("[id*=ddlSearchCondition]");
+            ddlSearchCondition.empty().append('<option selected="selected" value="50">Question</option>');
+            ddlSearchCondition.append('<option value="51">Incident</option>');
+            ddlSearchCondition.append('<option value="52">Problem</option>');
+            ddlSearchCondition.append('<option value="53">Task</option>');
+            $("#txtSearch").prop("disabled",true);
+        }
+
+        function BindSearchConditionPriority()
+        {
+            var ddlSearchCondition = $("[id*=ddlSearchCondition]");
+            ddlSearchCondition.empty().append('<option selected="selected" value="54">Low</option>');
+            ddlSearchCondition.append('<option value="55">Normal</option>');
+            ddlSearchCondition.append('<option value="56">High</option>');
+            ddlSearchCondition.append('<option value="57">Urgent</option>');
+            $("#txtSearch").prop("disabled",true);
+        }
+
+        function BindSearchConditionStatus()
+        {
+            var ddlSearchCondition = $("[id*=ddlSearchCondition]");
+            ddlSearchCondition.empty().append('<option selected="selected" value="58">Pending</option>');
+            ddlSearchCondition.append('<option value="59">In-Progress</option>');
+            ddlSearchCondition.append('<option value="60">Resolved</option>');
+            ddlSearchCondition.append('<option value="61">Re-Opened</option>');
+            ddlSearchCondition.append('<option value="62">Closed</option>');
+            $("#txtSearch").prop("disabled",true);
+        }
+
+        function BindSerachCondtionText()
+        {
+            var ddlSearchCondition = $("[id*=ddlSearchCondition]");
+            ddlSearchCondition.empty().append('<option selected="selected" value="1">Begins With</option>');
+            ddlSearchCondition.append('<option value="2">Exactly Match</option>');
+            ddlSearchCondition.append('<option value="3">Found Anywhere</option>');
+            $("#txtSearch").prop("disabled",false);
+        }
+
+        if (SearchText.length != 0) {
+            $("#txtSearch").val(SearchText.split(',')[0]);
+            var SelectedValue = parseInt(SearchText.split(',')[1]);
+            if(SelectedValue >= 50 && SelectedValue <= 53)
+            {
+                BindSearchConditionType();
+                $("#ddlSearchCondition").val(SelectedValue);
+            }
+            else if(SelectedValue >= 54 && SelectedValue <= 57)
+            {
+                BindSearchConditionPriority();
+                $("#ddlSearchCondition").val(SelectedValue);
+            }
+            else if(SelectedValue >= 58 && SelectedValue <= 62)
+            {
+                BindSearchConditionStatus();
+                $("#ddlSearchCondition").val(SelectedValue);
+            }
+            else{
+                BindSerachCondtionText();
+            }
+            $("#ddlSearchCondition").val(SearchText.split(',')[1]);
+            $("#ddlSearchBy").val(SearchText.split(',')[2]);
+
+            var count = @(ViewBag.TotalRecordcount);
+
+            if(parseInt(count) >0)
+            {
+                $("#lblErrormsg").removeAttr("style").hide();
+                //document.getElementById('lblErrormsg').style.display = 'none';
+
+            }
+            else
+            {
+                $("#lblErrormsg").removeAttr("style").show();
+                $("#noRecordbutton").removeAttr("style").hide();
+
+            }
+        }
+
+
+
+        var someNumericValue = @(ViewBag.totalnumber);
+
+        if(parseInt(someNumericValue)>1)
+        {
+            $("#divPager").removeAttr("style").show();
+            // document.getElementById('divPager').style.display = 'block';
+        }
+        else
+        {
+            $("#divPager").removeAttr("style").hide();
+
+            // document.getElementById('divPager').style.display = 'none';
+        }
+        var currentpage = @(ViewBag.CurrentPage);
+
+        if(currentpage==1)
+        {
+            $("#FirstPage").removeAttr("style").hide();
+            // document.getElementById('FirstPage').style.display = 'none';
+
+        }
+        if(currentpage==someNumericValue)
+        {
+            $("#lastPage").removeAttr("style").hide();
+        }
+
+        var pagenumberid="page"+currentpage;
+
+        $('#'+pagenumberid).addClass("one_no selected");
+
+    });
+
+    //Change the status of the selected Organization
+    function Status(anchor, bannerid) {
+        if (confirm("Are you sure to change the status?") == true)
+        {
+            var url = "/Organization/UpdateStatus";
+            var img = $(anchor).find("img")[0];
+            $.get(
+          url,
+           { status: img.alt, cimageid: bannerid },
+           function (data) {
+               if (data == "sucess") {
+                   if (img.alt == "true") {
+                       img.src = "../../content/admin/images/icons/x_icon.gif";
+                       img.alt = "false";
+                   }
+                   else {
+                       img.src = "../../content/admin/images/icons/tick_icon.gif";
+                       img.alt = "true";
+                   }
+               }
+               $("#lblError1").val('Status Updated Successfully');
+               // document.getElementById("lblError1").innerHTML = "Status Updated Successfully";
+           }
+          );
+        }
+
+    }
+
+    // Delete the Selected Organization in list
+    function Delete()
+    {
+        // $("#lblError1").val('Status Updated Successfully');
+        var chk = document.getElementsByName("chkname");
+        var chkchecked = "";
+        for (var i = 0; i < chk.length; i++) {
+            if (chk[i].checked == true) {
+                chkchecked += chk[i].id + ",";
+            }
+        }
+
+        if (chkchecked != "") {
+            $.ajax({
+                url: '@Url.Action("RemovableOrgCount", "Organization")',
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                type: "get",
+                data: { id: chkchecked },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    if(data!="")
+                    {
+                        alert(data)
+                    }
+                    else
+                    {
+                        if (confirm(" Are you sure, You want to delete?") == true) {
+                            $.ajax({
+                                url: '@Url.Action("OrganizationDelete", "Organization")',
+                                cache: false,
+                                contentType: "application/json; charset=utf-8",
+                                type: "get",
+                                data: { id: chkchecked },
+                                dataType: "json",
+                                async: false,
+                                success: function (data) {
+                                    if (data == "1") {
+                                        location.reload(true);
+                                    } else { }
+
+                                },
+                                error: function (data) {
+
+                                }
+                            });
+                        }
+                    }
+                },
+                error: function (data) {
+
+                }
+            });
+
+        }
+        else {
+            alert('Please Select Any One Record To Delete');
+        }
+
+    }
+
+    // select all Items in List to Delete
+    function checkAll(thisobj) {
+
+        var chk = document.getElementsByName("chkname");
+        for (var i = 0; i < chk.length; i++) {
+            if (chk[i].type == 'checkbox') {
+                if (thisobj.checked) {
+                    chk[i].checked = true;
+                }
+                else {
+                    chk[i].checked = false;
+                }
+            }
+        }
+    }
+
+    //Go to Particular page
+    function GotoPage(evt) {
+
+        var intTotPageCount = 0;
+        var intPgtxt = document.getElementById('Pgtxt').value;
+        intTotPageCount = document.getElementById('hidtotPg').value;
+
+        if (intPgtxt != "") {
+            if (parseInt(intPgtxt) < 1 || (isNaN(intTotPageCount))) {
+                alert("Please enter numeric value");
+                document.getElementById("Pgtxt").value = "";
+                evt.preventDefault();
+
+            } else if ((parseInt(intPgtxt) > parseInt(intTotPageCount)) || (isNaN(intTotPageCount))) {
+                alert("Requesting page number is invalid.Total page(s) available is " + intTotPageCount);
+                document.getElementById("Pgtxt").value = "";
+                evt.preventDefault();
+            }
+            if (window.txtSearch.length == 0 || typeof (window.txtSearch.length) === "undefined") {
+                if ((parseInt(intPgtxt) <= parseInt(intTotPageCount)) || (isNaN(intTotPageCount))) {
+                    $("#anchgoto").attr("href", $("#anchgoto").attr("href") + parseInt(intPgtxt));
+                }
+            }
+            else {
+                $("#anchgoto").attr("href", $("#anchgoto").attr("href") + parseInt(intPgtxt) + '?search=' + window.txtSearch);
+            }
+
+        }
+        else {
+            alert("Please enter numeric value");
+        }
+    }
+
+    // Allow only numeric
+    function numericFilter(txb) {
+        txb.value = txb.value.replace(/[^\0-9]/ig, "");
+    }
+
+    // Paging The Grid
+    function Paging(anchPaging) {      
+        if (window.txtSearch.length == 0 || typeof (window.txtSearch.length) ==="undefined") {
+            return ;
+        }
+        $(anchPaging).attr("href", $(anchPaging).attr("href") + '?search=' + window.txtSearch);
+
+    }
+
+    // Serach Button Click Event
+    function Search(eve) {    
+        var TextValue;
+        var value = $("#ddlSearchCondition").val();
+        var SearchCondition = parseInt(value);
+        if(SearchCondition >= 50 && SearchCondition <= 53)
+        {
+            TextValue = $("#ddlSearchCondition option:selected").text() ;
+        }
+        else if(SearchCondition >= 54 && SearchCondition <= 57)
+        {
+            TextValue = $("#ddlSearchCondition option:selected").text() ;
+        }
+        else if(SearchCondition >= 58 && SearchCondition <= 62)
+        {
+            TextValue = $("#ddlSearchCondition option:selected").text() ;
+        }
+        else
+        {
+            TextValue=document.getElementById("txtSearch").value;
+        }
+        if (TextValue.length != 0) {
+            var searchtext = TextValue + ',' + document.getElementById("ddlSearchCondition").value + ',' + document.getElementById("ddlSearchBy").value;
+            $("#anhSearch").attr("href", $("#anhSearch").attr("href") + '?search=' + searchtext);
+
+        }
+        else 
+        {
+            alert("Search text Cannot be Empty");
+            eve.preventDefault();
+        }
+
+    }
+
+</script>
+@* Status*@
+
+
+    <script>
+
+        $(document).ready(function () {         
+        
+            $("#HelDeskList").dialog({
+                modal: true,
+                autoOpen: false,
+                title: "Help Desk Details",
+                width: 1250,
+                height: 350,
+                dialogClass: "myClass"
+
+                //modal: true,
+                //autoOpen: false,
+                //title: "Help Desk Details",
+                //width: 1250,
+                //height: 350,   
+                //position: [null, 32],
+                //dialogClass: "myClass",
+                //resizable: false,
+                //show: 'fade',
+            });
+
+        });
+
+
+        function ViewIssue(HelpDeskId)
+        {    
+            $.ajax({
+                url: '@Url.Action("HelpDeskLogDetails", "HelpDesk")',
+                cache: false,
+                type: "post",
+                data: { HelpDeskId: HelpDeskId, User: 'A' },
+                success: function (data) { 
+                    $("#HelDeskList").empty();
+                    $("#HelDeskList").append(data);
+                    $("#HelDeskList").dialog("open");                               
+                },
+                error: function (data) {                 
+                    $("#HelDeskList").empty();
+                   
+                }
+            });
+                   
+
+        }
+
+    </script>
+
+
+<div class="content">
+    <div class="wrapper">
+        <ul class="breadcrumbs-list clearfix">           
+            <li><a href="/HelpDesk/HelpDeskMaster">Help Desk </a></li>
+            <li>Help Desk List</li>
+        </ul>
+        <asp:label id="lbldisplay">
+        </asp:label>
+        <div class="sarh">
+            <div class="search">
+                <b>Search By</b>
+                <select id="ddlSearchBy">
+                    <option value="1">EmiratesID </option>
+                    <option value="2">Token ID</option>
+                    <option value="3">Issue Type</option>
+                    <option value="4">Priority</option>
+                    <option value="5">Description</option>               
+                    <option value="7">Status</option>
+                </select>
+                <select id="ddlSearchCondition"></select>
+                <input id="txtSearch" type="text" />
+                <a href="/HelpDesk/HelpDeskMaster/@ViewBag.CurrentPage" class="green" onclick="Search(event);" id="anhSearch">Search</a>
+                <a href="/HelpDesk/HelpDeskMaster/1" class="green">Clear</a>
+
+            </div>
+        </div>
+        <div class="continn">
+            <h3>
+                <asp:label id="lblHeading">
+                    Help Desk List
+                </asp:label>
+            </h3>
+            <div class="clr">
+            </div>
+            <div class="error_mesg" id="msShow1">
+                <b>
+                    <label id="lblErrormsg" style="display:none;">
+                        No records found
+                    </label>
+                </b>
+            </div>
+            <div class="suss_mesg" id="msShow2">
+                <b>
+                    <label id="lblError1">
+                        @ViewBag.messagealert
+                    </label>
+                </b>
+            </div>
+            <div class="posit">
+                <div class="posit_hd">
+                    <table width="1200" border="0" cellspacing="0" cellpadding="3">
+                        <tr>
+                            <td width="50" class="center">
+                                S.No.
+                            </td>
+                            <td width="120" class="left">
+                                EmiratesID
+                            </td>
+                            <td width="5"></td>
+                            <td width="80" class="left">
+                                Token ID
+                            </td>
+                            <td width="5"></td>
+                            <td width="80" class="left">
+                                Issue Type
+                            </td>
+                            <td width="5"></td>
+                            <td width="60" class="left">
+                                Priority
+                            </td>
+                            <td width="5"></td>
+                            <td width="300" class="left">
+                                Description
+                            </td>
+
+                            <td width="5"></td>
+                            <td width="100" class="left">
+                                Status
+                            </td>
+
+                            <td width="40" class="center">
+                                Action
+                            </td>
+                            <td width="15" class="center">
+                               
+                </tr>
+                    </table>
+                </div>
+                <div class="posit_bt">
+                    <table width="1200" border="0" cellspacing="0" cellpadding="3">
+                        @{ int sno = (@ViewBag.CurrentPage) * 10 - 10;
+
+                        }
+                        @foreach (var item in Model)
+                        {
+                            sno = sno + 1;
+                            <tr class="posit_txt " >
+                                <td width="50" class="center">
+                                    @(sno)
+                                </td>
+                                <td width="120" class="left">
+                                    @Html.DisplayFor(modelItem => item.EmiratesID)
+                                </td>
+                                <td width="5"></td>
+                                <td width="80" class="left">
+                                    <a href="javascript:void(0)" id="LnkBtnView" onclick="ViewIssue('@item.HelpDeskId') " title="View All Description"> 
+                                    @Html.DisplayFor(modelItem => item.TokenID) </a>
+                                </td>
+                                <td width="5"></td>
+                                <td width="80" class="left">
+                                    @Html.DisplayFor(modelItem => item.IssueType)
+                                </td>
+                                <td width="5"></td>
+                                <td width="60" class="left">
+                                    @Html.DisplayFor(modelItem => item.IssuePriority)
+                                </td>
+
+                                <td width="5"></td>
+                                <td width="300" class="left">
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+
+                                @*<td width="5"></td>
+                                <td width="120" class="left">
+                                    @Html.DisplayFor(modelItem => item.FileName)
+                                </td>*@
+
+                                @*<td width="5"></td>
+                                    <td width="250" class="left">
+                                        @Html.DisplayFor(modelItem => item.Remarks)
+                                    </td>*@
+
+                                <td width="5"></td>
+                                <td width="100" class="left @item.IssueStatus">
+                                    @Html.DisplayFor(modelItem => item.IssueStatus)
+                                </td>
+
+                                <td width="40" class="right">
+
+                                    <a href="@Url.Action("HelpDeskEdit", "HelpDesk", new { HelpDeskId = item.HelpDeskId })">
+                                        <img src="../../content/admin/images/icons/edit_new.gif" title="Edit" alt="" border="0" />
+                                    </a>
+
+                                    <a href="@Url.Action("HelpDeskView", "HelpDesk", new { HelpDeskId = item.HelpDeskId })" id="LnkBtnView">
+                                        <img src="../../content/admin/images/icons/view.gif" title="View" alt="" border="0" />
+                                    </a>
+                                    </td>
+                                <td width="5" class="left">
+                                @if(@item.FileName!=string.Empty){
+                                    <a href="javascript:void(0)" id="LnkBtnDownload" onclick="Download('@item.FileName')">
+                                        <img src="../../content/admin/images/icons/download-icon.png" title="Download" alt="" border="0" width="20px" />
+                                    </a>
+                                }
+                                  
+                                </td>
+                                @*<td class="center" width="30">
+                                        <input id="@item.HelpDeskId" type="checkbox" name="chkname" />
+                                    </td>*@
+                            </tr>
+
+                        }
+                    </table>
+
+                </div>
+            </div>
+            <div class="btns">
+                <div id="Divpager" style="display: none">
+                    <span style="color: Red; font-weight: bold; padding-left: 450px">
+                        No record found
+                    </span>
+                </div>
+                <div class="btns-lft">
+                    <div id="divPager" class="pagelist1">
+                        <div class="pagging_inner">
+
+                            <div class="page_txt_main_lt">
+                                <div class="page_txt2">
+
+                                    Page @ViewBag.CurrentPage of @ViewBag.totalnumber
+                                </div>
+                            </div>
+
+                            <div class="page_txt_main_rt">
+                                <div class="go_but">
+                                    <a href="/HelpDesk/HelpDeskMaster/" id="anchgoto" class="go" tabindex="12"
+                                       onclick="GotoPage(event);" style="height: 15px; font: 11px;
+                                        color: #fff;">Go</a>
+                                </div>
+                                <div class="page_box_new" style="width: 50px;">
+                                    <div class="page_box">
+                                        <input type="text" maxlength="3" id="Pgtxt" tabindex="11" onkeyup="numericFilter(this);" />
+                                    </div>
+                                </div>
+                                <div class="page_txt_3">
+                                    Go to Page
+                                </div>
+                                <div class="page end" id="lastPage">
+                                    @Html.ActionLink("Last", "HelpDeskMaster", new { id = @ViewBag.totalnumber }, new { @name = "anchLast" })
+
+                                </div>
+                                <div class="page_no">
+
+                                    <table>
+                                        <tr align="center">
+                                            @{ int currentpageid = (@ViewBag.CurrentPage);
+                                             int totalrecord = (@ViewBag.totalnumber);
+                                             if (currentpageid <= 3)
+                                             {
+                                                 if (totalrecord < 10)
+                                                 {
+                                                     for (int i = 0; i < ViewBag.totalnumber; i++)
+                                                     {
+                                                        <td align="center">
+                                                            @Html.ActionLink((i + 1).ToString(), "HelpDeskMaster", new { id = i + 1 }, new { onclick = "Paging(this);", @id = "page" + (i + 1) })
+                                                        </td>
+                                                     }
+
+                                                 }
+                                                 else
+                                                 {
+                                                     for (int i = 0; i < 10; i++)
+                                                     {
+                                                        <td align="center">
+                                                            @Html.ActionLink((i + 1).ToString(), "HelpDeskMaster", new { id = i + 1 }, new { onclick = "Paging(this);", @id = "page" + (i + 1) })
+                                                        </td>
+                                                     }
+                                                 }
+
+
+                                             }
+                                             else
+                                             {
+                                                 int Startlevel = currentpageid - 3;
+                                                 int levelcount = 1;
+
+                                                 for (int i = Startlevel; i < totalrecord; i++)
+                                                 {
+                                                     if (levelcount <= 10)
+                                                     {
+                                                        <td align="center">
+                                                            @Html.ActionLink((i + 1).ToString(), "HelpDeskMaster", new { id = i + 1 }, new { onclick = "Paging(this);", @id = "page" + (i + 1) })
+                                                        </td>
+                                                         levelcount++;
+                                                     }
+
+
+                                                 }
+                                             }
+
+                                            }
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="page start" style="margin-top: 2px;" id="FirstPage">
+
+                                    @Html.ActionLink("First", "HelpDeskMaster", new { id = 1 }, new { @name = "anchFirst" })
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <input id="hidtotPg" type="hidden" value="@ViewBag.totalnumber" />
+                    </div>
+                </div>
+            </div>
+            <div class="btns-rgt1" id="noRecordbutton">
+                @*<a href="/HelpDesk/HelpDeskAdd" id="lnkAdd" class="green1">Add</a>*@
+                @*<a href="javascript:void(0);" id="lnkBtndelete" class="green1" onclick="Delete();">Delete</a>*@
+            </div>
+        </div>
+    </div>
+</div>
+                          <div id="HelDeskList" style="display:none"></div>

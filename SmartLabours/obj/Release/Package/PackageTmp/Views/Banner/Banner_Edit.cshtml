@@ -1,0 +1,137 @@
+﻿@model SmartLabours.Models.TBL_Banner_SMT
+@{
+    ViewBag.Title = "Banner Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<script type="text/javascript">
+    function PreviousPage() {
+        window.location = "/Banner/Banner_List"
+        }
+
+        $(document).ready(function () {
+            if ($('#IMAGE_NAME').val() == '') {
+                document.getElementById("AltImage").style.display = "block";
+                document.getElementById("dlImgview").style.display = "none";
+            }
+
+        });
+
+        function switchImgae(arg) {
+            if (arg == 1) {
+                $('#BannerImage').val('');
+                document.getElementById("BannerImage").style.display = "block";
+                document.getElementById("BannerImage1").style.display = "none";
+                document.getElementById('changeImage1').style.display = "none";
+
+            }
+        }
+
+        function readURL1(input) {
+
+            var file1 = input.value;
+
+            if (input.files && input.files[0]) {
+                var file = input.files[0];
+                var extension = file1.substr((file1.toLowerCase().lastIndexOf('.') + 1));
+
+                switch (extension.toLowerCase()) {
+
+                    case 'jpg':
+                    case 'png':
+                    case 'gif':
+                    case 'jpeg':
+
+                        flag = true;
+                        break;
+                    default:
+                        flag = false;
+                }
+
+                if (flag == false) {
+                    alert("You can upload only jpg,png,gif extension file");
+                    document.getElementById("uploadImage").value = "";
+                    return false;
+                }
+
+            }
+        }
+
+</script>
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                    Banner Edit
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1" >
+                    <b>
+                        <label id="lblErrormsg" >
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="suss_mesg" id="msShow2" >
+                    <b>
+                        <label id="lblError1" >
+                        </label>
+                    </b>
+                </div>
+                <div class="fld_fd">
+                    @using (Html.BeginForm("Banner_Edit", "Banner", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div>
+                            <dl>
+                                <dd>
+                                   Title</dd><dt>
+                                        @Html.EditorFor(model => model.BannerTitle)
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.BannerTitle)
+                                        </span></dt>
+                            </dl>
+                            <dl>
+                                <dd>
+                                   Banner Image</dd><dt>
+                                   
+                                    <img src="../../Content/Admin/images/Banner/@Model.BannerImage" id="BannerImage1" alt="bannerimage" height="100px" width="100px" />
+                                    <a class="green" onclick="switchImgae(1)" href="javascript:void(0);" id="changeImage1">Change Image</a>
+                                    <input type="file" id="BannerImage" name="BannerImage" style="display:none;" onchange="readURL1(this)" />
+                                    @Html.HiddenFor(model => model.BannerImage)
+                           </dt></dl>
+                            
+                            <dl>
+                                <dd>
+                                    Status
+                                </dd>
+                                <dt>
+                                    @Html.RadioButtonFor(model => model.Status, true)
+                                    <label>
+                                        Active</label>
+                                    @Html.RadioButtonFor(model => model.Status, false)
+                                    <label>
+                                        Inactive</label>
+                                </dt>
+                            </dl>
+                            <div class="btn1 btn1-form">
+                                <input type="submit" value="Save" title="Save" />
+                                <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                            </div>
+                        
+                    
+                </div>
+                    }
+                        </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+

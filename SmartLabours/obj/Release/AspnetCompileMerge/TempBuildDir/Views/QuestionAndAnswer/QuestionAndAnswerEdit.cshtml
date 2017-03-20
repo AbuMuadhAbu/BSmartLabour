@@ -1,0 +1,753 @@
+﻿@model SmartLabours.Models.TBL_QUESTION_SMT
+@{
+    ViewBag.Title = "QuestionAndAnswer_Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<style type="text/css" >
+
+    #ddlQuestionType {
+        margin-left: 65px;
+        width: 230px !important;
+    }
+
+    .question_list textarea {
+        margin-left: 97px;
+        width: 222px !important;
+    }
+
+    #txtCreditpoint {
+        width: 222px;
+        margin-left: 75px;
+    }
+
+    .txtBox {
+        margin-left: -12px;
+    }
+    .drop_down {
+        margin-left: -10px;
+    }
+    .QuestionFields {
+        color: red;
+        float: left;
+        padding-right: 3px;
+        padding-top: 2px;
+    }
+    .QuestionFields1 {
+        color: red;     
+        padding-right: 3px;
+        padding-top: 2px;
+    }
+
+</style>
+       <script type="text/javascript">
+    function PreviousPage() {
+        window.location = "/QuestionAndAnswer/QuestionAndAnswerList";       
+    }
+
+    $(document).ready(function () {      
+        $("#CourseName").keypress(function (event) {
+            if (!AllowAlphaOnly(event)) {
+                event.preventDefault();
+                return false;
+            }
+            return true;
+
+        });
+
+        $("#Orgname").keypress(function (e) {
+            //if (!((e.which >= 65 && e.which <= 90) || (e.which >= 97 && e.which <= 122) || e.which == 8 || e.which == 44 || e.which == 39 || e.which == 45 || e.which == 95 || e.which == 38 || e.which == 46 || (e.which >= 48 && e.which <= 57))) {
+            //    e.preventDefault();
+            //    return false;
+            //}
+            //return true;
+
+        });
+
+
+        ////Contact number Only Allowed Numeric
+        //$("#OrganisationContactno").keydown(function (e) {
+        //    AllowNumericOnly(e);
+        //});
+
+
+
+
+        $('.AnsTxt').change(function () {
+           // debugger
+            var id = this.id;
+            var res = id.split("_");
+            var Id = res[1];
+            var $current=$('#'+id);
+            var $A = $('#' + 'txtfirst_' + res[1]);
+            var $B = $('#' + 'txtsecond_' + res[1]);
+            var $C = $('#' + 'txtthird_' + res[1]);
+            var $D = $('#' + 'txtfourth_' + res[1]);
+
+            A = $A.val();
+            B = $B.val();
+            C = $C.val();
+            D = $D.val();
+
+            var arr = [A, B, C, D];
+            if (FindDuplicateOptions(arr)) {
+                alert("Options have duplicate values.");
+                $current.val('');
+                $current.focus();
+                return false;
+            }
+        });
+
+        $(".DynamicDropDown").change(function () {
+           // debugger
+            var id = this.id;            
+            var res = id.split("_");
+            var Id = res[1];
+            var $text = $('#' + 'QuestionD_'+res[1]);
+            var $file = $('#' + 'myFile_' + res[1]);
+            var $Lbl = $('#' + 'Lbl_' + res[1]);
+
+            if (this.value=="2")//
+            {
+                $text.hide();
+                $file.show();
+                $Lbl.show();
+            }
+            else if (this.value == "1")
+            {
+                $text.show();
+                $file.hide();
+                $Lbl.hide();
+            }    
+        });
+
+        $('#Orgname').autocomplete(
+            {
+                source: function (request, response) {
+                    $.ajax({
+                        url: '@Url.Action("OrgNameAutoComplete", "OrganizationSubAdmin")',
+                 dataType: "json",
+                 cache: false,
+                 type: "get",
+                 data: { term: request.term }
+             }).done(function (data) {
+                 response(data);
+             });
+         }, change: function (event, ui) {
+             var OrgName = $("#Orgname").val();
+             if (OrgName == '') {
+                 OrgName = 'General';
+             }
+             if ($("#Orgname").val() != "") {
+                 $("#CourseID").empty();
+                 $("#CourseID").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+                 $.ajax({
+                     url: '@Url.Action("GetCourse", "Course")',
+                             cache: false,
+                             contentType: "application/json; charset=utf-8",
+                             type: "get",
+                             data: { Orgname: OrgName },
+                             dataType: "json",
+                             async: false,
+                             success: function (data) {
+                                 $.each(data, function (i, Course) {
+                                     $("#CourseID").append('<option value="' + Course.Value + '">' + Course.Text + '</option>');
+                                 });
+                             },
+                             error: function (data) {
+                                 // debugger
+                             }
+                         });
+                   }
+         }
+     });
+
+        $("#CourseID").change(function () {
+            $("#bind").html('');
+            AddDynamicRows(this);
+        });
+
+     @*   $('#CourseName').autocomplete(
+        {
+            source: function (request, response) {
+                $.ajax({
+                    url: '@Url.Action("CourseNameAutoComplete", "QuestionAndAnswer")',
+                    dataType: "json",
+                    cache: false,
+                    type: "get",
+                    data: { term: request.term, org: $("#Orgname").val(), }
+                }).done(function (data) {
+                    response(data);
+                });
+            },
+            change: function (event, ui) {
+                $.ajax({
+                    url: '@Url.Action("CheckCourse", "QuestionAndAnswer")',
+                    cache: false,
+                    contentType: "application/json; charset=utf-8",
+                    type: "get",
+                    data: { Course: $("#CourseName").val(), Org: $("#Orgname").val() },
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {                       
+                        var check = $('#ViewId').val();
+                        if (data == 1 && check == "") {
+                          
+                            $('#ViewId').val('1')                          
+                            DefaultaddDynamicRowsQues(this);
+                        }
+                        else if (data!=0)
+                        {
+                            window.location = "/QuestionAndAnswer/QuestionAndAnswerEdit/" + data;
+                        }
+                        else if (data == 0) {                           
+                            alert('Course name does not exists.');
+                            $("#CourseName").val('');
+                        }
+                    },
+                    error: function (data) {
+                    }
+                });
+            }
+        });*@
+
+
+        $("form").submit(function (e) {
+
+            
+            if (Getvalues())
+            {
+               // debugger
+            }
+            else {
+              //  debugger
+                e.preventDefault(); //prevent default form submit
+            }
+           
+          
+        });
+        function Getvalues() {
+            // debugger
+            var status = false;
+            var videoChanged = "";
+            var GenreDetails = [];
+            var alert1 =false;
+            var QuestionDesc = "", VideoFile = "";
+            $("div[id^='bind'] div").each(function () {
+                // debugger
+                if ($(this).attr("id") == "question_list") {
+                    var Question = $(this).find('textarea').val();
+
+                    var points = $(this).find('input:eq(0)').val();
+
+                    var A = $(this).find('input:eq(2)').val();
+
+                    var B = $(this).find('input:eq(3)').val();
+
+                    var C = $(this).find('input:eq(4)').val();
+
+                    var D = $(this).find('input:eq(5)').val();
+
+                    if (A != "" && B != "" && C != "" && D != "") {
+                        var arr = [A, B, C, D];
+                        if (typeof A != 'undefined' || typeof B != 'undefined' || typeof C != 'undefined' || typeof D != 'undefined') {
+                            if (FindDuplicateOptions(arr)) {
+                             //   debugger
+                                alert("Options have duplicate values.");
+                                alert1 = true;
+                                return false;
+                            }
+                        }
+                    }
+                    var Answer = $(this).find('select:eq(1)').val();
+                    // var VideoFile = $(this).find('input:eq(1)').val();
+                    var QuestionType = $(this).find('select:eq(0)').val();
+                    if ($(this).find('input:eq(1)').val() != "")//&& $(this).find('h6').val())
+                    {
+                        VideoFile = $(this).find('input:eq(1)').val();
+                    }
+                    else if ($(this).find('input:eq(6)').val() != "" && $(this).find('input:eq(1)').val() == "" && QuestionType == 2) {
+                        //Not Changed Video
+                        videoChanged = "Not Changed";
+                        VideoFile = $(this).find('input:eq(6)').val();
+                    }
+
+                    if (Question == "" && QuestionType == 1) {
+                        alert("Please Enter question");
+                        alert1 = true;
+                        return false;
+                    }
+                    else if (VideoFile == "" && QuestionType == 2) {
+                        alert("Please Select Video for all video Questions");
+                        alert1 = true;
+                        return false;
+                    }
+                    else if (points == "") {
+                        alert("Please Enter Credit Points for all questions ");
+                        alert1 = true;
+                        return false;
+                    }
+                    else if (A == "") {
+                        alert("Please Enter Option-A for all questions ");
+                        alert1 = true;
+                        return false;
+                    }
+                    else if (B == "") {
+                        alert("Please Enter all questions Option-B");
+                        alert1 = true;
+                        return false;
+                    }
+                    else if (C == "") {
+                        alert("Please Enter all questions Option C");
+                        alert1 = true;
+                        return false;
+                    }
+                    else if (D == "") {
+                        alert("Please Enter all questions Option D");
+                        alert1 = true;
+                        return false;
+                    }
+                    else if (Answer == "") {
+                        alert("Please Select all questions Answer");
+                        alert1 = true;
+                        return false;
+                    }
+                    else if (points != "" && A != "" && B != "" && C != "" && D != "" && Answer != "") {
+                        // debugger
+                        if (QuestionType == "1") {
+                            Question = Question;
+                        }
+                        else {
+                            Question = VideoFile;
+                        }
+                        QuestionDesc = QuestionDesc + Question + "}" + QuestionType + "}" + points + "}" + videoChanged + "~" + A + "$" + B + "$" + C + "$" + D + "^" + Answer + "#";
+                        videoChanged = "";
+                        if (QuestionDesc != '') {
+                            document.getElementById("hdnQuestions").value = QuestionDesc;
+                            status = true;
+                        }
+                    }
+                }
+            });
+
+            if (status) {
+             //   alert('Check');
+                if(!alert1)
+                {
+                    return true;
+                }
+                
+            }
+            else {
+                return false;
+            }
+        }
+
+    });
+
+    function AddDynamicRows(id) {
+       // debugger
+        var Question = "", points = "", A = "", B = "", C = "", D = "", Answer = "", Courseid = "", videoFile = "", QuestionType = "";
+        var UploadId = parseInt($('#UploadId').val()) + 1;
+        $('#UploadId').val(UploadId);
+        Question = $(id).parent().find('textarea').val();
+
+        points = $(id).parent().find('input:eq(0)').val();
+
+       // videoFile = $(id).parent().find('input:eq(1)').val();
+
+        A = $(id).parent().find('input:eq(2)').val();
+
+        B = $(id).parent().find('input:eq(3)').val();
+
+        C = $(id).parent().find('input:eq(4)').val();
+
+        D = $(id).parent().find('input:eq(5)').val();
+
+        QuestionType = $(id).parent().find('select:eq(0)').val();
+
+        if (A != "" && B != "" && C != "" && D != "" && typeof A != 'undefined' || typeof B != 'undefined' || typeof C != 'undefined' || typeof D != 'undefined') {
+            var arr = [A, B, C, D];
+            if (FindDuplicateOptions(arr)) {
+                alert("Options have duplicate values.");
+                status = false;
+            }
+        }
+              // debugger
+        if ($(id).parent().find('input:eq(1)').val() != "")//&& $(this).find('h6').val())
+        {
+            videoFile = $(id).parent().find('input:eq(1)').val();
+        }
+        else if ($(id).parent().find('input:eq(6)').val() != "" && $(id).parent().find('input:eq(1)').val() == "") {
+            videoFile = "Not Changed";
+        }
+        Answer = $(id).parent().find('select:eq(1)').val();
+        Courseid = $("#CourseName").val();
+
+        if (Courseid == "") {
+            alert("Please select Course");
+        }
+        else if (QuestionType == 1 && Question == "") {
+            alert("Please Enter Question");
+        }
+        else if (points == "") {
+            alert("Please Enter Credit Points");
+        }
+        else if (QuestionType == 2 && videoFile == "") {
+            alert("Please select a Question Video");
+        }
+        else if (A == "") {
+            alert("Please Enter Option A");
+        }
+        else if (B == "") {
+            alert("Please Enter Option B");
+        }
+        else if (C == "") {
+            alert("Please Enter Option C");
+        }
+        else if (D == "") {
+            alert("Please Enter Option D");
+        }
+        else if (Answer == "") {
+            alert("Please Select Answer");
+        }
+        else {// style=\"display:none\"
+            var stringhtml = "<label id=\"QuestionId\"></label> <div id=\"question_list\" ><div class='question_list'><div class='clearfix question-box'><span class=\"QuestionFields\">*</span><label>Question Type:</label>   <select id=\"ddlQuestionType\" style=\"padding-left:10px margin-left:10px width:50px\"  onchange=\"ddlQuestionTypeChange(this); \">  <option value=\"1\" >Text</option> <option value=\"2\" >Video</option> </select> </br></br> <span class=\"QuestionFields\">*</span> <label>Credit Points:</label><input type=\"text\" onkeypress=\"numericFilter(this);\" name=\"VGENRENAME\" id=\"txtCreditpoint\" class=\"creditPoint\" maxlength=\"4\">   </br></br>" +
+                                   "<div  id='TextDiv'> <span class=\"QuestionFields\">*</span><label>Question:</label><textarea name=\"QuestionD\"></textarea></div>  <div  id='videoDiv'> <input type=\"file\" id=\"myFile" + UploadId + "\" accept=\"video/*\" class=\"FileUpload\" style=\"display:none; width: 222px; margin-left: 99px;\" name=\"QuestionD" + UploadId + "\" onchange=\"VideoUpload(this)\"></div>  </br></br>  </div> <span class=\"QuestionFields\">*</span> <label>Options:</label>A:<input type=\"text\" name=\"VGENRENAME\" id=\"txtfirst\"  onchange=\"OptionsValidation(this)\" >B:<input type=\"text\" name=\"VGENRENAME\" id=\"txtsecond\" onchange=\"OptionsValidation(this)\"  >" +
+                "C:<input type=\"text\" name=\"VGENRENAME\" id=\"txtthird\" onchange=\"OptionsValidation(this)\"  >D:<input type=\"text\" name=\"VGENRENAME\" id=\"txtfourth\" onchange=\"OptionsValidation(this)\"  >" +
+                "<span class=\"QuestionFields1\">*</span>  Answer:<select class=\"form-control\"><option></option><option selected=\"selected\" value=\"\">Select</option><option value=\"0\">A</option><option value=\"1\">B</option><option value=\"2\">C</option><option value=\"3\">D</option></select>" +
+              "<a class=\"remove\" href='javascript:void(0);' onclick=\"removekeyID(this);\">Remove</a>  <input type=\"text\"  style=\"display:none\" /><input id=\"dunamicbutton\" class=\"add\" value=\"+\" type=\"button\"  onclick=\"AddDynamicRows(this);\"/> </div></div>";
+            $("#bind").append(stringhtml);
+        }
+
+    }
+
+   
+
+    function ddlQuestionTypeChange(id) {
+       /// var id = $(this).find('select:eq(0)').val();
+      //  var id = $(this).find('input:eq(1)').val();
+        //var txt = $(this).find('textarea').val();
+
+        var Test = $(id).parent().find('select:eq(0)').val();
+        var Test1 = $(id).parent().find('input:eq(1)');
+        var Test2 = $(id).parent().find('textarea').val();
+
+        //debugger
+        if ($(id).parent().find('select:eq(0)').val() == "1") {
+            $(id).parent().find('input:eq(1)').hide();
+            $(id).parent().find('textarea').show();
+        }
+        else {
+            $(id).parent().find('textarea').hide();
+            $(id).parent().find('input:eq(1)').show();
+            $(id).parent().find('input:eq(1)').css("visibility", "visible");
+
+        }
+
+    }
+
+    function FindDuplicateOptions(array) {   
+        var valuesSoFar = Object.create(null);
+        for (var i = 0; i < array.length; ++i) {
+            var value = array[i];
+            if (value != "") {
+                if (value in valuesSoFar) {
+                    return true;
+                }
+                valuesSoFar[value] = true;
+            }
+        }
+        return false;
+    }
+
+    function OptionsValidation(id) {
+    // debugger
+
+        A = $(id).parent().find('input:eq(2)').val();
+
+        B = $(id).parent().find('input:eq(3)').val();
+
+        C = $(id).parent().find('input:eq(4)').val();
+
+        D = $(id).parent().find('input:eq(5)').val();
+
+        var arr = [A, B, C, D];
+        if (FindDuplicateOptions(arr)) {
+            alert("Options have duplicate values.");
+            if (id.id == "txtfirst") {
+                $(id).parent().find('input:eq(2)').val('');
+                $(id).parent().find('input:eq(2)').focus();
+            }
+            else if (id.id == "txtsecond") {
+                $(id).parent().find('input:eq(3)').val('');
+                $(id).parent().find('input:eq(3)').focus();
+            }
+            else if (id.id == "txtthird") {
+                $(id).parent().find('input:eq(4)').val('');
+                $(id).parent().find('input:eq(4)').focus();
+            }
+            else if (id.id == "txtfourth") {
+                $(id).parent().find('input:eq(5)').val('');
+                $(id).parent().find('input:eq(5)').focus();
+            }
+
+        }
+
+    }
+
+    function VideoUpload1(id) {
+        if ($(id).val() == '') {
+            return false;
+        }
+        var allowedFiles = [".mp4"];
+        var fileUpload = $(id).val();
+        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
+        if (!regex.test(fileUpload)) {
+            alert("Please Upload mp4 file formats only");
+            $(id).parent().find('input:eq(1)').val('');
+            return false;
+        }
+        $(id).parent().find('span').css("display", "none");
+        $(id).parent().find('input:eq(6)').val('');
+        var id = id.id;
+        var res = id.split("_");
+        var Id = res[1];
+        var $Lbl = $('#' + 'Lbl' + res[1]);
+        $Lbl.text('');
+        return true;
+
+    }
+
+    function VideoUpload(id) {
+
+        if ($(id).val() == '') {
+            return false;
+        }
+        var allowedFiles = [".mp4"];
+        var fileUpload = $(id).val();
+        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
+        if (!regex.test(fileUpload)) {
+            alert("Please Upload mp4 file formats only");
+            $(id).parent().find('input:eq(1)').val('');
+            return false;
+        }
+        $(id).parent().find('span').css("display", "none");
+        $(id).parent().find('input:eq(6)').val('');
+        return true;
+
+    }
+
+    function numericFilter(txb) {
+        // txb.value = txb.value.replace(/[^\0-9]/ig, "");
+        // debugger
+        var trt = !isNaN(parseFloat(txb.value)) && isFinite(txb.value);
+        if (trt == false) {
+            txb.value = '';
+        }
+        //return !isNaN(parseFloat(txb)) && isFinite(txb);
+    }
+
+    function removekeyID(KeyID) {
+        $(KeyID).parent('div').remove();
+    }
+    
+
+ 
+
+</script>
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                    Edit Question & Answer
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1" >
+                    <b>
+                        <label id="lblErrormsg" >
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="suss_mesg" id="msShow2" >
+                    <b>
+                        <label id="lblError1" >
+                        </label>
+                    </b>
+                </div>
+                @using (Html.BeginForm("QuestionAndAnswerEdit", "QuestionAndAnswer", FormMethod.Post, new { enctype = "multipart/form-data"}))
+                {
+                  <div class="fld_fd">
+                        <div>
+                            <dl>
+                                <dd>
+                                      Organization Name
+                                </dd>
+                                <dt>
+
+                
+                  @if (HttpContext.Current.Session["USERID"].ToString() == "1")
+                  {
+                        @Html.TextBoxFor(model => model.OrganisationName, new { maxlength = 35, id = "Orgname", @class = "txtBox" })                      
+                  }
+                  else
+                  {
+                        @Html.TextBoxFor(model => model.OrganisationName, new { id = "txtOrgName", disabled = "disabled", @class = "txtBox" })
+                        @Html.HiddenFor(model => model.OrganisationName)
+                  } 
+                        <label id="UserId" style="display:none">@HttpContext.Current.Session["USERID"].ToString()</label>
+                        <span class="error">
+                            @Html.ValidationMessageFor(model => model.OrganisationName)
+                        </span>
+                                    </dt>
+                                </dl>
+
+                                <dl>
+                                    <dd>
+                                        Course
+                                    </dd>
+                                    <dt>
+                                        @Html.DropDownListFor(Model => Model.CourseID, (SelectList)ViewBag.CourseList, "Select", new { @class = "drop_down " })
+                                        @*@Html.TextBoxFor(model => model.CourseName, new { maxlength = 35, id = "CourseName", @class = "txtBox" })*@
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.CourseID)
+                                        </span>
+
+                                    </dt>
+                                </dl>
+
+                            </div>
+                        </div>
+
+
+                         @Html.HiddenFor(model => model.hdnQuestions)
+
+                            <div id="bind" style="width: 100%; float: left;" class="fld_fd">
+                              @{ List<SmartLabours.Models.TBL_QUESTION_SMT> LstQuestion = ViewBag.Questionlist;
+                                 List<SmartLabours.Models.TBL_ANSWER_SMT> LstAnswer = ViewBag.Answerlist;
+                                 List<SmartLabours.Models.TBL_ANSWER_SMT> LstAnswer1;
+                                               }
+                                              @{
+                                 int RowCount = -1;
+                                 foreach (var item in LstQuestion.OrderBy(n => n.QuestionID))
+                                 {
+                                     RowCount += 1;
+                                     var QuestionId = "QuestionD_" + RowCount;
+                                     var FileUploadName = "myFile_" + RowCount;
+                                     var txtfirst = "txtfirst_" + RowCount;
+                                     var txtsecond = "txtsecond_" + RowCount;
+                                     var txtthird = "txtthird_" + RowCount;
+                                     var txtfourth = "txtfourth_" + RowCount;
+                                     var Ans = "Ans" + RowCount;
+                                     var QuestionTypeId = "Ques_" + RowCount;
+                                     var LblName = "Lbl_" + RowCount;
+
+                                     LstAnswer1 = LstAnswer.Where(n => n.QuestionID == item.QuestionID).OrderBy(n => n.AnswerID).ToList();
+                                    <div id="question_list">
+
+                            <div class='question_list'>
+                                    <div class='clearfix question-box'>
+                                              <!--<label id="QuestionId" >item.QuestionID</label>-->
+                                      <span class="QuestionFields">*</span>   <label>Question Type:</label>
+                                             
+                                              <select id="@QuestionTypeId" style="padding-left: 10px; margin-left: 64px; width: 222px; " class="DynamicDropDown"  ><!--onchange="ddlQuestionTypeChange1(QuestionId,FileUploadName);"-->
+                                                    @if (@item.QuestionType == true)
+                                                    {
+                                                          <option value="1" selected>Text</option>
+                                                          <option value="2">Video</option>
+                                                    }
+                                                    else
+                                                    {
+                                                          <option value="1" >Text</option>
+                                                          <option value="2" selected>Video</option>
+                                                    }
+
+                                             </select> <br /><br />
+
+                                        <span class="QuestionFields">*</span>  <label>Credit Points:</label>
+                                        <input type="text" onkeyup="numericFilter(this);" name="VGENRENAME" id="txtCreaditpoint" class="class=\" maxlength="4"  style="padding-left: 10px; margin-left: 74px; width: 216px; " value="@item.CreditPoints"> <br /><br />
+                                </div>
+                                <div>
+                                    <span class="QuestionFields">*</span>  <label>Question:</label>
+                                </div>
+                                <div style="margin-left: 60px;">
+                                    @if (@item.QuestionType == true)
+                                    {
+                                        <textarea name="@{@QuestionId }" id="@{@QuestionId}" style="width: 222px; margin-left: 99px;">@item.QuestionDesc</textarea>
+                                        <input name="@{@QuestionId }" id="@{@FileUploadName}" type="file" style="width: 222px; margin-left: 99px; display:none" accept="video/*" onchange="VideoUpload1(this);" value="@{@item.QuestionDesc}" /><br /><br />
+                                    }
+                                    else
+                                    {
+                                        <input name="@{@QuestionId }" id="@{@FileUploadName}" type="file" style="width: 222px; margin-left: 99px;" accept="video/*" onchange="VideoUpload1(this);" value="@{@item.QuestionDesc}" /><span id="@LblName">@item.QuestionDesc</span>
+                                        <textarea name="@{@QuestionId }" id="@{@QuestionId}" style="width: 222px; margin-left: 99px;display:none"></textarea> <br /><br />
+                                    }
+
+                                </div>
+                            @if (LstAnswer1.Count > 0)
+                            {
+                           <span class="QuestionFields">*</span>  <label>Options:</label>
+                            @:A:<input type="text" name="VGENRENAME" class="AnsTxt" id="@{@txtfirst}" value="@LstAnswer1[0].AnswerDesc" >
+                            @:B:<input type="text" name="VGENRENAME" class="AnsTxt"  id="@{@txtsecond}" value="@LstAnswer1[1].AnswerDesc">
+                            @:C:<input type="text" name="VGENRENAME" class="AnsTxt"  id="@{@txtthird}" value="@LstAnswer1[2].AnswerDesc">
+                            @:D:<input type="text" name="VGENRENAME" class="AnsTxt" id="@{@txtfourth}" value="@LstAnswer1[3].AnswerDesc">
+                       <span class="QuestionFields1">*</span>    @:Answer:
+
+                                if (LstAnswer1[0].IsCorrect == true)
+                                {
+                           <select class="form-control" id="@{@Ans}"><option></option><option  value="">Select</option>
+                           <option selected="selected" value="0">A</option><option  value="1">B</option><option value="2">C</option><option value="3">D</option></select>
+                                       <a class="remove" href='javascript:void(0);' onclick="removekeyID(this);">Remove</a>
+                                }
+                                else if (LstAnswer1[1].IsCorrect == true)
+                                {
+                                <select class="form-control"><option></option><option  value="">Select</option>
+                           <option value="0">A</option><option selected="selected" value="1">B</option><option value="2">C</option><option value="3">D</option></select>
+                                  <a class="remove" href='javascript:void(0);' onclick="removekeyID(this);">Remove</a>
+                                }
+                                else if (LstAnswer1[2].IsCorrect == true)
+                                {
+                                <select class="form-control"><option></option><option  value="">Select</option>
+                           <option value="0">A</option><option value="1">B</option><option selected="selected" value="2">C</option><option value="3">D</option></select>
+                                  <a class="remove" href='javascript:void(0);' onclick="removekeyID(this);">Remove</a>
+                                }
+                                else if (LstAnswer1[3].IsCorrect == true)
+                                {
+                                <select class="form-control"><option></option><option  value="">Select</option>
+                           <option value="0">A</option><option value="1">B</option><option value="2">C</option><option selected="selected" value="3">D</option></select>
+                                <a class="remove" href='javascript:void(0);' onclick="removekeyID(this);">Remove</a>
+                                }
+                            }
+                            <input type="text" value="@{@item.QuestionDesc }" style="display:none" />
+                           <input class="add" value="+" type="button" id="dunamicbutton" onclick="AddDynamicRows(this);"/>
+                                
+                        </div>
+
+                   </div>
+
+                                 }
+              }
+
+                            </div>
+                            <div class="btn1 btn1-form">
+                                <input type="submit" value="Save" title="Save" id="btnSave" />  <!--onclick="javascript: return Getvalues();"-->
+                                    <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                                @*<a href="#" onclick="javascript:PreviousPage();">Back</a>*@
+                        </div>
+                   
+    
+                }
+               
+            </fieldset>
+            @*<a href="#" onclick="javascript:PreviousPage();">click mec</a>*@
+        </div>
+    </div>
+</div>

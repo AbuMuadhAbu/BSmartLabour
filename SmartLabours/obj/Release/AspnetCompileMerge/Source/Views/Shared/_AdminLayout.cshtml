@@ -1,0 +1,415 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    @*<meta charset="utf-8" />*@
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style type="text/css">
+        textarea {
+            resize: none !important;
+        }
+
+        /* For Hppiness Dubai Icon */
+
+        #foo {
+            width: 35px;
+            height: 35px;
+            position: fixed;
+            bottom: 1px;
+            left: 15px;
+            background-color: #c50408;
+            padding: 10px;
+            z-index: 8010;
+        }
+
+        .fancybox-close {
+            display: none !important;
+        }
+
+        .fancybox-item {
+            display: none !important;
+        }
+
+        .fancybox-skin {
+            background-color: transparent !important;
+        }
+
+        /* End  */
+    </style>
+    @*<title>@ViewBag.Title</title>*@
+    <title>Smart Labour - @ViewBag.Title </title>
+
+    <link href="@Url.Content("~/Content/Admin/css/style1.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Admin/css/style.css")" rel="stylesheet" type="text/css" />
+
+
+    <script src="~/Content/Admin/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+
+    <script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+    <script src="~/Scripts/jquery-migrate-1.2.1.min.js"></script>
+    <script src="~/Content/Admin/js/FieldValidations.js"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+    <script src="~/Scripts/kendo/kendoui/kendo.all.min.js"></script>
+
+    <link href="~/Content/kendo/kendoui/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Content/kendo/kendoui/kendo.default.min.css" rel="stylesheet" />
+    <link href="~/Content/kendo/kendoui/kendo.dataviz.min.css" rel="stylesheet" />
+    <script src="~/CustomScripts/Commonjs/Common.js"></script>
+    <script src="~/CustomScripts/PhoneRequestHistory/init.js"></script>
+    <script src="~/CustomScripts/PhoneRequestHistory/functions.js"></script>
+
+    <link href="~/Content/themes/base/jquery.ui.autocomplete.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/smoothness/jquery-ui.css" />*@
+    @*<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/cupertino/jquery-ui.css" />*@
+    @*<link href="~/Content/Front/css/FancyBoxReponsiveCss.css" rel="stylesheet" />*@
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css" />
+
+    @Styles.Render("~/Content/Front/css")
+    @Scripts.Render("~/Content/Front/js")
+    <script src="~/Content/Source/jquery.fancybox.js"></script>
+    <link href="~/Content/Source/jquery.fancybox.css" rel="stylesheet" />
+    <link href="~/Content/Front/css/jquery-ui.css" rel="stylesheet" />
+    @*    <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
+
+    <script language="javascript" type="text/javascript">
+        function signout() {
+            $.get("/Admin/Signout", {}, function (data) {
+                //   debugger
+                if (data == "sucess") {
+                    window.location.href = "/Admin";
+                }
+                else {
+                    window.location.href = "/Admin";
+                }
+            });
+        }
+
+
+
+
+
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+
+            $(".various").fancybox({
+                maxWidth: 800,
+                maxHeight: 600,
+                fitToView: false,
+                width: '70%',
+                height: '100%',
+                autoSize: true,
+                closeClick: false,
+                openEffect: 'none',
+                closeEffect: 'none'
+            });
+        });
+    </script>
+
+    <style type="text/css">
+        .menu1 {
+            float: left;
+            width: 100%;
+            background: url('../../Content/Admin/images/bg/mnu_hov.png') repeat-x;
+            height: 45px;
+        }
+
+            .menu1 ul {
+                float: left;
+                height: 36px;
+            }
+
+                .menu1 ul li {
+                    float: left;
+                    list-style: none;
+                }
+
+        .menu {
+            float: left;
+            width: 100%;
+            background: url('../../Content/Admin/images/bg/mnu_nor.gif') repeat-x;
+            height: 44px;
+        }
+
+            .menu ul {
+                float: left;
+                height: 36px;
+            }
+
+                .menu ul li {
+                    float: left;
+                    list-style: none;
+                }
+
+                    .menu ul li a {
+                        float: left;
+                        color: #fff;
+                        font: 12px arial;
+                        text-transform: uppercase;
+                        text-decoration: none;
+                    }
+
+                        .menu ul li a:hover, body.menu_hover, .menu ul li a.selected, body.hmu_dash .mu_dash a, body.hmu_posit .mu_posit a, body.hmu_candd .mu_candd a, body.hmu_sbu .mu_sbu a, body.hmu_manag .mu_manag a, body.hmu_invoc .mu_invoc a, body.hmu_accnt .mu_accnt a {
+                            background: url('../../Content/Admin/images/bg/mnu_hov.gif') repeat-x 0 0;
+                        }
+
+                    .menu ul li span {
+                        float: left;
+                        width: 2px;
+                        height: 37px;
+                        background-position: -998px -136px;
+                    }
+
+        .IE8Fix {
+            font: 12px arial;
+            margin: -1px 0 0;
+            position: absolute;
+            left: 0;
+            top: 0;
+            list-style-type: none;
+            z-index: 100;
+            display: block;
+            width: 130px;
+            color: #bcefff;
+            padding: 0px 0 0 0;
+        }
+
+        .TopMenu {
+            float: left;
+            font: 12px arial;
+            color: #fff;
+            text-align: center;
+            text-transform: uppercase;
+            height: 37px;
+            line-height: 37px;
+            padding: 0px 10px;
+            text-decoration: none;
+        }
+
+        .TopMenuHOver {
+            float: left;
+            font: 12px arial;
+            color: #fff;
+            text-align: center;
+            height: 37px;
+            line-height: 37px;
+            background: #8A0000;
+        }
+
+        .StaticMenu {
+            padding: 10px 20px;
+            background: #8A0000;
+            color: #fff;
+            text-decoration: none;
+            width: auto;
+            display: block;
+        }
+
+            .StaticMenu:hover {
+                background-color: #cd0202;
+            }
+
+        .HOver {
+            color: #000;
+            background: #D8D8D8;
+        }
+
+        #Menu_Menu3 a.popout-dynamic {
+            background: #8A0000;
+            padding-right: 20px;
+        }
+
+            #Menu_Menu3 a.popout-dynamic:hover {
+                background: #cd0202;
+            }
+
+        #Menu_Menu3 li li {
+            float: none;
+        }
+
+        ul.dynamic {
+            display: none;
+        }
+
+        #Menu_Menu3 li:hover ul.dynamic {
+            display: block;
+        }
+
+        #loading {
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            position: fixed;
+            display: block;
+            opacity: 0.7;
+            background-color: #fff;
+            z-index: 99;
+            text-align: center;
+        }
+
+        #loading-image {
+            position: absolute;
+            top: 100px;
+            left: 240px;
+            z-index: 100;
+        }
+    </style>
+
+
+    <link rel="shortcut icon" type="image/x-icon" href="../../Content/Front/images/favicon.ico">
+    <link rel="shortcut" type="image/x-icon" href="../../Content/Front/images/favicon.ico">
+
+</head>
+<body class="hovr">
+    @* Google Analytics COde  *@
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+
+
+
+    <div id="loading" style="display:none">
+        <img src="~/Content/Image/loader.gif" id="loading-image" alt="Loading..." />
+    </div>
+    <div class="container">
+        <div class="header">
+            <header>
+                @* HEADER SECTION - START *@
+
+                <div class="hd_top">
+                    <div class="wrapper">
+                        <div class="logo">
+                            <a href="@Url.Action("Dashboard", "Smart")">
+                                <img src="@Url.Content("~/Content/Admin/images/logo.png")" alt="" width="100px" title="" />
+                            </a>
+                        </div>
+                        <div class="hd_rigt">
+                            <big>
+                                Welcome <span>
+                                    @Session["USERNAME"]
+                                </span>
+                            </big><br class="clr" />
+                            @*<asp:Literal ID="litAdmin" ></asp:Literal></span></big><br class="clr" />*@
+
+                            @*  <asp:LinkButton ID="LinkButton1"  Text="Logout" CssClass="my_acc" OnClick="lbtLogOut_Click"></asp:LinkButton>*@
+                            <a href="javascript:void(0);" class="my_acc" id="Header_LinkButton1" onclick="signout()">Logout</a>
+                            @*<cite>|</cite> <a href="javascript:void(0);" class="my_acc">Profile</a>*@
+                            <cite>|</cite> <a href="/AdminAccount/changepassword" class="my_acc">My Account</a><br class="clr" />
+                            <div class="dt">
+                                (Last Login:@Session["LastLogin"])
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @* header section - END *@
+
+                @* MENU SECTIOM - START *@
+
+
+
+               <div class="menu1"> 
+             <div class="wrapper">
+             <ul>
+           <div id="Menu_Menu3" style="float: left;">
+
+             @{foreach (var item in ViewBag.MainMenu as List<SmartLabours.Models.TBL_PAGE_USER_MAP_SMT>)
+              {
+                   @: <li class="has-popup static" id="@item.PAGE.VPAGELABEL.Replace(" ", "").Replace("&","").Trim()" style="position: relative; float: left;">
+                   @: <a class="level1 TopMenu static highlighted"  href="@item.PAGE.PAGENAME" tabindex="-1">@item.PAGE.VPAGELABEL</a>
+                   @: <ul class="level2 IE8Fix dynamic" id="Menu_Menu3:submenu:2" style="position: absolute; top: 100%; left: 0px;">
+                   var submenu = (ViewBag.SubMenu as List<SmartLabours.Models.TBL_PAGE_USER_MAP_SMT>).Where(n => n.PAGE.IPARENTID == item.PAGE.IPAGEID).ToList();
+                    foreach (var item1 in submenu)
+                    {
+                       @: <li class="dynamic smartmenus" style="position: relative;">
+                       @: <a  href="@item1.PAGE.PAGENAME" tabindex="-1" class="level2 StaticMenu dynamic  ">@item1.PAGE.VPAGELABEL</a>
+                       @: </li>         
+                    }
+                   @:</ul>  
+              }}  
+            </li>
+       </div>
+       </ul>
+                </div>
+                </div>
+
+            @* MENU SECTIOM - END *@
+        </header>
+        <section id="main">
+            @RenderBody()
+        </section>
+
+
+        <fieldset>
+            <div>
+                <div id="foo">
+                    <a class="fancybox fancybox.iframe" id="onload" href="~/PostData.aspx?type=asdfg&themeColor=red">
+                        <img title="Happiness Dubai" src="~/Images/SideIcon.png" border="0" alt="" />
+                    </a>
+                </div>
+            </div>
+        </fieldset>
+
+        <footer>
+            @{
+                SmartLabours.Models.SmartLabourEntities dbEntites = new SmartLabours.Models.SmartLabourEntities();
+                DateTime CD = DateTime.Now;
+                //CD.Month
+                CD = (from n in dbEntites.AdminContactus where n.STATUS == true select n.FinaceYear).FirstOrDefault();
+
+            }
+            <div class="footer">Copyright © @CD.Year <a href="javascript:void(0);"> Smart Labour </a>. All Rights Reserved </div>
+        </footer>
+        @RenderSection("scripts", required: false)
+    </div>
+</div>
+</body>
+</html>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        $('.smartmenus').click(function () {
+            // alert($(this).parent().parent().html());
+
+            // alert($(this).parent().parent().attr("id"));
+
+            var idss = $(this).parent().parent().attr("id").trim();
+            // $(this).parent().parent().addClass("active");
+            var url = "/Home/SetMenuId";
+            $.ajax({
+                type: "POST",
+                url: "/Admin/SetMenuId",
+                data: { Name: idss },
+                datatype: "json",
+                error: function (xhr, status, error) {
+                },
+                success: function (res) {
+                    // alert(res);
+                }
+            });
+        });
+    });
+
+
+    $(document).ready(function () {
+        var SearchText = '@TempData["currentgetidss"]';
+        //  alert(SearchText);
+        // alert($("#" + SearchText).find("level1 TopMenu static highlighted").html());
+        //alert($("#User List").html());
+        $("#" + SearchText).addClass("active");
+    });
+
+</script>

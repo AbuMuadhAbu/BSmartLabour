@@ -1,0 +1,190 @@
+﻿@model SmartLabours.Models.TBL_SERVICEPROVIDER_SMT
+@{
+    ViewBag.Title = "Service Provider Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<script type="text/javascript">
+    function PreviousPage() {
+        window.location = "/Service/ServiceProvider_List"
+        //        alert(window.location);
+    }
+
+    $(document).ready(function () {
+        //getAjax();
+
+         $("#Orgname").keypress(function (e) {
+             //if (!((e.which >= 65 && e.which <= 90) || (e.which >= 97 && e.which <= 122) || e.which == 8 || e.which == 44 || e.which == 39 || e.which == 45 || e.which == 95 || e.which == 38 || e.which == 46 || (e.which >= 48 && e.which <= 57))) {
+             //    e.preventDefault();
+             //    return false;
+             //}
+            $('#lblOrgError').text('');
+           // return true;
+
+        });
+
+
+        $("#Orgname").keyup(function (event) {
+            if (event.keyCode == 8 || event.keyCode == 46) {
+                $('#lblOrgError').text('');
+            }
+        });
+
+      $('#Orgname').autocomplete({
+
+              source: function (request, response) {
+                  $.ajax({
+                      url: '@Url.Action("OrgNameAutoComplete", "OrganizationSubAdmin")',
+                      dataType: "json",
+                      cache: false,
+                      delay: 10,
+                      type: "get",
+                      data: { term: request.term }
+                  }).done(function (data) {
+                      response(data);
+                  });
+              },
+             change: function (event, ui) {  //CheckOrganizationName
+                  if ($('#Orgname').val() != '') {
+                      $('#lblOrgError').text('');
+                      $.ajax({
+                          url: '@Url.Action("CheckOrganizationName", "Organization")',
+                          dataType: "json",
+                          cache: false,
+                          type: "get",
+                          data: { OrgName: $('#Orgname').val() },
+                          success: function (data) {                             
+                              if (data != '1') {
+
+                                  $('#lblOrgError').text(data);
+                              }
+                              else {
+                                  $('#lblOrgError').text('');
+                              }
+                          },
+                          error: function (data) {
+                              // debugger
+                          }
+                      });
+                  }
+                  else
+                  {
+                      $('#lblOrgError').text('');                      
+                  }
+              }
+          });
+
+
+
+
+    });
+
+</script>
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                    Service Provider Edit
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1" >
+                    <b>
+                        <label id="lblErrormsg" >
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="suss_mesg" id="msShow2" >
+                    <b>
+                        <label id="lblError1" >
+                        </label>
+                    </b>
+                </div>
+                <div class="fld_fd">
+                    @using (Html.BeginForm("ServiceProvider_Edit", "Service", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div>                            
+                            @{
+                        if (HttpContext.Current.Session["USERID"].ToString() == "1")
+                        {
+
+                            <dl>
+                                <dd>
+                                    Organization
+                                </dd>
+                                <dt>
+
+
+                                    @Html.TextBoxFor(model => model.OrganisationName, new { maxlength = 35, id = "Orgname" })
+                                    <span class="error">
+                                        <label id="lblOrgError" ></label>
+                                    </span>
+
+                                </dt>
+                            </dl>
+
+                        }
+                            }
+
+
+                            <dl>
+                                <dd>
+                                    Service Provider </dd><dt>
+                                        @Html.EditorFor(model => model.SERVICEPROVIDER)
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.SERVICEPROVIDER)
+                                        </span></dt>
+                            </dl>
+
+
+
+                            <dl>
+                                <dd>
+                                    Is Telecome Operator
+                                </dd>
+                                <dt>
+                                    @Html.RadioButtonFor(model => model.IsTelcomOperator, true, new { @checked = true, @id = "IsTelecomOperator", style = "margin-left:5px" })
+                                    <label>
+                                        Yes
+                                    </label>
+                                    @Html.RadioButtonFor(model => model.IsTelcomOperator, false, new { @id = "NonTelecomOperator",style="margin-left:35px" })
+                                    <label>
+                                        No
+                                    </label>
+                                </dt>
+                            </dl>
+
+
+
+                            <dl>
+                                <dd>
+                                    Status
+                                </dd>
+                                <dt>
+                                    @Html.RadioButtonFor(model => model.STATUS, true, new { style = "margin-left:5px" })
+                                    <label>
+                                        Active</label>
+                                    @Html.RadioButtonFor(model => model.STATUS, false, new { style = "margin-left:25px" })
+                                    <label>
+                                        Inactive</label>
+                                </dt>
+                            </dl>
+                            <div class="btn1 btn1-form">
+                                <input type="submit" value="Save" title="Save" />
+                                <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

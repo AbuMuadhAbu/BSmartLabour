@@ -1,0 +1,190 @@
+﻿
+
+@{
+    ViewBag.Title = "Artical";
+    Layout = "~/Views/Shared/_AccountMenuLayout.cshtml";
+
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<script type="text/javascript">
+$(document).ready(function () {        
+        
+        var spage=@ViewBag.CurrentPage; 
+        var lpage=@ViewBag.TotalPages; 
+        var footer='';                
+        
+        if (lpage>1) {
+             footer = createfooter(@ViewBag.TotalPages, 1);
+            
+             $("#page").append(footer);
+             
+              $("#page"+spage).removeClass('active');
+              $("#page"+spage).addClass('active');
+        }
+
+        
+
+         $('#backpage').click(function () {
+            
+            if (spage>1) {
+               
+                $("#backpage").attr("href", "/Articles/"+(spage-1));
+            } 
+            else{
+                    return false;
+                //$("#backpage").attr("href", "/PopularCourses");
+            }
+        });
+
+         $('#nextpage').click(function () {
+            if (spage<lpage) {
+               
+                $("#nextpage").attr("href", "/Articles/"+(spage+1));
+            }
+            else{
+                    return false;
+                //$("#nextpage").attr("href", "/PopularCourses/"+lpage);
+            }
+        });
+
+     
+
+    });
+
+    function createfooter(count, page) {        
+
+        var back='';
+        var next='';
+
+        var spage=@ViewBag.CurrentPage; 
+        var lpage=@ViewBag.TotalPages;      
+
+        var epage=spage+3;        
+        var next=spage+1;
+
+        var footer = "<li><a id='backpage' title='Back' href='#' class='pager-prev'>Prev</a></li>";
+
+        if(spage <= lpage)
+        {
+            if (spage>=4) {
+               
+                nspage=spage-1; 
+                epage=spage+2;
+
+                if(epage > lpage){
+                                
+                    epage=lpage;  
+                     var pcount=epage-nspage;
+                       // alert("Co -> "+pcount);
+                    if(pcount>=1){
+                     nspage=epage-3;                   
+                    }  
+                }  
+                       
+                for (var i = nspage; i <= epage ; i++) {
+                    footer += "<li id='page"+i+"'><a    href=/Articles/"+i+">" + i + "</a></li>";
+                 }
+            }
+            else{
+                    //alert('fff');
+                 for (var i = 1; i <= lpage ; i++) {
+                    footer += "<li id='page"+i+"'><a   href=/Articles/"+i+">" + i + "</a></li>";
+                 }
+            }
+        }
+        else{
+
+            for (var i = 1; i <= lpage; i++) {
+                footer += "<li id='page"+i+"' ><a href=/Articles/"+i+">" + i + "</a></li>";
+            }
+        }
+        
+        
+        footer+="<li><a id='nextpage' title='Next' href='/Articles/'"+next+"' class='pager-next'>Next</a></li>";
+        return footer;
+    }
+
+</script>
+<div class="main">
+    <div class="inner_titlebg">
+        <div class="wrapper">
+            <h2>
+                Latest Articles</h2>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div class="inner_contentarea1 clearfix">
+            <div class="left_contectarea">
+                <ul class="article_list">
+                    @{
+                        List<SmartLabours.Models.TBL_Artical_SMT> lstofArtical = new List<SmartLabours.Models.TBL_Artical_SMT>();
+
+                        lstofArtical = ViewBag.Artical as List<SmartLabours.Models.TBL_Artical_SMT>;
+                    
+                    }
+                    @if (ViewBag.Artical != null)
+                    {
+                        foreach (var item in lstofArtical)
+                        {
+                        
+                        <li>
+                            <h3>@item.Title<span>Posted on @Html.DisplayFor(modelItem => item.CreatedDate)</span></h3>
+                            <p>
+                                @if (item.Description.Length > 311)
+                                {
+                                    var content = item.Description.Substring(0, 310) + "...." + "</p>";
+                  
+                                    @Html.Raw(content)
+                                }
+                                else
+                                {
+                                    @Html.Raw(item.Description)
+                                }</p>
+                            <a href="/Articledetails/@item.ArticalID" class="viewmore" title="View more...">View more...</a> </li>
+                        }
+                    }
+                </ul>
+                <ul class="pagination clearfix" id="page">
+               @*     <li><a href="#">Prev</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">Next</a></li>*@
+                </ul>
+            </div>
+            <div class="right_menu">
+                <h3>
+                    TOP ARTICLE</h3>
+                <ul class="toparticle_list">
+                    @{
+                        List<SmartLabours.Models.TBL_Artical_SMT> lstofTopArtical = new List<SmartLabours.Models.TBL_Artical_SMT>();
+
+                        lstofTopArtical = ViewBag.TopArtical as List<SmartLabours.Models.TBL_Artical_SMT>;}
+                    @if (ViewBag.Artical != null)
+                    {
+                        foreach (var item in lstofTopArtical.OrderByDescending(n=>n.CreatedDate))
+                        {
+                  
+                        <li><a href="/Articledetails/@item.ArticalID">@item.Title</a></li>
+	
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="apps_panel inner_apps">	
+		<div class="wrapper">
+			<span>Take a look at what's included</span> 
+            <a target="_blank" href="https://itunes.apple.com/in/app/id1062647626" class="futureApp"> <img src="../../Content/Front/images/app_store.png" alt="App Store" /></a>
+        <a target="_blank" href="https://play.google.com/store/apps/details?id=com.app.smartlabour&hl=en"> <img src="../../Content/Front/images/google_play.png" alt="Google Play" /></a>
+      <a target="_blank" href="https://www.microsoft.com/en-us/store/p/smart-labours/9nblggh68f0w" class="futureApp" >   <img src="../../Content/Front/images/win_store.png" alt="Windows Store" /></a>
+		</div>		
+	</div>

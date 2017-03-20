@@ -1,0 +1,308 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ 
+	<title>Smart Labour </title>
+    
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport" id="viewport" />
+    
+
+    <link href="~/Content/Front/css/reset.css" type="text/css" rel="stylesheet" />
+    <link href="~/Content/Front/css/style.css" type="text/css" rel="stylesheet" />
+    <script src="~/Content/Admin/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+
+    <script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+    <script src="~/Scripts/jquery-migrate-1.2.1.min.js"></script>
+    <script src="~/Content/Admin/js/FieldValidations.js"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <link href="~/Content/themes/base/jquery.ui.autocomplete.css" rel="stylesheet" />  
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/cupertino/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css" />
+    <style type="text/css" >
+        #foo {
+            width: 35px;
+            height: 35px;
+            position: fixed;
+            bottom: 1px;
+            left: 15px;
+            background-color: #c50408;
+            padding: 10px;
+            z-index: 8010;
+        } 
+
+    </style>
+    
+
+    @Styles.Render("~/Content/Front/css")
+    @Scripts.Render("~/Content/Front/js")
+    <script src="~/Content/Source/jquery.fancybox.js"></script>
+    <link href="~/Content/Source/jquery.fancybox.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        var specialKeys = new Array();
+        specialKeys.push(8); //Backspace
+        specialKeys.push(9); //Tab
+        specialKeys.push(46); //Delete
+        specialKeys.push(36); //Home
+        specialKeys.push(35); //End
+        specialKeys.push(37); //Left
+        specialKeys.push(39); //Right
+        function IsAlphaNumeric(e) {
+            var keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
+            var ret = ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122) || (specialKeys.indexOf(e.keyCode) != -1 && e.charCode != e.keyCode));
+            //document.getElementById("error").style.display = ret ? "none" : "inline";
+            return ret;
+        }
+    </script>
+
+
+    <script type="text/javascript">
+            var test=@ViewBag.main
+            $(document).ready(function () {
+
+              var SearchText = '@TempData["currentgetid"]';
+
+              $("#" + SearchText).addClass("active");
+
+              $("#" + SearchText + "1").addClass("active");           
+              if (test != 1) {
+               
+              }
+       });
+
+            function signout() {
+              
+                $.get("/Home/Signout", {}, function (data) {
+                  
+                    if (data == "sucess") {
+                        window.location.href = "/Home/index/1";
+                     // window.location.href = "/";
+                  }
+              });
+          }
+
+
+          function Reueststatus()
+          {
+              $.get("/Labouraccount/CheckPhoneRequestStatus", {}, function (data) {          
+
+                  var settings = data.split(',')[1];
+                  var count = data.split(',')[2];                
+                  if (data == 'Temp') {
+                      alert('Your Emirates ID is Temprory please update the original Id');
+                      return false;
+                  }
+                  if (data.split(',')[0] == "Received") {
+                      if (count < 2) {
+                          if (data.split(',')[1] == "True") {
+                              window.location.href = "/LabourAccount/PhoneRegister";
+                          }
+                          else {
+                              alert("Request Phone For a Family Will be Comming Soon!!");
+                          }
+                      }
+                      else {
+                          window.location.href = "/LabourAccount/PhoneRegister";
+                      }
+                  }
+                  else if (data.split(',')[0] == "Awaiting for Phone") {
+                      alert("Already You have Pending Request!!");
+                  }
+                  else if (data.split(',')[0] == "InTransit") {
+                      alert("Already You have Pending Request!!");
+
+                  }
+
+                  else {
+                      window.location.href = "/LabourAccount/PhoneRegister";
+                  }
+
+
+              });
+          }
+        </script>
+
+    <script type="text/javascript">
+        $(function () {
+
+            $(".various").fancybox({
+                maxWidth: 800,
+                maxHeight: 600,
+                fitToView: false,
+                width: '70%',
+                height: '100%',
+                autoSize: true,
+                closeClick: false,
+                openEffect: 'none',
+                closeEffect: 'none'
+            });
+        });
+    </script>
+
+    <style type="text/css">
+          
+        
+           .fancybox-close {
+                display: none !important;
+            }
+            .fancybox-item {
+                display: none !important;
+            }
+            .fancybox-skin {
+                background-color: transparent !important;
+            }
+
+        </style>
+
+    
+    </head>
+    <body class="inner_body">
+
+        @* Google Analytics COde  *@
+        <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+        <!-- End here -->
+
+    <header class="header inner">
+        <div class="wrapper">
+            <div class="clearfix">
+            <div class="top_left">
+                <h1><a href="/Home" title="Smart Labour ">Smart Labour </a></h1>
+                @if (ViewBag.MobileDisplay != "1")
+                {
+                <div class="menu_icons">
+                    <a href="javascript:void(0);" id="mobilemenu" title="Menu">MENU</a>
+                </div>
+                }
+            </div>
+            <div class="top_right">
+            <div class="clearfix">
+                <ul class="social_list">
+                    <li class="fb_icon"><a href="https://www.facebook.com/Smartlabourae-1503429409904803/" target="_blank" title="Facebook">Facebook</a></li>
+                    <li class="twiter_icon"><a href="https://twitter.com/smartlabourae" target="_blank" title="Twitter">Twitter</a></li>
+                    <li class="google_icon"><a href="https://plus.google.com/u/0/109521685359467670992/about" target="_blank" title="Google+">Google+</a></li>
+                    <li class="youtube_icon"><a href="https://www.youtube.com/watch?v=xug75AJdj0k" target="_blank" title="Youtube">Youtube</a></li>
+                    @*https://www.youtube.com/channel/UCcZ3tIR-8jaJ8tl8lOSP7Ew*@
+                    <li class="instagram_icon"><a href=" http://instagram.com/smartlabourae" target="_blank" title="Instagram">Instagram</a></li>
+                     @if (Session["UserType"] == null)
+                     {
+                        <li class="login_list"><a  href="javascript:void(0)"  style="margin-left:35px" onclick="signout();" title="Login">Login</a></li>
+                     }
+                     @if (Session["UserType"] != null)
+                    {
+                          <li class="login_list"><a href="javascript:void(0)"  style="margin-left:35px" onclick="signout();" title="Logout">Logout</a></li>
+
+                        if (Session["UserType"] == "Labour")
+                        {
+                           <li id="idlabour" class="my_account active"><a href="/LabourAccount/ProfileDetails" title="My Account">My Account</a></li>
+                        }
+                        else
+                        {
+                        <li id="idsponsor" class="my_account active"><a href="/SponsorAccount/ProfileDetails" title="My Account">My Account</a></li>
+                        }
+                    }
+                </ul>
+
+                <span style="float: right;margin-top: 30px;margin-right: -206px;">
+                    <a href="/ContactUs/Contactus"
+                       title="(+971) 556710067"><img src="~/Content/Front/images/whatsapp-icon.png" width="30" height="30" /></a>
+                </span>
+              
+            </div>
+                <input id="happiness_View" type="text" style="display:none" />
+                <input id="PaymentAlert" type="text" style="display:none" />
+            <nav class="main-nav clearfix">
+                <ul>
+                <li id="idhome"><a href="/" title="Home">Home </a></li>
+                    <li id="idAbout"><a href="/AboutUs" title="About Smart Labour ">About Smart Labour </a></li>
+                    <li id="idArtical"><a href="/Articles/1" title="Articles">Articles</a></li>
+                    <li id="idtestimonial"><a href="/Testimonials/1" title="Testimonials">Testimonials </a></li>
+                    <li class="last" id="idcontactus"><a href="/ContactUs" title="Contact Us">Contact Us</a></li>
+                    @*<li class="last" id="idHelpDesk"><a href="/HelpDesk/HelpDeskAdd" title="Contact Us">Help </a></li>*@
+                        @if (Session["UserType"] == "Labour")
+                        {
+                            <li class="mobile_only active"><a href="/LabourProfileDetails" title="My Account">My Account</a></li>
+                        }
+                        else
+                        {
+                            <li class="mobile_only active"><a href="/SponsorProfileDetails" title="My Account">My Account</a></li>
+                        }
+
+             </ul>
+            </nav>
+        </div>
+        </div>
+        </div>
+    </header>
+    @RenderBody();
+        <fieldset>
+            <div>
+                <div id="foo">
+                    <a class="fancybox fancybox.iframe" id="onload" href="~/PostData.aspx?type=Transaction&themeColor=red">
+                        <img title="Happiness Dubai" src="~/Images/SideIcon.png" border="0" alt="" />
+                    </a>
+                </div>
+            </div>
+        </fieldset>
+    <footer class="footer inner_footer clearfix">
+        <div class="wrapper" >
+         @if (ViewBag.MobileDisplay != "1")
+                {
+            <div class="footer_left"  >
+                <ul class="clearfix">
+                    <li id="idhome1"><a href="/" title="Home">Home</a></li>
+                    <li id="idAbout1"><a href="/AboutUs" title="About Smart Labour ">About Us</a></li>
+                    <li id="idtestimonial1"><a href="/Testimonials/1" title="Testimonials">Testimonials</a></li>
+                    <li id="idArtical1"><a href="/Articles/1" title="Articles">Articles</a></li>
+                    <li id="idcontactus1"><a href="/ContactUs" title="Contact Us">Contact Us</a></li>
+                    <li id="idterms1"><a href="/Termsandcondition" title="Terms">Terms</a></li>
+                    <li id="idsitemap1"><a href="/sitemap" title="Sitemap">Sitemap</a></li>
+                </ul>
+                <span class="desktop_only">Copyright 2015 Smart Labour . All Rights Reserved.</span>
+            </div>
+            }
+
+            <div class="footer_right">
+                <ul class="f_social_list">
+                    <li class="follow-us">Follow us on</li>
+                    <li class="fb_icon"><a href="https://www.facebook.com/Smartlabourae-1503429409904803/" target="_blank" title="Facebook">Facebook</a></li>
+                    <li class="twiter_icon"><a href="https://twitter.com/smartlabourae" target="_blank" title="Twitter">Twitter</a></li>
+                    <li class="google_icon"><a href="https://plus.google.com/u/0/109521685359467670992/about" target="_blank" title="Google+">Google+</a></li>
+                    <li class="youtube_icon"><a href="https://www.youtube.com/watch?v=xug75AJdj0k" target="_blank" title="Youtube">Youtube</a></li>
+                    
+                    @*https://www.youtube.com/channel/UCcZ3tIR-8jaJ8tl8lOSP7Ew*@
+                    <li class="instagram_icon"><a href=" http://instagram.com/smartlabourae" target="_blank" title="Instagram">Instagram</a></li>
+                </ul>
+
+                <span style="margin-left: 282px;margin-top: -30px;">
+                    <a href="/ContactUs/Contactus"
+                       title="(+971) 556710067"><img src="~/Content/Front/images/whatsapp-icon.png" width="30" height="30" style="margin-left: -270px;margin-top:-2px" /></a>
+                </span>
+                @{
+                    SmartLabours.Models.SmartLabourEntities dbEntites = new SmartLabours.Models.SmartLabourEntities();
+                    DateTime CD = DateTime.Now;
+                    //CD.Month
+                    CD = (from n in dbEntites.AdminContactus where n.STATUS == true select n.FinaceYear).FirstOrDefault();
+
+                }
+                <span class="mobile_only">Copyright © @CD.Year Smart Labour . All Rights Reserved.</span>
+            </div>
+
+        </div>
+
+
+
+        <div style="display:none;"  id="appPopup">
+            <h2>App will be available shortly.</h2>
+        </div>
+    </footer>
+    </body>
+
+    </html>

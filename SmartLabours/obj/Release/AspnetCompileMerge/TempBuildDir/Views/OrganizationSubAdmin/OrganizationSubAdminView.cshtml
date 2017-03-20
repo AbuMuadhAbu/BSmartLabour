@@ -1,0 +1,67 @@
+﻿@model SmartLabours.Models.TBL_ADMINLOGIN_SMT
+@{
+    ViewBag.Title = "OrganizationSubAdminView";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<script type="text/javascript">
+    function PreviousPage() {
+
+        window.location = "/OrganizationSubAdmin/OrganizationSubAdmin";
+    }
+
+</script>
+
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                     Sub Admin Details
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="fld_fd view-blk">
+                    <dl>
+                        <dd>
+                            Name :</dd>
+                        <dt>
+                            @Html.DisplayFor(n => n.USERNAME)</dt>  
+      
+                    </dl>
+                    <dl>
+                        <dd> Organization  :</dd>
+                        <dt>  @Html.DisplayFor(n => n.Organizations.OrganisationName)</dt>             
+                    </dl> 
+
+                       </dl>
+                    <dl>
+                        <dd> Email :</dd>
+                        <dt>  @Html.DisplayFor(n => n.USEREMAIL)</dt>             
+                    </dl> 
+
+                
+                    <dl>
+                        <dd>
+                            Status</dd>
+                        <dt>
+                            @{if (Model.STATUS == true)
+                              {<label>Active</label>}
+                              else
+                              {<label>InActive</label>}}
+                        </dt>
+                    </dl>
+                    <div class="btn1 btn1-form">
+                        <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

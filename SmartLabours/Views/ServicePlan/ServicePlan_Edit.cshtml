@@ -1,0 +1,329 @@
+﻿@model SmartLabours.Models.TBL_SERVICEPLAN_SMT
+@{
+    ViewBag.Title = "Service Plan Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+<script type="text/javascript">
+    function PreviousPage() {
+        window.location = "/ServicePlan/ServicePlan_List";     
+    }
+
+    $(function () {
+        $("#Validity").datepicker({
+            numberOfMonths: 1,
+            dateFormat: 'dd/mm/yy',
+            onSelect: function (selected) {
+                //  debugger
+                var SelectedDate = selected.split("/");
+                selected = SelectedDate[1] + '/' + SelectedDate[0] + '/' + SelectedDate[2];
+                var dt = new Date(selected);
+                // $("#ToDate").datepicker("option", "dateFormat", 'dd/mm/yy');
+                dt.setDate(dt.getDate());
+                // debugger
+            }
+            //dateFormat: 'dd/mm/yy'
+        });
+
+    });
+
+    $(document).ready(function () {
+
+        //if ($("#lblSessionValue").val()=="1")
+        //{
+
+        //}
+
+        $("#Orgname").keypress(function (e) {
+            //if (!((e.which >= 65 && e.which <= 90) || (e.which >= 97 && e.which <= 122) || e.which == 8 || e.which == 44 || e.which == 39 || e.which == 45 || e.which == 95 || e.which == 38 || e.which == 46 || (e.which >= 48 && e.which <= 57))) {
+            //    e.preventDefault();
+            //    return false;
+            //}
+            $('#lblOrgError').text('');
+           // return true;
+
+        });
+
+        var toDate = new Date();
+        $("#Validity").datepicker("option", "minDate", toDate);
+
+        $("#VALUEOFPLAN").keydown(function (e) {
+            AllowNumericOnly(e);           
+        });
+
+        $("#CREDITPOINTS").keydown(function (e) {
+            AllowNumericOnly(e);
+        });
+
+
+        $("#Orgname").keyup(function (event) {
+            if (event.keyCode == 8 || event.keyCode == 46) {
+                $('#lblOrgError').text('');
+            }
+        });
+
+        $('#Orgname').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '@Url.Action("OrgNameAutoComplete", "OrganizationSubAdmin")',
+                    dataType: "json",
+                    cache: false,
+                    delay: 10,
+                    type: "get",
+                    data: { term: request.term }
+                }).done(function (data) {
+                    response(data);
+                });
+            },
+
+            change: function (event, ui) { 
+                if ($('#Orgname').val() != '') {
+                    $('#lblOrgError').text('');
+                    $.ajax({
+                        url: '@Url.Action("CheckOrganizationName", "Organization")',
+                        dataType: "json",
+                        cache: false,
+                        type: "get",
+                        data: { OrgName: $('#Orgname').val() },
+                        success: function (data) {  
+                            if (data != '1') {
+                                $('#lblOrgError').text(data);
+                            }
+                            else {
+                                $('#lblOrgError').text('');
+                                ISTelecomOperatorLoad();
+                            }
+                        },
+                        error: function (data) {                           
+                        }
+                    });
+                }
+                else {
+                    $('#lblOrgError').text('');
+                   // $('#lblOrgError').text('Please Select Organization');
+                }
+            }
+        });
+
+
+        function ISTelecomOperatorLoad()
+        {
+          //  debugger
+            var Orgname = $('#Orgname').val();
+            $("#SERVICEPROVIDERID").empty();
+            $("#SERVICEPROVIDERID").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: '@Url.Action("GetTelecomOperator", "Service")',
+                    dataType: 'json',
+                    data: { Orgname: Orgname },
+                    success: function (providers) {
+
+                        $.each(providers, function (i, provider) {
+                            $("#SERVICEPROVIDERID").append('<option value="' + provider.Value + '">' + provider.Text + '</option>');
+                        });
+                    }
+                });
+        }
+
+        $('#IsTelecomOperator').change(function () {
+            ISTelecomOperatorLoad();
+        });
+
+
+        $('#SERVICETYPEID').change(function () {
+            ISTelecomOperatorLoad();
+        });
+
+
+        $('#NonTelecomOperator').change(function () {           
+            $("#SERVICEPROVIDERID").empty();
+            $("#SERVICEPROVIDERID").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+            var Orgname = $('#Orgname').val();
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: '@Url.Action("GetNonTelecomOperator", "Service")',
+                    dataType: 'json',
+                    data: { Orgname: Orgname },
+                    success: function (providers) {     
+                        $.each(providers, function (i, provider) {                          
+                            $("#SERVICEPROVIDERID").append('<option value="' + provider.Value + '">' + provider.Text + '</option>');
+                        });
+                    }
+                });
+
+        });
+
+
+    });
+
+
+</script>
+
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                    Service Plan Edit
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1" >
+                    <b>
+                        <label id="lblErrormsg" >
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="suss_mesg" id="msShow2" >
+                    <b>
+                        <label id="lblError1" >
+                        </label>
+                    </b>
+                </div>
+                <div class="fld_fd">
+                    @using (Html.BeginForm("ServicePlan_Edit", "servicePlan", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div>
+                      @{
+                        string SessionValue = HttpContext.Current.Session["USERID"].ToString();
+                        <label id="lblSessionValue" style="display:none">@SessionValue</label>
+                        if (HttpContext.Current.Session["USERID"].ToString() == "1")
+                        {
+
+                            <dl>
+                                <dd>
+                                    <span style="color:white;padding-right :2px;"> * </span>   Organization
+                                </dd>
+
+                                <dt>
+                                  
+                                  
+                                            @Html.TextBoxFor(model => model.OrgName, new { maxlength = 35, id = "Orgname" })
+                                                        @*  @Html.DropDownList("OrgId", (SelectList)ViewBag.GetOrganizationNamelist, "Select", new { @class = "drop_down" })*@
+                                                        <span class="error">
+                                                            <label id="lblOrgError" >@ViewBag.OrgAlert</label>
+                                                        </span>
+                                       
+                                </dt>
+
+                            </dl>
+                                        }
+                                        else
+                                        {
+                                            <label id="Orgname" style="display:none"></label>
+                                        }
+}
+                              
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :1px;"> * </span>   Service Type</dd><dt>
+                                      <div class="drop-down">
+                            @Html.DropDownList("SERVICETYPEID", (SelectList)ViewBag.ServiceTypelst, "Select", new { @class = "drop_down" })    
+                            </div>
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.SERVICETYPEID)
+                                        </span></dt>
+                            </dl>
+
+
+
+                            <dl>
+                                <dd>
+                                    <span style="color:white;padding-right :2px;"> * </span> Is Telecome Operator
+                                </dd>
+                                <dt>
+                                    @Html.RadioButtonFor(model => model.IsTelcomOperator, true, new { @checked = true, @id = "IsTelecomOperator", style = "margin-left:5px" })
+                                    <label>
+                                        Yes
+                                    </label>
+                                    @Html.RadioButtonFor(model => model.IsTelcomOperator, false, new { @id = "NonTelecomOperator", style = "margin-left:35px" })
+                                    <label>
+                                        No
+                                    </label>
+                                </dt>
+                            </dl>
+
+
+
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :1px;"> * </span>     Service Provider</dd><dt>
+                                      <div class="drop-down">
+                            @*@Html.DropDownList("SERVICEPROVIDERID", (SelectList)ViewBag.ServiceProviderlst, "Select", new { @class = "drop_down" })*@   
+                             @Html.DropDownListFor(model => model.SERVICEPROVIDERID, (SelectList)ViewBag.ServiseProviderList, "select", new { @class = "drop_down" }) 
+                            </div>
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.SERVICEPROVIDERID)
+                                        </span></dt>
+                            </dl>
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :1px;"> * </span>     Service Plan</dd><dt>
+                                         @Html.TextBoxFor(model => model.PLANNAEME, new { maxlength = 35 })
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.PLANNAEME)
+                                        </span></dt>
+                            </dl>
+                            <dl>
+                                <dd>
+                                    <span style="color:white;padding-right :2px;"> * </span> Value of Plan</dd><dt>
+                                     
+                            @Html.TextBoxFor(model => model.VALUEOFPLAN, new { maxlength = 10 })  
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.VALUEOFPLAN)
+                                        </span></dt>
+                            </dl>
+                             <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :1px;"> * </span>     Credit Points</dd><dt>
+                                     
+                            @Html.TextBoxFor(model => model.CREDITPOINTS, new { maxlength = 8 })  
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.CREDITPOINTS)
+                                        </span></dt>
+                            </dl>
+                           
+                           
+                             <dl>
+                                <dd>
+                                    <span style="color:white;padding-right :2px;"> * </span>  Validity of Plan</dd><dt>
+                                     
+                            @Html.TextBoxFor(model => model.VALIDITY, new { maxlength = 15, id = "Validity" })  
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.VALIDITY)
+                                        </span></dt>
+                            </dl>
+                               <dl>
+                                <dd>
+                                    <span style="color:white;padding-right :2px;"> * </span>  Status</dd><dt>
+                                        @Html.RadioButtonFor(model => model.STATUS, true, new { @checked = true, style = "margin-left:5px" })
+                                        <label>
+                                            Active</label>
+                                        @Html.RadioButtonFor(model => model.STATUS, false, new { style = "margin-left:25px" })
+                                        <label>
+                                            InActive</label>
+                                    </dt>
+                            </dl>
+                            <div class="btn1 btn1-form">
+                                <input type="submit" value="Save" title="Save" />
+                                <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                            </div>
+                        </div>
+    
+                    }
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

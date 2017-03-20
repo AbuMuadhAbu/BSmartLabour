@@ -1,0 +1,153 @@
+﻿@model SmartLabours.Models.TBL_ADMINLOGIN_SMT
+@{
+    ViewBag.Title = "Smart Labour Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+    <title>@ViewBag.Title</title>
+    
+	@*<link rel="shortcut icon" type="image/x-icon" href="../../Content/Front/images/favicon.ico">
+	<link rel="shortcut" type="image/x-icon" href="../../Content/Front/images/favicon.ico">*@
+
+    <link href="@Url.Content("~/Content/admin/css/style.css")" rel="stylesheet" type="text/css" media="all"/>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/admin/js/watermark.jquery.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/admin/js/watermark.jquery.min.js")" type="text/javascript"></script>
+
+    @Styles.Render("~/Content/Front/css")
+    @Scripts.Render("~/Content/Front/js")
+    <script src="~/Content/Source/jquery.fancybox.js"></script>
+    <link href="~/Content/Source/jquery.fancybox.css" rel="stylesheet" />
+    <link href="~/Content/Front/css/FancyBoxReponsiveCss.css" rel="stylesheet" />
+
+
+   <script type="text/javascript">
+
+       $(document).ready(function () {
+           var text = $('#USEREMAIL').val();
+           var watermark = 'User Email';
+           $('#USEREMAIL').blur(function () {
+
+               if ($(this).val().length == 0) {
+                   if (!$(this).hasClass(watermark))
+                       $(this).val(watermark).addClass('watermark');
+                   else
+                       $(this).val(watermark);
+                   $('#USEREMAIL').val("User Email").addClass('watermark');
+               }
+           }).focus(function () {
+               if ($(this).val() == watermark) {
+                   if ($(this).hasClass(watermark))
+                       $(this).val("").removeClass('watermark');
+                   else
+                       $(this).val("");
+               }
+           });
+
+           var watermarks = 'password';
+           $('#PASSWORD').blur(function () {
+               if ($(this).val().length == 0) {
+                   if (!$(this).hasClass(watermark))
+                       $(this).val(watermarks).addClass('watermark');
+                   else
+                       $(this).val(watermarks);
+                   // $('#PASSWORD').val("password").addClass('watermark');;
+               }
+           }).focus(function () {
+               if ($(this).val() == watermarks) {
+                   if ($(this).hasClass(watermark))
+                       $(this).val("").removeclass('watermark');
+                   else
+                       $(this).val("");
+               }
+           });
+
+           if ($('#USEREMAIL').val() == '') {
+               //   watermark = 'User Email';
+               $('#USEREMAIL').val("User Email").addClass('watermark');
+           }
+           if ($('#PASSWORD').val() == '') {
+               // watermarks = 'password';
+               $('#PASSWORD').val("password").addClass('watermark');
+           }
+       });
+    </script>
+
+   <style type="text/css">
+        .watermark
+        {
+            color: Black;
+        }
+
+        #foo {
+            width: 35px;
+            height: 35px;
+            position: fixed;
+            bottom: 20px;
+            left: 15px;
+            background-color: #c50408;
+            padding: 10px;
+        } 
+    </style>
+
+</head>
+<body class="homebg">
+
+    @* Google Analytics COde  *@
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+    <!-- End here -->
+
+    <div class="login_main">
+        <div class="login_inner">
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true)
+                <div class="login_pad">
+                    <div class="login_box1">
+                        @Html.TextBoxFor(model => model.USEREMAIL, new { autocomplete = "off", AutoCompleteType = "Disabled" })
+                        <span style="color: Red">
+                            @Html.ValidationMessageFor(model => model.USEREMAIL)
+                        </span>
+                    </div>
+                    <div class="login_box1">
+                        @Html.TextBoxFor(model => model.PASSWORD, new { autocomplete = "off", AutoCompleteType = "Disabled",type="password" })
+                          </div>
+                        <span style="color: Red;width: 500px; float:left;" id="uploadErr" >
+                            @Html.ValidationMessageFor(model => model.PASSWORD)
+                        </span>
+
+                  
+                    <div style="color: #fff;float: left;width: 100%;height: 20px;" class="remember-checkbox check-box">
+                    <input id="remember-me" type="checkbox" name="Rememberme" value="Rememberme" checked>
+                    <label for="remember-me">
+                        Remember me</label>
+                </div>
+                    <div class="login_box">
+                  
+                        <input type="submit" value="" style="background: url('../../content/Admin/images/login_btn.jpg') no-repeat;
+                            width: 77px; height: 27px; float: left; border: none; cursor: pointer;" />
+                              <a title="Forgot Password?" href="/Admin/ForgotPassword" class="forgot">Forgot
+                            Password?</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
+    <fieldset>
+        <div>
+            <div id="foo">
+                <a class="fancybox fancybox.iframe" id="onload" href="~/PostData.aspx?type=Transaction&themeColor=red">
+                    <img title="Happiness Dubai" src="~/Images/SideIcon.png" border="0" alt="" />
+                </a>
+            </div>
+        </div>
+    </fieldset>
+</body>
+</html>

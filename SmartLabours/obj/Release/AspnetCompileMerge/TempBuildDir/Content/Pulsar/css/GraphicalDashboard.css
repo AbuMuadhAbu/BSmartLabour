@@ -1,0 +1,385 @@
+﻿.grp-dashboard .nav-tabs {
+    background: #fff;
+}
+
+    .grp-dashboard .nav-tabs li {
+        border-radius: 0px;
+    }
+
+        .grp-dashboard .nav-tabs li:hover {
+            border-radius: 0px;
+        }
+
+        .grp-dashboard .nav-tabs li a {
+            color: #333;
+            font-size: 16px;
+            padding: 8px 20px;
+        }
+
+            .grp-dashboard .nav-tabs li a i {
+                margin-right: 5px;
+                color: #52b9e9;
+            }
+
+        .grp-dashboard .nav-tabs li.active a {
+            color: #333;
+        }
+
+        .grp-dashboard .nav-tabs li.active {
+            border-radius: 0px;
+        }
+
+            .grp-dashboard .nav-tabs li.active a {
+                background: #52b9e9 !important;
+                color: #fff;
+            }
+
+                .grp-dashboard .nav-tabs li.active a i, .grp-dashboard .nav-tabs li:hover a i {
+                    color: #fff;
+                }
+
+        .grp-dashboard .nav-tabs li a:hover {
+            background: #333;
+            color: #fff;
+        }
+
+    .grp-dashboard .nav-tabs > li > a, .grp-dashboard .nav-pills > li > a {
+        margin-right: 0px;
+        border: none !important;
+        border-radius: 0px !important;
+    }
+
+.bg-violet {
+    background: #932ab6 !important;
+}
+
+.bg-green {
+    background: #43c83c !important;
+}
+
+.bg-lgreen {
+    background: #00c13f !important;
+}
+
+.bg-yellow {
+    background: #f0ad4e !important;
+}
+
+.bg-blue {
+    background: #1faeff !important;
+}
+
+.bg-red {
+    background: #c1004f !important;
+}
+
+.grp-page-header {
+    float: left;
+    height: 35px;
+    background: #fa3031;
+    width: 100%;
+}
+
+    .grp-page-header h4 {
+        font-size: 16px;
+        color: #fff !important;
+        text-indent: 10px;
+        line-height: 35px !important;
+    }
+
+
+.grp-dashboard .input-small {
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    text-indent: 5px;
+}
+
+.border {
+    border: 1px solid #ccc !important;
+    border-radius: 0px;
+}
+
+/* chart tab style start here */
+.chart-tab {
+    width: 90%;
+    float: left;
+    padding: 5%;
+    background: #52b9e9;
+}
+
+    .chart-tab h1, .chart-tab h2, .chart-tab h4, .chart-tab h3, .chart-tab h5, .chart-tab h6 {
+        color: #fff !important;
+    }
+
+    .chart-tab i {
+        color: #fff !important;
+        line-height: 64px;
+    }
+
+    .chart-tab i {
+        text-align: center;
+    }
+/* chart tab style ends up */
+
+
+/*** prakash edited ***/
+.mytable {
+}
+
+.wth275 {
+    width: 300px !important;
+    margin-left: 10px !important;
+}
+
+.align_right {
+    text-align: right;
+}
+
+.float_right {
+    float: right;
+}
+
+.mytable th, .mytable tr {
+    line-height: 10px;
+}
+
+.height_125 {
+    min-height: 125px;
+    height: 140px;
+}
+
+.mytable_list ul {
+    text-align: center;
+    margin-left: 0 !important;
+    margin-top: 3%;
+}
+
+    .mytable_list ul li {
+        display: inline-block;
+        color: #fff;
+        margin: 0 1%;
+        text-align: center;
+    }
+
+.mytable_list_1 ul {
+    text-align: center;
+    margin-left: 0 !important;
+    margin-top: 3%;
+}
+
+    .mytable_list_1 ul li {
+        display: inline-block;
+        color: #fff;
+        margin: 0 5%;
+        text-align: center;
+    }
+
+.myseparate {
+    border-top: 1px solid #fff;
+    padding: 5px 0 0 0;
+}
+
+.myseparate_1 {
+    border-top: 1px solid #fff;
+    padding: 6% 0;
+}
+
+    .myseparate_1:first-child {
+        border: none;
+    }
+
+.m_l_20 {
+    margin-left: 20px;
+}
+
+#FunnelChart {
+    display: block !important;
+    margin: 0 auto !important;
+    padding: 50px 0 5px 0;
+}
+
+.f_s_20 {
+    font-size: 20px;
+}
+
+.height_500 {
+    min-height: 500px;
+    height: 520px !important;
+    text-align: center;
+    line-height: 500px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.v_height_500 {
+    min-height: 500px;
+    height: 600px !important;
+    text-align: center;
+    line-height: 600px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.search-panel {
+    border: 1px solid #ddd !important;
+}
+
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    border-color: #ccc !important;
+}
+
+/*.left-nav {
+    background: #222222 !important;
+}
+
+.arm-container {
+    margin-left: 60px !important;
+}
+
+.panel-container {
+    width: 99% !important;
+}*/
+
+.mylegend {
+    margin-top: 5px;
+}
+
+    .mylegend li {
+        display: inline-block;
+        margin-right: 3px;
+    }
+
+.mylegend_yellow {
+    background: #ea7001;
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+}
+
+.mylegend_green {
+    background: #009900;
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+}
+
+.mylegend_blue {
+    background: blue;
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+}
+
+.chart-tab {
+    position: relative;
+    overflow: hidden;
+}
+
+ /*.chart-tab:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border-right:#fff 12px solid;
+    border-top:#555 12px solid;    
+    background: #555;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+    display: block;
+    width: 0;
+}*/
+    
+.search-panel {
+    padding: 8px 5px !important;
+}
+
+.nav-pills li:last-child a, .nav-pills li:last-child .top-dropdown {
+    margin-right: 0 !important;
+}
+
+/*.panel-container .no-marg {
+    padding: 0 !important;
+}
+
+.nav-pills {
+    margin-top: 5px !important;
+}
+
+.panel-container {
+    margin-bottom: 30px;
+}
+*/
+    .span3, .span4 {
+    position: relative;
+} 
+
+.icon_information {
+    position:relative;
+    display:block;
+    top:-20px;
+    padding:0 10px;
+}
+
+
+
+.f_c_white {
+    color: white !important;
+}
+
+.f_c_whiteText {
+    color: white !important;
+    font-size: 9px;
+}
+
+.bold {
+    font-weight: bold !important;
+}
+
+.height_70 {
+    height: 70px;
+}
+
+.empty_datas {
+    min-height: 200px;
+    text-align: center;
+    line-height: 200px;
+    font-size: 16px;
+}
+
+/* In-Line CSS */
+#FunnelChart {
+    display: inline-block;
+    width: 180px;
+    height: 300px;
+    margin: 15px 65px;
+}
+
+
+
+#gauge-container {
+    background: transparent url("../../Images/gauge-container-partial.png") no-repeat 50% 50%;
+    height: 481px;
+    text-align: center;
+}
+
+#gauge {
+    width: 330px;
+    height: 330px;
+    top: 15px;
+    margin: 0 auto 0;
+    border: none !important;
+}
+
+#chartQ {
+    width: 99%;
+}
+
+#chartH {
+    width: 99%;
+}
+
+.f-width
+{
+    width:97% !important;
+}

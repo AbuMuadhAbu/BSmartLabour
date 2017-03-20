@@ -1,0 +1,241 @@
+﻿@{
+    ViewBag.Title = "Testimonial";
+    Layout = "~/Views/Shared/_AccountMenuLayout.cshtml";
+
+}
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<script type="text/javascript">
+$(document).ready(function () {        
+        
+        var spage=@ViewBag.CurrentPage; 
+        var lpage=@ViewBag.TotalPages; 
+        var footer='';                
+        
+        if (lpage>1) {
+             footer = createfooter(@ViewBag.TotalPages, 1);
+            
+             $("#page").append(footer);
+             
+              $("#page"+spage).removeClass('active');
+              $("#page"+spage).addClass('active');
+        }
+
+        
+
+         $('#backpage').click(function () {
+            
+            if (spage>1) {
+               
+                $("#backpage").attr("href", "/Testimonials/"+(spage-1));
+            } 
+            else{
+                    return false;
+                //$("#backpage").attr("href", "/PopularCourses");
+            }
+        });
+
+         $('#nextpage').click(function () {
+            if (spage<lpage) {
+               
+                $("#nextpage").attr("href", "/Testimonials/"+(spage+1));
+            }
+            else{
+                    return false;
+                //$("#nextpage").attr("href", "/PopularCourses/"+lpage);
+            }
+        });
+
+         //$('#BtnVideoClik').click(function () {
+         //    //  debugger
+         //    $(".VideoPlay").html('');
+         //    var FileName=$('#BtnVideoClik').attr("Title");
+         //    $(".VideoPlay").html(' <source src=' + '"/Uplodify/Testimonialvideo/' + FileName + '" type=' + '"video/mp4"' + '>' + '<source src=' + '"/Uplodify/Testimonialvideo/' + FileName + '" type=' + '"video/webm"' + '>');
+         //    $('#testmonial-1').css("display", "block");
+         //});
+
+
+    });
+
+    //function VideoPlay(id,e) {
+    //    // debugger
+    //    var $Div=$('#testmonial-'+id);
+    //    var $Video=$('#VideoPlay-'+id);
+    //    $Video.html('');
+    //    var FileName = e.title;
+    //    $Video.html(' <source src=' + '"/Uplodify/Testimonialvideo/' + FileName + '" type=' + '"video/mp4"' + '>' + '<source src=' + '"/Uplodify/Testimonialvideo/' + FileName + '" type=' + '"video/webm"' + '>');
+    //    $Div.css("display", "block");
+    //}
+
+
+    function createfooter(count, page) {        
+
+        var back='';
+        var next='';
+
+        var spage=@ViewBag.CurrentPage; 
+        var lpage=@ViewBag.TotalPages;      
+
+        var epage=spage+3;        
+        var next=spage+1;
+
+        var footer = "<li><a id='backpage' title='Back' href='#' class='pager-prev'>Prev</a></li>";
+
+        if(spage <= lpage)
+        {
+            if (spage>=4) {
+               
+                nspage=spage-1; 
+                epage=spage+2;
+
+                if(epage > lpage){
+                                
+                    epage=lpage;  
+                     var pcount=epage-nspage;
+                       // alert("Co -> "+pcount);
+                    if(pcount>=1){
+                     nspage=epage-3;                   
+                    }  
+                }  
+                       
+                for (var i = nspage; i <= epage ; i++) {
+                    footer += "<li id='page"+i+"'><a    href=/Testimonials/"+i+">" + i + "</a></li>";
+                 }
+            }
+            else{
+                    //alert('fff');
+                 for (var i = 1; i <= lpage ; i++) {
+                    footer += "<li id='page"+i+"'><a   href=/Testimonials/"+i+">" + i + "</a></li>";
+                 }
+            }
+        }
+        else{
+
+            for (var i = 1; i <= lpage; i++) {
+                footer += "<li id='page"+i+"' ><a href=/Testimonials/"+i+">" + i + "</a></li>";
+            }
+        }
+        
+        
+        footer+="<li><a id='nextpage' title='Next' href='/Testimonials/'"+next+"' class='pager-next'>Next</a></li>";
+        return footer;
+    }
+
+
+    function Checktestimonial()
+    {
+       $.getJSON('/TestimonialFront/checkuserstatus', { }, function (data) {
+
+                        //  alert(data);
+                        if(data=="Labour")
+                        {
+                        window.location.href = "/PostTestimonial";
+                        }
+                        else if(data=="sponsor")
+                        {
+                        window.location.href="/SponsorAccount/PostTestimonial";
+                        }
+                        else
+                        {
+                        alert('Please SignIn before post a comments');
+                        }
+                    });
+    }
+</script>
+<div class="main">
+    <div class="inner_titlebg">
+        <div class="wrapper">
+            <h2>
+                Testimonial</h2>
+                <div class="Testimonial">
+						<input type="submit" value="Post Testimonial" onclick="Checktestimonial();" />
+					</div>
+                @*<a href="javascript:void(0);" onclick="Checktestimonial();">Post Testimonial</a>*@
+        </div>
+    </div>
+    <div class="wrapper">
+        <div class="inner_contentarea1 clearfix">
+            @*<p class="testimonial_des">
+                Generate lorem ipsum in paragraphs words or sentences the exact amount of text,
+                and the exact amount of text, and it had the html tags included.had the html tags
+                included Generate lorem ipsum in paragraphs the exact amount of text, and it had
+                the html</p>*@
+            <ul class="testimonialpage_list clearfix">
+                @{List<SmartLabours.Models.TBL_TESTIMONIAL_SMT> lstofTestimonial = new List<SmartLabours.Models.TBL_TESTIMONIAL_SMT>();
+
+                  lstofTestimonial = ViewBag.Testimonial as List<SmartLabours.Models.TBL_TESTIMONIAL_SMT>;
+                  
+                }
+                @if (ViewBag.Testimonial != null)
+                {
+                    int a = 1;
+                    foreach (var items in lstofTestimonial)
+                    {
+
+                    
+                    <li>
+                        <div class="testimg_div">
+                            <a class="play various" data-fancybox-type="iframe" href="/player1.aspx?name=/@items.Mp4filename" title="@items.Mp4filename">ply</a>
+                            @*<input type="button" value="ply" class="play fancybox" Title="@items.Mp4filename" />*@
+                            <img src="~/Uplodify/TestimonialImages/@items.Image" alt="" width="238" height="188" />
+                        </div>
+                           
+                        <h3>
+                            @Html.DisplayFor(modelitem => items.Name)</h3>
+                        <span>@Html.DisplayFor(modelitem => items.Designation)</span>
+                        @if(items.Description != null)
+                        {
+                        if (items.Description.Length > 205)
+                        {
+                            var content = items.Description.Substring(0, 202) + "...." + "</p>";
+                            var content1 = items.Description.Substring(203) + "...." + "</p>";
+                            @Html.Raw(content)
+
+                        }
+                        else
+                        {
+                            @Html.Raw(items.Description)
+                        }
+                        }
+                        @*<a href="/Testimonialfront/TestimonialDetail/@items.TestimonialId" class="more" title="More">+ More</a>
+                        <div id="testmonial-@a" class="video-lightbox" style="display: none;">
+                            <video width="320" height="240" controls>
+                                <source src="/Uplodify/Testimonialvideo/@items.Mp4filename" type="video/mp4">
+                                <source src="images/video.ogg" type="video/ogg">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>*@
+                        <div id="testmonial-@a" class="video-lightbox" style="display: none;">
+                            <video width="320" height="240" id="VideoPlay-@a" controls>
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </li>
+                        a = a + 1;
+                    }
+                }
+
+            </ul>
+            <ul class="pagination testpager clearfix" id="page">
+                @* <li><a href="#">Prev</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">Next</a></li>*@
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="apps_panel inner_apps">	
+		<div class="wrapper">
+			<span>Take a look at what's included</span> 
+            <a target="_blank" href="https://itunes.apple.com/in/app/id1062647626" class="futureApp"> <img src="../../Content/Front/images/app_store.png" alt="App Store" /></a>
+        <a href="https://play.google.com/store/apps/details?id=com.app.smartlabour&hl=en"> <img src="../../Content/Front/images/google_play.png" alt="Google Play" /></a>
+      <a target="_blank" href="https://www.microsoft.com/en-us/store/p/smart-labours/9nblggh68f0w" class="futureApp" >   <img src="../../Content/Front/images/win_store.png" alt="Windows Store" /></a>
+		</div>		
+	</div>

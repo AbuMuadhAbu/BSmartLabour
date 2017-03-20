@@ -1,0 +1,80 @@
+﻿@model SmartLabours.Models.TBL_COMMENTS_SMT
+@{
+    ViewBag.Title = "ArticalComments_View";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script type="text/javascript">
+    function PreviousPage() {
+
+        window.location = "/ArticalComments/Comments_List";
+    }
+
+</script>
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                    Article Comments View
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="fld_fd view-blk">
+                    <dl>
+                        <dd>
+                            Title</dd>
+                        <dt>
+                            @Html.DisplayFor(n => n.Articals.Title)</dt>
+                    </dl>
+                    <dl>
+                        <dd>
+                            Description</dd>
+                        <dt>
+                           <div style ="width:600px;float:left;text-align:left;padding-bottom:10px;">
+                      
+                            @Html.Raw(Model.Articals.Description)</div></dt>
+                    </dl>
+                    <dl>
+                        <dd>
+                            Article Date</dd>
+                        <dt>
+                            @Html.DisplayFor(n => n.Articals.ArticalDate)</dt>
+                    </dl>
+                    <dl>
+                        <dd>
+                            Article Comments</dd>
+                        <dt>   <div style ="width:600px;float:left;text-align:left;padding-bottom:10px;">
+                      
+                            @Html.DisplayFor(n => n.DESCRIPTION)</div></dt>
+                    </dl>
+                    <dl>
+                        <dd>
+                            Posted By</dd>
+                        <dt>
+                            @Html.DisplayFor(n => n.labours.Name)</dt>
+                    </dl>
+                    <dl>
+                        <dd>
+                            Status</dd>
+                        <dt>
+                            @{if (Model.APPROVED == true)
+                              {<label>Approved</label>}
+                              else
+                              {<label>Not Approved</label>}}
+                        </dt>
+                    </dl>
+                    <div class="btn1 btn1-form">
+                        <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,221 @@
+﻿@model SmartLabours.Models.TBL_AdminCONTACTUS_SMT
+@{
+    ViewBag.Title = "Contact Us Add";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+<script type="text/javascript">
+
+    function PreviousPage() {
+
+        window.location = "/Cmspage/Contactus_List";
+        
+    }
+    $(document).ready(function () {
+        $("#StrFinanceDate").datepicker({
+            numberOfMonths: 1,
+            dateFormat: 'dd/mm/yy',
+            minDate: 0
+        });
+
+        $("#StrFinanceDate").change(function () {
+            $("#DateError").text('');
+        });
+
+        $("#PHONENO").keydown(function (e) {
+            AllowNumericOnly(e);
+        });
+
+        $("#POBOXNO").keydown(function (e) {
+            AllowNumericOnly(e);
+        });
+
+        $("#Contactus_Add").submit(function (e) {
+            //debugger
+            var status = 0;
+            if ($("#StrFinanceDate").val() == "") {
+                $("#DateError").text('Please Select Finance Year');
+                status = 1;
+            }
+            else {
+                $("#DateError").text('');
+            }
+
+
+            if (status == 1) {
+                e.preventDefault(e);
+            }
+            else {
+                return true;
+            }
+        });
+    });
+</script>
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                    Contact Us Add
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1" >
+                    <b>
+                        <label id="lblErrormsg" >
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="suss_mesg" id="msShow2" >
+                    <b>
+                        <label id="lblError1" >
+                        </label>
+                    </b>
+                </div>
+                <div class="fld_fd">
+                    @using (Html.BeginForm("Contactus_Add", "Cmspage", FormMethod.Post, new {@id="Contactus_Add", enctype = "multipart/form-data" }))
+                    {
+                        <div>
+                           
+                            <dl>
+                                <dd>
+                                    Email ID
+                                </dd>
+                                <dt>
+                                    @Html.TextBoxFor(model => model.EMAILID, new { maxlength = 50 })
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.EMAILID)
+                                    </span>
+                                </dt>
+                            </dl>
+
+                            <dl>
+                                <dd>
+                                    Phone No
+                                </dd>
+                                <dt>
+                                    @Html.TextBoxFor(model => model.PHONENO, new { maxlength = 15 })
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.PHONENO)
+                                    </span>
+                                </dt>
+                            </dl>
+                            <dl>
+                                <dd>
+                                    Address1
+                                </dd>
+                                <dt>
+                                    @Html.TextBoxFor(model => model.ADDRESS1, new { maxlength = 100 })
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.ADDRESS1)
+                                    </span>
+                                </dt>
+                            </dl>
+                            <dl>
+                                <dd>
+                                    Address2
+                                </dd>
+                                <dt>
+                                    @Html.TextBoxFor(model => model.ADDRESS2, new { maxlength = 100 })
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.ADDRESS2)
+                                    </span>
+                                </dt>
+                            </dl>
+                            <dl>
+                                <dd>
+                                    City
+                                </dd>
+                                <dt>
+                                    @Html.TextBoxFor(model => model.CITY, new { maxlength = 35 })
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.CITY)
+                                    </span>
+                                </dt>
+                            </dl>
+                            <dl>
+                                <dd>
+                                    Country
+                                </dd>
+                                <dt>
+                                    @Html.TextBoxFor(model => model.COUNTRY, new { maxlength = 35 })
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.COUNTRY)
+                                    </span>
+                                </dt>
+                            </dl>
+                            <dl>
+                                <dd>
+                                    Post Box No
+                                </dd>
+                                <dt>
+                                    @Html.TextBoxFor(model => model.POBOXNO, new { maxlength = 12 })
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.POBOXNO)
+                                    </span>
+                                </dt>
+                            </dl>
+
+
+                            <dl>
+                                <dd>
+                                    Finance Year
+                                </dd>
+                                <dt>
+                                    @Html.TextBoxFor(model => model.StrFinanceDate)
+                                    @Html.HiddenFor(model => model.FinaceYear)
+                                    <span class="error">
+                                        <label id="DateError"></label>
+                                    </span>
+                                </dt>
+                            </dl>
+
+
+                            <dl>
+                                <dd>
+                                    Host Name
+                                </dd>
+                                <dt>
+                                    @Html.TextBoxFor(model => model.HostName, new { maxlength = 150 })
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.HostName)
+                                    </span>
+                                </dt>
+                            </dl>
+
+
+
+                            <dl>
+                                <dd>
+                                    Status
+                                </dd>
+                                <dt>
+                                    @Html.RadioButtonFor(model => model.STATUS, true, new { @checked = true })
+                                    <label>
+                                        Active
+                                    </label>
+                                    @Html.RadioButtonFor(model => model.STATUS, false)
+                                    <label>
+                                        InActive
+                                    </label>
+                                </dt>
+                            </dl>
+                            <div class="btn1 btn1-form">
+                                <input type="submit" value="Save" title="Save" />
+                                <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                            </div>
+                        </div>
+    
+                    }
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+
+

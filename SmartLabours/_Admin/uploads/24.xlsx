@@ -1,0 +1,9 @@
+<div>
+	<table cellspacing="0" rules="all" border="1" style="border-collapse:collapse;">
+		<tr>
+			<th scope="col">LabourID</th><th scope="col">Name</th><th scope="col">EmailID</th><th scope="col">PhoneNumber</th><th scope="col">DOB</th><th scope="col">Gender</th><th scope="col">Address</th><th scope="col">Address2</th><th scope="col">City</th><th scope="col">State</th><th scope="col">Pincode</th><th scope="col">SERVICEPROVIDER</th><th scope="col">SERVICETYPEID</th><th scope="col">Country</th><th scope="col">Category</th><th scope="col">SubCategory</th><th scope="col">DisplayNameAccept</th>
+		</tr><tr>
+			<td>71752157511461256</td><td>musafir</td><td>sayyidfasil@hotmail.com</td><td>5786743255</td><td>18-05-1988 00:00:00</td><td>Male</td><td>deira , dubai 66666</td><td>887565</td><td>dubai</td><td>dubai</td><td>786758</td><td>BSNL</td><td>0</td><td>United Arab Emirates</td><td>Engineer</td><td>Mechanical</td><td>False</td>
+		</tr>
+	</table>
+</div>

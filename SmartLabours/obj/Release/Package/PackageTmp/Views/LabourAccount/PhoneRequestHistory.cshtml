@@ -1,0 +1,215 @@
+﻿@model IEnumerable<SmartLabours.Models.DonatePhone>
+@{
+    ViewBag.Title = "Phone Request History";
+    Layout = "~/Views/Shared/_AccountMenuLayout.cshtml";
+}
+                      @* Google Analytics COde  *@
+                      <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+                      <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+                      <!-- End here -->
+
+<script type="text/javascript">
+
+    function DisbuteTransaction() {
+
+        var chk = document.getElementsByName("chkname");
+
+        var chkchecked = "";
+        for (var i = 0; i < chk.length; i++) {
+
+            if (chk[i].checked == true) {
+
+                chkchecked += chk[i].id + ",";
+
+            }
+
+        }
+        if (chkchecked != "") {
+            if (confirm("Are you sure, You want to Dispute this transaction?") == true) {
+
+//                $.get("/LabourAccount/Disbute_Transaction", { id: chkchecked }, function (data) {
+//                    if (data == "success") {
+
+//                        alert('Transaction Disbuted Successfully');
+//                        location.reload(true);
+
+//                    } else {
+//                        alert(data);
+
+//                    }
+                //                });
+                $("#divDisbute").css('display', 'none');
+                $("#divfeedback").css('display','block');
+
+            }
+        }
+        else {
+            alert('Please Select Any One Record To Disbute ');
+        }
+
+    }
+  
+  function SendDisbuteTransaction() {
+
+      var feedback = $("#feedback").val();
+      var chk = document.getElementsByName("chkname");
+
+      var chkchecked = "";
+      for (var i = 0; i < chk.length; i++) {
+
+          if (chk[i].checked == true) {
+
+              chkchecked += chk[i].id + ",";
+
+          }
+
+      }
+      if (chkchecked != "") {
+
+          if (feedback != "") {
+              $.get("/LabourAccount/Disbute_Transaction", { id: chkchecked, Reaason: feedback }, function (data) {
+                  if (data == "success") {
+
+                      alert('Transaction Disbuted Successfully');
+                      location.reload(true);
+
+                  } else {
+                      alert(data);
+
+                  }
+              });
+              $("#divfeedback").css('display', 'none');
+              $("#divDisbute").css('display', 'block');
+          }
+          else {
+              alert("Please Enter Feedback");
+          }
+      }
+      else {
+          alert('Please Select Any One Record To Disbute ');
+     
+      }
+  }
+</script>
+<div class="main">
+	<div class="inner_titlebg">
+		<div class="wrapper">
+			<h2>Account Labour</h2>
+            
+		</div>
+	</div>
+<div class="wrapper">
+	<div class="inner_contentarea1 clearfix">
+		<div class="left_menu">			
+			<ul>
+				<li><a href="/LabourAccount/ProfileDetails" title="Profile Details">Profile Details</a></li>
+				<li><a href="/LabourAccount/Notification" title="Notification">Notification</a></li>
+				<li><a href="javascript:void(0);" onclick="Reueststatus();" title="Phone Request Form">Phone Request Form</a></li>
+				<li class="active"><a href="/LabourAccount/PhoneRequestHistory" title="Phone Request History">Phone Request History</a></li>
+                 <li><a href="/LabourAccount/PostTestimonial" title="Post Testimonial">Post Testimonial </a></li>
+                <li><a href="/HelpDesk/HelpDeskAdd2" title="Help Desk">Help Desk</a></li>
+                <li><a href="/HelpDesk/HelpDeskLabourList" title="Help Desk">Help Desk List</a></li>
+			</ul>
+		</div>	
+		<div class="right_content">
+				<h2>Phone Request History</h2>
+				<div class="phone_history">
+					<table>
+						<tr>
+							<th class="sno">S.No</th>
+                            <th class="Disputed">Select <br /></th>
+							<th>Phone Details</th>
+							<th>IMEA<br> Number</th>
+							<th>Status</th>
+							<th>Transaction <br>ID</th>
+                            <th>Request <br>Date</th>
+							<th>Delivery<br>Date</th>
+							<th>Courier Name <br>& Details</th>
+						</tr>
+                        	@*<tr>
+							<td class="sno">01.</td>
+                               <td> <div class="checkbox">
+							<input type="checkbox" /> </div></td>
+							<td>data will come</td>
+							<td>data will come</td>
+							<td>data will come</td>
+							<td>data will come</td>
+							<td>data will come</td>
+							<td>data will come</td>
+							<td>data will come</td>
+						</tr>*@
+                        @{int sno = 0;}
+                         @foreach (var item in Model)
+                         {
+						<tr>
+                        	<td class="sno">@(sno = sno +1)
+                            </td>
+                            <td> <div class="checkbox">
+                            <input id="@item.phoneAssignlabour.PhoneAssignedID" type="checkbox" name="chkname"   />
+                                   
+							 </div></td>
+							<td>@item.BrandName - @item.ModelNo</td>
+							<td>@item.IMEANumber</td>
+							<td>
+                            @if (item.phoneAssignlabour.IsLabourReceivedPhone == true)
+                            {
+                                <label>Received</label>
+                            }
+                            else if(item.phoneAssignlabour.IsPhoneAccepted == true && item.phoneAssignlabour.CourierDetail != null && item.phoneAssignlabour.CourierDetail !="")
+                            {
+                                <label>In transit</label>
+                            }
+                            else if (item.phoneAssignlabour.IsPhoneAccepted == true && item.phoneAssignlabour.CourierDetail == null )
+                            {
+                                 <label>Awaiting for Admin Approval</label> 
+                            }
+                            else if (item.phoneAssignlabour.IsPhoneAccepted == false && item.phoneAssignlabour.IsTimeExpired == true)
+                            {
+                                <label>Rejected</label>
+                            }
+                            else if(item.phoneAssignlabour.IsPhoneAccepted == false )
+                            {
+                                <label>Awaiting for Your Approval</label>
+                            }
+                            </td>
+							<td>     @{ 
+                            String TransactionId = "", a = "";
+                            a = Convert.ToString(item.phoneAssignlabour.PhoneAssignedID);
+                            TransactionId = "TRAN000".PadRight(6) + a;
+                            // donateID = "DONATE000".PadRight(6)+a;
+                                       }
+                                       <label>@TransactionId</label>
+                                       </td>
+                            <td>@Html.DisplayFor(modelitem => item.phoneAssignlabour.AssignedDate)</td>
+
+                            <td>@Html.DisplayFor(modelitem => item.phoneAssignlabour.DeliveredDate)</td>
+							
+							<td>@Html.Raw(item.phoneAssignlabour.CourierDetail)</td>
+						</tr>
+                         }
+					</table>
+				</div>
+				<div class="disputed_panel clearfix" id="divDisbute">
+					@*<div class="checkbox">
+							<input type="checkbox" /> <label>Select Check box of the transaction to be disputed</label>						
+					</div>*@
+					<div class="submit">
+							<input type="submit" value="Dispute Transaction" onclick="DisbuteTransaction();" />
+					</div>
+				</div>	
+                <div class="disputed_panel clearfix" id="divfeedback" style="display:none;">
+					<div class="input textarea">
+                    <label> FeedBack </label>
+							<textarea id="feedback"></textarea>		
+					</div>
+					<div class="submit">
+							<input type="submit" value="Send" onclick="SendDisbuteTransaction();" />
+					</div>
+				</div>	
+		</div>
+	</div>
+
+   
+
+</div>	
+</div>

@@ -1,0 +1,352 @@
+﻿@model SmartLabours.Models.TBL_CourseContentFolderMaster
+@{
+    ViewBag.Title = "Course Content Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Google Analytics Code -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End Here  -->
+
+<style type="text/css">
+    .CheckBoxClass {
+        width: 15px !important;
+    }
+
+    input[type='file'] {
+        width: 218px !important;
+    }
+</style>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#DivAudio").hide();
+
+        $('.FileTypes').change(function () {
+            var val = $(this).val();
+            if (val == 'True') {
+                $('#DivImage').hide();
+                $('#DivAudio').show();
+            }
+            else {
+                $('#DivImage').show();
+                $('#DivAudio').hide();
+
+            }
+        });
+
+        $("#FileUpload").submit(function (e) {
+          
+            var status = 0;
+
+            if ($("#Orgname").val() == "") {
+                $("#lblOrgError").text('Please Select Organization');
+                status = 1;
+            }
+            else {
+                $("#lblErrormsg").text('');
+            }
+
+            var val = $('#RbtFileTypes')[0].checked;
+            var val2 = $('#RbtFileTypes1')[0].checked;
+          
+           
+     
+
+            if ($('#FolderName').val() == '') {
+                $('#lblFolderError1').text('Please enter the Directory');
+                status = 1;
+            }
+            else {               
+                $('#lblFolderError1').text('');
+                FolderNameExist();
+            }
+        
+            if ($('#lblFolderError1').text() != '') {
+                status = 1;
+            }
+
+            if (status == 1) {
+                e.preventDefault(e);
+            }
+            else {
+
+                return true;
+            }
+        });
+
+
+
+
+        $("#FolderName").keypress(function (e) {
+
+            if ($("#FolderName").val() != "") {
+                if (isValid($("#FolderName").val())) {
+                    var k;
+                    document.all ? k = e.keycode : k = e.which;
+                    return ((k > 47 && k < 58) || (k > 64 && k < 91) || (k > 96 && k < 123) || k == 0);
+                }
+                else {
+                    return false;
+                }
+            }
+        });
+
+        function isValid(fname) {
+            var rg1 = /^[^\\/:\*\?"<>\|]+$/; // forbidden characters \ / : * ? " < > |
+            var rg2 = /^\./; // cannot start with dot (.)
+            var rg3 = /^(nul|prn|con|lpt[0-9]|com[0-9])(\.|$)/i; // forbidden file names
+            var a = rg1.test(fname);
+            var b = rg2.test(fname);
+            var c = rg3.test(fname);
+            return rg1.test(fname) && !rg2.test(fname) && !rg3.test(fname);
+        }
+
+
+
+        $("#Orgname").keypress(function (e) {
+            $('#lblOrgError').text('');
+
+        });
+
+        $('#Orgname').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '@Url.Action("OrgNameAutoComplete", "OrganizationSubAdmin")',
+                    dataType: "json",
+                    cache: false,
+                    delay: 10,
+                    type: "get",
+                    data: { term: request.term }
+                }).done(function (data) {
+                    response(data);
+                });
+            },
+
+            change: function (event, ui) {
+                if ($('#Orgname').val() != '') {
+                    $('#lblOrgError').text('');
+                    $.ajax({
+                        url: '@Url.Action("CheckOrganizationName", "Organization")',
+                        dataType: "json",
+                        cache: false,
+                        type: "get",
+                        data: { OrgName: $('#Orgname').val() },
+                        success: function (data) {
+
+                            if (data != '1') {
+
+                                $('#lblOrgError').text(data);
+                            }
+                            else {
+                                $('#lblOrgError').text('');
+                            }
+                        },
+                        error: function (data) {
+                        }
+                    });
+                }
+
+                else
+                {
+                    $('#lblOrgError').text('');
+                }
+            }
+        });
+       
+        $("#FolderName").change(function () {
+            FolderNameExist();   
+        });
+    });
+
+    function FolderNameExist()
+    {
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("GetDirectoryNameExist", "CourseContentUpload")',
+            dataType: 'json',
+            data: { FolderName: $("#FolderName").val(), FolderId: parseInt($('#CourseContentFolderId').val()) }, //
+            success: function (providers) {
+                //   debugger
+                if (providers != "" && providers != null && providers != 0) {
+                    $('#lblFolderError1').text('Directory Already Exists');
+                    $("#FolderName").val('');
+                }
+                else {
+                    $('#lblFolderError1').text('');
+                }
+
+            }
+           , error: function (error) {
+               // debugger
+           }
+        });
+    }
+
+    function validate_Imagefileupload(fileName) {
+        $("#lblImageErrorMsg").text('');
+        if (fileName == '') {
+            return false;
+        }
+        var allowedFiles = [".jpg", ".jpeg"];
+        var fileUpload = $("#ImageUpload").val();
+        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
+        if (!regex.test(fileUpload)) {
+            $("#lblImageErrorMsg").text('Please Upload .jpg or .jpeg file formats only');
+            $("#ImageUpload").val('');
+            $("#ImageUpload").focus();
+            return false;
+        }
+        else {
+            // Checking whether FormData is available in browser
+            if (window.FormData !== undefined) {
+                var ImagefileUpload = $("#ImageUpload").get(0);
+                var Imagefiles = ImagefileUpload.files;
+                if (Imagefiles.length > 5) {
+                    $("#lblImageErrorMsg").text('Cannot upload the more than 5 image files');
+                    $("#ImageUpload").val('');
+                    $("#ImageUpload").focus();
+                    return false;
+                }
+            }
+            $("#lblImageErrorMsg").text('');
+            return true;
+        }
+    }
+
+    function validate_Audiofileupload(fileName) {
+        $("#lblFileErrorMsg").text('');
+                if (fileName == '') {
+                    return false;
+                }
+                var allowedFiles = [".mp3", ".wav"];
+                var fileUpload = $("#AudioUpload").val();
+                var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
+                if (!regex.test(fileUpload)) {
+                    $("#lblFileErrorMsg").text('Please Upload .mp3 or .wav file formats only');
+                    $("#AudioUpload").val('');
+                    $("#AudioUpload").focus();
+                    return false;
+                }
+                else{
+                    // Checking whether FormData is available in browser
+                    if (window.FormData !== undefined) {
+
+                        var AudiofileUpload = $("#AudioUpload").get(0);
+                        var Audiofiles = AudiofileUpload.files;
+                        if (Audiofiles.length > 5) {
+                            $("#lblAudioError").text('Cannot upload the more than 5 audio files');
+                            $("#AudioUpload").val('');
+                            $("#AudioUpload").focus();
+                            return false;
+                        }
+                    }
+                    $("#lblFileErrorMsg").text('');
+                    return true;
+                }
+            }
+
+
+    function numericFilter(txb)
+    {
+        txb.value = txb.value.replace(/[^\0-9]/ig, "");
+    }
+
+    function PreviousPage()
+    {
+        window.location = "/CourseContentUpload/CourseContentsFolderList";
+    }
+
+</script>
+
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                    Course Content Directory Edit
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1">
+                    <b>
+                        <label id="lblErrormsg">
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="suss_mesg" id="msShow2">
+                    <b>
+                        <label id="lblError1">
+                        </label>
+                    </b>
+                </div>
+                <div class="fld_fd">
+                    @using (Html.BeginForm("CourseContentFolderedit", "CourseContentUpload", FormMethod.Post, new { @id = "FileUpload", enctype = "multipart/form-data" }))
+                    {
+                        <div>
+
+                            @{
+                                if (HttpContext.Current.Session["USERID"].ToString() == "1")
+                                {
+                                    <dl>
+                                        <dd>
+                                            <span style="color:red;padding-right :2px;"> * </span>   Organization
+                                        </dd>
+                                        <dt>
+                                            @Html.HiddenFor(model => model.CourseContentFolderId)
+                                            @Html.TextBoxFor(model => model.OrgName, new { maxlength = 35, id = "Orgname" })
+                                            <span class="error">
+                                                <label id="lblOrgError"></label>
+                                            </span>
+                                        </dt>
+                                    </dl>
+                                }
+                            }
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span>    Directory
+                                </dd>
+                                <dt>
+                                    @Html.TextBoxFor(model => model.FolderName, new { maxlength = 50 })
+                                    <span class="error">
+                                        <label id="lblFolderError1"></label>
+                                    </span>
+                                </dt>
+                            </dl>
+
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span>   File Type
+                                </dd>
+                                <dt>
+                                    @Html.RadioButtonFor(model => model.FileTypes, true, new { @class = "FileTypes", @style = "margin-left:5px", @id = "RbtFileTypes1",disabled = "disabled"})
+                                    <label>
+                                        Audio
+                                    </label>
+                                    @Html.RadioButtonFor(model => model.FileTypes, false, new { @class = "FileTypes", @style = "margin-left:35px", @id = "RbtFileTypes", disabled = "disabled" })
+                                    <label>
+                                        Image
+                                    </label>
+                                </dt>
+                            </dl>
+
+                            <div class="btn1 btn1-form">
+                                <input type="submit" value="Save" title="Save" />
+                                <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+

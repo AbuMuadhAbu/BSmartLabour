@@ -1,0 +1,97 @@
+﻿
+
+
+@model SmartLabours.Models.TBL_OrganisationMaster
+@{
+    ViewBag.Title = "OrganizationView";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script type="text/javascript">
+    function PreviousPage() {
+
+        window.location = "/Organization/OrganizationMaster";
+    }
+
+</script>
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                    Organization View
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="fld_fd view-blk">
+                    <dl>
+                        <dd>
+                            Organization </dd>
+                        <dt>
+                            @Html.DisplayFor(n => n.OrganisationName)</dt>  
+      
+                    </dl>
+                    <dl>
+                        <dd> Contact No </dd>
+                        <dt>  @Html.DisplayFor(n => n.OrganisationContactno)</dt>             
+                    </dl> 
+
+                     <dl>
+                        <dd> Address  </dd>
+                        <dt>  
+                            @Html.DisplayFor(n => n.OrganisationAddress1)
+                            @Html.DisplayFor(n => n.OrganisationAddress1)
+                         </dt>             
+                    </dl> 
+
+                    <dl>
+                        <dd> Country </dd>
+                        <dt>  @Html.DisplayFor(n => n.Country)</dt>
+                    </dl> 
+
+                    <dl>
+                        <dd> State </dd>
+                        <dt>  @Html.DisplayFor(n => n.State)</dt>
+                    </dl>
+
+                    <dl>
+                        <dd> City </dd>
+                        <dt>  @Html.DisplayFor(n => n.City)</dt>
+                    </dl>
+
+                     <dl>
+                        <dd> Pin Code </dd>
+                        <dt>  @Html.DisplayFor(n => n.Organisationpincode)</dt>             
+                    </dl> 
+
+
+                     <dl>
+                        <dd> Organization Code:</dd>
+                        <dt>  @Html.DisplayFor(n => n.OrganisationCode)</dt>        @* IsActive     *@
+                    </dl> 
+
+                    <dl>
+                        <dd>
+                            Status</dd>
+                        <dt>
+                            @{if (Model.IsActive == true)
+                              {<label>Active</label>}
+                              else
+                              {<label>InActive</label>}}
+                        </dt>
+                    </dl>
+                    <div class="btn1 btn1-form">
+                        <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

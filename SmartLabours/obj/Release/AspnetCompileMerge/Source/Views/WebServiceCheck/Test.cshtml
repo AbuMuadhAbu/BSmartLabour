@@ -1,0 +1,60 @@
+﻿
+
+  @model IEnumerable<SmartLabours.Models.TBL_Temp>
+
+
+
+    @foreach (var item in Model)
+{
+    <div class="row" style="width:100%">
+
+        @{
+    try
+    {
+        if (@item.FIRSTNAME.Trim() == "16498".Trim())
+                        {
+                            <div  class=" box">
+                               
+                                    <div class="box1">
+                                        @Html.DisplayFor(modelItem => item.COMMENTS, new { disabled = "disabled" })
+                                    </div>
+                                   
+                               
+                                    <div style="font-size: 8px; color: blueviolet; text-align: right">
+                                        @if (@item.CREATEDDATE.HasValue)
+                                    {
+                                            @item.CREATEDDATE.Value.ToString("HH:mm");
+                                    }
+                                   
+                                </div>
+                                </div>
+                        }
+                        else if (@item.FIRSTNAME.Trim() == "201091".Trim())
+                        {
+                            <div class="box">
+                              
+                                    <div class="box2">
+                                        @Html.DisplayFor(modelItem => item.COMMENTS, new { disabled = "disabled" })
+                                 
+                                </div>
+                               
+                                    <div style="font-size: 8px; color: blueviolet">
+                                        @if (@item.CREATEDDATE.HasValue)
+                                        {
+                                            @item.CREATEDDATE.Value.ToString("HH:mm");
+                                        }
+                                   
+                                </div>
+                            </div>
+
+                        }
+    }
+    catch
+    {
+
+    }
+        }
+
+    </div>
+
+}

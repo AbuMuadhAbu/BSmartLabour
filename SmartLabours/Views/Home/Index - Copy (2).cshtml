@@ -1,0 +1,428 @@
+﻿@if (Session["FUSERNAME"] != null && Session["FUSERNAME"] != "")
+{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AccountMenuLayout.cshtml";
+
+}
+else
+{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MenuLayout.cshtml";
+
+}
+<style>
+    .child {
+        /* visibility:hidden;*/
+    }
+    .bx-wrapper .bx-controls-direction a{
+        z-index:8000;
+    }
+
+    /*video{
+        height:50%;
+        width:60%;
+    }*/
+
+</style>
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+<div class="banner_slider">
+    <ul id="mainslider">
+        @{List<SmartLabours.Models.TBL_Banner_SMT> lstBanner = ViewBag.Banner;}
+        @if (ViewBag.Banner != null)
+        {
+            if (lstBanner.Count > 0)
+            {
+                foreach (var item in lstBanner)
+                {
+                    <li>
+                        <img src="~/Content/Admin/images/Banner/@item.BannerImage" alt="@item.BannerTitle" />
+                        <!-- <div class="slider_caption">
+                            <h3>
+                                Generate ipsum in paragraphs</h3>
+                            <p>
+                                How about using auto-generated text that will actually text long for something</p>
+                        </div> -->
+                    </li>
+
+                }
+            }
+        }
+    </ul>
+</div>
+<div class="main">
+    <div class="wrapper">
+        <div class="smart_welcometext">
+            <h2>
+                About Smart Labour
+            </h2>
+            <h3>
+                @ViewBag.AboutusShortDescription
+            </h3>
+            @*   <p> ....
+                </p>*@
+            <a href="/AboutUs" title="Learn more">Learn more</a>
+        </div>
+    </div>
+    <div class="apps_panel">
+        <div class="wrapper">
+            <span>Take a look at what's included</span>
+            <a target="_blank" href="https://itunes.apple.com/in/app/id1062647626" class="futureApp"> <img src="~/Content/Front/images/app_store.png" alt="App Store" /></a>
+            <a target="_blank" href="https://play.google.com/store/search?q=smartlabour&hl=en"> <img src="~/Content/Front/images/google_play.png" alt="Google Play" /></a>
+            <a href="javascript:;" class="futureApp">   <img src="~/Content/Front/images/win_store.png" alt="Windows Store" /></a>
+        </div>
+    </div>
+    <div class="generate_panel clearfix">
+        <div class="wrapper">
+            <div class="generate_left">
+                <h2>
+                    The World is getting Smarter & What about Smart Labour?
+                </h2>
+                <p>
+                    This video will give you an overview about...
+                </p>
+                <ul class="list">
+                    <li>A typical labourers day</li>
+                    <li>Labourers contribution to the society & connection with their families</li>
+                    <li>A solution to make Labourers part of the Smart revolution</li>
+                    <li>Bringing labourers closer to their families & empowering labourers with better skills</li>
+
+                </ul>
+            </div>
+            <div class="generate_right">
+
+                <div class="Homeimg_div">
+                    <a class="play various" data-fancybox-type="iframe" href="/player1.aspx?name=HD_Option_01.mp4">@*Iframe</a>*@
+                     @*<a class="play fancybox" href="#Home-1" id="BtnHomeVideo" data-fancybox-height="500" data-fancybox-width="200">*@
+                        <img src="~/Content/front/images/video.png" />
+                        @*</a>*@
+                    </a>
+                </div>
+
+                @*<div id="Home-1" class="video-lightbox" style="display: none;">
+                    <video width="320" height="240" id="HomeVideo" controls>
+                      
+                        Your browser does not support the video tag.
+                    </video>
+                </div>*@
+
+
+            </div>
+        </div>
+    </div>
+ 
+    <div class="wrapper">
+        <div class="testimonial_panel">
+            <h2>
+                Testimonials
+            </h2>
+
+            <div class="testimonial_slider clearfix">
+
+                <ul class="testimonial_list clearfix" id="js_testimonial">
+                    @{
+
+                        List<SmartLabours.Models.TBL_TESTIMONIAL_SMT> lstofTestimonial = new List<SmartLabours.Models.TBL_TESTIMONIAL_SMT>();
+                        lstofTestimonial = ViewBag.Testimonial as List<SmartLabours.Models.TBL_TESTIMONIAL_SMT>;
+
+                    }
+                    @if (ViewBag.Testimonial != null)
+                    {
+                        int a = 1;
+                        foreach (var items in lstofTestimonial)
+                        {
+                            <li>
+                                <div class="testimg_div">
+                                    <a class="play various" data-fancybox-type="iframe" href="/player1.aspx?name=/@items.Mp4filename" title="@items.Mp4filename">ply</a>
+                                    @*<input type="button" value="ply" class="play fancybox" Title="@items.Mp4filename" />*@
+                                    <img src="~/Uplodify/TestimonialImages/@items.Image" alt="" width="238" height="188" />
+                                </div>
+
+                                <h3>
+                                    @Html.DisplayFor(modelitem => items.Name)
+                                </h3>
+                                <h4>
+                                    @Html.DisplayFor(modelitem => items.Designation)
+                                </h4>
+                                @if (items.Description != null)
+                                {
+                                    if (items.Description.Length > 129)
+                                    {
+                                        var content = items.Description.Substring(0, 128) + "...." + "</p>";
+
+                                        @Html.Raw(content)
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw(items.Description)
+                                    }
+                                }
+                                @*<div id="testmonial-@a" class="video-lightbox" style="display: none;">
+                                    <video  id="VideoPlay-@a" controls>
+
+                                        @* <source src="~/Uplodify/Testimonialvideo/@items.Mp4filename" type="video/mp4">
+                                           <source src="~/Uplodify/Testimonialvideo/@items.Webmfilename" type="video/webm"> *@
+                                        @* <source src="images/video.ogg" type="video/ogg">
+
+            Your browser does not support the video tag.
+        </video>
+    </div>*@
+                            </li>
+                                a = a + 1;
+                        }
+                    }
+                </ul>
+
+                <a href="/Testimonials/1" class="learn_more" title="Learn more">
+                    Learn
+                    more
+                </a>
+
+            </div>
+
+
+            <h2>
+                Sponsor Details
+            </h2>
+
+            <div class="testimonial_slider clearfix">
+                <ul class="testimonial_list clearfix">
+                    @{List<SmartLabours.Models.Sponsor> lstofSponsor = new List<SmartLabours.Models.Sponsor>();
+
+                    lstofSponsor = ViewBag.SponsorDetails as List<SmartLabours.Models.Sponsor>;
+
+                    }
+                    @if (ViewBag.SponsorDetails != null)
+                    {
+                        int a = 1;
+                        foreach (var items in lstofSponsor)
+                        {
+                            <li>
+                                <div class="testimg_div">
+                                    @if (items.sponsorImage != null && items.sponsorImage != "")
+                                    {
+                                        <img src="~/Content/Front/images/sponsorImage/@items.sponsorImage" width="238" height="188" alt="" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/Front/images/LabourImage/team_no-img.png" width="238" height="188" alt="" />
+
+                                    }
+                                </div>
+
+                                <h3>
+                                    @Html.DisplayFor(modelitem => items.Name)
+                                </h3>
+
+                            </li>
+                                    a = a + 1;
+                        }
+                    }
+                </ul>
+                <a href="/SponsorDetails" class="learn_more" title="See more">
+                    See
+                    more
+                </a>
+            </div>
+
+            <h2>
+                Labour Details
+            </h2>
+            <div class="testimonial_slider clearfix">
+
+                <ul class="testimonial_list clearfix" id="js_testimonial2">
+                    @{List<SmartLabours.Models.Labour> lstofLabour = new List<SmartLabours.Models.Labour>();
+
+                    lstofLabour = ViewBag.LabourDetails as List<SmartLabours.Models.Labour>;
+
+                    }
+                    @if (ViewBag.LabourDetails != null)
+                    {
+                        int a = 1;
+                        foreach (var items in lstofLabour)
+                        {
+                            <li>
+                                <div class="testimg_div">
+
+                                    @if (items.LabourImage != null && items.LabourImage != "")
+                                    {
+                                        <img src="~/Content/Front/images/LabourImage/@items.LabourImage" width="238" height="188" alt="" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/Front/images/LabourImage/team_no-img.png" width="238" height="188" alt="" />
+
+                                    }
+                                </div>
+
+                                <h3>
+                                    @Html.DisplayFor(modelitem => items.Name)
+                                </h3>
+
+                            </li>
+                                    a = a + 1;
+                        }
+                    }
+                </ul>
+
+                <a href="/LabourDetails" class="learn_more" title="See more">
+                    See
+                    more
+                </a>
+            </div>
+
+            <h2>
+                Labour Details1
+            </h2>
+
+            <div class="testimonial_slider clearfix" id="LaboursListView">              
+
+
+            </div>
+                       <h2>
+                Recent Article
+            </h2>
+            <ul class="recent_list clearfix">
+                @{
+                    List<SmartLabours.Models.TBL_Artical_SMT> lstofArtical = new List<SmartLabours.Models.TBL_Artical_SMT>();
+
+                    lstofArtical = ViewBag.Artical as List<SmartLabours.Models.TBL_Artical_SMT>;}
+                @if (ViewBag.Artical != null)
+                {
+                    foreach (var item in lstofArtical)
+                    {
+                        @:<li>
+                          if (item.Title != null)
+                        {
+                            if (item.Title.Trim().Length > 50)
+                            {
+                                var ItemTitle = item.Title.Trim().Substring(0, 50) + "....";
+
+                                <h4>  @ItemTitle</h4> 
+                            }
+                            else
+                            {
+                               <h4>@item.Title</h4>
+                            }
+                        }
+
+                            
+                        if (item.ShortDescription != null)
+                        {
+                            if (item.ShortDescription.Trim().Length > 280)
+                            {
+                                var content = item.ShortDescription.Trim().Substring(0, 109) + "....";
+
+                                <p>  @content</p>
+                            }
+                            else
+                            {
+                                <p> @item.ShortDescription</p>
+                            }
+                        }
+
+                        <a href="~/Articalfront/ArticalDetails/@item.ArticalID" class="readmore" title="Read more...">
+                            Read more...
+                        </a> <span>Posted on @Html.DisplayFor(modelItem => item.CreatedDate)</span>
+                        @:</li>
+                    }
+                }
+            </ul>
+            <a href="/Articles/1" class="learn_more" title="Learn more">Learn more</a>
+        </div>
+       
+    </div>
+</div>
+
+<script type="text/javascript" >
+
+    function getInternetExplorerVersion() {
+        // Returns the version of Internet Explorer or -1 (other browser)
+        var rv = -1; // Return value assumes failure.
+        if (navigator.appName == 'Microsoft Internet Explorer') {
+            var ua = navigator.userAgent;
+            var re = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+            if (re.exec(ua) != null)
+                rv = parseFloat(RegExp.$1);
+        };
+        return rv;
+    };
+
+   
+
+</script>
+
+
+<script type="text/javascript">
+
+
+    //function VideoPlay(id,e) {
+       
+    //    var $Div=$('#testmonial-'+id);
+    //    var $Video=$('#VideoPlay-'+id);
+    //    $Video.html('');
+    //    var FileName = e.title;
+    //    $Video.html(' <source src=' + '"/Uplodify/Testimonialvideo/' + FileName + '" type=' + '"video/mp4"' + '>' + '<source src=' + '"/Uplodify/Testimonialvideo/' + FileName + '" type=' + '"video/webm"' + '>');
+    //    $Div.css("display", "block");
+    //}
+
+    $(document).ready(function () {             
+
+        var a = '@TempData["Success"]';
+        if (a != "") {
+            alert("Registration is completed successfully!");
+        }
+       
+
+        //$('#BtnVideoClik').click(function () {
+        //    scriptBind();
+        //    $(".VideoPlay").html('');
+        //    var FileName=$('#BtnVideoClik').attr("Title");
+        //    $(".VideoPlay").html(' <source src=' + '"/Uplodify/Testimonialvideo/' + FileName + '" type=' + '"video/mp4"' + '>' + '<source src=' + '"/Uplodify/Testimonialvideo/' + FileName + '" type=' + '"video/webm"' + '>');
+        //    $('#testmonial-1').css("display", "block");
+        //});
+
+        //$('#BtnHomeVideo').click(function () {
+        //    scriptBind();
+        //    $("#HomeVideo").html(' <source src=' + '"/Uplodify/Testimonialvideo/HD_Option_01.mp4"'+ 'type=' + '"video/mp4"' + '>');
+        //    $('#Home-1').css("display", "block");
+        //});
+        GetData();
+
+    });
+
+    function GetData() {
+
+        $.ajax({
+            url: '@Url.Action("LabourListInHomePage", "Home")',
+            cache: false,
+            type: "post",
+            data: {},
+            success: function (data) {
+               //  debugger
+               // $("#LaboursListView").empty();
+                //$("#LaboursListView").append(data);
+
+            },
+            error: function (data) {
+               //  debugger
+                // debugger
+                // alert("Ther was Processing Errorsearch");
+            }
+        });
+    }
+
+
+</script>
+
+@*<link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" />*@
+<script type="text/javascript">
+   // var $MsgBox = jQuery.noConflict();
+    $(document).ready(function () {
+
+    });
+
+
+</script>

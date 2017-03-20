@@ -1,0 +1,242 @@
+﻿  @model IEnumerable<SmartLabours.Models.TBL_HelpDeskMaster>
+
+    <style type="text/css">
+        .ui-dialog .ui-dialog-titlebar-close span {
+            margin: -8px !important;
+        }
+
+        .right {
+            text-align: right !important;
+            border: none !important;
+            font-weight: bold;
+        }
+
+        .left {
+            text-align: left !important;
+            border: none !important;
+        }
+
+
+
+       .LastCollapse content table td:first-child {
+            border-left: none;
+        }
+
+        .LastCollapse .content table {
+            color: #333;
+            font-family: Helvetica, Arial, sans-serif;
+            width: 100%;
+            /*border-collapse:collapse;*/
+            border-spacing: 0;
+            border-radius: 25px;
+            border: 1px solid gray;
+            border-collapse: separate;
+            border-radius: 6px;
+            -moz-border-radius: 6px;
+        }
+
+        .LastCollapse .content td, th {
+            border: 1px solid transparent; /* No more visible border */
+            height: 30px;
+            transition: all 0.3s; /* Simple transition for hover effect */
+            border-top: none;
+            border-left: solid black 1px;
+            border-top: solid black 1px;
+        }
+
+        .LastCollapse  .content th {
+            background: #CE3137; /* Darken header a bit */
+            font-weight: bold;
+            border-top: none;
+        }
+
+        .LastCollapse  .content td {
+            padding: 3px;
+        }
+
+        /* Cells in even rows (2,4,6...) are one color */
+        .LastCollapse .content table tbody tr:nth-child(even) {
+            background: #F1F1F1;
+        }
+
+        /* Cells in odd rows (1,3,5...) are another (excludes header cells)  */
+        .LastCollapse  .content table tbody tr:nth-child(odd) {
+            background: #FEFEFE;
+        }
+
+        .LastCollapse .content table thead tr {
+            background-color: #e63e24;
+            color: white;
+        }
+
+        html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+            vertical-align: middle;
+        }
+
+        .LastCollapse .content table tbody tr:hover {
+            background-color: grey;
+            color: white;
+        }
+        /* Hover cell effect! */
+
+        .sno1 {
+            width: 5%;
+            text-align:center;
+        }
+
+        .date1 {
+            width: 10%;
+        }
+
+        .description1 {
+            width: 45%;
+        }
+
+        .status1 {
+            width: 10%;
+        }
+
+        .Responsible1 {
+            width: 30%;
+        }
+
+        .TitleTable {
+            border: none !important;
+        }
+
+        .LastCollapse  .TitleTable tr td {
+            background-color: white !important;
+        }
+
+        .LastCollapse .TitleTable tbody tr:hover {
+            background-color: white;
+            color: black !important;
+        }
+        /* Hover cell effect! */
+    </style>
+
+                        @* Google Analytics COde  *@
+                        <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+                        <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+                        <!-- End here -->
+
+
+    <script type="text/javascript">
+
+        var SearchText = '@ViewData["SearchText"]';
+
+        function ReOpenIssue() {
+
+        }
+
+        function CloseIssue() {
+
+        }
+
+
+    </script>
+
+
+    <div class="LastCollapse">
+        <div class="content">
+
+            <div style="text-align:center">
+                <table border="0" cellspacing="0" cellpadding="3" class="TitleTable">
+
+                    <tr>
+                        <td class="right">
+                            TokenID :
+                        </td>
+                        <td class="left">@ViewBag.TokenID </td>
+
+                        <td width="200" class="right">
+                            Issue Type :
+                        </td>
+
+                        <td class="left">@ViewBag.IssueType </td>
+                        <td width="100" class="right">
+                            Priority :
+                        </td>
+                        <td class="left">@ViewBag.IssuePriority </td>
+                    </tr>
+                    <tr>
+                        <td class="right">
+                            Created Date :
+                        </td>
+                        <td class="left">@ViewBag.CreateDate </td>
+
+                <td class="right">
+                    Last Updated Date :
+                </td>
+                <td class="left">@ViewBag.Date </td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    <table border="0" cellspacing="0" cellpadding="3">
+        <thead>
+            <tr>
+
+                <td class="sno1">
+                    S.No.
+                </td>
+
+                <td class="date1">
+                    Date
+                </td>
+
+                <td class="description1">
+                    Description
+                </td>
+
+                <td class="status1">
+                    Status
+                </td>
+
+                <td class="Responsible1">
+                    Responsible
+                </td>
+
+
+            </tr>
+        </thead>
+
+        <tbody>
+            @{
+
+                int sno = 0;
+            }
+
+            @foreach (var item in Model)
+            {
+                sno = sno + 1;
+                <tr>
+                    <td class="sno1">
+                        @(sno)
+                    </td>
+
+                    <td class="date1">
+                        @Html.DisplayFor(modelItem => item.StrEDC)
+                    </td>
+
+                    <td class="status1">
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+
+                    <td class="status1">
+                        @Html.DisplayFor(modelItem => item.IssueStatus)
+                    </td>
+
+                    <td class="Responsible1">
+                        @Html.DisplayFor(modelItem => item.Responsible)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+</div>

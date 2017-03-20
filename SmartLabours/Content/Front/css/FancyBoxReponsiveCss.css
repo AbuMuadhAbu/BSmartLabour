@@ -1,0 +1,91 @@
+﻿
+/*ipad css*/
+@media screen and ( min-width:701px) and (max-width:1524px) {
+    /* For 375px Mobile Device */
+.VideoPlayer{
+    height:479px;
+}
+}
+
+
+/* IPOD and Tablet css */
+/*@media screen and ( min-width:701px) and (max-width:736px) {
+
+         
+            .fancybox-iframe{
+                height:217px !important;
+            }
+            .fancybox-inner {
+                height: 217px !important;
+            }
+
+}*/
+
+
+/*Mobile css*/
+@media screen and ( min-width:600px) and (max-width:700px){
+
+         /* For 375px Mobile Device */
+     .VideoPlayer{
+    height:429px;
+}
+
+}
+
+/*Mobile css*/
+@media screen and ( min-width:315px) and (max-width:320px){
+
+        /* For 375px Mobile Device */
+   .VideoPlayer{
+    height:300px;
+}
+ 
+}
+
+/*Mobile css*/
+@media screen and ( min-width:100px) and (max-width:315px){
+
+        /* For 375px Mobile Device */
+.VideoPlayer{
+    height:200px;
+}
+ 
+}
+
+/*Mobile css*/
+@media screen and ( min-width:374px) and (max-width:400px){
+    .VideoPlayer{
+        height:309px;
+    }
+}
+
+/*Mobile css*/
+@media screen and ( min-width:401px) and (max-width:440px){
+
+        /* For 375px Mobile Device */
+    .VideoPlayer{
+        height:309px;
+    }
+ 
+}
+    .VideoPlayer{
+        height:309px;
+    }
+/* For Hppiness Dubai Icon */
+
+    	#foo 
+		{
+		    width:35px;
+		    height:30px;
+			position: fixed;
+			bottom: 0px;
+			left: 15px;
+			background-color:#c50408;
+			padding:10px;
+            z-index: 1000;
+		  }
+
+/* End  */
+
+
+

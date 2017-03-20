@@ -1,0 +1,816 @@
+﻿@model SmartLabours.Models.Sponsor
+@{
+    ViewBag.Title = "Partner Register";
+    Layout = "~/Views/Shared/_AccountMenuLayout.cshtml";
+
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<style type="text/css">
+    .form-control:focus {
+        border-color: #66afe9;
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    }
+</style>
+
+
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+
+        $("#Register").submit(function (e) {
+         //   debugger
+        var status = 0;
+
+        var sex = $("#Sex").val();
+        if (sex == 0) {
+            $("#idSex").css({ display: "block" });
+            status = 1;
+        }
+        var day = $("#Day").val();
+        var status1=0;
+        $('#lblDay').val(day);
+        if (day == 0) {
+            $("#idDay").css({ display: "block" });
+            status = 1;
+        }
+        var Month = $("#Month").val();
+        $('#lblMonth').val(Month);
+        if (Month == 0) {
+            $("#idYear").css({ display: "block" });
+            status = 1;
+            status1 = 1;
+        }
+        var Year = $("#Year").val();
+        $('#lblYear').val(Year);
+        if (Year == 0) {
+            $("#idYear").css({ display: "block" });
+            status = 1;
+            status1 = 1;
+        }
+        if (Month == 2) {
+            if (day <= 29) {
+            }
+            else {
+                $("#lblFutureYear").text('Please select correct date');
+                //alert("Please select correct date")
+                status = 1;
+                status1 = 1;
+            }
+        }
+
+            /* To Validate Future Month */
+                if (status1 == 0) {
+                    var todaydt = new Date();
+                    var td = todaydt.getDate();
+                    var tm = todaydt.getMonth() + 1;
+                    var ty = todaydt.getFullYear();
+                    var cy = ty - 90;
+                    //  debugger
+                    if (parseInt(Year) == parseInt(ty)) {
+                        if (parseInt(Month) > parseInt(tm)) {
+                            $("#lblFutureYear").text('You cant select future date.');
+                            status = 1;
+                        }
+                        else if (parseInt(Month) == parseInt(tm)) {
+                            if (parseInt(day) > parseInt(td)) {
+                                $("#lblFutureYear").text('You cant select future date.');
+                                status = 1;
+                            }
+                        }
+                    }
+                    else if (parseInt(Year) > parseInt(ty)) {
+                        $("#lblFutureYear").text('You cant select future date.');
+                        status = 1;
+                    }
+                }
+            /* End Here */
+
+        if ($("#CountryCode").val() == "" || $("#PhoneNumber").val() == "") {
+            $("#ErrorPhone").text('Please Enter Country Code & Phone Number');
+            status = 1;
+        }
+        else {
+            $("#ErrorPhone").text('');
+        }
+
+
+        if (document.getElementById("IsAcceptterms").checked == false) {
+            status = 1;
+            $("#Accept").html('Please accept terms & conditions');
+
+        }
+
+        if (sex != 0) {
+
+            if (document.getElementById("IsAcceptterms").checked == true) {
+
+            }
+            else {
+                status = 1;
+                $("Accept").html('Please cccept terms & conditions');
+                //return false;
+            }
+
+        }
+
+        if (status == 1) {
+
+            e.preventDefault(e);
+        }
+        else {
+            return true;
+        }
+
+        });
+
+        if( $('#lblMonth').val()!='')
+        {
+            $("#Month").val($('#lblMonth').val());
+            $('#lblMonth').val('');
+        }
+        if ($('#lblDay').val() != '') {
+            $("#Day").val($('#lblDay').val());
+            $('#lblDay').val('');
+        }
+        if ($('#lblYear').val() != '') {
+            $("#Year").val($('#lblYear').val());
+            $('#lblYear').val('');
+        }
+
+        try {
+            $("input[type='text']").each(function () {
+                $(this).attr("autocomplete", "off");
+            });
+        }
+        catch (e)
+        { }
+
+
+        $('#Name').focus();
+
+        $('#Orgname').autocomplete(
+              {
+                  source: function (request, response) {
+                       //debugger
+                      $.ajax({
+                          url: '@Url.Action("OrgNameAutoComplete", "Sponsor")',
+                          dataType: "json",
+                          cache: false,
+                          type: "get",
+                          data: { term: request.term }
+                      }).done(function (data) {
+                          // debugger
+                          response(data);
+                      });
+                  }, change: function (event, ui) {  //CheckOrganizationName
+                      if ($('#Orgname').val()!='')
+                          {
+                      $.ajax({
+                          url: '@Url.Action("CheckOrganizationName", "Home")',
+                          dataType: "json",
+                          cache: false,
+                          type: "get",
+                          data: { OrgName: $('#Orgname').val() },
+                          success: function (data) {
+                           
+                              if (data != '1') {
+
+                                  $('#ErrorOrg').text(data);
+                              }
+                              else {
+                                  $('#ErrorOrg').text('');
+                              }
+                          },
+                          error: function (data) {
+                              // debugger
+                          }
+                      });
+                  }
+                  }
+
+              });
+
+        //((dynamic)base.ViewBag).messagealert = "Organization Name Not Exists";
+        var Result = '@ViewData["ResultImport"]';
+        if (Result != '') {
+            alert(Result);
+            window.location.href = '@Url.Action("Importlabour", "Labour")'
+
+        }
+    });
+
+   
+
+    $(document).ready(function () {
+
+        
+        $("#EmiratesId").bind("paste", function (e) {
+            e.preventDefault();
+            return false;
+        });
+
+        $("#EmiratesId").keypress(function (event) {
+            if (!IsAlphaNumeric(event)) {
+                event.preventDefault();
+                return false;
+            }
+            return true;
+        });
+
+        $("#State").keypress(function (event) {
+            if (!AllowAlphaOnly(event)) {
+                event.preventDefault();
+                return false;
+            }
+            return true;
+        });
+
+        $("#City").keypress(function (event) {
+            if (!AllowAlphaOnly(event)) {
+                event.preventDefault();
+                return false;
+            }
+            return true;
+        });
+        $("#Orgname").keypress(function (e) {
+            if (!((e.which >= 65 && e.which <= 90) || (e.which >= 97 && e.which <= 122) || e.which == 8 || e.which == 44 || e.which == 39 || e.which == 45 || e.which == 95 || e.which == 38 || e.which == 46 || (e.which >= 48 && e.which <= 57))) {
+                e.preventDefault();
+                return false;
+            }
+            return true;
+        });
+        $("#Country").keypress(function (event) {
+            if (!AllowAlphaOnly(event)) {
+                event.preventDefault();
+                return false;
+            }
+            return true;
+        }); //
+        
+
+        $("#EmailID").keypress(function (event) {
+            $("#EmailIdExists").text('');          
+        });
+
+
+        $("#Name").keypress(function (event) {
+            if (!AllowAlphaOnly(event)) {
+                event.preventDefault();
+                return false;
+            }
+            return true;
+        });
+
+        $("#PhoneNumber").keydown(function (e) {
+            AllowNumericOnly(e);
+            PhoneAndCodeChange();
+        });
+
+        $("#CountryCode").keydown(function (e) {
+            AllowNumericOnly(e);
+            PhoneAndCodeChange();
+        });
+
+        $("#PhoneNumber").focusout(function () {
+            PhoneAndCodeChange();
+        });
+        $("#CountryCode").focusout(function () {
+            PhoneAndCodeChange();
+        });
+
+
+        $("#Pincode").keydown(function (e) {
+            AllowNumericOnly(e);
+        });
+
+        $("#Sex").change(function () {
+            if ($("#Sex").val() != '' & $("#Sex").val() != '0') {
+                $("#idSex").css({ display: "none" });
+            }
+        });
+        $("#Day").change(function () {
+            if ($("#Day").val() != '' & $("#Day").val() != '0' & $("#Month").val() != '0' & $("#Month").val() != '' & $("#Year").val() != '0' & $("#Year").val() != '') {
+                $("#idYear").css({ display: "none" });
+                $("#lblFutureYear").text('');
+            }
+        });
+        $("#Month").change(function () {
+            if ($("#Month").val() != '' & $("#Month").val() != '0' & $("#Day").val() != '' & $("#Day").val() != '0' & $("#Year").val() != '' & $("#Year").val() != '0') {
+                $("#idYear").css({ display: "none" });
+                $("#lblFutureYear").text('');
+            }
+        });
+        $("#Year").change(function () {
+            if ($("#Year").val() != '' & $("#Year").val() != '0' & $("#Day").val() != '' & $("#Day").val() != '0' & $("#Month").val() != '' & $("#Month").val() != '0') {
+                $("#idYear").css({ display: "none" });
+                $("#lblFutureYear").text('');
+            }
+        });
+
+        function PhoneAndCodeChange() {
+            if ($("#CountryCode").val() == "" || $("#PhoneNumber").val() == "") {
+                $("#ErrorPhone").text('Please Enter Country Code & Phone Number');
+            }
+            else {
+                $("#ErrorPhone").text('');
+            }
+        }
+
+        var day = "<option value='0' >DD</option>";
+        for (i = 1; i <= 31; i++) {
+            day += '<option value="' + i + '" >' + i + '</option>'
+        }
+        $("#Day").html(day);
+
+        var month = "<option value='0' >MMM</option>";
+        // for (i = 1; i <= 12; i++) {
+        month += '<option value="' + 1 + '" >' + 'JAN' + '</option>';
+        month += '<option value="' + 2 + '" >' + 'FEB' + '</option>';
+        month += '<option value="' + 3 + '" >' + 'MAR' + '</option>';
+        month += '<option value="' + 4 + '" >' + 'APR' + '</option>';
+        month += '<option value="' + 5 + '" >' + 'MAY' + '</option>';
+        month += '<option value="' + 6 + '" >' + 'JUN' + '</option>';
+        month += '<option value="' + 7 + '" >' + 'JUL' + '</option>';
+        month += '<option value="' + 8 + '" >' + 'AUG' + '</option>';
+        month += '<option value="' + 9 + '" >' + 'SEP' + '</option>';
+        month += '<option value="' + 10 + '" >' + 'OCT' + '</option>';
+        month += '<option value="' + 11 + '" >' + 'NOV' + '</option>';
+        month += '<option value="' + 12 + '" >' + 'DEC' + '</option>';
+        // }
+        $("#Month").html(month);
+
+        var year = "<option value='0' >YYYY</option>";
+
+        var todaydt = new Date();
+        var td = todaydt.getDate();
+        var tm = todaydt.getMonth() + 1;
+        var ty = todaydt.getFullYear();
+        var cy = ty - 90;
+        for (i = ty; i >= cy; i--) {
+            year += '<option value="' + i + '" >' + i + '</option>'
+        }
+
+        $("#Year").html(year);
+
+        $("#EmailID").blur(function () {
+
+            if ($("#EmailID").val() != '' & $("#EmailID").val() != null) {
+                var url = "/sponsor/CheckEmailId";
+
+                $.post(url, { EmailId: $("#EmailID").val() }, function (data) {
+                    if (data != "") {
+                        $("#EmailID").val('');
+                        $("#EmailIdExists").html(data);
+                    }
+                    else {
+                        $("#EmailIdExists").html(data);
+                    }
+
+                });
+            }
+        });
+
+
+        $("#EmiratesId").blur(function () {
+
+            if ($("#EmiratesId").val() != '') {
+                var url = "/sponsor/CheckEmiratesId";
+
+                $.post(url, { Labourid: $("#EmiratesId").val() }, function (data) {
+                    if (data != "") {
+                        $("#EmiratesId").val('');
+                        $("#LabourIdExists").html(data);
+                    }
+                    else {
+                        $("#LabourIdExists").html(data);
+                    }
+
+                });
+            }
+
+
+        });
+
+
+    });
+
+    function numericFilter(txb) {
+        txb.value = txb.value.replace(/[^\0-9]/ig, "");
+    }
+
+    function PreviousPage() {
+
+        window.location.href = "/";
+    }
+
+
+    //To upload Image
+    function uploadimage(input) {
+
+        var file1 = input.value;
+
+        if (input.files && input.files[0]) {
+            var file = input.files[0];
+            var extension = file1.substr((file1.toLowerCase().lastIndexOf('.') + 1));
+            switch (extension.toLowerCase()) {
+
+                case 'jpg':
+                case 'png':
+                case 'gif':
+                case 'jpeg':
+
+
+                    flag = true;
+                    break;
+                default:
+                    flag = false;
+            }
+
+            if (flag == false) {
+                alert("You can upload only jpg,png,gif extension file");
+                document.getElementById("UploadImage").value = "";
+                return false;
+            }
+            else {
+                document.getElementById("sponsorImage").value = input.value;
+            }
+
+        }
+    }
+
+
+</script>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#Sex").change(function () {
+
+            /********************** Bind Country ****************************/
+            $("#Country").empty();
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: '@Url.Action("getCountry", "Labour")',
+                    dataType: 'json',
+                    data: {},
+                    success: function (providers) {
+                        // debugger
+                        $("#Country").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+                        $.each(providers, function (i, provider) {
+                            $("#Country").append('<option value="' + provider.Value + '">' + provider.Text + '</option>');
+                        });
+                    }
+                });
+
+        });
+
+
+
+        $("#Country").change(function () {
+           // debugger
+            if ($("#Country").val() != "") {
+                /****** Bind State Name ***************/
+                $("#State").empty();
+                $("#State").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+                $("#City").empty();
+                $("#City").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+              //  debugger
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: '@Url.Action("getState", "Labour")',
+                        dataType: 'json',
+                        data: { CountryName: $("#Country").val() },
+                        success: function (Countries) {
+                           // debugger
+                            $.each(Countries, function (i, provider) {
+                                $("#State").append('<option value="' + provider.Value + '">' + provider.Text + '</option>');
+                            });
+                        },
+                        error: function (Countries) {
+                           // debugger
+                        }
+                    });
+                /********* Bind Country Code *******/
+                $.ajax(
+                   {
+                       type: 'POST',
+                       url: '@Url.Action("GetCountryCode", "Labour")',
+                       dataType: 'json',
+                       data: { CountryName: $("#Country").val() },
+                       success: function (data) {
+                           if (data != '') {
+                               $("#txtCountryCode").text(data);  //CountryCode
+                               $("#CountryCode").val(data);
+
+                           }
+                           else {
+                               $("#txtCountryCode").text('');
+                               $("#CountryCode").val('');
+
+                           }
+                       }
+                   });
+
+            }
+        });
+
+
+        $("#State").change(function () {
+
+            if ($("#State").val() != "") {
+                $("#City").empty();
+                $("#City").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: '@Url.Action("getCity", "Labour")',
+                        dataType: 'json',
+                        data: { StateName: $("#State").val() },
+                        success: function (Countries) {
+                            // debugger
+                            $.each(Countries, function (i, provider) {
+                                $("#City").append('<option value="' + provider.Value + '">' + provider.Text + '</option>');
+                            });
+                        }
+                    });
+            }
+
+        });
+    });
+
+</script>
+
+<div class="main">
+    <div class="inner_titlebg">
+        <div class="wrapper">
+            <h2>
+                Partner Registration
+            </h2>
+        </div>
+    </div>
+    @using (Html.BeginForm("SponsorRegister", "Sponsor", FormMethod.Post, new { @id = "Register", enctype = "multipart/form-data" }))
+    {
+        <div class="wrapper">
+            <div class="inner_contentarea1 clearfix">
+                <div class="contact_panel register_panel clearfix">
+                    <div class="input">
+                        <label>
+                            Name
+                        </label>
+                        @Html.TextBoxFor(model => model.Name, new { maxlength = 35 })
+                        <span class="error_msg">
+                            @Html.ValidationMessageFor(model => model.Name)
+                        </span>
+                    </div>
+                    <div class="input">
+                        <label>
+                            Emirates ID
+                        </label>
+                        @Html.TextBoxFor(model => model.EmiratesId, new { maxlength = 20 })
+                        <span class="error_msg">
+                            @Html.ValidationMessageFor(model => model.EmiratesId)
+                        </span>
+                        <span class="error_msg" id="LabourIdExists"></span>
+
+                    </div>
+
+
+                    <div class="input dob">
+                        <label>
+                            Date of Birth
+                        </label>
+                        <select id="Day" name="Day">
+                            <option value="0">DD</option>
+                            <option>01</option>
+                        </select>
+                        <label id="lblDay" style="display:none"></label>
+                        <select id="Month" name="Month">
+                            <option value="0">MMM</option>
+                            <option>01</option>
+                        </select>
+                        <label id="lblMonth" style="display:none"></label>
+                        <select id="Year" name="Year">
+                            <option value="0">YYYY</option>
+                            <option>2015</option>
+                        </select>
+                        <label id="lblYear" style="display:none"></label>
+                        <span id="idYear" style="display: none; color: red;">
+                            Please select Date of Birth
+                        </span>
+                        <label class="errorLabel" id="lblFutureYear"></label>
+                    </div>
+
+
+                    <div class="input">
+                        <label>
+                            Sex
+                        </label>
+                        @Html.DropDownList("Sex", (SelectList)ViewBag.sex)
+                        <span class="error_msg" id="idSex" style="display: none;">
+                            Please Select Sex
+                            @Html.ValidationMessageFor(model => model.Sex)
+                        </span>
+                    </div>
+
+
+                    <div class="input">
+                        <label>
+                            Email ID
+                        </label>
+                        @Html.TextBoxFor(model => model.EmailID, new { maxlength = 50 })
+                        <span class="error_msg">
+                            @Html.ValidationMessageFor(model => model.EmailID)
+                        </span>
+                        <span class="error_msg" id="EmailIdExists">
+                        </span>
+                    </div>
+
+
+                    <div class="input">
+                        <label>
+                            Password
+                        </label>
+                        @Html.PasswordFor(model => model.Password, new { maxlength = 35 })
+                        <span class="error_msg">
+                            @Html.ValidationMessageFor(model => model.Password)
+                        </span>
+                    </div>
+
+
+                    <div class="input">
+                        <label>
+                            Confirm Password
+                        </label>
+                        @Html.PasswordFor(model => model.ConfirmPassword, new { maxlength = 35 })
+                        <span class="error_msg">
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                        </span>
+                    </div>
+
+
+                    <div class="input">
+                        <label>
+                            Organization
+                        </label>
+                        @Html.TextBoxFor(model => model.OrgName, new { maxlength = 35, id = "Orgname" })
+                        <span class="error_msg">
+                            <label id="ErrorOrg" class="errorLabel">@ViewBag.OrgMsg</label>
+                            @*@Html.ValidationMessageFor(model => model.OrgId)*@
+                        </span>
+                    </div>
+
+                    @* Country Name  *@
+
+                    <div class="input">
+                        <div>
+                            <label>
+                                Country
+                            </label>
+                        </div>
+                        @Html.DropDownListFor(model => model.Country, new SelectList(string.Empty, "Value", "Text"), "Select", new { @class = "drop_down" })
+                        @*@Html.TextBoxFor(model => model.Country, new { maxlength = 35 })*@
+                        <span class="error_msg">
+                            @Html.ValidationMessageFor(model => model.Country)
+
+                        </span>
+                    </div>
+
+                    <div class="input">
+                        <div>
+                            <label>
+                                State
+                            </label>
+                        </div>
+                        @Html.DropDownListFor(model => model.State, new SelectList(string.Empty, "Value", "Text"), "Select", new { @class = "drop_down" })
+                        @*@Html.TextBoxFor(model => model.State, new { maxlength = 35 })*@
+                        <span class="error_msg">
+                            @Html.ValidationMessageFor(model => model.State)
+
+                        </span>
+                    </div>
+
+                  
+
+                    <div class="input">
+                        <label>
+                           Upload Image
+                        </label>
+                        <input type="file" id="UploadImage" name="UploadImage" onchange="uploadimage(this);" />
+                        <span class="error_msg">
+                            @Html.ValidationMessageFor(model => model.sponsorImage)
+                            @Html.HiddenFor(model => model.sponsorImage)
+                        </span>
+                    </div>
+
+
+                    <div class=" clearfix">
+                        <div class="input textarea">
+                            <label>
+                                Enter Your Address
+                            </label>
+                            @Html.TextAreaFor(model => Model.Address1, new { placeholder = "Building Number, Building Name, Street Name", Maxlength = 200 })
+
+
+                        </div>
+                        <div class="input textarea">
+                            @Html.TextAreaFor(model => Model.Address2, new { placeholder = "Floor,Apartment Number, Area", Maxlength = 200 })
+
+                            <span class="error_msg">
+                                @Html.ValidationMessageFor(model => model.Address1)
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="input">
+                        <div>
+                            <label>
+                                City
+                            </label>
+                        </div>
+                        @Html.DropDownListFor(model => model.City, new SelectList(string.Empty, "Value", "Text"), "Select", new { @class = "drop_down" })
+                        @*@Html.TextBoxFor(model => model.City, new { maxlength = 20 })*@
+                        <span class="error_msg">
+                            @Html.ValidationMessageFor(model => model.City)
+
+                        </span>
+                    </div>
+
+                    <div class="input">
+                        <label>
+                            Phone Number
+                        </label>
+                        @*<span id="txtCountryCode" class="Form-Control">@Html.DisplayFor(model => model.CountryCode, new { @id="DisplayNameCode"})</span>*@
+                        <div style=" padding: 0 1%" class="PhoneNumberInput">
+                            @Html.TextBoxFor(model => model.CountryCode, new { maxlength = "6", @id = "CountryCode", @class="Phone_C_Code", Style = "float:left" })
+                            @Html.TextBoxFor(model => model.PhoneNumber, new { maxlength = "13", @id = "PhoneNumber", @class = "PhoneNumber" })
+                        </div>
+                        <span class="error_msg">
+                            <label id="ErrorPhone" class="errorLabel"></label>
+                        </span>
+                    </div>
+
+                    @*<div class="input">
+                            <label>
+                                Phone Number</label>
+                                <span id="txtCountryCode" class="Form-Control">@Html.DisplayFor(model => model.CountryCode)</span>
+                                @Html.HiddenFor(model => model.CountryCode, new { @id="CountryCode"})
+                            @Html.TextBoxFor(model => model.PhoneNumber, new {  maxlength = "10" , Style = "width: 255px;!important" })
+                              <span class="error_msg">
+                                @Html.ValidationMessageFor(model => model.PhoneNumber)
+                            </span>
+                        </div>*@
+
+                    <div class="input PinInput">
+                        <label>
+                            Pincode
+                        </label>
+                        @Html.TextBoxFor(model => model.Pincode, new { maxlength = 10 })
+                        <span class="error_msg">
+                            @Html.ValidationMessageFor(model => model.Pincode)
+                        </span>
+                    </div>
+
+
+
+                    <div class="checkbox">
+                        <input type="checkbox" name="IsAcceptterms" id="IsAcceptterms" />
+                        <label>
+                            <a href="/Termsandcondition" style="text-decoration: none;color:#fff" target="_blank">  Accept Terms & Conditions</a>
+                        </label>
+                        <span class="error_msg" id="Accept">
+
+                        </span>
+                    </div>
+
+
+                    <div class="clearfix">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(model => model.IsDisplayNameAccepted)
+                            <label>
+                                Display name in website
+                            </label>
+                        </div>
+                    </div>
+                    <div class="submit default">
+                        <input type="Submit" value="Submit"  />
+                        <input class="cancel" type="button" value="Cancel" onclick="PreviousPage();" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

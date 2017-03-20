@@ -1,0 +1,336 @@
+﻿@model SmartLabours.Models.TBL_OrganisationMaster
+@{
+    ViewBag.Title = "OrganizationEdit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style type="text/css" >
+    #OrganisationAddress1 {
+        resize: none;
+    }
+</style>
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+ <script type="text/javascript">
+     $(document).ready(function () {
+
+         $("#OrganizationEdit").submit(function (e) {
+
+             var status = 0;
+
+             //   debugger
+             if ($("#Country").val() == "" || $("#Country").val() == "0") {
+                 $("#ErrorCountry").text('Please Select the Country');
+                 status = 1;
+             }
+             else {
+                 $("#ErrorCountry").text('');
+
+
+             }
+
+             if ($("#State").val() == "" || $("#State").val() == "0") {
+                 $("#ErrorState").text('Please Select the State');
+                 status = 1;
+             }
+             else {
+                 $("#ErrorState").text('');
+             }
+
+             if ($("#City").val() == "" || $("#City").val() == "0") {
+                 $("#ErrorCity").text('Please Select the City');
+                 status = 1;
+             }
+             else {
+                 $("#ErrorCity").text('');
+             }
+
+             if (status == 1) {
+                 e.preventDefault(e);
+             }
+             else {
+                 return true;
+             }
+
+         });
+
+          $("#OrganisationName").change(function () {
+             $.ajax({
+                 url: '@Url.Action("CheckOrganizationAvailable", "Organization")',
+                 cache: false,
+                 contentType: "application/json; charset=utf-8",
+                 type: "get",
+                 data: { OrgName: $('#OrganisationName').val() },
+                 dataType: "json",
+                 async: false,
+                 success: function (data) {
+                     if (data =="0") {
+                         $("#lblErrormsg").text('Organization Already Exists');
+                     }
+                     else
+                     {
+                         $("#lblErrormsg").text('');
+                     }
+                 },
+                 error: function (data) {
+
+                 }
+             });
+         });
+
+
+
+         //**********************Not Allows Keys*********************************
+         //Name Only Allowed Char
+         $("#OrganisationName").keypress(function (e) {
+             //if (!((e.which >= 65 && e.which <= 90) || (e.which >= 97 && e.which <= 122) || e.which == 8 || e.which == 44 || e.which == 39 || e.which == 45 || e.which == 95 || e.which == 38 || e.which == 46 || (e.which >= 48 && e.which <= 57))) {
+             //    e.preventDefault();
+             //    return false;
+             //}
+         });
+
+         //Contact number Only Allowed Numeric
+         $("#OrganisationContactno").keydown(function (e) {
+             AllowNumericOnly(e);
+         });
+
+         //Pin Code Only Allowed Numeric
+         $("#Organisationpincode").keydown(function (e) {
+             AllowNumericOnly(e);
+         });
+
+         $("#Country").change(function () {
+             // debugger
+             if ($("#Country").val() != "") {
+                 /****** Bind State Name ***************/
+                 $("#State").empty();
+                 $("#City").empty();
+                 $("#City").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+                 $("#State").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+                 //  debugger
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         url: '@Url.Action("getState", "Labour")',
+                         dataType: 'json',
+                         data: { CountryName: $("#Country").val() },
+                         success: function (Countries) {
+                             // debugger
+                             $.each(Countries, function (i, provider) {
+                                 $("#ErrorCountry").text('');
+                                 $("#State").append('<option value="' + provider.Value + '">' + provider.Text + '</option>');
+                             });
+                         },
+                         error: function (Countries) {
+                             // debugger
+                         }
+                     });
+
+                 }
+         });
+
+
+         $("#City").change(function () {
+             $("#ErrorCity").text('');
+         });
+
+         $("#State").change(function () {
+             if ($("#State").val() != "") {
+                 $("#City").empty();
+                 $("#City").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         url: '@Url.Action("getCity", "Labour")',
+                         dataType: 'json',
+                         data: { StateName: $("#State").val() },
+                         success: function (Countries) {
+                             // debugger
+                             $.each(Countries, function (i, provider) {
+                                 $("#ErrorState").text('');
+                                 $("#City").append('<option value="' + provider.Value + '">' + provider.Text + '</option>');
+                             });
+                         }
+                     });
+             }
+
+         });
+
+
+
+
+
+     });
+
+         //Send to Previous page
+         function PreviousPage() {
+             window.location = "/Organization/Organizationmaster";
+         }
+
+</script>
+
+<div class="content">
+    <div class="wrapper">
+       <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                    Organization Edit 
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1" >
+                    <b>
+                        <label id="lblErrormsg" >
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="suss_mesg" id="msShow2" >
+                    <b>
+                        <label id="lblError1" >
+
+                        </label>
+                    </b>
+                </div>
+                <div class="fld_fd">
+                    @using (Html.BeginForm("OrganizationEdit", "Organization", FormMethod.Post, new { id = "OrganizationEdit", enctype = "multipart/form-data" }))
+                    {
+                         @Html.ValidationSummary(true)
+                        <div>
+                            <dl>
+                                <dd>
+                                @Html.HiddenFor(model => model.OrgId)
+                                   <span style="color:red;padding-right :2px;"> * </span>   Organization   </dd><dt>
+                                        @Html.TextBoxFor(model => model.OrganisationName, new { maxlength=35})
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.OrganisationName)
+                                        </span></dt>
+                            </dl>
+
+                              <dl>
+                                <dd>
+                                   <span style="color:red;padding-right :2px;"> * </span>   Contact Number  </dd><dt>
+                                        @Html.TextBoxFor(model =>model.OrganisationContactno, new { maxlength=13} )
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.OrganisationContactno)
+                                        </span></dt>
+                            </dl>
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span>   Address
+                                </dd>
+                                <dt>
+                                    @Html.TextAreaFor(model => model.OrganisationAddress1, new { maxlength = 100, rows = "6", style = "height:40px", placeholder = "Building Number, Building Name, Street Name" })
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.OrganisationAddress1)
+                                    </span>
+                                </dt>
+                            </dl>
+
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;">  </span>
+                                </dd>
+                                <dt>
+                                    @Html.TextAreaFor(model => model.OrganisationAddress2, new { maxlength = 100, rows = "6", style = "height:40px", placeholder = "Floor,Apartment Number, Area" })
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.OrganisationAddress2)
+                                    </span>
+                                </dt>
+                            </dl>
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> *  </span> Country
+                                </dd>
+                                <dt>
+                                    @Html.DropDownListFor(model => model.Country, (SelectList)ViewBag.CountryList, "Select", new { @class = "drop_down" })
+                                    <span class="error">
+                                        @*@Html.ValidationMessageFor(model => model.Country)*@
+                                        <label id="ErrorCountry"></label></span>
+                                </dt>
+                            </dl>
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> *  </span> State
+                                </dd>
+                                <dt>
+                                    @Html.DropDownListFor(model => model.State, (SelectList)ViewBag.StateList, "Select", new { @class = "drop_down" })
+                                    <span class="error">
+                                        @*@Html.ValidationMessageFor(model => model.State)*@
+                                        <label id="ErrorState"></label>
+                                    </span>
+                                </dt>
+                            </dl>
+
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> *  </span> City
+                                </dd>
+                                <dt>
+                                    @Html.DropDownListFor(model => model.City, (SelectList)ViewBag.CityList, "Select", new { @class = "drop_down" })
+                                    <span class="error">
+                                        @*@Html.ValidationMessageFor(model => model.City)*@
+                                        <label id="ErrorCity"></label>
+                                    </span>
+                                </dt>
+                            </dl>
+
+
+                                    <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span>  Pin Code  </dd><dt>
+                                        @Html.TextBoxFor(model =>model.Organisationpincode, new { maxlength=10} )
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.Organisationpincode)
+                                        </span></dt>
+                            </dl>
+
+
+                             
+
+                                    <dl>
+                                <dd>
+                                   <span style="color:red;padding-right :2px;"> * </span>  Organization Code  </dd><dt>
+                                       @Html.TextBoxFor(model => model.OrganisationCode, new { maxlength = 50, disabled = "disabled" })
+                                       @Html.HiddenFor(model => model.OrganisationCode)
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.OrganisationCode)
+                                        </span></dt>
+                            </dl>
+
+
+                            
+                               <dl style="padding-top:10px">
+                                <dd>
+
+                                    <span style="color:red;padding-right :2px;"> * </span> Status </dd><dt>
+                                        @Html.RadioButtonFor(model => model.IsActive,true)
+                                        <label>
+                                            Active</label>
+                                        @Html.RadioButtonFor(model => model.IsActive,false )
+                                        <label>
+                                            InActive</label>
+                                    </dt>
+                            </dl>
+                            <div class="btn1 btn1-form">
+                                <input type="submit" value="Save" title="Update" />
+                                <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                            </div>
+                        </div>
+    
+                    }
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

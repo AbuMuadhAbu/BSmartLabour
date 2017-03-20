@@ -1,0 +1,245 @@
+﻿@model SmartLabours.Models.ExportLabours
+@{
+    ViewBag.Title = "ExportLabours";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+<script type="text/javascript">
+    $(function () {
+        $("#FromDate").datepicker({
+            numberOfMonths: 1,
+            dateFormat: 'dd/mm/yy',
+            onSelect: function (selected) {
+                //  debugger
+                var SelectedDate = selected.split("/");
+                selected = SelectedDate[1] + '/' + SelectedDate[0] + '/' + SelectedDate[2];
+                var dt = new Date(selected);
+                // $("#ToDate").datepicker("option", "dateFormat", 'dd/mm/yy');
+                dt.setDate(dt.getDate());
+                // debugger
+                $("#ToDate").datepicker("option", "minDate", dt);
+
+            }
+            //dateFormat: 'dd/mm/yy'
+        });
+        $("#ToDate").datepicker({
+            dateFormat: 'dd/mm/yy',
+            numberOfMonths: 1,
+            onSelect: function (selected) {
+                // debugger
+                var SelectedDate = selected.split("/");
+                selected = SelectedDate[1] + '/' + SelectedDate[0] + '/' + SelectedDate[2];
+                var dt = new Date(selected);
+                dt.setDate(dt.getDate());
+                //  debugger
+                $("#FromDate").datepicker("option", "maxDate", dt);
+            }
+
+        });
+    });
+    function PreviousPage() {
+        window.location = '@Url.Action("Importlabour", "OrganizationSubAdmin")';
+    }
+
+    $(document).ready(function () {
+        // debugger
+
+        var result = '@(ViewBag.Result)';
+        if (result == "SUCCESS") {
+            alert('Labour list exported successfully.');
+            PreviousPage();
+        }
+
+
+        $('#Orgname').keypress(function (e) {
+            if (!((e.which >= 65 && e.which <= 90) || (e.which >= 97 && e.which <= 122) || e.which == 8 || e.which == 44 || e.which == 39 || e.which == 45 || e.which == 95 || e.which == 38 || e.which == 46 || (e.which >= 48 && e.which <= 57))) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+
+
+        var toDate = new Date();
+        $("#FromDate").datepicker("option", "maxDate", toDate);
+        $("#ToDate").datepicker("option", "maxDate", toDate);
+
+
+
+
+        $('#Orgname').autocomplete(
+           {
+               source: function (request, response) {
+                   // debugger
+                   $.ajax({
+                       url: '@Url.Action("OrgNameAutoComplete", "OrganizationSubAdmin")',
+                       dataType: "json",
+                       delay: 10,
+                       cache: false,
+                       type: "get",
+                       data: { term: request.term }
+                   }).done(function (data) {
+                       //debugger
+                       response(data);
+                   });
+               }, change: function (event, ui) {
+                   if ($('#Orgname').val() != '') {
+                       $.ajax({
+                           url: '@Url.Action("CheckOrganizationName", "Organization")',
+                           dataType: "json",
+                           cache: false,
+                           type: "get",
+                           data: { OrgName: $('#Orgname').val() },
+                           success: function (data) {
+                               if (data != '1') {
+                                   $('#lblErrormsg').text(data);
+                               }
+                               else {
+                                   $('#lblErrormsg').text('');
+                                   $('#lblError1').text('');
+                               }
+                           },
+                           error: function (data) {
+                           }
+                       });
+                   }
+                   else {
+                       $('#lblErrormsg').text('');
+                   }
+               }
+           });
+    });
+
+
+
+    function DownloadFile() {
+
+        $.ajax({
+            url: '@Url.Action("ExportLabours", "OrganizationSubAdmin")',
+            dataType: "json",
+            cache: false,
+            type: "post",
+            data: { OrgName: $('#Orgname').val(), FromDate: $('#FromDate').val(), ToDate: $('#ToDate').val() },
+            success: function (data) {
+              //  debugger
+                if (data == 'Empty')
+                {
+                    alert('No labour available');
+                    window.location = '@Url.Action("ExportLabours", "OrganizationSubAdmin")';
+                   // ClearFile();
+                }
+                else if (data != '0') {
+                     var URL = '@Url.Content("~/Upload_Files/ExportExcel/")';                
+                window.location.href = URL +data +".xlsx";
+                //  alert('Labour list exported successfully.');
+                ClearFile();
+                $('#lblError1').text('Labour list exported successfully.');
+                }
+            },
+            error: function (data) {
+               // debugger             
+            }
+        });
+
+    }
+
+
+   
+
+    function ClearFile() {
+
+        $('#FromDate').val('');
+        $('#ToDate').val('');
+        $('#Orgname').val('');
+        $('#lblErrormsg').empty();
+        $(".field-validation-error").empty();
+        $('#lblError1').text('');
+
+
+    }
+
+    </script>
+
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                   Export Labours
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1" >
+                    <b>
+                        <label id="lblErrormsg" >
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="suss_mesg" id="msShow2" >
+                    <b>
+                        <label id="lblError1" >
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="fld_fd">
+                    @using (Html.BeginForm("ExportLabours", "OrganizationSubAdmin", FormMethod.Post, new { id = "ExportLabours", @class = "form-horizontal", enctype = "multipart/form-data", autocomplete = "off" }))
+                    {
+                         @Html.ValidationSummary(true)
+                        <div>
+                           
+                            @if (@HttpContext.Current.Session["USERID"].ToString() == "1")
+                            {
+
+                               <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span>   Organization
+                                </dd>
+                                <dt>
+                                    @Html.TextBoxFor(model => model.OrgName, new { maxlength = 35, id = "Orgname" })
+                                    <span class="error">
+                                        @*@Html.ValidationMessageFor(model => model.OrgName)*@
+                                    </span>
+                                </dt>
+                            </dl>
+
+                            }
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;">  </span>   From Date
+                                </dd>
+                                <dt>
+                                    @Html.TextBoxFor(model => model.FromDate, new { maxlength = 35, id = "FromDate" })                                   
+                                </dt>
+                            </dl>
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;">  </span>   To Date
+                                </dd>
+                                <dt>
+                                    @Html.TextBoxFor(model => model.ToDate, new { maxlength = 35, id = "ToDate" })                               
+                                  
+                                </dt>
+                            </dl>
+
+                            <div class="btn1 btn1-form">
+                                <input type="button" value="submit" title="Save" onclick="DownloadFile();" />
+                                <input type="button" value="Clear" title="Clear" onclick="ClearFile();" />
+                                <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

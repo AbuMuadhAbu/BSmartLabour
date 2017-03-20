@@ -1,0 +1,304 @@
+﻿@{
+    ViewBag.Title = "ReportsList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style type="text/css" >
+    .errorLabel1 {
+        color: red;
+        margin-left: 84px;
+    }
+    .divSplit
+    {
+       float:left;
+    }
+
+</style>
+
+<script type="text/javascript">
+
+    function Validate(e) {
+
+        var i = 0;
+        if ($('#Orgname').val() == '') {
+            $('#lblOrgError').text('');
+            $('#lblOrgError').text('Please Select Organization');
+            i = 1;
+        }
+       
+
+        if ($('#lblOrgError').text() != '') {
+            i = 1;
+        }
+        if ($('#ddlReports').val() == '0') {
+            $('#lblReportsError').text('');
+            $('#lblReportsError').text('Please Select Reoprt Type');
+            i = 1;
+        }
+        
+
+
+        if (i == 1) {
+            (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
+            return false;
+        }
+        return true;
+    }
+
+
+    function SearchClear() {
+        $('#txtSearch').val('');
+        $('#ddlSearchBy').val("1");
+        $('#ddlSearchCondition').val("1");
+        ReportGenerate();
+    }
+
+    function ReportGenerate() {
+        $("#ReportView").empty();
+        $("#ReportView").append('');
+        $.ajax({
+            url: '/Reports/ReportGenerate',
+            cache: false,
+            type: "post",
+            data: { OrgName: $('#Orgname').val(), Report: $('#ddlReports').val(), id: null, search: "" },
+            success: function (data) {               
+                $("#ReportView").empty();
+                $("#ReportView").append(data);
+                var rowCount = $('#GridTable >tbody >tr').length;
+                if (rowCount > 0) {
+                    $("#btnExcel").show();
+                    $("#btnPDF").show();
+                }
+                else {
+                    $("#btnExcel").hide();
+                    $("#btnPDF").hide();
+                }
+            },
+            error: function (data) {
+                $("#ReportView").empty();
+                $("#ReportView").append('');
+                $("#btnExcel").hide();
+                $("#btnPDF").hide();
+            }
+        });
+    }
+
+    function ExportExcel() {
+        if ($("#ReportView").text().length > 0) {
+            window.location.href = "/Reports/ReportExportExcelAndPdf?OrgName=" + $('#Orgname').val() + "&Report=" + $('#ddlReports').val() + "&search=" + $('#txtSearch').val() + "," + $('#ddlSearchCondition').val() + "," + $('#ddlSearchBy').val() + "&type=Excel";
+           // window.location.href = "/Reports/ReportExportExcel?OrgName=" + $('#Orgname').val() + "&Report=" + $('#ddlReports').val() + "&search=" + $('#txtSearch').val() + "," + $('#ddlSearchCondition').val() + "," + $('#ddlSearchBy').val();
+        }
+    }
+
+
+    function ExportPDF() { 
+        if ($("#ReportView").text().length > 0) {
+            window.location.href = "/Reports/ReportExportExcelAndPdf?OrgName=" + $('#Orgname').val() + "&Report=" + $('#ddlReports').val() + "&search=" + $('#txtSearch').val() + "," + $('#ddlSearchCondition').val() + "," + $('#ddlSearchBy').val() + "&type=PDF";
+            //var win = window.open("/Reports/ReportExportExcel?OrgName=" + $('#Orgname').val() + "&Report=" + $('#ddlReports').val() + "&search=" + $('#txtSearch').val() + "," + $('#ddlSearchCondition').val() + "," + $('#ddlSearchBy').val() + "&type=PDF");
+           // win.focus();
+           
+        }
+    }
+    function ReportClear() {
+       // debugger
+        $('#Orgname').val('');
+        $('#ddlReports').val("0");
+        $("#ReportView").empty();
+        $("#ReportView").append('');
+        $("#btnExcel").hide();
+        $("#btnPDF").hide();
+        $('#lblOrgError').text('');
+        $('#lblReportsError').text('');
+    }
+
+    $(document).ready(function () {
+
+
+        $("#Orgname").keypress(function (e) {
+            if (!((e.which >= 65 && e.which <= 90) || (e.which >= 97 && e.which <= 122) || e.which == 8 || e.which == 44 || e.which == 39 || e.which == 45 || e.which == 95 || e.which == 38 || e.which == 46 || (e.which >= 48 && e.which <= 57))) {
+                e.preventDefault();
+                return false;
+            }
+            $('#lblOrgError').text('');
+            return true;
+
+        });
+
+    
+        $("#Orgname").keyup(function (event) {
+            if (event.keyCode == 8 || event.keyCode == 46) {
+                $('#lblOrgError').text('');
+            }
+        });
+
+        //$("#Orgname").keypress(function (event) {
+        //    if (!AllowAlphaOnly(event)) {
+        //        event.preventDefault();
+        //        return false;
+        //    }
+        //    return true;
+
+        //});
+
+
+
+        $("#btnExcel").hide();
+        $("#btnPDF").hide();     
+        $('#Orgname').autocomplete(
+           {
+               source: function (request, response) {                   
+                   $.ajax({
+                       url: '@Url.Action("OrgNameAutoComplete", "OrganizationSubAdmin")',
+                       dataType: "json",
+                       cache: false,
+                       type: "get",
+                       data: { term: request.term }
+                   }).done(function (data) {                       
+                       response(data);
+                   });
+               }, change: function (event, ui) {
+                   /* To Check the Organization Available or not */
+                   if ($('#Orgname').val() != '') {
+                       $.ajax({
+                           url: '@Url.Action("CheckOrganizationName", "Organization")',
+                           dataType: "json",
+                           cache: false,
+                           type: "get",
+                           data: { OrgName: $('#Orgname').val() },
+                           success: function (data) {                             
+                               if (data != '1') {
+
+                                   $('#lblOrgError').text(data);
+                               }
+                               else {
+                                   $('#lblOrgError').text('');
+                               }
+                               $("#ReportView").empty();
+                               $("#ReportView").append('');
+                               $("#btnExcel").hide();
+                               $("#btnPDF").hide();
+
+                           },
+                           error: function (data) {
+
+                           }
+                       });
+                   }
+                   else
+                   {
+                       $('#lblOrgError').text('');
+                       $('#lblOrgError').text('Pleae Select Organization');
+                   }
+               }
+           });
+
+
+        function ReportGenerate() {
+            $.ajax({
+                url: '@Url.Action("ReportGenerate", "Reports")',
+                  cache: false,
+                  type: "post",
+                  data: { OrgName: $('#Orgname').val(), Report: $('#ddlReports').val(), id: null, search: "" },
+                  success: function (data) {                    
+                      $("#ReportView").empty();
+                      $("#ReportView").append(data);
+                      var rowCount = $('#GridTable >tbody >tr').length;
+                      if (rowCount > 0) {
+                          $("#btnExcel").show();
+                          $("#btnPDF").show();
+                      }
+                      else {
+                          $("#btnExcel").hide();
+                          $("#btnPDF").hide();
+                      }                     
+                  },
+                  error: function (data) {
+                      $("#ReportView").empty();
+                      $("#ReportView").append('');
+                      $("#btnExcel").hide();
+                      $("#btnPDF").hide();
+                  }
+              });
+        }
+
+        $('#BtnGenerate').click(function () {          
+            ReportGenerate();
+
+        });
+
+        $('#btnCancel').click(function () {           
+             $('#OrgName').val('');
+             $('#ddlReports').val("0");
+
+        });
+
+        $('#ddlReports').change(function () {
+            if($('#ddlReports').val()!='0')
+            {
+                $('#lblReportsError').text('');
+            }
+
+        });
+    });
+
+</script>
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+@using (Html.BeginForm("ReportsList", "Reports", FormMethod.Post, new { id = "ReportsList", @class = "form-horizontal", enctype = "multipart/form-data", autocomplete = "off" }))
+{
+
+    <div style="height:50px;" class="TopField">
+        <div class="btn1" style="border: 2px solid #e6e6e6; width: 75%; margin-left:200PX">
+            <div style="text-align:center "><div class="error_mesg" id="msShow1"  style="margin-left: 250px;padding:0 0 0px;">
+    <b>
+        <label id="lblErrormsg"  >
+            @ViewBag.messagealert
+        </label>
+    </b>
+</div></div>
+            <div style="padding: 2%; width: 100%; ">
+                <div class="divSplit">
+                    @if (@HttpContext.Current.Session["USERID"].ToString() == "1")
+                    {
+                        <b>Organization : </b>
+
+                        <input type="text" id="Orgname" name="Org" style="background:none !important;color:black;display:inline">
+                        <br />
+    <label id="lblOrgError" class="errorLabel1" ></label>
+
+                    }
+                </div>
+                <div class="divSplit">
+                    <b>Report Type :     </b>
+                    <select id="ddlReports">
+                        <option value="0">--Select--</option>
+                        <option value="1">Course Started</option>
+                        <option value="2">Course Completed</option>
+                        <option value="3">Course Wise Details</option>
+                        <option value="4">Test Report</option>
+                    </select>
+                    <br />
+                    <label id="lblReportsError" class="errorLabel1" ></label>
+                </div>
+                <div class="divSplit">
+
+                    <input type="button" value="Generate" id="BtnGenerate" onclick="return Validate(this);">
+                    <input type="button" value="Clear" id="btnCancel" onclick="ReportClear();">
+                    <input type="button" value="Excel" id="btnExcel" onclick="ExportExcel();">
+                    <input type="button" value="PDF" id="btnPDF" onclick="ExportPDF();">
+                </div>
+            </div>
+        </div>
+    </div>  
+}
+
+
+
+<div>
+    <div id="ReportView"></div>
+
+</div>

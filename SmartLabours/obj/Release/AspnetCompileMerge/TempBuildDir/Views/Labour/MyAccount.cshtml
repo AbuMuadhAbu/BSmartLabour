@@ -1,0 +1,61 @@
+﻿@model SmartLabours.Models.ChangePasswordModel
+   
+    @{
+    ViewBag.Title = "MyAccount";
+    Layout = "~/Views/Shared/_MenuLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <div class="content">
+        <div class="wrapper">
+            <div class="continn">
+                <fieldset>
+                    <h3>
+                        My Account</h3>
+                    <div class="clr2">
+                    </div>
+                    <div class="ajaxload" style="display: none;" id="ajaxloaderdiv">
+                    </div>
+                    <div class="fld_fd">
+                        <span style="color: Red; text-align: center;"></span>
+                        <dl>
+                            <dd>
+                                Old Password<span style="color: Red">*</span></dd>
+                            <dt>
+                                @Html.PasswordFor(m => m.OldPassword)
+                                <span style="color: Red">@Html.ValidationMessageFor(m => m.OldPassword)</span>
+                            </dt>
+                        </dl>
+                        <dl>
+                            <dd>
+                                New Password<span style="color: Red">*</span></dd>
+                            <dt>
+                                @Html.PasswordFor(m => m.NewPassword)
+                                <span style="color: Red">@Html.ValidationMessageFor(m => m.NewPassword)</span>
+                            </dt>
+                        </dl>
+                        <dl>
+                            <dd>
+                                Confirm Password<span style="color: Red">*</span></dd>
+                            <dt>
+                                @Html.PasswordFor(m => m.ConfirmPassword)
+                                <span style="color: Red">@Html.ValidationMessageFor(m => m.ConfirmPassword)</span>
+                            </dt>
+                        </dl>
+                        <div class="btn1 btn1-form">
+                            <input type="submit" value="Update" />
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+}

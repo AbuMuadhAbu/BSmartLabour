@@ -1,0 +1,24 @@
+﻿@{
+    Layout = null;
+}
+
+@{
+
+    List<SmartLabours.Models.TBL_COURSEDTL_SMT> Lstcoursedtl = ViewBag.coursedetail;
+
+    if (Lstcoursedtl.Count > 0)
+    {
+        var a = 1;
+        foreach (var item in Lstcoursedtl)
+        {
+            var description = "Description - " + a + ":";
+            <dd>
+                @description
+            </dd>
+            <dt style="width:800px">
+                <span class="content-right">  @Html.Raw(item.DESCRIPTION)</span>
+            </dt>
+            a = a + 1;
+        }
+    }
+}

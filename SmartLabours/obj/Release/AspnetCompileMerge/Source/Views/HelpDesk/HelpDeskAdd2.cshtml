@@ -1,0 +1,193 @@
+﻿@model SmartLabours.Models.TBL_HelpDeskMaster
+@{
+    ViewBag.Title = "Help Desk Add";
+    Layout = "~/Views/Shared/_AccountMenuLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var Priority = '<option value=' + 'Low' + ' >' + 'Low' + '</option>';
+        Priority += '<option value="' + 'Normal' + '" >' + 'Normal' + '</option>';
+        Priority += '<option value="' + 'High' + '" >' + 'High' + '</option>';
+        Priority += '<option value="' + 'Urgent' + '" >' + 'Urgent' + '</option>';
+        $("#IssuePriority").html(Priority);
+
+        var type = '<option value=' + 'Question' + ' >' + 'Question' + '</option>';
+        type += '<option value="' + 'Incident' + '" >' + 'Incident' + '</option>';
+        type += '<option value="' + 'Problem' + '" >' + 'Problem' + '</option>';
+        type += '<option value="' + 'Task' + '" >' + 'Task' + '</option>';
+        $("#IssueType").html(type);
+
+    });
+
+    function PreviousPage() {
+
+        window.location.href = "/";
+    }
+
+    function Clear() {
+        $("#IssueType").val(0);
+        $("#IssuePriority").val(0);
+        $("#UserEmail").val('');
+        $("#Usermobile").val('');
+        $("#organization").val('');
+        $("#Issue").val('');
+        $("#Remarks").val('');
+    }
+
+</script>
+
+<style type="text/css">
+    #DivVoucherImage {
+        width: 300px;
+    }
+
+    .errorLabel {
+        color: red !important;
+        padding-bottom: 0px !important;
+        font-size: 9px !important;
+    }
+
+    .heading {
+        font-size: 12px !important;
+    }
+
+    .input {
+        min-height: 68px !important;
+    }
+</style>
+
+<script type="text/javascript">
+
+    function validate_Imagefileupload(fileName) {
+        // debugger
+        if (fileName == '') {
+            return false;
+        }
+        var allowedFiles = [".jpg", ".jpeg", ".doc", ".xls", ".xlsx"];
+        var fileUpload = $("#FileUpload").val();
+        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
+        if (!regex.test(fileUpload)) {
+            $("#ErrorImage").text('Please Upload {.jpg | .jpeg | .doc | .xls | .xlsx} file formats only');
+            $("#FileUpload").val('');
+            return false;
+        }
+        $("#ErrorImage").text('');
+        return true;
+    }
+
+
+</script>
+
+<style type="text/css">
+    .textarea {
+        height: 30px !important;
+    }
+</style>
+
+<div class="main">
+
+    <div class="inner_titlebg">
+        <div class="wrapper">
+            <h2>Help Desk</h2>
+           
+
+        </div>
+    </div>
+
+    <div class="wrapper">
+
+        <div class="inner_contentarea1 clearfix">
+
+            <div class="left_menu">
+
+                <ul>
+                    <li><a href="/LabourAccount/ProfileDetails" title="Profile Details">Profile Details</a></li>
+                    <li><a href="/LabourAccount/Notification" title="Notification">Notification</a></li>
+                    <li> <a href="javascript:void(0);" onclick="Reueststatus();" title="Phone Request Form"> Phone Request Form </a></li>
+                    <li><a href="/LabourAccount/PhoneRequestHistory" title="Phone Request History"> Phone Request History</a></li>
+                    <li > <a href="/PostTestimonial" title="Post Testimonial">  Post Testimonial  </a></li>
+                    <li class="active"><a href="/HelpDesk/HelpDeskAdd2" title="Help Desk">Help Desk</a></li>
+                    <li><a href="/HelpDesk/HelpDeskLabourList" title="Help Desk">Help Desk List</a></li>
+                </ul>
+
+            </div>
+
+            <div class="right_content">
+
+                <h2>HELP DESK</h2>
+
+                @using (Html.BeginForm("HelpDeskAdd2", "HelpDesk", FormMethod.Post, new { @id = "HelpDeskAdd", enctype = "multipart/form-data" }))
+                {
+                    @Html.ValidationSummary(true)
+
+                    <div class="acc_profile">
+
+                        <div class="input">
+                            <label class="heading">
+                                Issue Type <span style="color: rgb(255, 0, 0); font-size: 17px;position:relative; padding-left:1px;">*</span>
+                            </label>
+                            @*@Html.TextBoxFor(model => model.IssueType, new { maxlength = 35 })*@
+                            @Html.DropDownListFor(model => model.IssueType, new SelectList(string.Empty, "Value", "Text"), "Select", new { @class = "drop_down" })
+                            <span class="error_msg">
+                                @Html.ValidationMessageFor(model => model.IssueType)
+                            </span>
+                        </div>
+
+                        <div class="input">
+                            <label class="heading">
+                                Priority
+                            </label>
+                            @Html.DropDownListFor(model => model.IssuePriority, new SelectList(string.Empty, "Value", "Text"), "Select", new { @class = "drop_down" })
+                            <span class="error_msg">
+                                @Html.ValidationMessageFor(model => model.IssuePriority)
+                            </span>
+                        </div>
+
+                        <div class="input ">
+                            <label class="heading ">
+                                Description <span style="color: rgb(255, 0, 0); font-size: 17px;position:relative; padding-left:1px;">*</span>`
+                            </label>
+                            @Html.TextAreaFor(model => model.Description, new { maxlength = 500, @class = "HeightTextyArea" })
+                            <span class="error_msg">
+                                @Html.ValidationMessageFor(model => model.Description)
+                            </span>
+                        </div>
+
+                        <div class="input">
+                            <label class="heading">
+                                File
+                            </label>
+                            <input type="file" id="FileUpload" name="FileUpload" style="width:230px" onchange="return validate_Imagefileupload(this)" />
+
+
+                            <label id="ErrorImage" class="errorLabel"></label>
+
+                        </div>
+
+                        @Html.HiddenFor(model => model.EmiratesID)
+                        @Html.HiddenFor(model => model.UserType)
+                        <div class="submit">
+                            <input type="submit" value="Save" />
+                            <input class="cancel" type="button" value="Cancel" onclick="PreviousPage();" />
+                        </div>
+
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>

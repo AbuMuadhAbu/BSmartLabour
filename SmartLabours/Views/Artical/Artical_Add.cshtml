@@ -1,0 +1,169 @@
+﻿@model SmartLabours.Models.TBL_Artical_SMT
+@{
+    ViewBag.Title = "Article Add";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<script src="../../Content/Admin/ckeditor/ckeditor.js" type="text/javascript"></script>
+@*<link rel="stylesheet" href="~/Content/Front/css/jquery-ui.css">*@
+<script type="text/javascript">
+  
+
+    $(document).ready(function () {
+        $("#StrArticalDate").datepicker({
+            numberOfMonths: 1,
+            dateFormat: 'dd/mm/yy',          
+            minDate: 0
+
+        });
+
+        $("#Artical_Add").submit(function (e) {
+            //debugger
+            var status = 0;
+            if ($("#StrArticalDate").val() == "") {
+                $("#DateError").text('Please Select Article Date');
+                status = 1;
+            }
+            else {
+                $("#DateError").text('');
+            }
+         
+
+            if (status == 1) {
+                e.preventDefault(e);
+            }
+            else {
+                return true;
+            }
+        });
+
+
+    });
+
+    function PreviousPage() {
+
+        window.location = "/Artical/Artical_List";
+    }
+
+    window.onload = function () {
+
+        var editor = CKEDITOR.replace('Description');
+        editor.on('blur', function (evt) {
+            document.getElementById('Description').value = evt.editor.getData();
+
+            if (document.getElementById('Description').value != "") {
+
+                $("#prodescription").css({ display: "none" });
+            }
+            else {
+
+                $("#prodescription").css({ display: "block" });
+            }
+        });
+
+
+    };
+
+</script>
+
+
+<div class="content">
+    <div class="wrapper">
+       
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                   Article Add
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1" >
+                    <b>
+                        <label id="lblErrormsg" >
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="suss_mesg" id="msShow2" >
+                    <b>
+                        <label id="lblError1" >
+                        </label>
+                    </b>
+                </div>
+                <div class="fld_fd">
+                    @using (Html.BeginForm("Artical_Add", "Artical", FormMethod.Post, new { @id="Artical_Add", enctype = "multipart/form-data" }))
+                    {
+                        <div>
+                            <dl>
+                                <dd>
+                                    Title</dd><dt>
+                                        @Html.EditorFor(model => model.Title, new {@placeholder = "Maximium Character Limit is 50" })
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.Title)
+                                        </span></dt>
+                            </dl>
+                             <dl>
+                                <dd>
+                                   Short Description (Home page content)</dd><dt>
+                                    <div style ="width:600px;float:left;text-align:left;padding-bottom:10px;">
+                                        @Html.TextAreaFor(model => model.ShortDescription)
+                                        <span class="error" id="prodescription">
+                                            @Html.ValidationMessageFor(model => model.ShortDescription)
+                                        </span>
+                                        </div></dt>
+                            </dl>
+                            <dl>
+                                <dd>
+                                    Description</dd><dt>
+                                    <div style ="width:600px;float:left;text-align:left;padding-bottom:10px;">
+                                        @Html.TextAreaFor(model => model.Description)
+                                        <span class="error" id="prodescription">
+                                            @Html.ValidationMessageFor(model => model.Description)
+                                        </span>
+                                        </div></dt>
+                            </dl>
+                           <dl>
+                                <dd>
+                                    Article Date</dd><dt>
+                                             @Html.TextBoxFor(model => model.StrArticalDate)
+                                             @Html.HiddenFor(model => model.ArticalDate)
+                                             @*<input id="ArticalDate" name="ArticalDate" type="text"  />*@
+                                       <span class="error" id="idArticalDate">
+                                           <label id="DateError" ></label>                                                                        
+                                       </span>
+                               </dt>
+                            </dl>
+
+                            <dl>
+                                <dd>
+                                    Status
+                                </dd>
+                                <dt>
+                                        @Html.RadioButtonFor(model => model.Status, true, new { @checked = true })
+                                        <label>
+                                            Active</label>
+                                        @Html.RadioButtonFor(model => model.Status, false)
+                                        <label>
+                                            InActive</label>
+                                </dt>
+                            </dl>
+                            <div class="btn1 btn1-form">
+                                <input type="submit" value="Save" title="Save" />
+                                <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                            </div>
+                        </div>
+    
+                    }
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+
+

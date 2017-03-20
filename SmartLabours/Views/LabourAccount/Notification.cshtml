@@ -1,0 +1,197 @@
+﻿@model IEnumerable<SmartLabours.Models.DonatePhone>
+@{
+    ViewBag.Title = "Notification";
+    Layout = "~/Views/Shared/_AccountMenuLayout.cshtml";
+}
+
+                      @* Google Analytics COde  *@
+                      <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+                      <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+                      <!-- End here -->
+
+<script type="text/javascript">
+    function AcceptPhone() {
+        if (confirm("Are you sure, You want to accept the phone?") == true) {
+            var url = "/LabourAccount/AcceptPhone";
+
+            $.post(url, { IsAccepted: "true" }, function (data) {
+                if (data == "Sucess") {
+
+                    alert("Thank you We have received your acceptance , we will  call you back to confirm your acceptance");
+
+                    window.location.href = "/LabourAccount/ProfileDetails";
+                }
+                else {
+                    alert("Your Acceptance sending Failure");
+                }
+
+            });
+        }
+    }
+
+    function RejectPhone() {
+        if (confirm("Are you sure, you cannot claim this phone again?") == true) {
+            var url = "/LabourAccount/AcceptPhone";
+
+            $.post(url, { IsAccepted: "false" }, function (data) {
+                if (data == "Sucess") {
+
+                    alert("Your Rejection Successfully send.. ");
+                    window.location.href = "/LabourAccount/ProfileDetails";
+                }
+                else {
+                    alert("Failure");
+                }
+
+            });
+        }
+    }
+
+</script>
+<div class="main">
+	<div class="inner_titlebg">
+		<div class="wrapper">
+			<h2>Account Labour</h2>
+            
+		</div>
+	</div>
+<div class="wrapper">
+	<div class="inner_contentarea1 clearfix">
+		<div class="left_menu">			
+			<ul>
+				<li><a href="/LabourAccount/ProfileDetails" title="Profile Details">Profile Details</a></li>
+				<li class="active"><a href="/LabourAccount/Notification" title="Notification">Notification</a></li>
+				<li><a href="javascript:void(0);" onclick="Reueststatus();" title="Phone Request Form">Phone Request Form</a></li>
+				<li><a href="/LabourAccount/PhoneRequestHistory" title="Phone Request History">Phone Request History</a></li>
+                 <li><a href="/LabourAccount/PostTestimonial" title="Post Testimonial">Post Testimonial</a></li>
+                <li><a href="/HelpDesk/HelpDeskAdd2" title="Help Desk">Help Desk</a></li>
+                <li><a href="/HelpDesk/HelpDeskLabourList" title="Help Desk">Help Desk List</a></li>
+			</ul>
+		</div>	
+		<div class="right_content">
+				<h2>Notifications</h2>
+				<ul class="notification_list">
+                  @foreach (var item in Model)
+                  {
+					<li class="clearfix">
+						<h3>Phone Available - Only @item.phoneAssignlabour.PhoneExpiryDays days Left <span>
+                        
+                        @{
+                      string mydate = Convert.ToString(item.phoneAssignlabour.AssignedDate);
+                    
+                    
+                    DateTime time = DateTime.Parse(mydate);
+                    string date = Convert.ToString(time.ToString("dd-MMM-yyyy", System.Globalization.CultureInfo.InvariantCulture));
+                    string format = "am";
+                    int hour = time.Hour;
+                    int min = time.Minute;
+                    if (hour > 11) { format = "pm"; }
+                    if (hour > 12) { hour = hour - 12; }
+                    if (hour == 0) { hour = 12; }
+                    if (min < 10)
+                    {
+                        min = 0 + min;
+                    }
+                    var exacttime = hour + "." + min + " " +format;
+                    string datetime = date + " , " + exacttime;
+                   
+                    }
+                        Posted on
+                        
+                        
+                         @datetime</span></h3>
+						
+                        <p>@item.BrandName - @item.ModelNo - @item.PhoneColor</p>
+                          <div class="submit">
+                            <input type="submit" value="Accept"  onclick="AcceptPhone();"/>
+                              <input type="submit" value="Cancel"  onclick="RejectPhone();"/>
+                        </div>
+					</li>
+                  }
+
+                   @if (ViewBag.labourhistory != null)
+                   {
+                       var list = ViewBag.labourhistory as List<SmartLabours.Models.DonatePhone>;
+                       if(list.Count > 0)
+                       {
+                       foreach (var item in ViewBag.labourhistory as List<SmartLabours.Models.DonatePhone>)
+                       {
+                                   @:<li class="clearfix">
+
+                   
+
+                           string mydate = Convert.ToString(item.phoneAssignlabour.AssignedDate);
+                           string datetime = "";
+                           if (mydate != null && mydate != "")
+                           {
+                               DateTime time = DateTime.Parse(mydate);
+                               string date = Convert.ToString(time.ToString("dd-MMM-yyyy", System.Globalization.CultureInfo.InvariantCulture));
+                               string format = "am";
+                               int hour = time.Hour;
+                               int min = time.Minute;
+                               if (hour > 11) { format = "pm"; }
+                               if (hour > 12) { hour = hour - 12; }
+                               if (hour == 0) { hour = 12; }
+                               if (min < 10)
+                               {
+                                   min = 0 + min;
+                               }
+                               var exacttime = hour + "." + min + " " + format;
+                               datetime = date ;
+                           }
+
+                           if (item.BrandName != null && item.BrandName != "")
+                           {
+                    
+						@:<h3>@item.BrandName - @item.ModelNo <span>Posted on @datetime</span></h3>
+						}
+                           if (item.phoneAssignlabour.IsPhoneAccepted == false && item.phoneAssignlabour.CourierDetail == null && item.phoneAssignlabour.IsLabourReceivedPhone == null)
+                           {
+                        <p>
+                        Awaiting for  Approval
+                        </p>
+                           }
+                           else if (item.phoneAssignlabour.IsPhoneAccepted == true && item.phoneAssignlabour.CourierDetail == null && item.phoneAssignlabour.IsLabourReceivedPhone == null)
+                           {
+                            <p>  Awaiting for Admin Approval</p>
+                           }
+                           else if (item.phoneAssignlabour.IsPhoneAccepted == true && item.phoneAssignlabour.CourierDetail != null && item.phoneAssignlabour.IsLabourReceivedPhone == null)
+                           {
+                            <p>In transit  </p> @Html.Raw(item.phoneAssignlabour.CourierDetail)
+                           }
+
+                           else if (item.phoneAssignlabour.IsPhoneAccepted == true && item.phoneAssignlabour.CourierDetail != null && item.phoneAssignlabour.IsLabourReceivedPhone == true)
+                           {
+                            <p>Received</p>
+                           }
+                           else if (item.phoneAssignlabour.IsPhoneAccepted == false && item.phoneAssignlabour.IsPhoneAccepted == null && item.phoneAssignlabour.IsTimeExpired == null)
+                           {
+                            <p> Your Request is Rejected </p>
+                           }
+                           else if (item.phoneAssignlabour.IsPhoneAccepted == false && item.phoneAssignlabour.IsPhoneAccepted == null && item.phoneAssignlabour.IsTimeExpired == true)
+                           {
+                            <p>Your time Expired so Your Request is Rejected </p>
+                           }
+                               @* else
+                                {
+                                       <label>Rejected</label>
+                                }
+                     *@       
+                        
+					@:</li>
+                    }
+                    }
+                      else if (Model.ToList().Count == 0)
+                   {
+                       <label>Notification not found</label>
+                   }
+                   }                
+                         
+								
+				</ul>
+		</div>
+	</div>    
+
+</div>	
+
+    </div>
