@@ -1,0 +1,732 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="smartlaboursModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="SmartLabourEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="CourseCompletionStatus" EntityType="smartlaboursModel.CourseCompletionStatu" />
+    <EntitySet Name="Courses" EntityType="smartlaboursModel.Cours" />
+    <EntitySet Name="CourseTypes" EntityType="smartlaboursModel.CourseType" />
+    <EntitySet Name="DonatePhones" EntityType="smartlaboursModel.DonatePhone" />
+    <EntitySet Name="Labours" EntityType="smartlaboursModel.Labour" />
+    <EntitySet Name="PageMaps" EntityType="smartlaboursModel.PageMap" />
+    <EntitySet Name="PhoneAsssignedToLabours" EntityType="smartlaboursModel.PhoneAsssignedToLabour" />
+    <EntitySet Name="RequestPhones" EntityType="smartlaboursModel.RequestPhone" />
+    <EntitySet Name="Sponsors" EntityType="smartlaboursModel.Sponsor" />
+    <EntitySet Name="TBL_ABOUTUS_SMT" EntityType="smartlaboursModel.TBL_ABOUTUS_SMT" />
+    <EntitySet Name="TBL_AdminCONTACTUS_SMT" EntityType="smartlaboursModel.TBL_AdminCONTACTUS_SMT" />
+    <EntitySet Name="TBL_ADMINLOGIN_SMT" EntityType="smartlaboursModel.TBL_ADMINLOGIN_SMT" />
+    <EntitySet Name="TBL_Answer_SMT" EntityType="smartlaboursModel.TBL_Answer_SMT" />
+    <EntitySet Name="TBL_Artical_SMT" EntityType="smartlaboursModel.TBL_Artical_SMT" />
+    <EntitySet Name="TBL_Banner_SMT" EntityType="smartlaboursModel.TBL_Banner_SMT" />
+    <EntitySet Name="TBL_COMMENTS_SMT" EntityType="smartlaboursModel.TBL_COMMENTS_SMT" />
+    <EntitySet Name="TBL_CONTACTUS_SMT" EntityType="smartlaboursModel.TBL_CONTACTUS_SMT" />
+    <EntitySet Name="TBL_COURSEDTL_SMT" EntityType="smartlaboursModel.TBL_COURSEDTL_SMT" />
+    <EntitySet Name="TBL_DISBUTETRANSACTION_SMT" EntityType="smartlaboursModel.TBL_DISBUTETRANSACTION_SMT" />
+    <EntitySet Name="TBL_MODULES_SMT" EntityType="smartlaboursModel.TBL_MODULES_SMT" />
+    <EntitySet Name="TBL_PAGE_USER_MAP_SMT" EntityType="smartlaboursModel.TBL_PAGE_USER_MAP_SMT" />
+    <EntitySet Name="TBL_Question_SMT" EntityType="smartlaboursModel.TBL_Question_SMT" />
+    <EntitySet Name="TBL_REQUESTFAMILYSETTINGS_SMT" EntityType="smartlaboursModel.TBL_REQUESTFAMILYSETTINGS_SMT" />
+    <EntitySet Name="TBL_SERVICEPLAN_SMT" EntityType="smartlaboursModel.TBL_SERVICEPLAN_SMT" />
+    <EntitySet Name="TBL_SERVICEPROVIDER_SMT" EntityType="smartlaboursModel.TBL_SERVICEPROVIDER_SMT" />
+    <EntitySet Name="TBL_SERVICETYPE_SMT" EntityType="smartlaboursModel.TBL_SERVICETYPE_SMT" />
+    <EntitySet Name="TBL_Sponsor_Notifications" EntityType="smartlaboursModel.TBL_Sponsor_Notifications" />
+    <EntitySet Name="TBL_SPONSOROTHERDONATION_SMT" EntityType="smartlaboursModel.TBL_SPONSOROTHERDONATION_SMT" />
+    <EntitySet Name="TBL_TERMSANDCONDITION_SMT" EntityType="smartlaboursModel.TBL_TERMSANDCONDITION_SMT" />
+    <EntitySet Name="TBL_TESTIMONIAL_SMT" EntityType="smartlaboursModel.TBL_TESTIMONIAL_SMT" />
+    <EntitySet Name="TBL_VOUCHER_SMT" EntityType="smartlaboursModel.TBL_VOUCHER_SMT" />
+    <EntitySet Name="TestResults" EntityType="smartlaboursModel.TestResult" />
+    <EntitySet Name="VoucherAssignedToLabours" EntityType="smartlaboursModel.VoucherAssignedToLabour" />
+    <EntitySet Name="view_AvailStock" EntityType="smartlaboursModel.view_AvailStock" />
+    <EntitySet Name="view_plandetails" EntityType="smartlaboursModel.view_plandetails" />
+    <EntitySet Name="view_TotalStock" EntityType="smartlaboursModel.view_TotalStock" />
+    <EntitySet Name="view_UsedStock" EntityType="smartlaboursModel.view_UsedStock" />
+    <FunctionImport Name="AssignVoucherForCreditPoints">
+      <Parameter Name="LabourID" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Pro_AcceptPhone">
+      <Parameter Name="LabourId" Mode="In" Type="String" />
+      <Parameter Name="IsPhoneAccepted" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="Pro_AssignExpiredPhone" />
+    <FunctionImport Name="Pro_AssignPhoneToLabour" />
+    <FunctionImport Name="Pro_AssignVoucher" />
+    <FunctionImport Name="Pro_AssignVoucher_V1" />
+    <FunctionImport Name="Pro_AssignVoucherPoints" />
+    <FunctionImport Name="pro_DisbutedTransactionList" ReturnType="Collection(smartlaboursModel.pro_DisbutedTransactionList_Result)" />
+    <FunctionImport Name="Pro_GetVoucherCount" ReturnType="Collection(smartlaboursModel.Pro_GetVoucherCount_Result)" />
+    <FunctionImport Name="pro_LabourNotification_List" ReturnType="Collection(smartlaboursModel.pro_LabourNotification_List_Result)">
+      <Parameter Name="LabourId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pro_LabourNotificationPhone_List" ReturnType="Collection(smartlaboursModel.pro_LabourNotificationPhone_List_Result)">
+      <Parameter Name="LabourID" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pro_LabourPhoneRequestcount" ReturnType="Collection(smartlaboursModel.pro_LabourPhoneRequestcount_Result)">
+      <Parameter Name="LabourId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pro_PhoneAcceptedLabourHistory" ReturnType="Collection(smartlaboursModel.pro_PhoneAcceptedLabourHistory_Result)">
+      <Parameter Name="LabourId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pro_PhoneAssigned_Labour" ReturnType="Collection(smartlaboursModel.pro_PhoneAssigned_Labour_Result)" />
+    <FunctionImport Name="pro_PhoneAvailable" ReturnType="Collection(smartlaboursModel.pro_PhoneAvailable_Result)">
+      <Parameter Name="LabourId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pro_Request_History" ReturnType="Collection(smartlaboursModel.pro_Request_History_Result)">
+      <Parameter Name="LabourId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Pro_RequestPending" ReturnType="Collection(Int32)">
+      <Parameter Name="LabourId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pro_RequestPhone_List" ReturnType="Collection(smartlaboursModel.pro_RequestPhone_List_Result)" />
+    <FunctionImport Name="pro_RequestPhoneTransaction_List" ReturnType="Collection(smartlaboursModel.pro_RequestPhoneTransaction_List_Result)">
+      <Parameter Name="PhoneAssignId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pro_Voucher_Labour" ReturnType="Collection(smartlaboursModel.Pro_Voucher_Labour_Result)">
+      <Parameter Name="LabourID" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Pro_VoucherKitty" ReturnType="Collection(smartlaboursModel.Pro_VoucherKitty_Result)">
+      <Parameter Name="labourID" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="PROC_DASHBOADLATESTCOUNT" ReturnType="Collection(Int32)">
+      <Parameter Name="Type" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="PROC_MULTIPLEQUESTION" ReturnType="Collection(smartlaboursModel.PROC_MULTIPLEQUESTION_Result)" />
+    <FunctionImport Name="updateVoucherAssigned" />
+  </EntityContainer>
+  <EntityType Name="CourseCompletionStatu">
+    <Key>
+      <PropertyRef Name="CourseCompletionStatusID" />
+    </Key>
+    <Property Name="CourseCompletionStatusID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="LabourID" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="CourseID" Type="Int32" Nullable="false" />
+    <Property Name="IsStarted" Type="Boolean" />
+    <Property Name="IsFinished" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Cours">
+    <Key>
+      <PropertyRef Name="CourseID" />
+    </Key>
+    <Property Name="CourseID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CourseName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="CourseTypeID" Type="Int32" Nullable="false" />
+    <Property Name="MutlticourseDesc" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="STATUS" Type="Boolean" />
+    <Property Name="CREATEDBY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="CREATEDDATE" Type="DateTime" Precision="3" />
+    <Property Name="MODIFIEDBY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="MODIFIEDDATE" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="CourseType">
+    <Key>
+      <PropertyRef Name="CourseTypeID" />
+    </Key>
+    <Property Name="CourseTypeID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CourseTypeName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="DonatePhone">
+    <Key>
+      <PropertyRef Name="DonateID" />
+    </Key>
+    <Property Name="DonateID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="BrandName" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="ModelNo" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="PhoneColor" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="IMEANumber" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+    <Property Name="PhoneOwnerName" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+    <Property Name="ContactDetail" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="EmailID" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="Address" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Pincode" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="CourierDetail" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="IsPhoneAcceptedByAdmin" Type="Boolean" />
+    <Property Name="IsPhoneAssignedToLabour" Type="Boolean" />
+    <Property Name="DonatedDate" Type="DateTime" Precision="3" />
+    <Property Name="IsPhoneconfirmation" Type="Boolean" />
+    <Property Name="AlternateAddress" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="AlternatePhoneNumber" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Labour">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="LabourID" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="300" Unicode="true" FixedLength="false" />
+    <Property Name="EmailID" Type="String" Nullable="false" MaxLength="300" Unicode="true" FixedLength="false" />
+    <Property Name="Password" Type="String" MaxLength="300" Unicode="true" FixedLength="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="DOB" Type="DateTime" Precision="3" />
+    <Property Name="Sex" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="SERVICEPROVIDERID" Type="Int32" />
+    <Property Name="Address1" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="Address2" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="Address3" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="Pincode" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="STATUS" Type="Boolean" />
+    <Property Name="LabourImage" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="DeviceToken" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="DeviceType" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="CREATEDBY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="CREATEDDATE" Type="DateTime" Precision="3" />
+    <Property Name="MODIFIEDBY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="MODIFIEDDATE" Type="DateTime" Precision="3" />
+    <Property Name="IsDisplayNameAccepted" Type="Boolean" />
+    <Property Name="SERVICETYPEID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="PageMap">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="IMAPID" Type="Int32" Nullable="false" />
+    <Property Name="VUSERTYPE" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Bstatus" Type="Boolean" />
+    <Property Name="id" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="ipageid" Type="Int64" />
+  </EntityType>
+  <EntityType Name="PhoneAsssignedToLabour">
+    <Key>
+      <PropertyRef Name="PhoneAssignedID" />
+    </Key>
+    <Property Name="PhoneAssignedID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="DonateID" Type="Int32" Nullable="false" />
+    <Property Name="RequestPhoneID" Type="Int32" Nullable="false" />
+    <Property Name="LabourID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="AssignedDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="IsTimeExpired" Type="Boolean" />
+    <Property Name="IsPhoneAccepted" Type="Boolean" />
+    <Property Name="CourierDetail" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="IsLabourReceivedPhone" Type="Boolean" />
+    <Property Name="DeliveredDate" Type="DateTime" Precision="3" />
+    <Property Name="IsExpiredPhoneAssigned" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="RequestPhone">
+    <Key>
+      <PropertyRef Name="RequestPhoneID" />
+    </Key>
+    <Property Name="RequestPhoneID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="AlternatePhoneNumber" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="MailId" Type="String" MaxLength="300" Unicode="false" FixedLength="false" />
+    <Property Name="LabourID" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Address" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="NewAddress" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="RequestedDate" Type="DateTime" Precision="3" />
+    <Property Name="RequestStatus" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Sponsor">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="300" Unicode="true" FixedLength="false" />
+    <Property Name="EmailId" Type="String" MaxLength="300" Unicode="true" FixedLength="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="300" Unicode="true" FixedLength="false" />
+    <Property Name="DOB" Type="DateTime" Precision="3" />
+    <Property Name="Sex" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+    <Property Name="Address1" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Address2" Type="String" MaxLength="300" Unicode="true" FixedLength="false" />
+    <Property Name="Address3" Type="String" MaxLength="300" Unicode="true" FixedLength="false" />
+    <Property Name="Pincode" Type="String" MaxLength="300" Unicode="true" FixedLength="false" />
+    <Property Name="Password" Type="String" MaxLength="300" Unicode="true" FixedLength="false" />
+    <Property Name="ConfirmPassword" Type="String" MaxLength="300" Unicode="true" FixedLength="false" />
+    <Property Name="IsDisplayNameAccepted" Type="Boolean" />
+    <Property Name="EmiratesId" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="status" Type="Boolean" />
+    <Property Name="SponsorImage" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="CREATEDDATE" Type="DateTime" Precision="3" />
+    <Property Name="Homecontent" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="TBL_ABOUTUS_SMT">
+    <Key>
+      <PropertyRef Name="ABOUTUSID" />
+    </Key>
+    <Property Name="ABOUTUSID" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="SHORTDESC" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+    <Property Name="FULLDESCRIPTION" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="STATUS" Type="Boolean" />
+    <Property Name="CREATEDDATE" Type="DateTime" Precision="3" />
+    <Property Name="CREATEDBY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TBL_AdminCONTACTUS_SMT">
+    <Key>
+      <PropertyRef Name="CONTACTUSID" />
+    </Key>
+    <Property Name="CONTACTUSID" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="POBOXNO" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="ADDRESS1" Type="String" MaxLength="300" Unicode="true" FixedLength="false" />
+    <Property Name="ADDRESS2" Type="String" MaxLength="350" Unicode="true" FixedLength="false" />
+    <Property Name="PHONENO" Type="String" MaxLength="400" Unicode="true" FixedLength="false" />
+    <Property Name="CITY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="COUNTRY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="EMAILID" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="STATUS" Type="Boolean" />
+    <Property Name="CREATEDDATE" Type="DateTime" Precision="3" />
+    <Property Name="CREATEDBY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TBL_ADMINLOGIN_SMT">
+    <Key>
+      <PropertyRef Name="USERID" />
+    </Key>
+    <Property Name="USERID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="USERNAME" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="USEREMAIL" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="PASSWORD" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="USERTYPE" Type="Int32" />
+    <Property Name="STATUS" Type="Boolean" />
+    <Property Name="LASTLOGIN" Type="DateTime" Precision="3" />
+    <Property Name="CREATEDBY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="CREATEDDATE" Type="DateTime" Precision="3" />
+    <Property Name="MODIFIEDBY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="MODIFIEDDATE" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="TBL_Answer_SMT">
+    <Key>
+      <PropertyRef Name="AnswerID" />
+    </Key>
+    <Property Name="AnswerID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="AnswerDesc" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+    <Property Name="QuestionID" Type="Int32" />
+    <Property Name="IsCorrect" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="TBL_Artical_SMT">
+    <Key>
+      <PropertyRef Name="ArticalID" />
+    </Key>
+    <Property Name="ArticalID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="400" Unicode="true" FixedLength="false" />
+    <Property Name="ShortDescription" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="ArticalDate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Boolean" />
+    <Property Name="Homecontent" Type="Boolean" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TBL_Banner_SMT">
+    <Key>
+      <PropertyRef Name="BannerId" />
+    </Key>
+    <Property Name="BannerId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="BannerTitle" Type="String" MaxLength="300" Unicode="true" FixedLength="false" />
+    <Property Name="BannerImage" Type="String" MaxLength="800" Unicode="true" FixedLength="false" />
+    <Property Name="Status" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="TBL_COMMENTS_SMT">
+    <Key>
+      <PropertyRef Name="COMMENTSID" />
+    </Key>
+    <Property Name="COMMENTSID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="ARTICALID" Type="Int32" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="3000" Unicode="true" FixedLength="false" />
+    <Property Name="APPROVED" Type="Boolean" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="CREATEDDATE" Type="DateTime" Precision="3" />
+    <Property Name="CREATEDBY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TBL_CONTACTUS_SMT">
+    <Key>
+      <PropertyRef Name="CONTACTID" />
+    </Key>
+    <Property Name="CONTACTID" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="FIRSTNAME" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="LASTNAME" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="EMAILID" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="PHONENO" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+    <Property Name="COMMENTS" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+    <Property Name="CREATEDDATE" Type="DateTime" Precision="3" />
+    <Property Name="REVIEW" Type="String" MaxLength="400" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TBL_COURSEDTL_SMT">
+    <Key>
+      <PropertyRef Name="COURSEDTLID" />
+    </Key>
+    <Property Name="COURSEDTLID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="COURSEID" Type="Int32" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="CREATEDBY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="CREATEDDATE" Type="DateTime" Precision="3" />
+    <Property Name="MODIFIEDBY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="MODIFIEDDATE" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="TBL_DISBUTETRANSACTION_SMT">
+    <Key>
+      <PropertyRef Name="DisbuteID" />
+    </Key>
+    <Property Name="DisbuteID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="TransactionId" Type="Int32" />
+    <Property Name="FeedBack" Type="String" MaxLength="300" Unicode="true" FixedLength="false" />
+    <Property Name="REVIEW" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+    <Property Name="Createddate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="TBL_MODULES_SMT">
+    <Key>
+      <PropertyRef Name="IPAGEID" />
+    </Key>
+    <Property Name="IPAGEID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="VPAGELABEL" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="IPARENTID" Type="Int32" />
+    <Property Name="PAGENAME" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="IPRIORITY" Type="Int32" />
+    <Property Name="HMS_IMS" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="STATUS" Type="Boolean" />
+    <Property Name="CREATEDBY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="CREATEDDATE" Type="DateTime" Precision="3" />
+    <Property Name="MODIFIEDBY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="MODIFIEDDATE" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="TBL_PAGE_USER_MAP_SMT">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" />
+    <Property Name="IMAPID" Type="Int32" Nullable="false" />
+    <Property Name="ipageid" Type="Int32" Nullable="false" />
+    <Property Name="VUSERTYPE" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Bstatus" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="TBL_Question_SMT">
+    <Key>
+      <PropertyRef Name="QuestionID" />
+    </Key>
+    <Property Name="QuestionID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="QuestionDesc" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
+    <Property Name="CourseID" Type="Int32" />
+    <Property Name="CreditPoints" Type="Int32" />
+  </EntityType>
+  <EntityType Name="TBL_REQUESTFAMILYSETTINGS_SMT">
+    <Key>
+      <PropertyRef Name="REQUESTPHONEFAMILID" />
+    </Key>
+    <Property Name="REQUESTPHONEFAMILID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="REQUESTFAMILYSTATUS" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="TBL_SERVICEPLAN_SMT">
+    <Key>
+      <PropertyRef Name="SERVICEPLANID" />
+    </Key>
+    <Property Name="SERVICEPLANID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="SERVICETYPEID" Type="Int32" />
+    <Property Name="SERVICEPROVIDERID" Type="Int32" />
+    <Property Name="PLANNAEME" Type="String" MaxLength="150" Unicode="true" FixedLength="false" />
+    <Property Name="VALUEOFPLAN" Type="String" MaxLength="150" Unicode="true" FixedLength="false" />
+    <Property Name="Validity" Type="String" MaxLength="150" Unicode="true" FixedLength="false" />
+    <Property Name="STATUS" Type="Boolean" />
+    <Property Name="CREDITPOINTS" Type="Int32" />
+    <Property Name="CREATEDBY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="CREATEDDATE" Type="DateTime" Precision="3" />
+    <Property Name="MODIFIEDBY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="MODIFIEDDATE" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="TBL_SERVICEPROVIDER_SMT">
+    <Key>
+      <PropertyRef Name="SERVICEPROVIDERID" />
+    </Key>
+    <Property Name="SERVICEPROVIDERID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="SERVICEPROVIDER" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="STATUS" Type="Boolean" />
+    <Property Name="CREATEDBY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="CREATEDDATE" Type="DateTime" Precision="3" />
+    <Property Name="MODIFIEDBY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="MODIFIEDDATE" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="TBL_SERVICETYPE_SMT">
+    <Key>
+      <PropertyRef Name="SERVICETYPEID" />
+    </Key>
+    <Property Name="SERVICETYPEID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="SERVICETYPENAME" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="STATUS" Type="Boolean" />
+    <Property Name="CREATEDBY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="CREATEDDATE" Type="DateTime" Precision="3" />
+    <Property Name="MODIFIEDBY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="MODIFIEDDATE" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="TBL_Sponsor_Notifications">
+    <Key>
+      <PropertyRef Name="NotifyID" />
+    </Key>
+    <Property Name="NotifyID" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="DonateID" Type="Int32" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="IsPhoneConfirmation" Type="Boolean" />
+    <Property Name="IsCourrierconfirmation" Type="Boolean" />
+    <Property Name="IsPhoneAcceptedByAdmin" Type="Boolean" />
+    <Property Name="IsPhoneAssignedToLabour" Type="Boolean" />
+    <Property Name="CREATEDDATE" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="TBL_SPONSOROTHERDONATION_SMT">
+    <Key>
+      <PropertyRef Name="SponsorDonateId" />
+    </Key>
+    <Property Name="SponsorDonateId" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="DonateType" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="DonateAmount" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Description" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+    <Property Name="Comments" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TBL_TERMSANDCONDITION_SMT">
+    <Key>
+      <PropertyRef Name="TermsandConditionId" />
+    </Key>
+    <Property Name="TermsandConditionId" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="ShortDescription" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+    <Property Name="FullDecription" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="STATUS" Type="Boolean" />
+    <Property Name="CREATEDDATE" Type="DateTime" Precision="3" />
+    <Property Name="CREATEDBY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TBL_TESTIMONIAL_SMT">
+    <Key>
+      <PropertyRef Name="TestimonialId" />
+    </Key>
+    <Property Name="TestimonialId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+    <Property Name="Name" Type="String" MaxLength="300" Unicode="true" FixedLength="false" />
+    <Property Name="Designation" Type="String" MaxLength="300" Unicode="true" FixedLength="false" />
+    <Property Name="Image" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+    <Property Name="VideoFile" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+    <Property Name="Oggfilename" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+    <Property Name="Webmfilename" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+    <Property Name="MP4filename" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Status" Type="Boolean" />
+    <Property Name="HomeContent" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="TBL_VOUCHER_SMT">
+    <Key>
+      <PropertyRef Name="VOUCHERID" />
+    </Key>
+    <Property Name="VOUCHERID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="SERVICEPLANID" Type="Int32" />
+    <Property Name="SERVICEPROVIDERID" Type="Int32" Nullable="false" />
+    <Property Name="CODES" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="STATUS" Type="Boolean" />
+    <Property Name="CREATEDBY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="CREATEDATE" Type="DateTime" Precision="3" />
+    <Property Name="MODIFIEDBY" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="MODIFIEDDATE" Type="DateTime" Precision="3" />
+    <Property Name="IsVoucherAssigned" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="TestResult">
+    <Key>
+      <PropertyRef Name="TestID" />
+    </Key>
+    <Property Name="TestID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="LabourID" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="CourseID" Type="Int32" Nullable="false" />
+    <Property Name="QuestionID" Type="Int32" Nullable="false" />
+    <Property Name="AnswerID" Type="Int32" Nullable="false" />
+    <Property Name="IsCorrect" Type="Boolean" />
+    <Property Name="CreditPoints" Type="Int32" />
+    <Property Name="IsSubmitted" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="VoucherAssignedToLabour">
+    <Key>
+      <PropertyRef Name="VoucherAssignID" />
+    </Key>
+    <Property Name="VoucherAssignID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="VOUCHERID" Type="Int32" Nullable="false" />
+    <Property Name="LabourID" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="AssignedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="view_AvailStock">
+    <Key>
+      <PropertyRef Name="SERVICEPROVIDERID" />
+    </Key>
+    <Property Name="Avail_stock" Type="Int32" />
+    <Property Name="SERVICEPROVIDERID" Type="Int32" Nullable="false" />
+    <Property Name="SERVICEPLANID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="view_plandetails">
+    <Key>
+      <PropertyRef Name="SERVICEPROVIDERID" />
+    </Key>
+    <Property Name="PLANNAEME" Type="String" MaxLength="150" Unicode="true" FixedLength="false" />
+    <Property Name="VALUEOFPLAN" Type="String" MaxLength="150" Unicode="true" FixedLength="false" />
+    <Property Name="SERVICEPROVIDER" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="SERVICETYPENAME" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="SERVICEPROVIDERID" Type="Int32" Nullable="false" />
+    <Property Name="SERVICEPLANID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="view_TotalStock">
+    <Key>
+      <PropertyRef Name="SERVICEPROVIDERID" />
+    </Key>
+    <Property Name="Tot_Stock" Type="Int32" />
+    <Property Name="SERVICEPROVIDERID" Type="Int32" Nullable="false" />
+    <Property Name="SERVICEPLANID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="view_UsedStock">
+    <Key>
+      <PropertyRef Name="SERVICEPROVIDERID" />
+    </Key>
+    <Property Name="Used_stock" Type="Int32" />
+    <Property Name="SERVICEPROVIDERID" Type="Int32" Nullable="false" />
+    <Property Name="SERVICEPLANID" Type="Int32" />
+  </EntityType>
+  <ComplexType Name="pro_DisbutedTransactionList_Result">
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="300" />
+    <Property Type="String" Name="EmailID" Nullable="false" MaxLength="300" />
+    <Property Type="String" Name="LabourID" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="BrandName" Nullable="true" MaxLength="1000" />
+    <Property Type="String" Name="PhoneColor" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="IMEANumber" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="ModelNo" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="CourierDetail" Nullable="true" />
+    <Property Type="DateTime" Name="DeliveredDate" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="TransactionID" Nullable="false" />
+    <Property Type="Boolean" Name="PhoneStatus" Nullable="false" />
+    <Property Type="String" Name="FeedBack" Nullable="true" MaxLength="300" />
+    <Property Type="String" Name="REVIEW" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="DisbuteID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="Pro_GetVoucherCount_Result">
+    <Property Type="String" Name="PLANNAEME" Nullable="true" MaxLength="150" />
+    <Property Type="String" Name="VALUEOFPLAN" Nullable="true" MaxLength="150" />
+    <Property Type="String" Name="SERVICEPROVIDER" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="SERVICETYPENAME" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="Tot_Stock" Nullable="true" />
+    <Property Type="Int32" Name="Used_stock" Nullable="true" />
+    <Property Type="Int32" Name="Avail_stock" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pro_LabourNotification_List_Result">
+    <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="300" />
+    <Property Type="String" Name="EmiratesID" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="RequestPhoneID" Nullable="false" />
+    <Property Type="String" Name="BrandName" Nullable="true" MaxLength="1000" />
+    <Property Type="String" Name="ModelNo" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="IMEANumber" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="Phonecolor" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="PhoneNumber1" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="AlternatePhoneNumber" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="MailId" Nullable="true" MaxLength="300" />
+    <Property Type="String" Name="Address" Nullable="true" />
+    <Property Type="String" Name="NewAddress" Nullable="true" />
+    <Property Type="Boolean" Name="IsLabourReceivedPhone" Nullable="true" />
+    <Property Type="Boolean" Name="IsPhoneAccepted" Nullable="true" />
+    <Property Type="String" Name="CourierDetail" Nullable="true" />
+    <Property Type="DateTime" Name="AssignedDate" Nullable="true" />
+    <Property Type="DateTime" Name="DeliveredDate" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="TransactionID" Nullable="true" />
+    <Property Type="String" Name="Status" Nullable="false" MaxLength="18" />
+    <Property Type="DateTime" Name="RequestedDate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="pro_LabourNotificationPhone_List_Result">
+    <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="300" />
+    <Property Type="String" Name="EmiratesID" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="RequestPhoneID" Nullable="false" />
+    <Property Type="String" Name="BrandName" Nullable="true" MaxLength="1000" />
+    <Property Type="String" Name="ModelNo" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="PhoneColor" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="Status" Nullable="false" MaxLength="27" />
+    <Property Type="DateTime" Name="RequestedDate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="pro_LabourPhoneRequestcount_Result">
+    <Property Type="Int32" Name="count" Nullable="true" />
+    <Property Type="String" Name="LabourID" Nullable="true" MaxLength="50" />
+    <Property Type="Boolean" Name="IsLabourReceivedPhone" Nullable="true" />
+    <Property Type="String" Name="RequestStatus" Nullable="false" MaxLength="18" />
+  </ComplexType>
+  <ComplexType Name="pro_PhoneAcceptedLabourHistory_Result">
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="300" />
+    <Property Type="String" Name="BrandName" Nullable="true" MaxLength="1000" />
+    <Property Type="String" Name="PhoneColor" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="IMEANumber" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="ModelNo" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="CourierDetail" Nullable="true" />
+    <Property Type="DateTime" Name="DeliveredDate" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="TransactionID" Nullable="false" />
+    <Property Type="Boolean" Name="PhoneStatus" Nullable="false" />
+    <Property Type="Boolean" Name="IsLabourReceivedPhone" Nullable="true" />
+    <Property Type="Boolean" Name="IsTimeExpired" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pro_PhoneAssigned_Labour_Result">
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="300" />
+    <Property Type="String" Name="LabourID" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="BrandName" Nullable="true" MaxLength="1000" />
+    <Property Type="String" Name="PhoneColor" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="IMEANumber" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="ModelNo" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="CourierDetail" Nullable="true" />
+    <Property Type="DateTime" Name="DeliveredDate" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="TransactionID" Nullable="false" />
+    <Property Type="Boolean" Name="IsLabourReceivedPhone" Nullable="true" />
+    <Property Type="Boolean" Name="IsPhoneAccepted" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pro_PhoneAvailable_Result">
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="300" />
+    <Property Type="String" Name="BrandName" Nullable="true" MaxLength="1000" />
+    <Property Type="String" Name="PhoneColor" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="IMEANumber" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="ModelNo" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="CourierDetail" Nullable="true" />
+    <Property Type="DateTime" Name="DeliveredDate" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="TransactionID" Nullable="false" />
+    <Property Type="Int32" Name="DaysLeft" Nullable="true" />
+    <Property Type="DateTime" Name="AssignedDate" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pro_Request_History_Result">
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="300" />
+    <Property Type="String" Name="BrandName" Nullable="true" MaxLength="1000" />
+    <Property Type="String" Name="PhoneColor" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="IMEANumber" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="ModelNo" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="CourierDetail" Nullable="true" />
+    <Property Type="DateTime" Name="DeliveredDate" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="TransactionID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pro_RequestPhone_List_Result">
+    <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="300" />
+    <Property Type="String" Name="EmiratesID" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="RequestPhoneID" Nullable="false" />
+    <Property Type="String" Name="RequestStatus" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Status" Nullable="false" MaxLength="27" />
+    <Property Type="DateTime" Name="RequestedDate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="pro_RequestPhoneTransaction_List_Result">
+    <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="300" />
+    <Property Type="String" Name="EmiratesID" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="RequestPhoneID" Nullable="false" />
+    <Property Type="String" Name="BrandName" Nullable="true" MaxLength="1000" />
+    <Property Type="String" Name="ModelNo" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="IMEANumber" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="Phonecolor" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="PhoneNumber1" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="AlternatePhoneNumber" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="MailId" Nullable="true" MaxLength="300" />
+    <Property Type="String" Name="Address" Nullable="true" />
+    <Property Type="String" Name="NewAddress" Nullable="true" />
+    <Property Type="Boolean" Name="IsLabourReceivedPhone" Nullable="true" />
+    <Property Type="Boolean" Name="IsPhoneAccepted" Nullable="true" />
+    <Property Type="String" Name="CourierDetail" Nullable="true" />
+    <Property Type="DateTime" Name="AssignedDate" Nullable="true" />
+    <Property Type="DateTime" Name="DeliveredDate" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="TransactionID" Nullable="true" />
+    <Property Type="String" Name="Status" Nullable="false" MaxLength="18" />
+    <Property Type="DateTime" Name="RequestedDate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="Pro_Voucher_Labour_Result">
+    <Property Type="Int32" Name="VOUCHERID" Nullable="false" />
+    <Property Type="String" Name="CODES" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="VALUEOFPLAN" Nullable="true" MaxLength="150" />
+    <Property Type="String" Name="Validity" Nullable="true" MaxLength="150" />
+  </ComplexType>
+  <ComplexType Name="Pro_VoucherKitty_Result">
+    <Property Type="Int32" Name="CompletedCourse" Nullable="true" />
+    <Property Type="Int32" Name="TotalPoints" Nullable="false" />
+    <Property Type="Int32" Name="PointsToRedeemed" Nullable="true" />
+    <Property Type="Int32" Name="VoucherEarned" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="PROC_MULTIPLEQUESTION_Result">
+    <Property Type="Int32" Name="Courseid" Nullable="false" />
+    <Property Type="String" Name="CourseName" Nullable="true" MaxLength="100" />
+  </ComplexType>
+</Schema>

@@ -1,0 +1,178 @@
+﻿@model IEnumerable<SmartLabours.Models.Labour>
+    <script type="text/javascript">
+
+    </script>
+
+                      @* Google Analytics COde  *@
+                      <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+                      <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+                      <!-- End here -->
+
+    <style type="text/css" >
+        .posit {
+            height:500px;
+            overflow-y:scroll;
+            overflow-x:hidden;
+        }
+
+        .double_Grid {
+            width:1000px;           
+            padding-top:10px;
+        }
+        .Button {
+            background:#CE3137;
+	        border: 1px solid #000000;
+	        border-radius: 5px 5px 5px 5px;
+            color: #FFFFFF;
+            cursor:pointer;
+            display: inline;
+           /* float: left;*/
+            font: bold 13px/26px arial;
+            height: 26px;
+            margin-left: 0px;
+            padding: 0 10px;
+            text-decoration: none;
+            text-transform: uppercase;
+            margin-right:10px;
+        }
+        .AddRemoveBtn {
+           text-align:center; padding-top: 200px; padding-left: 20px;
+        }
+   
+    </style>
+
+    @if(Model!=null && Model.Count()>0){
+
+      <div class="double_Grid" style="margin-top:20px"> 
+            <div style="float:left;" class="HeaderDiv">
+                <h4 > Non Group Members </h4>
+            </div>
+            <div style="float:right;" class="HeaderDiv">
+                 <h4 > Group Members </h4>
+            </div>
+        </div>
+
+    <div  class="double_Grid">
+
+    <div class="posit" style="width:450px;float:left">
+
+                <div class="posit_hd" style="width:100%;">
+                    <table  border="0" cellspacing="0" cellpadding="3" style="padding-right: 14px; padding-left: 10px;width:100%">
+                        <tr>
+                            <td width="20" class="left">
+                                S.No.
+                            </td>
+                            <td width="10"></td>
+                            <td width="180" class="left">
+                                Emirates ID
+                            </td>
+                            <td width="5"></td>
+                            <td width="220" class="left">
+                                Name
+                            </td>
+                            <td width="20" class="center">
+                                <input type="checkbox" onclick="checkAll(this)" title="Select All" />
+                            </td>
+
+                        </tr>
+                    </table>
+            </div>
+        <div class="posit_bt" style="width:100%;">
+                    <table  border="0" cellspacing="0" cellpadding="3" style="padding-right: 14px; padding-left: 10px;width:100%">     
+                           @{ int sno = 0;
+
+                            }              
+                        @foreach (var item in Model)
+                        {
+                            if (item.OrgName=="1")
+                            {
+                            sno = sno + 1;
+                            <tr class="posit_txt">
+
+                                <td width="20" class="center">
+                                    @(sno)
+                                </td>
+                                <td width="10"></td>
+                                <td width="180" class="left">
+                                    @Html.DisplayFor(modelItem => item.LabourID)
+                                </td>
+                                  <td width="10"></td>
+                                <td width="220" class="left">
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>                               
+                                <td class="center" width="20">
+                                    <input id="@item.UserID" type="checkbox" name="chkname" />
+                                </td>
+                            </tr>
+                        }
+                        }
+                    </table>
+
+        </div>
+        </div>
+
+    <div style="width:90px;float:left">
+       
+               <div class="AddRemoveBtn">
+                        <input type="button" value=" >>> " title="Assign to Groups" onclick="AddMembers()" class="Button" /> <br /> <br />
+                        <input type="button" value=" <<< " title="Unassign to Groups" onclick="RemoveMembers()" class="Button" />
+                </div>
+    </div>
+
+     <div class="posit" style="width:450px;float:right;">
+               <div class="posit_hd" style="width:100%;">
+                    <table  border="0" cellspacing="0" cellpadding="3" style="padding-right: 14px; padding-left: 10px;width:100%">
+                        <tr>
+                            <td width="20" class="left">
+                                S.No.
+                            </td>
+                            <td width="10"></td>
+                            <td width="180" class="left">
+                                Emirates ID
+                            </td>
+                            <td width="5"></td>
+                            <td width="220" class="left">
+                                Name
+                            </td>
+                            <td width="20" class="center">
+                                <input type="checkbox" onclick="checkAllInRemove(this)" title="Select All" />
+                            </td>
+
+                        </tr>
+                    </table>
+            </div>
+
+      <div class="posit_bt" style="width:100%;">
+                    <table  border="0" cellspacing="0" cellpadding="3" style="padding-right: 14px; padding-left: 10px;width:100%">     
+                           @{ int sno1 = 0;
+
+                            }     
+                        @foreach (var item in Model)
+                        {      
+                              if (item.OrgName=="2")
+                            {                     
+                            sno1 = sno1 + 1;
+                            <tr class="posit_txt">
+
+                                <td width="20" class="center">
+                                    @(sno1)
+                                </td>
+                                <td width="10"></td>
+                                <td width="180" class="left">
+                                    @Html.DisplayFor(modelItem => item.LabourID)
+                                </td>
+                                  <td width="5"></td>
+                                <td width="220" class="left">
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>                               
+                                <td class="center" width="20">
+                                    <input id="@item.UserID" type="checkbox" name="chkname1" />
+                                </td>
+                            </tr>
+                        }
+                        }
+                     </table>
+               </div>
+        </div>
+  </div>
+    }

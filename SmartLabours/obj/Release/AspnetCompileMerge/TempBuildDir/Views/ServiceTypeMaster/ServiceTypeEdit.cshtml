@@ -1,0 +1,96 @@
+﻿
+
+
+@model SmartLabours.Models.TBL_SERVICETYPE_SMT
+@{
+    ViewBag.Title = "Service Type Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<link href="~/Content/themes/base/base.css" rel="stylesheet" />
+<link href="~/Content/themes/base/jquery.ui.autocomplete.css" rel="stylesheet" />
+
+<script type="text/javascript">
+    //Send to Previous page
+    function PreviousPage() {
+        window.location = "/ServiceTypeMaster/ServiceTypeList";
+    }
+
+</script>
+
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                    Edit Service Type
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1" >
+                    <b>
+                        <label id="lblErrormsg" >
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="suss_mesg" id="msShow2" >
+                    <b>
+                        <label id="lblError1" >
+                        </label>
+                    </b>
+                </div>
+                <div class="fld_fd">
+                    @using (Html.BeginForm("ServiceTypeEdit", "ServiceTypeMaster", FormMethod.Post, new { id = "ServiceTypeId", @class = "form-horizontal", enctype = "multipart/form-data", autocomplete = "off" }))
+                    {
+                        @Html.ValidationSummary(true)
+                        <div>
+
+
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span>  Service Type
+                                </dd>
+                                <dt>
+                                    @Html.TextBoxFor(model => model.SERVICETYPENAME, new { maxlength = 50 })
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.SERVICETYPENAME)
+                                    </span>
+                                </dt>
+                            </dl>
+
+                            @Html.HiddenFor(model => model.SERVICETYPEID, new { maxlength = 50 })
+
+                            <dl style="padding-top:7px">
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span> Status
+                                </dd>
+                                <dt>
+                                    @Html.RadioButtonFor(model => model.STATUS, true, new { @checked = true })
+                                    <label>
+                                        Active
+                                    </label>
+                                    @Html.RadioButtonFor(model => model.STATUS, false)
+                                    <label>
+                                        InActive
+                                    </label>
+                                </dt>
+                            </dl>
+                            <div class="btn1 btn1-form">
+                                <input type="submit" value="Save" title="Save" />
+                                <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,105 @@
+<div>
+	<table cellspacing="0" rules="all" border="1" style="border-collapse:collapse;">
+		<tr>
+			<th scope="col">LabourID</th><th scope="col">Name</th><th scope="col">EmailID</th><th scope="col">PhoneNumber</th><th scope="col">DOB</th><th scope="col">Gender</th><th scope="col">Address</th><th scope="col">Address2</th><th scope="col">City</th><th scope="col">State</th><th scope="col">Pincode</th><th scope="col">SERVICEPROVIDER</th><th scope="col">SERVICETYPEID</th><th scope="col">Country</th><th scope="col">Category</th><th scope="col">SubCategory</th><th scope="col">DisplayNameAccept</th>
+		</tr><tr>
+			<td>71752157511461256</td><td>musafir</td><td>sayyidfasil@hotmail.com</td><td>5786743255</td><td>05/18/1988 12:00:00 AM</td><td>Male</td><td>deira , dubai 66666</td><td>887565</td><td>dubai</td><td>dubai</td><td>786758</td><td>BSNL</td><td>0</td><td>United Arab Emirates</td><td>Engineer</td><td>Mechanical</td><td>False</td>
+		</tr><tr>
+			<td>1908129381293812938</td><td>Sujatha</td><td>sujatha@angleritech.com</td><td>1234567889</td><td>07/08/1964 12:00:00 AM</td><td>Female</td><td>tyty</td><td>sdfsf</td><td>Ondjiva</td><td>Cunene</td><td>641001</td><td>BSNL</td><td>1,2,3,4</td><td>Angola</td><td>&nbsp;</td><td>&nbsp;</td><td>True</td>
+		</tr><tr>
+			<td>29873693490787979</td><td>sayyidfasil</td><td>sayyidfasil@gmail.com</td><td>5786743255</td><td>05/09/1965 12:00:00 AM</td><td>Male</td><td>403 ethihad building</td><td>10th fooe dubai deira</td><td>dubai</td><td>dubai</td><td>858687</td><td>Airtel</td><td>1,2,3</td><td>971</td><td>General</td><td>General</td><td>True</td>
+		</tr><tr>
+			<td>124587665557554560</td><td>arunkarthik</td><td>abu.muadh@blackandwhiteconsultin.com</td><td>99941535656</td><td>03/19/2016 12:00:00 AM</td><td>Male</td><td>Coimbatore</td><td>null</td><td>coimbatore</td><td>tamilnadu</td><td>641005</td><td>Super Market</td><td>1</td><td>&nbsp;</td><td>Add Angler1</td><td>Add sub category</td><td>True</td>
+		</tr><tr>
+			<td>123456789123456</td><td>Abu</td><td>abu.muadh@blackandwhitec.com</td><td>557006022</td><td>10/12/2013 12:00:00 AM</td><td>Male</td><td>Dubai</td><td>null</td><td>Dubai</td><td>Dubai</td><td>5133</td><td>Du</td><td>1</td><td>971</td><td>Painter</td><td>Car Painter</td><td>True</td>
+		</tr><tr>
+			<td>12354658979658546</td><td>sudha</td><td>sudha@angleritech.com</td><td>45265470956688</td><td>01/12/1987 12:00:00 AM</td><td>Female</td><td>Coimbatore</td><td>null</td><td>Coimbatore</td><td>tamil nadu</td><td>64100558</td><td>Medina Abraj</td><td>1,4</td><td>91</td><td>Sweeper</td><td>Outdoor Sweeper</td><td>True</td>
+		</tr><tr>
+			<td>123456789096355</td><td>Am</td><td>sfarukh@yahoo.com</td><td>551583244</td><td>12/13/2019 12:00:00 AM</td><td>Male</td><td>Dubai</td><td>null</td><td>Dubai</td><td>Dubau</td><td>123456</td><td>Du</td><td>1</td><td>&nbsp;</td><td>General</td><td>General</td><td>True</td>
+		</tr><tr>
+			<td>32659595959599596</td><td>Akthar</td><td>akthar@aegis.com</td><td>56497846465</td><td>03/04/2016 12:00:00 AM</td><td>Male</td><td>Deira 64772 dubai uae</td><td>null</td><td>Dubai</td><td>Dubai</td><td>919535</td><td>Du</td><td>1,2,3</td><td>971</td><td>General</td><td>General</td><td>True</td>
+		</tr><tr>
+			<td>123456789632564</td><td>Sudeepta</td><td>sudeepta@transcendix.in</td><td>551583244</td><td>10/12/2012 12:00:00 AM</td><td>Female</td><td>Dubai</td><td>null</td><td>Dubai</td><td>Dubai</td><td>1234</td><td>Du</td><td>1</td><td>&nbsp;</td><td>General</td><td>General</td><td>False</td>
+		</tr><tr>
+			<td>159753284693147</td><td>sayyid</td><td>sayyid.fasil@blackandwhiteconsulting.com</td><td>9994156765</td><td>03/19/1980 12:00:00 AM</td><td>Male</td><td>Ramanathapuram</td><td>16</td><td>Coimbatore</td><td>Tamil Nadu</td><td>641005</td><td>HCL DOCOMO</td><td>1</td><td>&nbsp;</td><td>HCL Category</td><td>HCL sub category One</td><td>False</td>
+		</tr><tr>
+			<td>54545454512358540</td><td>karz</td><td>karz@gmail.com</td><td>999414141565</td><td>06/03/1980 12:00:00 AM</td><td>Female</td><td>Tfycyc</td><td>yctc</td><td>Coimbatore</td><td>Tamil Nadu</td><td>641005</td><td>HCL DOCOMO</td><td>1</td><td>&nbsp;</td><td>HCL Category</td><td>HCL Sub Category</td><td>False</td>
+		</tr><tr>
+			<td>15963245781563256</td><td>vivek</td><td>vivek@gmail.com</td><td>33321457869</td><td>06/05/1956 12:00:00 AM</td><td>Male</td><td>Qwrtuh</td><td>rfygqwerty</td><td>Coimbatore</td><td>Tamil Nadu</td><td>652134858</td><td>HCL DOCOMO</td><td>2</td><td>91</td><td>HCL Category</td><td>HCL sub category One</td><td>True</td>
+		</tr><tr>
+			<td>prakash1234567890</td><td>prakash</td><td>prakash@gmail.com</td><td>345345345345</td><td>08/10/1962 12:00:00 AM</td><td>Male</td><td>test</td><td>test</td><td>Coimbatore</td><td>Tamil Nadu</td><td>34534534</td><td>HCL DOCOMO</td><td>&nbsp;</td><td>India</td><td>HCL Category</td><td>HCL Sub Category</td><td>True</td>
+		</tr><tr>
+			<td>120398123812938129</td><td>SujiHCL</td><td>sujihcl@gmail.com</td><td>897873823813</td><td>01/01/1967 12:00:00 AM</td><td>Female</td><td>RSpuram</td><td>Coimbatore</td><td>Berat</td><td>Berat</td><td>641001</td><td>BSNL</td><td>1,2,3,4</td><td>355</td><td>HCL Category</td><td>HCL Sub Category</td><td>True</td>
+		</tr><tr>
+			<td>123456789563256</td><td>Sf</td><td>info@blackandwhitec.com</td><td>551583244</td><td>04/07/1987 12:00:00 AM</td><td>Male</td><td>Dubai</td><td>Dubai</td><td>Dubai</td><td>Dubai</td><td>12345</td><td>Airtel</td><td>1,2,3</td><td>971</td><td>General</td><td>General</td><td>True</td>
+		</tr><tr>
+			<td>6256653355514616000</td><td>Said</td><td>sayyidfasil@yahoo.com</td><td>815465521651</td><td>04/05/1953 12:00:00 AM</td><td>Male</td><td>Hdhdjjd hdhhd hdjd</td><td>1536 hshj272 163</td><td>Ankola</td><td>Karnataka</td><td>546846</td><td>Du</td><td>1</td><td>&nbsp;</td><td>General</td><td>General</td><td>True</td>
+		</tr><tr>
+			<td>9874563214569874</td><td>Selvakumar K</td><td>selvakumar.k@angleritech.com</td><td>9957228569555</td><td>06/24/1988 12:00:00 AM</td><td>Male</td><td>test</td><td>test</td><td>Anand</td><td>Gujarat</td><td>789789879</td><td>Airtel</td><td>&nbsp;</td><td>India</td><td>General</td><td>General</td><td>True</td>
+		</tr><tr>
+			<td>82653615431853660</td><td>Fasil</td><td>soft1234bird@gmail.com</td><td>656653135165</td><td>03/05/1952 12:00:00 AM</td><td>Male</td><td>73u hdjd 37eb d</td><td>Ye73 I e73 hsus</td><td>Addanki</td><td>Andhra Pradesh</td><td>6595665</td><td>Du</td><td>1</td><td>&nbsp;</td><td>General</td><td>General</td><td>True</td>
+		</tr><tr>
+			<td>E3658875465498764654</td><td>Anbarasu</td><td>anbarasu.a@angleritech.com</td><td>4654657876846</td><td>02/24/1961 12:00:00 AM</td><td>Male</td><td>test</td><td>test</td><td>Dubai</td><td>Dubai</td><td>4524646546</td><td>Vodafone</td><td>&nbsp;</td><td>United Arab Emirates</td><td>General</td><td>General</td><td>True</td>
+		</tr><tr>
+			<td>68658865488647840</td><td>Adil</td><td>adil@blackandwhiteconsulting.com</td><td>57548158</td><td>04/04/1953 12:00:00 AM</td><td>Male</td><td>Gsggeh hdhhd dhdhd hs</td><td>Hdhdjjd hzu383 3i83</td><td>Charari Sharief</td><td>Jammu and Kashmir</td><td>6495665</td><td>DU</td><td>1</td><td>&nbsp;</td><td>IT</td><td>NETWORK</td><td>False</td>
+		</tr><tr>
+			<td>12345678355631234</td><td>Niyas</td><td>niyas@blackandwhiteconsulting.com</td><td>455357456456</td><td>09/08/1991 12:00:00 AM</td><td>Male</td><td>ssdfs</td><td>Address2</td><td>Coimbatore</td><td>Tamil Nadu</td><td>55345</td><td>DU</td><td>0</td><td>India</td><td>IT</td><td>SUPPORT</td><td>True</td>
+		</tr><tr>
+			<td>5464564345612353</td><td>Aiaz</td><td>ajaz@blackandwhiteconsulting.com</td><td>5435345345</td><td>12/13/1991 12:00:00 AM</td><td>Male</td><td>dggffdg</td><td>Address2</td><td>Chennai</td><td>Tamil Nadu</td><td>567856</td><td>ETISALAT</td><td>0</td><td>India</td><td>IT</td><td>SUPPORT</td><td>False</td>
+		</tr><tr>
+			<td>12345678355631298</td><td>Unais</td><td>unais@blackandwhiteconsulting.com</td><td>455357456456</td><td>09/08/1991 12:00:00 AM</td><td>Male</td><td>ssdfs</td><td>Address2</td><td>Coimbatore</td><td>Tamil Nadu</td><td>55345</td><td>DU</td><td>0</td><td>India</td><td>IT</td><td>SUPPORT</td><td>True</td>
+		</tr><tr>
+			<td>5464564348989797</td><td>Salih</td><td>salih@blackandwhiteconsulting.com</td><td>5435345345</td><td>12/13/1991 12:00:00 AM</td><td>Male</td><td>dggffdg</td><td>Address2</td><td>Chennai</td><td>Tamil Nadu</td><td>567856</td><td>ETISALAT</td><td>0</td><td>India</td><td>IT</td><td>SUPPORT</td><td>False</td>
+		</tr><tr>
+			<td>12454353543344355</td><td>Shafi</td><td>shafi@blackandwhiteconsulting.com</td><td>1235765433</td><td>09/12/1976 12:00:00 AM</td><td>Male</td><td>dggffdg</td><td>Address2</td><td>Chennai</td><td>Tamil Nadu</td><td>554452</td><td>ETISALAT</td><td>0</td><td>India</td><td>ADMINISTRATION</td><td>ACCOUNTS</td><td>False</td>
+		</tr><tr>
+			<td>124578124578124580</td><td>tamilselvi@angleritech.com</td><td>tamilselvi@angleritech.com</td><td>123456789</td><td>12/17/1994 12:00:00 AM</td><td>Female</td><td>Chetpet, test address</td><td>Ii floor, test, ytutui</td><td>Coimbatore</td><td>Tamil Nadu</td><td>4512356</td><td>Airtel</td><td>1,2,3</td><td>91</td><td>Painter</td><td>Car Painter</td><td>True</td>
+		</tr><tr>
+			<td>147369258147369</td><td>swathy</td><td>swathy@angleritech.com</td><td>1234567123456</td><td>05/09/2018 12:00:00 AM</td><td>Female</td><td>456 fgh</td><td>Tyubbm</td><td>Coimbatore</td><td>Tamil Nadu</td><td>623895</td><td>BSNL</td><td>1</td><td>&nbsp;</td><td>Software Engineer</td><td>Android Developer</td><td>False</td>
+		</tr><tr>
+			<td>789456123258960</td><td>sudha</td><td>sudha1@angleritech.com</td><td>4552515552125</td><td>03/03/1952 12:00:00 AM</td><td>Female</td><td>ya</td><td>sd</td><td>Coimbatore</td><td>Tamil Nadu</td><td>641001</td><td>BSNL</td><td>1</td><td>91</td><td>Software Engineer</td><td>Android Developer</td><td>True</td>
+		</tr><tr>
+			<td>123456789102345</td><td>Info</td><td>info@blackandwhiteconsulting.com</td><td>551583244</td><td>02/02/1960 12:00:00 AM</td><td>Male</td><td>Dubai</td><td>UAE</td><td>Deira</td><td>Dubai</td><td>51133</td><td>MTNL</td><td>null</td><td>971</td><td>Category Test</td><td>&nbsp;</td><td>True</td>
+		</tr><tr>
+			<td>Emimrates12345678</td><td>Thiyagarjane</td><td>k.e.thiyagarajan@gmail.com</td><td>9876543210</td><td>03/11/1965 12:00:00 AM</td><td>Male</td><td>Address1</td><td>Address2</td><td>Chinna Salem</td><td>Tamil Nadu</td><td>620123</td><td>Airtel</td><td>&nbsp;</td><td>India</td><td>Carpainter</td><td>Mechanic</td><td>True</td>
+		</tr><tr>
+			<td>74123698564123790</td><td>arunkarthik</td><td>arunkarthic@angleritech.com</td><td>99941525356</td><td>07/10/1985 12:00:00 AM</td><td>Male</td><td>Angler</td><td>16</td><td>Coimbatore</td><td>Tamil Nadu</td><td>641005</td><td>HCL DOCOMO</td><td>1,2,3</td><td>91</td><td>Engineer</td><td>Sub Engineer</td><td>True</td>
+		</tr><tr>
+			<td>745213658965412</td><td>karthikeyan</td><td>karthikeyan.r@angleritech.com</td><td>3332145785655</td><td>11/10/1972 12:00:00 AM</td><td>Male</td><td>Angler technologies</td><td>16</td><td>Coimbatore</td><td>Tamil Nadu</td><td>641005</td><td>CTS Airtel</td><td>2</td><td>91</td><td>Engineer</td><td>Sub Engineer</td><td>True</td>
+		</tr><tr>
+			<td>Emirates214563465</td><td>Test</td><td>thiyagarajan.e@angleritech.com</td><td>7467856756756</td><td>01/01/1951 12:00:00 AM</td><td>Male</td><td>A</td><td>AA</td><td>Talipparamba</td><td>Kerala</td><td>5678545</td><td>HCL DOCOMO</td><td>&nbsp;</td><td>India</td><td>HCL Category</td><td>HCL Sub Category</td><td>True</td>
+		</tr><tr>
+			<td>656565653436194400</td><td>Said</td><td>mjakthar@gmail.com</td><td>85686295353</td><td>04/04/1977 12:00:00 AM</td><td>Male</td><td>1005 hsus udhbr2</td><td>10, 1005 ethihad</td><td>Al Qusais</td><td>Dubai</td><td>356195</td><td>Du</td><td>1</td><td>&nbsp;</td><td>General</td><td>General</td><td>False</td>
+		</tr><tr>
+			<td>EK123123123123123</td><td>Tamilselvi</td><td>hemalatha@angleritech.com</td><td>78977878</td><td>01/11/1991 12:00:00 AM</td><td>Female</td><td>test address 1</td><td>test address 2, </td><td>0</td><td>Abu Zabi</td><td>56789</td><td>MTNL</td><td>&nbsp;</td><td>United Arab Emirates</td><td>Software Engineer</td><td>Android Developer</td><td>False</td>
+		</tr><tr>
+			<td>455656645645645640000</td><td>www</td><td>www@gmail.com</td><td>12132131231</td><td>02/03/1953 12:00:00 AM</td><td>Female</td><td>adasd</td><td>dsasd</td><td>Eshkashem</td><td>Badakhshan</td><td>641001</td><td>BSNL</td><td>1</td><td>&nbsp;</td><td>Add Angler1</td><td>Add sub category</td><td>False</td>
+		</tr><tr>
+			<td>324565168764534545</td><td>sayyid</td><td>sayyid@blackandwhiteconsulting.com</td><td>567972524</td><td>02/18/1992 12:00:00 AM</td><td>Male</td><td>deira city centre</td><td>10 1005</td><td>Al Qusais</td><td>Dubai</td><td>2154565</td><td>ETISALAT</td><td>1,2,3</td><td>971</td><td>IT</td><td>SUPPORT</td><td>True</td>
+		</tr><tr>
+			<td>956468668686566900</td><td>Shaffaf</td><td>shaffaf@blackamdwhitecinsulting.com</td><td>98656598817</td><td>04/06/1954 12:00:00 AM</td><td>Male</td><td>Hdhdjjd jsjs</td><td>Gsh182 q8w</td><td>Al Qusais</td><td>Dubai</td><td>956584</td><td>ETISALAT</td><td>1</td><td>&nbsp;</td><td>IT</td><td>SUPPORT</td><td>False</td>
+		</tr><tr>
+			<td>545465454545464500000</td><td>suji</td><td>suji@gmail.com</td><td>4544545645546</td><td>06/06/1956 12:00:00 AM</td><td>Female</td><td>RSPuram</td><td>Coimbatore</td><td>Eshkashem</td><td>Badakhshan</td><td>641001</td><td>BSNL</td><td>1</td><td>&nbsp;</td><td>HCL Category</td><td>HCL Sub Category</td><td>False</td>
+		</tr><tr>
+			<td>1597856423698507</td><td>dhiesh</td><td>dhiesh@gmail.com</td><td>85990856988</td><td>07/07/1990 12:00:00 AM</td><td>Female</td><td>Building</td><td>Floor</td><td>Eshkashem</td><td>Badakhshan</td><td>641001</td><td>BSNL</td><td>1</td><td>&nbsp;</td><td>Add Angler1</td><td>Add sub category</td><td>True</td>
+		</tr><tr>
+			<td>7894561236908547</td><td>smart</td><td>smart@gmail.com</td><td>88908569856</td><td>07/08/1991 12:00:00 AM</td><td>Female</td><td>Fhj</td><td>Gjn</td><td>Birrahhal</td><td>Annabah</td><td>641001</td><td>BSNL</td><td>1</td><td>&nbsp;</td><td>Add Angler1</td><td>Add sub category</td><td>True</td>
+		</tr><tr>
+			<td>6561663564686466000</td><td>Fasil</td><td>aaaa@blackandwhitec.com</td><td>567972524</td><td>06/04/1955 12:00:00 AM</td><td>Male</td><td>Hdhdjjd jsjs</td><td>15 1005</td><td>Deira</td><td>Dubai</td><td>65326</td><td>Airtel</td><td>1,2,3</td><td>971</td><td>General</td><td>General</td><td>True</td>
+		</tr><tr>
+			<td>4561237582235689</td><td>sbu</td><td>sbu@gmail.com</td><td>1112222222222</td><td>05/06/1953 12:00:00 AM</td><td>Female</td><td>Rspuram</td><td>Floort</td><td>Coimbatore</td><td>Tamil Nadu</td><td>641001</td><td>HCL DOCOMO</td><td>1</td><td>&nbsp;</td><td>HCL Category</td><td>HCL Sub Category</td><td>False</td>
+		</tr><tr>
+			<td>456123789456123</td><td>eit</td><td>eit@angleritech.com</td><td>12345678912</td><td>05/05/1954 12:00:00 AM</td><td>Female</td><td>s</td><td>s</td><td>Coimbatore</td><td>Tamil Nadu</td><td>641001</td><td>HCL DOCOMO</td><td>1</td><td>91</td><td>HCL Category</td><td>HCL Sub Category</td><td>True</td>
+		</tr><tr>
+			<td>456123789654123</td><td>ranjith</td><td>ranjith.n@angleritech.com</td><td>1234567896325</td><td>03/04/1960 12:00:00 AM</td><td>Male</td><td>Ramanathapuram</td><td>sungam</td><td>Coimbatore</td><td>Tamil Nadu</td><td>641001</td><td>Tamil Telecom Operator</td><td>1</td><td>&nbsp;</td><td>Software</td><td>mobile app</td><td>False</td>
+		</tr><tr>
+			<td>123456789253695</td><td>Learning</td><td>learning@blackandwhitec.com</td><td>551583244</td><td>03/15/1965 12:00:00 AM</td><td>Male</td><td>Dubai</td><td>Dubai</td><td>Dubai</td><td>Dubai</td><td>1234</td><td>Du</td><td>1</td><td>&nbsp;</td><td>General</td><td>General</td><td>True</td>
+		</tr><tr>
+			<td>123456789123568</td><td>Fakhruddin</td><td>f.nijjan@gmail.com</td><td>509219380</td><td>03/03/1981 12:00:00 AM</td><td>Male</td><td>Sharjah</td><td>Sharjah</td><td>Sharjah</td><td>Sharjah</td><td>12345</td><td>Etisalat</td><td>1</td><td>&nbsp;</td><td>General</td><td>General</td><td>False</td>
+		</tr><tr>
+			<td>123456789632569</td><td>Alam</td><td>marqoobalam@gmail.com</td><td>551080124</td><td>05/04/1988 12:00:00 AM</td><td>Male</td><td>Sharjah</td><td>Sharjah</td><td>Sharjah</td><td>Sharjah</td><td>12454</td><td>Du</td><td>1</td><td>&nbsp;</td><td>General</td><td>General</td><td>False</td>
+		</tr><tr>
+			<td>784197504303807</td><td>Shafiraza</td><td>shafi.reza@blackandwhiteconsulting.com</td><td>971507878639</td><td>06/23/1975 12:00:00 AM</td><td>Male</td><td>Al Itehad building</td><td>10th floor 1005</td><td>Dubai</td><td>Dubai</td><td>51133</td><td>Etisalat</td><td>1,2,3,</td><td>&nbsp;</td><td>General</td><td>General</td><td>True</td>
+		</tr>
+	</table>
+</div>

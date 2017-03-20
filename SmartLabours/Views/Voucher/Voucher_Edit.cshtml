@@ -1,0 +1,296 @@
+﻿@model SmartLabours.Models.TBL_VOUCHER_SMT
+@{
+    ViewBag.Title = "Voucher Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<style type="text/css">
+    .CheckBoxClass {
+        width: 15px !important;
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        ViewUIploader();
+        function ViewUIploader() {
+            if ($('#ChkBoxImage').prop('checked')) {
+                $('#ImageUpload').show();
+                $('#VoucherImageSpan').show();
+                
+            } else {
+               // debugger
+                $('#ImageUpload').hide();
+                $('#VoucherImageSpan').hide();
+            }
+        }
+        $('#ChkBoxImage').change(function () {           
+            ViewUIploader();
+        });
+
+        $('#ImageUpload').change(function () {
+            $('#VoucherImageSpan').hide();
+        });
+    });
+
+    function PreviousPage() {
+        window.location = "/Voucher/VoucherRecords_List";  
+    }
+    function numericFilter(txb) {
+        txb.value = txb.value.replace(/[^\0-9]/ig, "");
+    }
+
+    $(document).ready(function () {
+
+        $("#Orgname").keypress(function (e) {
+            //if (!((e.which >= 65 && e.which <= 90) || (e.which >= 97 && e.which <= 122) || e.which == 8 || e.which == 44 || e.which == 39 || e.which == 45 || e.which == 95 || e.which == 38 || e.which == 46 || (e.which >= 48 && e.which <= 57))) {
+            //    e.preventDefault();
+            //    return false;
+            //}
+            $('#lblOrgError').text('');
+           // return true;
+
+        });
+
+
+        $('#Orgname').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '@Url.Action("OrgNameAutoComplete", "OrganizationSubAdmin")',
+                    dataType: "json",
+                    cache: false,
+                    delay: 10,
+                    type: "get",
+                    data: { term: request.term }
+                }).done(function (data) {
+                    response(data);
+                });
+            },
+            change: function (event, ui) {
+                if ($('#Orgname').val() != '') {
+                    $('#lblOrgError').text('');
+                    $.ajax({
+                        url: '@Url.Action("CheckOrganizationName", "Organization")',
+                        dataType: "json",
+                        cache: false,
+                        type: "get",
+                        data: { OrgName: $('#Orgname').val() },
+                        success: function (data) {
+
+                            if (data != '1') {
+                                $('#lblOrgError').text(data);
+                            }
+                            else {
+                                $('#lblOrgError').text('');
+                                $('#IsTelecomOperator').attr('checked', true);
+                                // IsTelecomOperator();
+                            }
+                        },
+                        error: function (data) {
+                        }
+                    });
+                }
+                else {
+                    $('#lblOrgError').text('');
+                    //  $('#lblOrgError').text('Please Select Organization');
+                }
+            }
+        });
+
+        function IsTelecomOperator() {
+           // debugger
+            $("#SERVICEPROVIDERID").empty();
+            $("#SERVICEPROVIDERID").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+            var Orgname = $('#Orgname').val();
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: '@Url.Action("GetTelecomOperator", "Service")',
+                    dataType: 'json',
+                    data: { Orgname: Orgname },
+                    success: function (providers) {
+
+                        $.each(providers, function (i, provider) {
+                            $("#SERVICEPROVIDERID").append('<option value="' + provider.Value + '">' + provider.Text + '</option>');
+                        });
+                    }
+                });
+        }
+
+        $('#IsTelecomOperator').change(function () {
+            //debugger
+            IsTelecomOperator();
+        });
+
+        $('#SERVICETYPEID').change(function () {
+            IsTelecomOperator();
+        });
+
+        $('#NonTelecomOperator').change(function () {
+          //  debugger
+            $("#SERVICEPROVIDERID").empty();
+            $("#SERVICEPROVIDERID").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+            var Orgname = $('#Orgname').val();
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: '@Url.Action("GetNonTelecomOperator", "Service")',
+                    dataType: 'json',
+                    data: { Orgname: Orgname },
+                    success: function (providers) {
+                        $.each(providers, function (i, provider) {
+                            $("#SERVICEPROVIDERID").append('<option value="' + provider.Value + '">' + provider.Text + '</option>');
+                        });
+                    }
+                });
+        });
+
+    });
+</script>
+
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                 Voucher Edit
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1" >
+                    <b>
+                        <label id="lblErrormsg" >
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="suss_mesg" id="msShow2" >
+                    <b>
+                        <label id="lblError1" >
+                        </label>
+                    </b>
+                </div>
+                <div class="fld_fd">
+                    @using (Html.BeginForm("Voucher_Edit", "Voucher", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div>
+                            @{
+                        if (HttpContext.Current.Session["USERID"].ToString() == "1")
+                        {
+
+                            <dl>
+                                <dd>
+                                    <span style="color:white;padding-right :2px;"> * </span>   Organization
+                                </dd>
+                                <dt>
+
+
+                                    @Html.TextBoxFor(model => model.OrgName, new { maxlength = 35, id = "Orgname" })
+                                    <span class="error">
+                                        <label id="lblOrgError" ></label>
+                                    </span>
+
+                                </dt>
+                            </dl>
+
+                        }
+                            }
+
+                            <dl>
+                                <dd>
+                                    <span style="color:white;padding-right :2px;"> * </span>   Is Telecome Operator
+                                </dd>
+                                <dt>
+                                    @Html.RadioButtonFor(model => model.IsTelcomOperator, true, new {  @id = "IsTelecomOperator", style = "margin-left:5px" })
+                                    <label>
+                                        Yes
+                                    </label>
+                                    @Html.RadioButtonFor(model => model.IsTelcomOperator, false, new { @id = "NonTelecomOperator", style = "margin-left:35px" })
+                                    <label>
+                                        No
+                                    </label>
+                                </dt>
+                            </dl>
+
+
+
+
+                          <dl>
+                                <dd>
+                                    <span style="color:white;padding-right :2px;"> * </span>      Service Provider </dd><dt>
+                                            <div class="drop-down">
+                          @Html.DropDownList("SERVICEPROVIDERID", (SelectList)ViewBag.serviceprovider, "Select", new { @class = "drop_down" })    
+                    
+                            </div>
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.SERVICEPROVIDERID)
+                                        </span></dt>
+                            </dl>
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :1px;"> * </span>   Service Plan</dd><dt>
+                                            <div class="drop-down">
+                            @Html.DropDownList("SERVICEPLANID", (SelectList)ViewBag.Serviceplan, "Select", new { @class = "drop_down" })    
+                            </div>
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.SERVICEPLANID)
+                                        </span></dt>
+                            </dl>
+                             <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :1px;"> * </span>   Voucher Code</dd><dt>
+                                        @Html.EditorFor(model => model.CODES, new { @onkeyup = "numericFilter(this);" })
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.CODES)
+                                        </span></dt>
+                            </dl>
+
+
+
+                            <dl style="width: 900px;">
+                                <dd>
+                                    <span style="color:white;padding-right :2px;"> * </span>     Voucher Image
+                                </dd>
+                                <dt style="width: 600px;">
+                                    <span style="width: 600px;">
+                                        @Html.CheckBoxFor(model => model.VoucherImageStatus, new { @id = "ChkBoxImage", @class = "CheckBoxClass" })
+                                  
+                                        <input type="file" id="ImageUpload" name="UploadImage" />                                       
+                                          </span>
+                                    <span id="VoucherImageSpan"> @Html.DisplayFor(model => model.VoucherImage)</span>
+                                        <span class="error">
+                                           
+                                        </span>
+</dt>
+                            </dl>
+                            
+
+                            
+                               <dl>
+                                <dd>
+                                    <span style="color:white;padding-right :2px;"> * </span>      Status</dd><dt>
+                                        @Html.RadioButtonFor(model => model.STATUS, true, new { @checked = true })
+                                        <label>
+                                            Active</label>
+                                        @Html.RadioButtonFor(model => model.STATUS, false)
+                                        <label>
+                                            InActive</label>
+                                    </dt>
+                            </dl>
+                            <div class="btn1 btn1-form">
+                                <input type="submit" value="Save" title="Save" />
+                                <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                            </div>
+                        </div>
+    
+                    }
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

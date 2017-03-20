@@ -1,0 +1,193 @@
+﻿
+
+@model SmartLabours.Models.TBL_HelpDeskMaster
+@{
+    ViewBag.Title = "Help Desk Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+
+<script>
+    $(document).ready(function () {
+        $("#IssueStatus").change(function() {
+        //$('#IssueStatus').change(function () {
+            var Search = $('option:selected', this).text();
+            debugger
+            $('#lblStatusError').text('');
+            var value = '@Request.RequestContext.HttpContext.Session["USERID"]';
+            if (value != "1" && $('#IssueStatus option:selected').text()=="Closed") {
+                $("#IssueStatus").val("Resolved");
+                $('#lblStatusError').text('You cant able to Close the Issue.');
+                setTimeout(function () {
+                    $('#lblStatusError').text('');
+                }, 8000);
+              
+            }
+
+        });
+       
+    });
+    //setTimeout(function () {
+    //    $('#lblStatusError').text('');
+    //    // Do something after 2 seconds
+    //}, 5000);
+
+  function PreviousPage()
+    {
+      window.location = "/HelpDesk/HelpDeskMaster";
+    }
+
+    
+</script>
+
+
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                    Help Desk Edit
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1">
+                    <b>
+                        <label id="lblErrormsg">
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="suss_mesg" id="msShow2">
+                    <b>
+                        <label id="lblError1">
+                        </label>
+                    </b>
+                </div>
+                <div class="fld_fd">
+                    @using (Html.BeginForm("HelpDeskEdit", "HelpDesk", FormMethod.Post, new { @id = "HelpDescEdit", enctype = "multipart/form-data" }))
+                    {
+                        <div>
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> </span>    EmiratesID
+                                </dd>
+                                <dt>
+                                    <span class="drop-down">
+                                        @Html.TextBoxFor(model => model.EmiratesID, new { maxlength = 35, disabled = "disabled" })
+                                    </span>
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.EmiratesID)
+                                    </span>
+                                </dt>
+                            </dl>
+
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;">  </span>   Token ID
+                                </dd>
+                                <dt>
+                                    @Html.TextBoxFor(model => model.TokenID, new { maxlength = 50, disabled = "disabled" })
+                                    <span class="error">                                      
+                                        @Html.ValidationMessageFor(model => model.TokenID)                                     
+                                    </span>
+                                </dt>
+                            </dl>
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;">  </span>  Issue Type
+                                </dd>
+                                <dt>
+                                    @Html.TextBoxFor(model => model.IssueType, new { disabled = "disabled" })
+
+                                    <span class="error">
+                                        <input type="text" id="CourseError" style="display:none" />
+                                        @Html.ValidationMessageFor(model => model.IssueType)
+                                      
+                                    </span>
+                                </dt>
+                            </dl>
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;">  </span>   Priority
+                                </dd>
+                                <dt>
+                                    @Html.TextBoxFor(model => model.IssuePriority, new { maxlength = 50, disabled = "disabled" })
+                                    @*@Html.DropDownListFor(model => model.UserType, new SelectList(string.Empty, "Value", "Text"), "Select", new { @class = "drop_down", disabled = "disabled" })*@
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.IssuePriority)
+                                    </span>
+                                </dt>
+                            </dl>                           
+
+                            @*<dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;">  </span>  File Name
+                                </dd>
+                                <dt>
+                                    @Html.TextBoxFor(model => model.FileName, new { maxlength = 50,disabled="disabled" })
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.FileName)
+                                    </span>
+
+                                </dt>
+                            </dl>*@
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;">  </span>   Description
+                                </dd>
+                                <dt>
+                                    @Html.TextAreaFor(model => model.Description, new { maxlength = 50})
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.Description)
+                                    </span>
+                                </dt>
+                            </dl>                 
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;">  </span>   Status
+                                </dd>
+                                <dt>
+                                 
+                                    <div class="drop-down">
+                                        @Html.DropDownListFor(model => model.IssueStatus, (SelectList)ViewBag.StatusList, new { @class = "drop_down" }) 
+                                       
+
+                                    </div>
+
+                                    <span class="error">
+                                        <label id="lblStatusError"></label>
+                                        @Html.ValidationMessageFor(model => model.IssueStatus)
+                                    </span>
+                                </dt>
+                            </dl>
+
+                            @Html.HiddenFor(model => model.HelpDeskId) 
+                            @Html.HiddenFor(model => model.EmiratesID)  
+                            @Html.HiddenFor(model => model.UserType)
+              
+
+                            <div class="btn1 btn1-form">
+
+                                <input type="submit" value="Save" title="Save" />
+                                <input type="button" value="Back" title="Back" onclick="return PreviousPage()" />
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,551 @@
+﻿
+@model IEnumerable<SmartLabours.Models.TBL_Banner_SMT>
+@{
+    ViewBag.Title = "Banner List";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<style type="text/css" >
+    .left {
+        line-height:20px;
+    }
+
+</style>
+
+<script type="text/javascript">
+
+     var SearchText = '@ViewData["SearchText"]';
+   
+ $(document).ready(function () {
+ 
+
+     BindSerachCondtionText();
+
+     $("#ddlSearchBy").change(function() {
+         $("#txtSearch").val('');
+         if($('option:selected', this).text()=="Status")
+         {
+             BindSearchConditionStatus();
+         }
+         else{
+             BindSerachCondtionText();
+         }
+     });
+
+     function BindSearchConditionStatus()
+     {
+         var ddlSearchCondition = $("[id*=ddlSearchCondition]");
+         ddlSearchCondition.empty().append('<option selected="selected" value="50">Active</option>');
+         ddlSearchCondition.append('<option value="51">Inactive</option>');
+         $("#txtSearch").prop("disabled",true);
+     }
+
+     function BindSerachCondtionText()
+     {
+         var ddlSearchCondition = $("[id*=ddlSearchCondition]");
+         ddlSearchCondition.empty().append('<option selected="selected" value="1">Begins With</option>');
+         ddlSearchCondition.append('<option value="2">Exactly Match</option>');
+         ddlSearchCondition.append('<option value="3">Found Anywhere</option>');
+         $("#txtSearch").prop("disabled",false);
+     }
+
+
+          if (SearchText.length != 0) {
+              document.getElementById("txtSearch").value = SearchText.split(',')[0];
+              if(SearchText.split(',')[1]=="50" || SearchText.split(',')[1]=="51")
+              {
+                  BindSearchConditionStatus();
+              }
+              else{
+                  BindSerachCondtionText();
+              }
+              $("#ddlSearchCondition").val(SearchText.split(',')[1]);
+              $("#ddlSearchBy").val(SearchText.split(',')[2]);
+              
+            var count = @(ViewBag.TotalRecordcount);
+    
+           if(parseInt(count) >0)
+           {
+            document.getElementById('lblErrormsg').style.display = 'none';
+
+           }
+           else
+           {
+            document.getElementById('lblErrormsg').style.display = 'block';
+            document.getElementById('noRecordbutton').style.display = 'none';
+           }
+          }
+
+
+
+           var someNumericValue = @(ViewBag.totalnumber);
+         
+           if(parseInt(someNumericValue)>1)
+           {
+          
+            document.getElementById('divPager').style.display = 'block';
+           }
+           else
+           {
+         
+           document.getElementById('divPager').style.display = 'none';
+           }
+            var currentpage = @(ViewBag.CurrentPage);
+          
+     if(currentpage==1)
+     {
+         $("#Firstpage").removeAttr("style").hide();
+         //document.anchors["anchFirst"].removeAttribute("href");
+     }
+     if(currentpage==someNumericValue)
+     {
+         $("#LastPage").removeAttr("style").hide();
+         // document.anchors["anchLast"].removeAttribute("href");
+     }
+          //Current Page number is highlighted//
+          var pagenumberid="page"+currentpage;
+      
+          $('#'+pagenumberid).addClass("one_no selected");
+
+      });
+
+     function Delete() {
+
+        var chk = document.getElementsByName("chkname");
+  
+        var chkchecked = "";
+       for(var i=0;i<chk.length;i++) {
+          
+           if (chk[i].checked==true) {
+             
+           chkchecked += chk[i].id + ",";
+        
+       }
+
+   }
+       if (chkchecked != "") {
+        debugger
+       if (confirm("Are you sure, You want to delete?") == true) {
+         
+           $.get("/Banner/Banner_BulkDelete", { id: chkchecked }, function (data) {
+               debugger
+               if (data == "success") {
+
+//                   alert('Deleted Successfully');
+                   location.reload(true);
+                   
+               } else { }
+           });
+       }
+   }
+   else {
+       alert('Please Select Any One Record To Delete');
+   }
+  
+       }
+  function checkAll(thisobj) {
+       
+        var chk = document.getElementsByName("chkname");
+        for (var i = 0; i < chk.length; i++) {
+            if (chk[i].type == 'checkbox') {
+                if (thisobj.checked) {
+                    chk[i].checked = true;
+                }
+                else {
+                    chk[i].checked = false;
+                }
+            }
+        }
+    }
+  
+     function numericFilter(txb) {
+         txb.value = txb.value.replace(/[^\0-9]/ig, "");
+     }
+         
+      function GetURLParameter() {
+          var sPageURL = window.location.href;
+          var indexOfLastSlash = sPageURL.lastIndexOf("/");
+          if (indexOfLastSlash > 0 && sPageURL.length - 1 != indexOfLastSlash) {
+              var UrlValue = sPageURL.substring(indexOfLastSlash + 1);
+              if (UrlValue == "Update") {
+                  document.getElementById('msShow2').style.display = 'block';
+                  document.getElementById('msShowadd').style.display = 'none';
+                  document.getElementById('msShowstatus').style.display = 'none';
+              }
+              else if (UrlValue == "Insert") {
+                  document.getElementById('msShow2').style.display = 'none';
+                  document.getElementById('msShowadd').style.display = 'block';
+                  document.getElementById('msShowstatus').style.display = 'none';
+              }
+              else {
+                  document.getElementById('msShow2').style.display = 'none';
+                  document.getElementById('msShowadd').style.display = 'none';
+                  document.getElementById('msShowstatus').style.display = 'none';
+              }
+
+          }
+         
+      }
+
+
+      
+
+ 
+ </script>
+ @*   pagination*@
+    <script type="text/javascript">
+        function Paging(anchPaging) {
+
+            if (window.SearchText.length != 0) {
+                $(anchPaging).attr("href", $(anchPaging).attr("href") + '?search=' + window.SearchText);
+            }
+        }
+    </script>
+   @* pagination*@
+
+
+ @*   search*@
+    <script type="text/javascript">
+        function Search(eve) {
+            //debugger
+            var TextValue;
+            if($("#ddlSearchCondition").val()=="50" ||$("#ddlSearchCondition").val()=="51")
+            {
+                TextValue ="Status" ;
+            }
+            else{
+                TextValue=document.getElementById("txtSearch").value;
+            }
+            if (TextValue.length != 0) {
+
+                var searchtext = TextValue + ',' + document.getElementById("ddlSearchCondition").value + ',' + document.getElementById("ddlSearchBy").value;
+
+                $("#anhSearch").attr("href", $("#anhSearch").attr("href") + '?search=' + searchtext);
+
+            }
+            else {
+                alert("Search text Cannot be Empty");
+                eve.preventDefault();
+            }
+        }
+</script>
+   @* search*@
+
+
+
+
+    @*Status*@
+    <script type="text/javascript">
+        function Status(anchor, bannerid) {
+            
+
+            var url = "/Banner/UpdateStatus";
+
+            var img = $(anchor).find("img")[0];
+
+            $.get(
+          url,
+           { status: img.alt, cimageid: bannerid },
+           function (data) {
+               debugger
+               if (data == "sucess") {
+
+                   if (img.alt == "true") {
+                       img.src = "../../content/admin/images/icons/x_icon.gif";
+                       img.alt = "false";
+                   }
+                   else {
+                       img.src = "../../content/admin/images/icons/tick_icon.gif";
+                       img.alt = "true";
+                   }
+
+
+               }
+               document.getElementById("lblError1").innerHTML = "Status Updated Successfully";
+           }
+          );
+
+        }
+      </script>
+   @* Status*@
+
+    <script type="text/javascript">
+
+
+        function GotoPage(evt) {
+
+            var intTotPageCount = 0;
+            var intPgtxt = document.getElementById('Pgtxt').value;
+            intTotPageCount = document.getElementById('hidtotPg').value;
+
+            if (intPgtxt != "") {
+                if (parseInt(intPgtxt) < 1 || (isNaN(intTotPageCount))) {
+                    alert("Please enter numeric value");
+                    document.getElementById("Pgtxt").value = "";
+                    evt.preventDefault();
+
+                } else if ((parseInt(intPgtxt) > parseInt(intTotPageCount)) || (isNaN(intTotPageCount))) {
+                    alert("Requesting page number is invalid.Total page(s) available is " + intTotPageCount);
+                    document.getElementById("Pgtxt").value = "";
+                    evt.preventDefault();
+                }
+                if (window.SearchText.length != 0) {
+                    $("#anchgoto").attr("href", $("#anchgoto").attr("href") + parseInt(intPgtxt) + '?search=' + window.SearchText);
+                }
+                else {
+                    if ((parseInt(intPgtxt) <= parseInt(intTotPageCount)) || (isNaN(intTotPageCount))) {
+                        $("#anchgoto").attr("href", $("#anchgoto").attr("href") + parseInt(intPgtxt));
+                    }
+                }
+            }
+            else {
+                alert("Please enter numeric value");
+            }
+        }
+
+     </script>
+
+<div class="content">
+    <div class="wrapper">
+       <ul class="breadcrumbs-list clearfix">
+             @*<li><a href="javascript:voi(0);">Others</a></li>*@
+                <li><a href="/Banner/Banner_list">Banner Management</a></li>
+                <li>Banner List</li>
+            </ul>
+        <label id="lbldisplay" >
+        </label>
+          <div class="sarh">
+            <div class="search">
+                <b>Search By</b>
+                 <select id="ddlSearchBy">
+                 <option value="1" > Title</option>
+                     <option value="2">Status</option>
+
+                 </select>
+                   <select id="ddlSearchCondition">
+               
+                 </select>
+                   <input id="txtSearch" type="text" />   
+                   <a href="/Banner/Banner_list/@ViewBag.CurrentPage" class="green" onclick="Search(event);" id="anhSearch" >Search</a>
+                   <a href="/Banner/Banner_list/1" class="green" >Clear</a>
+                  
+            </div>
+        </div>
+        <div class="continn">
+            <h3>
+                <label id="lblHeading" text="Banner List" >
+                Banner List
+                </label>
+            </h3>
+            <div class="clr">
+            </div>
+            <div class="error_mesg" id="msShow1" >
+                <b>
+                    <label id="lblErrormsg"  style="display:none;">
+              No records found
+                    </label>
+                </b>
+            </div>
+            <div class="suss_mesg" id="msShow2" >
+                <b>
+                    <label id="lblError1" >
+                   @ViewBag.messagealert
+                    </label>
+                </b>
+            </div>
+            <div class="posit">
+                <div class="posit_hd">
+                    <table width="954" border="0" cellspacing="0" cellpadding="1">
+                        <tr>
+                            <td width="50" class="center">
+                                S.No.
+                            </td>
+                            <td width="200" class="center">
+                               Title
+                            </td>
+                            <td width="200" class="center">
+                               Banner Image
+                            </td>
+                            <td width="100" class="center">
+                                Status
+                            </td>
+                            <td width="100" class="center">
+                                Action
+                            </td>
+                            <td width="60" class="center">
+                               <input type="checkbox" onclick="checkAll(this)"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+               <div class="posit_bt">
+                    <table width="954" border="0" cellspacing="0" cellpadding="1">
+                        @{ int sno = (@ViewBag.CurrentPage) * 10 - 10;
+                          
+                           }
+                        @foreach (var item in Model)
+                        {
+                            sno = sno + 1;
+                            <tr class="posit_txt">
+                                <td width="50" class="center">
+                                    @(sno)
+                                </td>
+                                <td width="200" class="center">
+                                    @Html.DisplayFor(modelItem => item.BannerTitle)
+                                </td>
+                                 <td width="200" class="center">
+                                     <img src="../../Content/Admin/images/Banner/@item.BannerImage" height="42px" width="82px" 
+                                    alt="No Image" /> </td>
+                               
+                                  
+                                <td width="100" class="center">
+                                  <a href="javascript:void(0)" id="lnkstatus" onclick="Status(this,'@item.BannerId')" >
+                                    @{
+                            if (item.Status == true)
+                            { 
+                             <img src="../../content/admin/images/icons/tick_icon.gif" title="Active" alt="true" border="0" />
+                            }
+                            else
+                            { 
+                              <img src="../../content/admin/images/icons/x_icon.gif" title="Active" alt="false" border="0" />
+                            }
+                                     }
+                                       
+                                    </a>
+                                    <input type="hidden" id="hidsts"  value="" />
+                                </td>
+                                <td width="100" class="center">
+                                 <a href="/Banner/Banner_Edit/@item.BannerId" ID="LnkBtnEdit"  style="text-decoration:none;">
+                                        <img src="../../content/admin/images/icons/edit_new.gif" title="Edit" alt="" border="0" />
+                                    </a>
+                                   
+                                     <a href="/Banner/Banner_View/@item.BannerId" ID="LnkBtnView"  >
+                                        <img src="../../content/admin/images/icons/view.gif" title="View" alt="" border="0" />
+
+                                    </a>
+                                </td>
+                                <td class="center" width="60">
+                                   <input id="@item.BannerId" type="checkbox" name="chkname"  />
+
+
+                                </td>
+                            </tr>
+                         
+                        }
+                    </table>
+                </div>
+            </div>
+            <div class="btns">
+                <div id="Divpager" style="display: none" >
+                    <span style="color: Red; font-weight: bold; padding-left: 450px">No record found
+                    </span>
+                </div>
+                <div class="btns-lft">
+                    <div id="divPager" class="pagelist1" >
+                        <div class="pagging_inner">
+                            
+                             <div class="page_txt_main_lt">
+                             <div class="page_txt2">
+                                         
+                                                         Page 1 of @ViewBag.totalnumber
+                                                    </div></div>
+
+                  <div class="page_txt_main_rt">
+                                <div class="go_but">
+                                    <a href="/Banner/Banner_List/" id="anchgoto" class="go" tabindex="12" 
+                                        onclick="GotoPage(event);" style="height: 15px; font: 11px;
+                                        color: #fff;">Go</a>
+                                </div>
+                                <div class="page_box_new" style="width: 50px;">
+                                    <div class="page_box">
+                                        <input type="text" maxlength="3" id="Pgtxt" tabindex="11" onkeyup="numericFilter(this);" /></div>
+                                </div>
+                                <div class="page_txt_3">
+                                    Go to Page</div>
+                                <div class="page end" id="LastPage">
+                                      @Html.ActionLink("Last", "Banner_List", new { id = @ViewBag.totalnumber }, new { @name = "anchLast" })
+                                        
+                                </div>
+                                <div class="page_no">
+                                  
+                                    <table>
+                                        <tr align="center">
+                                         @{ int currentpageid = (@ViewBag.CurrentPage);
+                                            int totalrecord=(@ViewBag.totalnumber);
+                                            if(currentpageid<=3)
+                                            {
+                                                if (totalrecord < 10)
+                                                        {
+                                                   
+
+                                                       
+                                                    
+                                                            for (int i = 0; i < ViewBag.totalnumber; i++)
+                                                        { 
+                                                        <td align="center">
+                                                        @Html.ActionLink((i + 1).ToString(), "Banner_List", new { id = i + 1 }, new { onclick = "Paging(this);", @id = "page" + (i + 1) })
+                                                        </td>
+                                                         }
+                                                        
+                                                        }
+                                                        else
+                                                        {
+                                                      for (int i = 0; i < 10; i++)
+                                                        { 
+                                                        <td align="center">
+                                                        @Html.ActionLink((i + 1).ToString(), "Banner_List", new { id = i + 1 }, new { onclick = "Paging(this);", @id = "page" + (i + 1) })
+                                                        </td>
+                                                        }
+                                                        }
+
+
+                                            }
+                                            else
+                                            {
+                                                int Startlevel = currentpageid - 3;
+                                                int levelcount = 1;
+
+                                                for (int i = Startlevel; i < totalrecord; i++)
+                                                {
+                                                    if(levelcount<=10)
+                                                    {
+                                                        <td align="center">
+                                                        @Html.ActionLink((i + 1).ToString(), "Banner_List", new { id = i + 1 }, new { onclick = "Paging(this);", @id = "page" + (i + 1) })
+                                                        </td>
+                                                        levelcount++;
+                                                     }
+                                                          
+                                            
+                                                }
+                                            }
+                                             
+                                             }
+                                        </tr>
+                                    </table>
+                                </div>
+                      <div class="page start" style="margin-top: 2px;" id="Firstpage">
+
+                          @Html.ActionLink("First", "Banner_List", new { id = 1 }, new { @name = "anchFirst" })
+
+                      </div>
+                            </div>
+
+                             
+                            </div>
+                           
+                            <input id="hidtotPg" type="hidden" value="@ViewBag.totalnumber"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="btns-rgt1" id="noRecordbutton">
+                                <a href="/Banner/Banner_Add" id="lnkAdd"  class="green1" >Add</a>
+                         <a href="javascript:void(0);" id="lnkBtndelete"   class="green1" onclick="Delete();" >Delete</a>
+                </div>
+        </div>
+    </div>
+</div>

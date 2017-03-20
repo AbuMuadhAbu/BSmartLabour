@@ -1,0 +1,126 @@
+﻿@model SmartLabours.Models.Labour
+@{
+    ViewBag.Title = "Labours_View";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <h3>
+                Labours View
+            </h3>
+            <div class="clr2">
+            </div>
+            <div class="fld_fd view-blk">
+                <dl>
+                    <dd>
+                        Emirates ID :</dd>
+                    <dt>
+                        @Html.DisplayFor(model => model.LabourID)
+                    </dt>
+                </dl>
+                <dl>
+                    <dd>
+                        Name :</dd>
+                    <dt>
+                        @Html.DisplayFor(model => model.Name)
+                    </dt>
+                </dl>
+                <dl>
+                    <dd>
+                        Email ID
+                    </dd>
+                    <dt>
+                        @Html.DisplayFor(model => model.EmailID)
+                    </dt>
+                </dl>
+                <dl>
+                    <dd>
+                        Phone No:
+                    </dd>
+                    <dt>
+                        @Html.DisplayFor(model => model.PhoneNumber)
+                    </dt>
+                </dl>
+
+                @if (HttpContext.Current.Session["USERID"].ToString() == "1")
+                {
+
+                    <dl>
+                        <dd>
+                            Organization
+                        </dd>
+                        <dt>
+                            @Html.DisplayFor(n => n.Organizations.OrganisationName)
+                        </dt>
+                    </dl>
+
+                }
+
+
+
+                <dl>
+                    <dd>
+                        Service Provider:
+                    </dd>
+                    <dt>
+                        @Html.DisplayFor(model => model.serviceprovider.SERVICEPROVIDER) 
+                    </dt>
+                </dl>
+
+
+
+                <dl>
+                    <dd>
+                        Address:
+                    </dd>
+                    <dt>
+                        @Html.DisplayFor(model => model.Address1)
+                        @*@Html.DisplayFor(model => model.Address2)*@
+                    </dt>
+                </dl>
+
+
+                 <dl>
+                    <dd>
+                        Pincode:
+                    </dd>
+                    <dt>
+                        @Html.DisplayFor(model => model.Pincode)
+                    
+                    </dt>
+                </dl>
+              
+                <dl>
+                    <dd>
+                        Created Date:
+                    </dd>
+                    <dt>
+                        @Html.DisplayFor(model => model.CREATEDDATE)
+                    </dt>
+                </dl>
+
+
+                <dl>
+                    <dd>
+                        Status :</dd>
+                    <dt>
+                        @{if (Model.STATUS == true)
+                          {<label>Active</label>}
+                          else
+                          {<label>InActive</label>}}
+                    </dt>
+                </dl>
+            </div>
+            <div class="btn1">
+                <a href="/SmartUsers/Labour_List" title="Back" class="green">Back</a>
+            </div>
+        </div>
+    </div>
+</div>

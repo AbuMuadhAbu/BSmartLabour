@@ -1,0 +1,311 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Smart Worker </title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport" id="viewport">
+
+    @Scripts.Render("~/bundles/jquery")
+    <link href="~/Content/Front/css/reset.css" type="text/css" rel="stylesheet" />
+    <link href="~/Content/Front/css/style.css" type="text/css" rel="stylesheet" />
+
+    @Styles.Render("~/Content/Front/css")
+    @Scripts.Render("~/Content/Front/js")
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/cupertino/jquery-ui.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../Content/Front/images/favicon.ico">
+    <link rel="shortcut" type="image/x-icon" href="../../Content/Front/images/favicon.ico">
+
+
+    <style type="text/css">
+        #foo {
+            width: 35px;
+            height: 35px;
+            position: fixed;
+            bottom: 1px;
+            left: 15px;
+            background-color: #c50408;
+            padding: 10px;
+            z-index: 8010;
+        }
+    </style>
+
+</head>
+<body>
+
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+
+
+    <header class="header">
+        <div class="wrapper">
+            <div class="clearfix">
+                <div class="top_left">
+                    <h1>
+                        <a href="/home" title="Smart Worker ">Smart Worker </a>
+                    </h1>
+                    <div class="menu_icons">
+                        <a href="#" id="mobilemenu" title="Menu">MENU</a>
+                    </div>
+                </div>
+                <div class="top_right">
+                    <div class="clearfix">
+                        <ul class="social_list" style="margin-right:6%">
+                            <li class="fb_icon">
+                                <a href="https://www.facebook.com/Smartlabourae-1503429409904803/"
+                                   target="_blank" title="Facebook">Facebook</a>
+                            </li>
+                            <li class="twiter_icon">
+                                <a href="https://twitter.com/smartlabourae" target="_blank"
+                                   title="Twitter">Twitter</a>
+                            </li>
+                            @*<li class="google_icon"><a href="https://plus.google.com/u/0/109521685359467670992/about"
+                                target="_blank" title="Google+">Google+</a></li>*@
+                            <li class="youtube_icon">
+                                <a href="https://www.youtube.com/channel/UCcZ3tIR-8jaJ8tl8lOSP7Ew" target="_blank"
+                                   title="Youtube">Youtube</a>
+                            </li>
+
+                            <li class="instagram_icon">
+                                <a href="http://instagram.com/smartlabourae" target="_blank"
+                                   title="Instagram">Instagram</a>
+                            </li>
+                        </ul>
+
+                        <span style="float: right;margin-top: 30px;margin-right: -21%;">
+                            <a href="/ContactUs/Contactus"
+                               title="(+971) 556710067"><img src="~/Content/Front/images/whatsapp-icon.png" width="30" height="30" /></a>
+                        </span>
+
+                    </div>
+                    <nav class="main-nav clearfix">
+                        <ul>
+                            <li class="active"><a href="/" title="Home">Home </a></li>
+                            <li id="idAbout"><a href="/AboutUs" title="About Smart Worker ">About Us</a></li>
+                            <li id="idArtical"><a href="/Articles/1" title="Articles">Articles</a></li>
+                            <li id="idtestimonial"><a href="/Testimonials/1" title="Testimonials">Testimonials </a></li>
+                            <li id="idcontactus"><a href="/ContactUs" title="Contact Us">Contact Us </a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="search_panel clearfix">
+                <div class="search_left">
+                    <h2>
+                        LABOUR
+                    </h2>
+                    @if ((ViewBag.lname != null && ViewBag.lpwd != null) && (ViewBag.lname != "" && ViewBag.lpwd != ""))
+                    {
+                        var lname = ViewBag.lname;
+
+                        var lpwd = ViewBag.lpwd;
+                        <div class="clearfix">
+                            <div class="input" id="signEmailID">
+                                <input type="text" id="txtEmailID" value="@lname" autocomplete="off" />
+                            </div>
+                            <div class="input" id="SignPassword">
+                                <input type="password" id="txtpassword" value="@lpwd" autocomplete="off" />
+                            </div>
+                            <div class="submit">
+                                <input type="submit" value="Login" id="signinforLabour" />
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="clearfix">
+                            <div class="input" id="signEmailID">
+                                <input type="text" id="txtEmailID" autocomplete="off" value="" />
+                            </div>
+                            <div class="input" id="SignPassword">
+                                <input type="password" id="txtpassword" autocomplete="off" value="" />
+                            </div>
+                            <div class="submit">
+                                <input type="submit" value="Login" id="signinforLabour" />
+                            </div>
+                        </div>
+                    }
+                    <a title="New Labour User Register" href="/LabourRegistration">New Labour User Register</a>
+                    <a title="Forgot Password" href="/Labourforgotpassword" style="padding-left: 70px">
+                        Forgot
+                        Password
+                    </a>
+                    @if ((ViewBag.lname != null && ViewBag.lpwd != null) && (ViewBag.lname != "" && ViewBag.lpwd != ""))
+                    {
+                        <div class="remember-checkbox check-box">
+                            <input id="remember-me" type="checkbox" name="Rememberme" value="Rememberme" checked>
+                            <label for="remember-me">
+                                Remember me
+                            </label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="remember-checkbox check-box">
+                            <input id="remember-me" type="checkbox" name="Rememberme" value="Rememberme">
+                            <label for="remember-me">
+                                Remember me
+                            </label>
+                        </div>
+                    }
+                </div>
+                <div id="PloadingIns1">
+                </div>
+                <div class="search_left search_right">
+                    <h2>
+                        SPONSOR
+                    </h2>
+                    @if ((ViewBag.sponsorname != null && ViewBag.sponsorpwd != null) && (ViewBag.sponsorname != "" && ViewBag.sponsorpwd != ""))
+                    {
+                        var sponsorname = ViewBag.sponsorname;
+
+                        var sponsorpwd = ViewBag.sponsorpwd;
+                        <div class="clearfix">
+                            <div class="input" id="signinsponsorEmailID">
+                                <input type="text" id="txtsponsorEmailID" value="@sponsorname" />
+                            </div>
+                            <div class="input" id="SigninsponsorPassword">
+                                <input type="password" id="txtsponsorpassword" value="@sponsorpwd" />
+                            </div>
+                            <div class="submit">
+                                <input type="submit" value="Login" id="signinforSponsor" />
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="clearfix">
+                            <div class="input" id="signinsponsorEmailID">
+                                <input type="text" id="txtsponsorEmailID" autocomplete="off" value="" />
+                            </div>
+                            <div class="input" id="SigninsponsorPassword">
+                                <input type="password" id="txtsponsorpassword" autocomplete="off" value="" />
+                            </div>
+                            <div class="submit">
+                                <input type="submit" value="Login" id="signinforSponsor" />
+                            </div>
+                        </div>
+                    }
+                    <a title="New Sponsor User Register" href="/SponsorRegistration">New Sponsor User Register</a>
+                    <a title="Forgot Password" href="/Sponsorforgotpassword" style="padding-left: 70px">
+                        Forgot Password
+                    </a>
+                    @if ((ViewBag.sponsorname != null && ViewBag.sponsorpwd != null) && (ViewBag.sponsorname != "" && ViewBag.sponsorpwd != ""))
+                    {
+                        <div>
+                            <input id="remember-mesponsor" type="checkbox" name="sponsorRememberme" value="sponsorRememberme"
+                                   checked>
+                            <label for="remember-mesponsor">
+                                Remember me
+                            </label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <input id="remember-mesponsor" type="checkbox" name="sponsorRememberme" value="sponsorRememberme">
+                            <label for="remember-mesponsor">
+                                Remember me
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </header>
+    @RenderBody();
+
+    <fieldset>
+        <div>
+            <div id="foo">
+                <a class="fancybox fancybox.iframe" id="onload" href="~/PostData.aspx?type=Transaction&themeColor=red">
+                    <img title="Happiness Dubai" src="~/Images/SideIcon.png" border="0" alt="" />
+                </a>
+            </div>
+        </div>
+    </fieldset>
+
+    <footer class="footer clearfix">
+        <div class="wrapper">
+            <div class="footer_left">
+                <ul class="clearfix">
+                    <li id="idhome1"><a href="/" title="Home">Home</a></li>
+                    <li id="idAbout1"><a href="/AboutUs" title="About Smart Worker ">About Us</a></li>
+                    <li id="idtestimonial1"><a href="/Testimonials/1" title="Testimonials">Testimonials</a></li>
+                    <li id="idArtical1"><a href="/Articles/1" title="Articles">Articles</a></li>
+                    <li id="idcontactus1"><a href="/ContactUs" title="Contact Us">Contact Us</a></li>
+
+                    <li id="idterms1"><a href="/Termsandcondition" title="Terms">Terms</a></li>
+                    <li id="idsitemap1"><a href="/sitemap" title="Sitemap">Sitemap</a></li>
+                </ul>
+                @{
+                    SmartLabours.Models.SmartLabourEntities dbEntites = new SmartLabours.Models.SmartLabourEntities();
+                    DateTime CD = DateTime.Now;
+                    //CD.Month
+                    CD = (from n in dbEntites.AdminContactus where n.STATUS == true select n.FinaceYear).FirstOrDefault();
+
+                }
+                <span class="desktop_only">Copyright © @CD.Year Smart Worker . All Rights Reserved.</span>
+            </div>
+            <div class="footer_right">
+                <ul class="f_social_list">
+                    <li class="follow-us">Follow us on</li>
+                    <li class="fb_icon">
+                        <a href="https://www.facebook.com/Smartlabourae-1503429409904803/"
+                           target="_blank" title="Facebook">Facebook</a>
+                    </li>
+                    <li class="twiter_icon">
+                        <a href="https://twitter.com/smartlabourae" target="_blank"
+                           title="Twitter">Twitter</a>
+                    </li>
+                    @*<li class="google_icon"><a href="https://plus.google.com/u/0/109521685359467670992/about"
+                        target="_blank" title="Google+">Google+</a></li>*@
+                    <li class="youtube_icon">
+                        <a href="https://www.youtube.com/channel/UCcZ3tIR-8jaJ8tl8lOSP7Ew"
+                           target="_blank" title="Youtube">Youtube</a>
+                    </li>
+
+                    @*https://www.youtube.com/channel/UCcZ3tIR-8jaJ8tl8lOSP7Ew*@
+                    <li class="instagram_icon">
+                        <a href="http://instagram.com/smartlabourae" target="_blank"
+                           title="Instagram">Instagram</a>
+                    </li>
+
+                </ul>
+
+                <span style="margin-left: 282px;margin-top: -30px;">
+                    <a href="/ContactUs/Contactus"
+                       title="(+971) 556710067"><img src="~/Content/Front/images/whatsapp-icon.png" width="30" height="30" style="margin-left: -270px;margin-top:-2px" /></a>
+                </span>
+
+                <span class="mobile_only">Copyright © @CD.Year Smart Worker . All Rights Reserved.</span>
+            </div>
+        </div>
+        <div style="display: none;" id="appPopup">
+            <h2>
+                App will be available shortly.
+            </h2>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+        $(function () {
+          //  $('body').on('click', '.futureApp', function () { $.fancybox({ content: $('#appPopup') }); });
+
+            $(".various").fancybox({
+                maxWidth: 800,
+                maxHeight: 600,
+                fitToView: false,
+                width: '70%',
+                height: '100%',
+                autoSize: true,
+                closeClick: false,
+                openEffect: 'none',
+                closeEffect: 'none'
+            });
+        });
+    </script>
+</body>
+</html>

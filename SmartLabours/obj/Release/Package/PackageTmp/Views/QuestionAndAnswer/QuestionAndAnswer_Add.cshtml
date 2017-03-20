@@ -1,0 +1,582 @@
+﻿@model SmartLabours.Models.TBL_QUESTION_SMT
+@{
+    ViewBag.Title = "QuestionAndAnswer_Add";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<script src="../../Content/Admin/ckeditor/ckeditor.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="../../Uplodify/css/uploadify.css" /><
+<script type="text/javascript" src="../../Uplodify/scripts/jquery.uploadify.js"></script>
+<link href="../../video-js/video-js.css" rel="stylesheet" type="text/css">
+<!-- video.js must be in the <head> for older IEs to work. -->
+<script src="../../video-js/video.js"></script>
+
+<!-- Unless using the CDN hosted version, update the URL to the Flash SWF -->
+<script>
+    videojs.options.flash.swf = "../../video-js/video-js.swf";
+</script>
+<script src="../../flowplayer/flowplayer-3.2.12.min.js"></script>
+<style type="text/css">
+    #ddlQuestionType {
+        margin-left: 76px;
+        width: 230px !important;
+    }
+
+    .question_list textarea {
+        margin-left: 103px;
+        width: 222px !important;
+    }
+
+    #txtCreditpoint {
+        width: 222px;
+        margin-left: 84px;
+    }
+
+    [id^=myFile]{
+        width: 222px;
+        margin-left: 111px;
+    }
+    .QuestionFields {
+        color:red;
+        float:left;
+        padding-right:3px;
+        padding-top:2px;
+    }
+    .QuestionFields1 {
+        color: red;        
+        padding-right: 3px;
+        padding-top: 2px;
+    }
+</style>
+<script type="text/javascript">
+    function PreviousPage() {
+
+        window.location = "/QuestionAndAnswer/QuestionAndAnswerList";
+        //        alert(window.location);
+    }
+
+
+    $(document).ready(function()
+    {
+        $('#btnSave').hide();
+        //$("#CourseName").change(function () {
+        //    debugger
+        //});
+
+        $("#CourseName").on('input', function () {  });
+
+        $("#CourseName").keypress(function (event) {           
+            if (!AllowAlphaOnly(event)) {
+                event.preventDefault();
+                return false;
+            }
+            return true;
+
+        });
+
+
+
+        $("#Orgname").keypress(function (e) {
+            //if (!((e.which >= 65 && e.which <= 90) || (e.which >= 97 && e.which <= 122) || e.which == 8 || e.which == 44 || e.which == 39 || e.which == 45 || e.which == 95 || e.which == 38 || e.which == 46 || (e.which >= 48 && e.which <= 57))) {
+            //    e.preventDefault();
+            //    return false;
+            //}
+            //return true;
+
+        });
+
+
+
+
+    $('#Orgname').autocomplete(
+     {
+         source: function (request, response) {          
+             $.ajax({
+                 url: '@Url.Action("OrgNameAutoComplete", "OrganizationSubAdmin")',
+                       dataType: "json",
+                       cache: false,
+                       type: "get",
+                       data: { term: request.term }
+             }).done(function (data) {
+                       response(data);
+                   });
+         },change: function (event, ui) {
+             var OrgName = $("#Orgname").val();
+             if (OrgName == '') {
+                 OrgName = 'General';
+             }
+             if ($("#Orgname").val()!="")
+             {
+                         $("#CourseID").empty();
+                         $("#CourseID").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+                         $.ajax({
+                             url: '@Url.Action("GetCourse", "Course")',
+                           cache: false,
+                           contentType: "application/json; charset=utf-8",
+                           type: "get",
+                           data: { Orgname:  OrgName },
+                           dataType: "json",
+                           async: false,
+                           success: function (data) {
+                               $.each(data, function (i, Course) {
+                                   $("#CourseID").append('<option value="' + Course.Value + '">' + Course.Text + '</option>');
+                               });
+                           },
+                           error: function (data) {
+                               // debugger
+                           }
+                       });         
+                }      
+            }
+     });
+
+        $("#CourseID").change(function () {
+            $("#bind").html('');
+            $('#btnSave').show();
+            DefaultaddDynamicRowsQues(this);
+        });
+     
+ @* $('#CourseName').autocomplete(
+  {
+      source: function (request, response) {         
+          $.ajax({
+              url: '@Url.Action("CourseNameAutoComplete", "QuestionAndAnswer")',
+               dataType: "json",
+               cache: false,
+               type: "get",
+               data: { term: request.term, org: $("#Orgname").val(), }
+           }).done(function (data) {              
+               response(data);
+           });
+       },
+       change: function (event, ui) {          
+           $.ajax({
+               url: '@Url.Action("CheckCourse", "QuestionAndAnswer")',
+               cache: false,
+               contentType: "application/json; charset=utf-8",
+               type: "get",
+               data: { Course: $("#CourseName").val(), Org: $("#Orgname").val() },
+               dataType: "json",
+               async: false,
+               success: function (data) {                 
+                   var check = $('#ViewId').val();
+                   if (data !=0 && check == "") { 
+                       $('#ViewId').val('1')
+                       $('#btnSave').show();
+                       DefaultaddDynamicRowsQues(this);
+                   }
+                   else if (data == 0) {                      
+                       alert('Course name does not exists.');
+                       $("#CourseName").val(''); 
+                   }
+
+               },
+               error: function (data) {
+
+               }
+           });
+
+       }
+
+  });
+     *@
+
+ });
+
+
+    function ddlQuestionTypeChange(id) {     
+       if ($(id).parent().find('select:eq(0)').val() == "1")
+        {            
+            $(id).parent().find('input:eq(1)').hide();
+            $(id).parent().find('textarea').show();
+        }
+        else
+        {
+            $(id).parent().find('textarea').hide();
+            $(id).parent().find('input:eq(1)').show();
+            $(id).parent().find('input:eq(1)').css("visibility", "visible");
+
+        }
+
+    }
+
+    function FindDuplicateOptions(array) {
+        
+        var valuesSoFar = Object.create(null);
+        for (var i = 0; i < array.length; ++i) {
+            var value = array[i];
+            if (value != "") {
+                if (value in valuesSoFar) {
+                    return true;
+                }
+                valuesSoFar[value] = true;
+            }
+        }
+        return false;
+    }
+
+    function OptionsValidation(id) {      
+
+        A = $(id).parent().find('input:eq(2)').val();
+
+        B = $(id).parent().find('input:eq(3)').val();
+
+        C = $(id).parent().find('input:eq(4)').val();
+
+        D = $(id).parent().find('input:eq(5)').val();
+
+        var arr = [A,B,C,D];
+        if (FindDuplicateOptions(arr)) {
+            alert("Options have duplicate values.");
+            if (id.id == "txtfirst")
+            {
+                $(id).parent().find('input:eq(2)').val('');
+                $(id).parent().find('input:eq(2)').focus();
+            }
+            else if (id.id == "txtsecond")
+            {
+                $(id).parent().find('input:eq(3)').val('');
+                $(id).parent().find('input:eq(3)').focus();
+            }
+            else if (id.id == "txtthird")
+            {
+                $(id).parent().find('input:eq(4)').val('');
+                $(id).parent().find('input:eq(4)').focus();
+            }
+            else if (id.id == "txtfourth")
+            {
+                $(id).parent().find('input:eq(5)').val('');
+                $(id).parent().find('input:eq(5)').focus();
+            }
+         
+        }
+
+    }
+
+    function DefaultaddDynamicRowsQues(id) {
+        var UploadId = 0;
+        $('#UploadId').val(UploadId) ;
+        var stringhtml = "<div id=\"question_list\" ><div class='question_list'><div class='clearfix question-box'> <span class=\"QuestionFields\">*</span> <label>Question Type: </label>   <select id=\"ddlQuestionType\" style=\"padding-left:10px margin-left:10px width:50px\"  onchange=\"ddlQuestionTypeChange(this); \">  <option value=\"1\" >Text</option> <option value=\"2\" >Video</option> </select> </br></br> <span class=\"QuestionFields\">*</span> <label>Credit Points: </label><input type=\"text\" onkeyup=\"numericFilter(this);\" name=\"VGENRENAME\" id=\"txtCreditpoint\" maxlength=\"4\">   </br></br>" +
+                               "<div  id='TextDiv'>  <span class=\"QuestionFields\">*</span><label>Question: </label><textarea name=\"QuestionD\"></textarea></div>  <div id='videoDiv'> <input type=\"file\" id=\"myFile" + UploadId + "\" style=\"width: 222px; margin-left: 102px;\"  name=\"QuestionD" + UploadId + "\"  accept=\"video/*\" onchange=\"myFunction(this)\"></div>  </br></br>   </div>  <span class=\"QuestionFields\">*</span>  <label>Options:</label>A:<input type=\"text\" name=\"VGENRENAME\" id=\"txtfirst\" onchange=\"OptionsValidation(this)\"  >B:<input type=\"text\" name=\"VGENRENAME\" id=\"txtsecond\" onchange=\"OptionsValidation(this)\"  >" +
+            "C:<input type=\"text\" name=\"VGENRENAME\" id=\"txtthird\" onchange=\"OptionsValidation(this)\" >D:<input type=\"text\" name=\"VGENRENAME\" id=\"txtfourth\" onchange=\"OptionsValidation(this)\"  >" +
+            "<span class=\"QuestionFields1\">*</span> Answer:<select class=\"form-control\"><option></option><option selected=\"selected\" value=\"\">Select</option><option value=\"0\">A</option><option value=\"1\">B</option><option value=\"2\">C</option><option value=\"3\">D</option></select>" +
+          "<input id=\"dunamicbutton\" class=\"add\" value=\"+\" type=\"button\"  onclick=\"AddDynamicRows(this);\"/> </div></div>";
+        $("#bind").append(stringhtml);
+        $('#myFile0').hide();
+    }
+
+    function AddDynamicRows(id)
+      {
+        var Question = "", points = "", A = "", B = "", C = "", D = "", Answer = "", Courseid = "", videoFile = "",QuestionType="";       
+        var UploadId = parseInt($('#UploadId').val()) + 1;
+        $('#UploadId').val(UploadId);
+        Question = $(id).parent().find('textarea').val();
+        
+        points = $(id).parent().find('input:eq(0)').val();
+
+        videoFile = $(id).parent().find('input:eq(1)').val();
+
+        A = $(id).parent().find('input:eq(2)').val();
+
+        B = $(id).parent().find('input:eq(3)').val();
+
+        C = $(id).parent().find('input:eq(4)').val();
+
+        D = $(id).parent().find('input:eq(5)').val();
+
+        QuestionType=$(id).parent().find('select:eq(0)').val();
+
+        if (A != "" && B != "" && C != "" && D != "") {
+            var arr = [A, B, C, D];
+            if (FindDuplicateOptions(arr)) {
+                alert("Options have duplicate values.");
+                status = false;
+            }
+        }
+        
+        Answer = $(id).parent().find('select:eq(1)').val();      
+        Courseid = $("#CourseName").val();
+      
+        if (Courseid=="")
+        {
+            alert("Please select Course");
+        }
+        else if (QuestionType == 1 && Question == "") {
+            alert("Please Enter Question");           
+        }
+        else if (points == "") {
+            alert("Please Enter Credit Points");
+        }
+        else if (QuestionType == 2 && videoFile == "") {
+            alert("Please Select a Video File");
+        }    
+        else if (A == "") {
+            alert("Please Enter Option A");
+        }
+        else if (B == "") {
+            alert("Please Enter Option B");
+        }
+        else if (C == "") {
+            alert( "Please Enter Option C");
+        }
+        else if (D == "") {
+            alert("Please Enter Option D");
+        }
+        else if (Answer == "") {
+            alert("Please Select Answer");
+        }
+        else{
+            var stringhtml = "<div id=\"question_list\" ><div class='question_list'><div class='clearfix question-box'><span class=\"QuestionFields\">*</span><label>Question Type:</label>   <select id=\"ddlQuestionType\" style=\"padding-left:10px margin-left:10px width:50px\"  onchange=\"ddlQuestionTypeChange(this); \">  <option value=\"1\" >Text</option> <option value=\"2\" >Video</option> </select> </br></br> <span class=\"QuestionFields\">*</span> <label>Credit Points:</label><input type=\"text\" onkeyup=\"return numericFilter(this);\"  name=\"VGENRENAME\" id=\"txtCreditpoint\" maxlength=\"4\">   </br></br>" + "<div  id='TextDiv'>  <span class=\"QuestionFields\">*</span> <label>Question:</label><textarea name=\"QuestionD\"></textarea></div>  <div  id='videoDiv'> <input type=\"file\" id=\"myFile" + UploadId + "\" accept=\"video/*\" class=\"FileUpload\" style=\"display:none; width: 222px; margin-left: 109px;\" name=\"QuestionD" + UploadId + "\" onchange=\"myFunction(this)\"></div>  </br></br>   </div>    <span class=\"QuestionFields\">*</span><label>Options:</label>A:<input type=\"text\" name=\"VGENRENAME\" id=\"txtfirst\"  onchange=\"OptionsValidation(this)\" >B:<input type=\"text\" name=\"VGENRENAME\" id=\"txtsecond\" onchange=\"OptionsValidation(this)\"  >" +
+                "C:<input type=\"text\" name=\"VGENRENAME\" id=\"txtthird\" onchange=\"OptionsValidation(this)\"  >D:<input type=\"text\" name=\"VGENRENAME\" id=\"txtfourth\" onchange=\"OptionsValidation(this)\"  >" +
+                "<span class=\"QuestionFields1\">*</span> Answer:<select class=\"form-control\"><option></option><option selected=\"selected\" value=\"\">Select</option><option value=\"0\">A</option><option value=\"1\">B</option><option value=\"2\">C</option><option value=\"3\">D</option></select>" +
+              "<a class=\"remove\" href='javascript:void(0);' onclick=\"removekeyID(this);\">Remove</a><input id=\"dunamicbutton\" class=\"add\" value=\"+\" type=\"button\"  onclick=\"AddDynamicRows(this);\"/> </div></div>";
+            $("#bind").append(stringhtml);         
+        }
+       
+    }
+
+  
+    function myFunction(id)
+    {       
+        if ($(id).val()=='')
+        {
+            return false;
+        }
+        var allowedFiles = [".mp4"];
+        var fileUpload = $(id).val();
+        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
+        if (!regex.test(fileUpload)) {
+            alert("Please Upload mp4 file formats only");
+            $(id).parent().find('input:eq(1)').val('');
+            return false;
+        }        
+        return true;
+
+    }
+    
+    function Getvalues() {       
+        var status =false;
+         var GenreDetails = [];
+         var QuestionDesc = "";
+         $("div[id^='bind'] div").each(function () {           
+          
+             if ($(this).attr("id") == "question_list") {
+                 var Question = $(this).find('textarea').val();
+               
+                 var points = $(this).find('input:eq(0)').val();
+               
+                 var A = $(this).find('input:eq(2)').val();
+                
+                 var B = $(this).find('input:eq(3)').val();
+                
+                 var C = $(this).find('input:eq(4)').val();
+               
+                 var D = $(this).find('input:eq(5)').val();
+
+                 if (A != "" && B != "" && C != "" && D != "") {
+                     var arr = [A, B, C, D];
+                     if (FindDuplicateOptions(arr)) {
+                         alert("Options have duplicate values.");
+                         status = false;
+                     }
+                 }
+                 var Answer = $(this).find('select:eq(1)').val();
+
+                 var QuestionType = $(this).find('select:eq(0)').val();
+              
+                 var VideoFile = $(this).find('input:eq(1)').val();
+                 if (Question == "" && QuestionType==1) {
+                     alert("Please Enter question");
+                     status = false;
+                 }
+                 else if (VideoFile == "" && QuestionType == 2) {
+                     alert("Please Select Video for all video Questions");
+                     status = false;
+                 }
+                else if (points == "") {
+                     alert("Please Enter Credit Points for all questions ");
+                     status= false;
+                 }
+             else if (A == "") {
+                 alert("Please Enter Option-A for all questions ");
+                 status= false;
+                 }
+             else if (B == "") {
+                 alert("Please Enter all questions Option-B");
+                 status= false;
+                 }
+             else if (C == "") {
+                 alert("Please Enter all questions Option C");
+                 status= false;
+                 }
+             else if (D == "") {
+                 alert("Please Enter all questions Option D");
+                 status= false;
+             }         
+             else if (Answer == "") {
+                 alert("Please Select all questions Answer");
+                 status= false;
+             }
+             else if (points !="" && A!="" && B!="" && C!="" && D!="" && Answer !="" ) {
+                   
+                 QuestionDesc = QuestionDesc + Question + "}" + QuestionType + "}" + VideoFile + "}" + points + "~" + A + "$" + B + "$" + C + "$" + D + "^" + Answer + "#";
+                 if (QuestionDesc != '') {
+                     document.getElementById("hdnQuestions").value = QuestionDesc;
+                     status= true;                 
+                 }                
+             }              
+             }               
+         });
+     
+         if (status) {           
+             return true;
+         }
+         else {
+             return false;
+         }
+    }
+
+    function numericFilter(txb) {
+        // txb.value = txb.value.replace(/[^\0-9]/ig, "");
+      //  debugger;
+         var trt = !isNaN(parseFloat(txb.value)) && isFinite(txb.value);
+         if (trt == false) {
+             alert('Please enter the valid credit points.');
+             txb.value = '';
+         }
+         if (trt == true && txb.value < 0) {
+             alert('Please enter the valid credit points.');
+            txb.value = '';
+        }
+        //return !isNaN(parseFloat(txb)) && isFinite(txb);
+    }
+
+
+    function TabEvent(txt)
+    {
+       // debugger;
+        var trt = !isNaN(parseFloat(txb.value)) && isFinite(txb.value);
+    }
+
+    function removekeyID(KeyID) {
+
+        $(KeyID).parent('div').remove();
+    }
+
+
+</script>
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                    Add Question & Answer
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1" >
+                    <b>
+                        <label id="lblErrormsg" >
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <label id="ViewId"  value="0" style="display:none"></label>
+                <div class="suss_mesg" id="msShow2" >
+                    <b>
+                        <label id="lblError1" >
+                        </label>
+                    </b>
+                </div>
+                @using (Html.BeginForm("QuestionAndAnswer_Add", "QuestionAndAnswer", FormMethod.Post, new { enctype = "multipart/form-data",id="QuestionAdd" }))
+                {
+                    <div class="fld_fd">
+                        <div>
+
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span>   Organization Name
+                                </dd>
+                                <dt>
+
+                 @{
+                    if (HttpContext.Current.Session["USERID"].ToString() == "1")
+                    {
+                        @Html.TextBoxFor(model => model.OrganisationName, new { maxlength = 35, id = "Orgname" })
+                        @*  @Html.DropDownList("OrgId", (SelectList)ViewBag.GetOrganizationNamelist, "Select", new { @class = "drop_down" })*@
+
+                    }
+                    else
+                    {
+                        @Html.TextBoxFor(model => model.OrganisationName, new { id = "txtOrgName", disabled = "disabled" })
+                        // @Html.HiddenFor(model => model.OrganisationName)
+                    }
+                    <label id="UserId" style="display:none">@HttpContext.Current.Session["USERID"].ToString()</label>
+                    <span class="error">
+                        @Html.ValidationMessageFor(model => model.OrganisationName)
+                    </span>
+                                    }
+
+
+
+                                </dt>
+                            </dl>
+
+
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span>  Course
+                                </dd>
+                                <dt>
+                                    @Html.DropDownListFor(Model => Model.CourseID, (SelectList)ViewBag.CourseList, "Select", new { @class = "drop_down" })
+                                  @*  @Html.TextBoxFor(model => model.CourseName, new { maxlength = 35, id = "CourseName", @onchange = "onchangeevent();" })*@
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.CourseID)
+                                    </span>
+
+                                </dt>
+                            </dl>
+
+
+                            @*  <dl>
+                                    <dd>
+                                        Course </dd><dt>
+                                            <div class="drop-down">
+                                                @Html.DropDownList("CourseID", (SelectList)ViewBag.Courselst, "Select", new { @class = "drop_down" })
+                                            </div>
+                                            <span class="error">
+                                                @Html.ValidationMessageFor(model => model.CourseID)
+                                            </span></dt>
+                                </dl>*@
+
+
+                        </div>
+                    </div> 
+                                      
+                    <label id="UploadId"  style="display:none"></label>
+                    @Html.HiddenFor(model => model.hdnQuestions)
+
+                    <div id="bind" style="width: 100%; float: left;" class="fld_fd">
+                    </div>
+                    @*<a href="javascript:void(0);" title="Save" class="green" onclick="Getvalues();">Save</a>*@
+                    <div class="btn1 btn1-form">
+                        <input type="submit" value="Save" title="Save" onclick="return Getvalues(); "  id="btnSave"/>
+                        <input  type="button" value="Back" title="Back" onclick="javascript:PreviousPage();" />
+                        @*<a href="#" onclick="javascript:PreviousPage();">Back</a>*@
+                    </div>
+
+                  
+                }
+            </fieldset>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,639 @@
+﻿
+@model SmartLabours.Models.TBL_VOUCHER_SMT
+@{
+    ViewBag.Title = "Smart Worker - Sponsor Donation Account";
+    Layout = "~/Views/Shared/_AccountMenuLayout.cshtml";
+}
+
+<style type="text/css">
+
+    #DivVoucherImage {
+        width: 300px;
+    }
+
+    .errorLabel {
+        color: red !important;
+        padding-bottom: 0px !important;
+        font-size: 9px !important;
+    }
+
+    .heading {
+        font-size: 12px !important;
+    }
+
+    .input {
+        min-height: 68px !important;
+    }
+
+</style>
+
+         <!-- Google Analytics Code -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End Here  -->
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var AlertMsg = '@TempData["donateId"]';
+        $('#frm_PayTab').hide();
+        $('#frm_Users').hide();
+        var Currency = "AED";
+        if (AlertMsg != "" && AlertMsg != null && AlertMsg == "PayTab")
+        {
+            $.ajax(
+                        {
+                            type: 'POST',
+                            url: '@Url.Action("GetUserAmountCurrency", "SponsorAccount")',
+                            dataType: 'json',
+                            data: {},
+                            success: function (data) {
+                                var Str = ' I Accept to pay the amount of ' + data + ' ' + $('#TotalAmount').val() + ' for the Smart Worker access licence for 1 year,  for ' + $('#NoofUsers').val() + ' users.'
+                                $('#AcceptTermsText').text(Str);
+                            },
+                            error: function (data) {                             
+                            }
+                        });
+            $('#frm_Participation').hide();
+            $('#frm_PayTab').show();
+     
+        }
+        else if (AlertMsg != "" && AlertMsg != null) {
+            alert(AlertMsg);
+        }
+
+        $('#DonateAmount').hide();
+        $('.Hide-Donate').hide();
+        $('#txtServiceProvider').hide();
+        $('#txtVoucher').hide();
+
+        var ddlDonateAmount = $("[id*=ddlDonateAmount]");
+        ddlDonateAmount.empty().append('<option selected="selected" value="1">1</option>');
+        ddlDonateAmount.append('<option value="2">2</option>');
+        ddlDonateAmount.append('<option value="3">3</option>');
+        ddlDonateAmount.append('<option value="4">4</option>');
+        ddlDonateAmount.append('<option value="5">More</option>');
+
+        ViewUIploader();
+
+        function ViewUIploader() {
+            if ($('#ChkBoxImage').prop('checked')) {
+                $('#ImageUpload').show();
+            } else {
+                $('#ImageUpload').hide();
+            }
+        }
+
+        $('#ChkBoxImage').change(function () {
+            ViewUIploader();
+        });
+
+
+        $("#DonateType").change(function () {
+            if ($("#DonateType").val() == 'To the website')
+            {
+                $('#ServicePlanDiv').hide();
+                $('.Hide-Donate').show();
+                $('#txtServiceProvider').val('1');
+                $('#txtVoucher').val('1');
+                $('#DivServiceProvider').hide();
+                $('#DivVoucher').hide();
+                $("#SERVICEPROVIDERID").prop('disabled', true);
+                $('#CODES').prop('disabled', true);
+                $('#DivVoucherImage').hide();
+
+                $("#NoofUsers").val('1')
+                $.ajax(
+                      {
+                          type: 'POST',
+                          url: '@Url.Action("GetTheUSerAEDAmount", "SponsorAccount")',
+                          dataType: 'json',
+                          data: { Users: $("#NoofUsers").val() },
+                          success: function (data) {
+                              $("#txtTotalAmount1").val(data);
+                              $("#DonateAmount").val(data);
+                          }
+                      });
+
+            }
+            else {
+                $('#ServicePlanDiv').show();
+                $('.Hide-Donate').hide();
+                $('#DivServiceProvider').show();
+                $('#DivVoucher').show();
+                $("#SERVICEPROVIDERID").prop('disabled', false);
+                $('#CODES').prop('disabled', false);
+                $('#DivVoucherImage').show();
+            }
+
+
+        });
+
+        $("#CODES").change(function () {
+            if ($("#CODES").val() != '') {
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: '@Url.Action("CheckVoucherCode", "SponsorAccount")',
+                        dataType: 'json',
+                        data: { VoucherCode: $("#CODES").val(), SERVICEPLANID: $("#SERVICEPLANID").val() },
+                        success: function (data) {
+                            if(data!="1")
+                            {
+                                $("#ErrorCategory").text(data);
+                            }
+                            else
+                            {
+                                $("#ErrorCategory").text('');
+                            }
+                        }
+                    });
+            }
+        });
+
+
+        $("#SERVICEPROVIDERID").change(function () {
+            var Service='';
+            $("#ErrorSERVICEPROVIDERID").text('');
+            if( $('#DonateType').val()=="Talk Time Amount")
+            {
+                Service=1;
+            }
+            else if($('#DonateType').val()=="Data amount"){
+                Service=2;
+            }
+            if ($("#SERVICEPROVIDERID").val() != '' & $("#SERVICEPROVIDERID").val() != '0') {
+                $("#SERVICEPLANID").empty();
+                $("#SERVICEPLANID").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: '@Url.Action("Bindserviceplan", "SponsorAccount")',
+                        dataType: 'json',
+                        data: { providerid: $("#SERVICEPROVIDERID").val(), ServiceType: Service },
+                        success: function (providers) {
+                            $.each(providers, function (i, provider) {
+                                $("#SERVICEPLANID").append('<option value="' + provider.Value + '">' + provider.Text + '</option>');
+                            });
+                        }
+                    });
+            }
+        });
+
+        $("#DonateAmount").keydown(function (e) {
+            if ($("#DonateType").val() == 'To the website') {
+            }
+            else {
+                AllowNumericOnly(e);
+            }
+        });
+
+        $("#txtNoOfUsers").keydown(function (e) {
+            AllowNumericOnly(e);
+        });
+
+
+        $("#CODES").keypress(function (e) {
+            $("#ErrorCODES").text('');
+        });
+
+        $("#Description").keypress(function (e) {
+            $("#ErrorDescription").text('');
+        });
+
+        $("#SERVICEPLANID").change(function (e) {
+            $("#ErrorSERVICEPLANID").text('');
+        });
+
+        $("#DonateType").change(function (e) {
+            $("#ErrorDonateType").text('');
+        });
+
+        $("#SponsorDonationWebsite").submit(function (e) {
+
+            $("#TotalAmount").val($("#txtTotalAmount1").val());
+            var DonateType = $("#DonateType").val()
+            var status = 0;
+            if (DonateType == "" || DonateType == "0")
+            {
+                $("#ErrorDonateType").text('Please Select the Participation Type');
+                status = 1;
+            }
+            else
+            {
+                $("#ErrorDonateType").text('');
+            }
+
+            if (DonateType == "To the website")
+            {
+                if ($("#Description").val() == "") {
+                    $("#ErrorDescription").text('Please Enter Description');
+                    status = 1;
+                }
+                else {
+                    $("#ErrorDescription").text('');
+                }
+            }
+
+            else if (DonateType != "To the website")
+            {
+                if ($("#SERVICEPROVIDERID").val() == "" || $("#SERVICEPROVIDERID").val() == "0") {
+                    $("#ErrorSERVICEPROVIDERID").text('Please Select Service Provider');
+                    status = 1;
+                }
+                else {
+                    $("#ErrorSERVICEPROVIDERID").text('');
+                }
+                if ($("#SERVICEPLANID").val() == "" || $("#SERVICEPLANID").val() == "0") {
+                    $("#ErrorSERVICEPLANID").text('Please Select Service Plan');
+                    status = 1;
+                }
+                else {
+                    $("#ErrorSERVICEPLANID").text('');
+                }
+
+                if ($("#CODES").val() == "") {
+                    $("#ErrorCODES").text('Please Enter Voucher ');
+                    status = 1;
+                }
+                else {
+                    $("#ErrorCODES").text('');
+                }
+
+                if ($("#Description").val() == "") {
+                    $("#ErrorDescription").text('Please Enter Description');
+                    status = 1;
+                }
+                else {
+                    $("#ErrorDescription").text('');
+                }
+            }
+            if (status == 1) {
+                e.preventDefault(e);
+            }
+            else {
+                return true;
+            }
+        });
+
+        $("#txtNoOfUsers").change(function (e) {
+
+            $.ajax(
+                      {
+                          type: 'POST',
+                          url: '@Url.Action("GetTheUSerAEDAmount", "SponsorAccount")',
+                          dataType: 'json',
+                          data: { Users: $("#txtNoOfUsers").val() },
+                          success: function (data) {
+                              $("#txtTotalAmount1").val(data);
+                              $("#DonateAmount").val(data);
+                          }
+                      });
+
+            var value = parseInt($("#txtNoOfUsers").val()) * 120;
+            $("#txtTotalAmount").val(value);
+            $("#txtTotalAmount1").val(value);
+            $("#TotalAmount").val(value);
+            $("#DonateAmount").val(value);
+        });
+
+
+        $("#ddlDonateAmount").change(function (e) {
+
+            if ($("#DonateType").val() == 'To the website') {
+                var NoOFUsers = $("#ddlDonateAmount").val();
+                if (NoOFUsers == "5") {
+                    $('#frm_Participation').hide();
+                    $('#frm_Users').show();
+                }
+                else if (NoOFUsers == "1" || NoOFUsers == "2" || NoOFUsers == "3" || NoOFUsers == "4") {
+                    $('#frm_Users').hide();
+
+                    $.ajax(
+                         {
+                             type: 'POST',
+                             url: '@Url.Action("GetTheUSerAEDAmount", "SponsorAccount")',
+                             dataType: 'json',
+                             data: { Users: NoOFUsers },
+                             success: function (data) {
+                                 $("#txtTotalAmount1").val(data);
+                                 $("#DonateAmount").val(data);
+                             }
+                         });
+
+                    $('#NoofUsers').val(NoOFUsers);
+
+                }
+                else {
+                    alert("Invalid number of users");
+                    $("#DonateAmount").val('')
+                }
+            }
+        });
+
+        $("#txtSearch").prop("disabled", true);
+
+        $("#btnUserCalculate").click(function () {
+            if ($("#txtNoOfUsers").val() == "")
+            {
+                alert("Please enter no of user");
+            }
+            else {
+                $("#DonateAmount").val($("#txtNoOfUsers").val());               
+                $('#NoofUsers').val($("#txtNoOfUsers").val());
+                $('#frm_Participation').show();
+                $('#frm_Users').hide();
+                $("#txtNoOfUsers").val('');
+                $("#TotalAmount").val('');
+            }
+
+        });
+
+        var availableTags = ["1","2","3","4","More"];
+
+        $("#DonateAmount").autocomplete({
+            source: availableTags
+        });
+
+        $("#btnPayTab").click(function(){            
+            /********* Pay Amount *******/
+            var url = window.location.href;
+            $.ajax(
+               {
+                   type: 'POST',
+                   url: '@Url.Action("PayTabAmountPayEvent", "SponsorAccount")',
+                   dataType: 'json',
+                   data: { ReturnURL: url, Amount: $("#TotalAmount").val(),NoofUsers: $('#NoofUsers').val() },
+                   success: function (data) {
+                       // debugger                     
+                     //  $("#PayTabReturnId").val(data.p_id);
+                     
+                       if (data.response_code == "4012")
+                       {
+                           window.location = data.payment_url;
+                       }
+                       else {
+                           alert('Page Not Found.');
+                       }
+                    
+
+                     //  alert('Success');
+                   },
+                   error: function (data) {
+                      // debugger
+                       alert(data)
+
+                   }
+               });
+            
+        });
+
+    });
+
+    function validate_Imagefileupload(fileName) {
+
+        if (fileName == '') {
+            return false;
+        }
+        var allowedFiles = [".jpg", ".jpeg"];
+        var fileUpload = $("#ImageUpload").val();
+        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
+        if (!regex.test(fileUpload)) {
+            $("#ErrorImage").text('Please Upload .jpg or .jpeg file formats only');
+            $("#ImageUpload").val('');
+            return false;
+        }
+        $("#ErrorImage").text('');
+        return true;
+    }
+
+
+
+</script>
+
+<script type="text/javascript">
+
+    function numericFilter(txb) {
+        txb.value = txb.value.replace(/[^\0-9]/ig, "");
+    }
+
+
+</script>
+
+<div class="main">
+
+    <div class="inner_titlebg">
+        <div class="wrapper">
+            <h2>Participate</h2>
+
+        </div>
+    </div>
+
+    @using (Html.BeginForm("SponsorDonationWebsite", "SponsorAccount", FormMethod.Post, new { @id = "SponsorDonationWebsite", enctype = "multipart/form-data" }))
+    {
+        <div class="wrapper">
+
+            <div class="inner_contentarea1 clearfix">
+
+                <div class="left_menu">
+                    <ul>
+                        <li><a href="/SponsorAccount/ProfileDetails" title="Profile Details">Profile Details</a></li>
+                        <li><a href="/SponsorAccount/Notification" title="Notification">Notification</a></li>
+                        <li><a href="/Donatephone/DonatePhone" title="Participation Form">Participation Phone Form</a></li>
+                        <li><a href="/Donatephone/DonatePhoneHistory" title="Phone Request History">Participation Phone History</a></li>
+                        <li><a href="/Donatephone/OtherDonationHistory" title="Phone Request History">Other Participation History</a></li>
+                        <li class="active"><a href="/SponsorAccount/SponsorDonationWebsite" title="Participation  To website"> Participation To Website</a></li>
+                        <li><a href="/SponsorAccount/PostTestimonial" title="Post Testimonial">Post Testimonial</a></li>
+                        <li><a href="/HelpDesk/HelpDeskAdd1" title="Help Desk">Help Desk</a></li>
+                        <li><a href="/HelpDesk/HelpDeskSponsorList" title="Help Desk">Help Desk List</a></li>
+                    </ul>
+                </div>
+
+                <div class="right_content" id="frm_Participation">
+                    <h2>
+                        Participation To Website
+                    </h2>
+                    <div class="request_form">
+                        <div class="input">
+                            <label class="heading">
+                                Participation Type
+                            </label>
+                            @Html.DropDownList("DonateType", (SelectList)ViewBag.DonationType, new { @class = "drop_down" })
+
+                            <label id="ErrorDonateType" class="errorLabel"></label>
+
+                        </div>
+
+                        <div class="input" id="DivServiceProvider">
+                            <label class="heading">
+                                Service Provider
+                            </label>
+                            @Html.DropDownList("SERVICEPROVIDERID", (SelectList)ViewBag.serviceprovider, "Select", new { @class = "drop_down" })
+                            <span class="error_msg">
+                                <label id="ErrorSERVICEPROVIDERID" class="errorLabel"></label>
+                            </span>
+                        </div>
+                        @Html.TextBoxFor(Model => Model.SERVICEPROVIDERID, new { id = "txtServiceProvider" })
+
+                        <div class="input Hide-Donate" id="ParticiaptionDiv1">
+                            <label class="heading">
+                                Particiapation
+                            </label>
+                            @Html.DropDownList("DonateAmount", new SelectList(string.Empty, "Value", "Text"), "Select", new { @class = "drop_down", @id = "ddlDonateAmount" })
+                            <span class="error_msg">
+                                <label id="ErrorDonateAmount" class="errorLabel"></label>
+                            </span>
+                        </div>
+                 
+                        @*<div class="input" id="NoUsersDiv2">
+                            <label class="heading">
+                                No of User
+                            </label>
+                            @Html.TextBoxFor(model => model.DonateAmount, new { id = "DonateAmount" })
+                            @Html.DropDownList("DonateAmount", new SelectList(string.Empty, "Value", "Text"), "Select", new { @class = "drop_down", @id = "ddlDonateAmount" })
+                            <span class="error_msg">
+                                <label id="ErrorDonateAmount" class="errorLabel"></label>
+                            </span>
+                        </div>*@
+                        <div class="input" id="ServicePlanDiv">
+                            <label class="heading">
+                                Service Plan - Credit Point
+                            </label>
+                            @Html.DropDownList("SERVICEPLANID", new SelectList(string.Empty, "Value", "Text"), "Select", new { @class = "drop_down" })
+                            <span class="error_msg">
+                                <label id="ErrorSERVICEPLANID" class="errorLabel"></label>
+                            </span>
+                        </div>
+
+                        <div class="input" id="DivVoucher">
+                            <label class="heading">
+                                Voucher
+                            </label>
+                            @Html.TextBoxFor(model => model.CODES)
+
+                            <span class="error_msg">
+                                <label id="ErrorCODES" class="errorLabel"></label>
+
+                            </span>
+                        </div>
+
+                        @Html.TextBoxFor(model => model.CODES, new { onkeyup = "numericFilter(this);", style = "display:none", id = "txtVoucher" })
+
+
+                        <div class="clearfix">
+                            <div class="input textarea">
+                                <div class="clearfix">
+                                    <label class="heading">
+                                        Description
+                                    </label>
+                                </div>
+                                @Html.TextAreaFor(n => n.Description)
+                                <span class="error_msg" id="AlternateAddress">
+                                    <label id="ErrorDescription" class="errorLabel"></label>
+                                </span>
+                            </div>
+
+
+                            <div class="input Hide-Donate" id="totalAmount">
+                                <label class="heading">
+                                    Total Amount
+                                </label>
+                                @Html.TextBoxFor(model => model.TotalAmount, new { disabled = "disabled", id = "txtTotalAmount1" })
+                                @Html.HiddenFor(model => model.NoofUsers)
+                                @Html.HiddenFor(model => model.TotalAmount)
+                                @*@Html.TextBoxFor(model => model.TotalAmount, new { disabled = "disabled" })*@
+
+                                @*<input type="text" id="txtTotalAmount1" class="" disabled="disabled" />*@
+                                <span class="error_msg">
+                                    <label id="ErrorDonateAmount" class="errorLabel"></label>
+                                </span>
+                            </div>
+
+
+
+                            <div class="input" id="DivVoucherImage">
+                                <label class="heading">
+                                    Voucher Image
+                                </label>
+                             
+                                @Html.CheckBoxFor(model => model.VoucherImageStatus, new { @id = "ChkBoxImage", @class = "CheckBoxClass", style = "width:25px" })
+                                <input type="file" id="ImageUpload" name="UploadImage" style="width:230px" onchange="return validate_Imagefileupload(this)" />
+
+                                <label id="ErrorImage" class="errorLabel"></label>
+
+                            </div>
+
+                        </div>
+                        <div class="submit default">
+                            <input type="submit" value="Submit" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="right_content" id="frm_Users">
+                    <h2>
+                        SOFTWARE ACCESS LICENSE
+                    </h2>
+                    <div class="">
+
+                        <div style="font-size:1.5em;padding:5px;"><h3>Smart Worker software access license cost AED 120 per user.</h3></div>
+
+                        <div class="input">
+                            <label class="heading">
+                                No of Users :
+                            </label>
+                            <input type="text" id="txtNoOfUsers" maxlength="5" />
+
+                            <label id="ErrorNoOfUsers" class="errorLabel"></label>
+
+                        </div>
+
+                        <div class="input">
+                            <label class="heading">
+                                Total Amount :
+                            </label>
+                            <input type="text" id="txtTotalAmount" class="" disabled="disabled" />
+                        </div>
+
+                    </div>
+                    <div class="submit default">
+                        <input type="button" value="Save" id="btnUserCalculate" />
+                    </div>
+                </div>
+
+                <div class="right_content" id="frm_PayTab">
+                    <h2>
+                        SOFTWARE ACCESS LICENSE
+                    </h2>
+                    <div class="request_form">
+
+                        <div style="font-size:1.5em;padding:5px;">
+                            <h3 id="AcceptTermsText">
+                               
+                            </h3>
+                        </div>
+
+                        <div class="checkbox" style="font-size:1.5em;padding:5px;">
+                            @Html.CheckBoxFor(model => model.AutoReneval, new { @id = "PayTabAccept", @class = "CheckBoxClass", style = "width:25px" })
+                     
+                            <label>
+                                I accept the auto renew of the smartlabour access license
+                            </label>
+                            <span class="error_msg" id="Accept">
+
+                            </span>
+                        </div>
+                        <input type="hidden"  id="PayTabReturnId" />
+                        <div class="submit default">
+                            <input type="button" value="Pay" id="btnPayTab" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    }
+
+</div>

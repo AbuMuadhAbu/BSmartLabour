@@ -1,0 +1,62 @@
+﻿
+@model SmartLabours.Models.TBL_Banner_SMT
+@{
+    ViewBag.Title = "Banner View";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<script type="text/javascript">
+    function PreviousPage() {
+
+        window.location = "/Banner/Banner_List";
+    }
+
+</script>
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                    Banner View
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="fld_fd view-blk">
+                    <dl>
+                        <dd>
+                            Title</dd>
+                        <dt>
+                            @Html.DisplayFor(n => n.BannerTitle)</dt>
+                    </dl>
+                    <dl>
+                        <dd>
+                            Banner Image</dd>
+                        <dt>
+                            <img src="../../Content/Admin/images/Banner/@Model.BannerImage" height="100px" width="100px" /></span>
+            
+                   </dl>
+                    
+                    <dl>
+                        <dd>
+                            Status</dd>
+                        <dt>
+                            @{if (Model.Status == true)
+                              {<label>True</label>}
+                              else
+                              {<label>False</label>}}
+                        </dt>
+                    </dl>
+                    <div class="btn1 btn1-form">
+                        <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

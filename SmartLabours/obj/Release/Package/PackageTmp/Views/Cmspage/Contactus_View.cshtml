@@ -1,0 +1,114 @@
+﻿
+
+@model SmartLabours.Models.TBL_AdminCONTACTUS_SMT
+@{
+    ViewBag.Title = "Contact Us View";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript">
+        function PreviousPage() {
+
+            window.location = "/Cmspage/Contactus_List";
+        }
+
+    </script>
+</head>
+<body>
+    @* Google Analytics COde  *@
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+    <!-- End here -->
+    <div class="content">
+        <div class="wrapper">
+            <div class="continn">
+                <fieldset>
+                    <legend></legend>
+                    <h3>
+                        Contact Us View
+                    </h3>
+                    <div class="clr2">
+                    </div>
+                    <div class="fld_fd view-blk">
+                        <dl>
+                            <dd>
+                                Email ID</dd>
+                            <dt>
+                                @Html.DisplayFor(n => n.EMAILID)</dt>
+                        </dl>
+                        <dl>
+                            <dd>Phone No</dd><dt>
+                          
+                          @Html.DisplayFor(n => n.PHONENO)
+                            </dt>
+                        </dl>
+                       
+                            <dl>
+                                <dd>
+                                    Address</dd>
+                                <dt>
+                                    @Html.DisplayFor(n => n.ADDRESS1)
+                                    
+                                    @Html.DisplayFor(n => n.ADDRESS2)
+                                    </dt>
+                            </dl>
+                            <dl>
+                                <dd>
+                                    City </dd>
+                                <dt>
+                                    @Html.DisplayFor(n => n.CITY)</dt>
+                            </dl>
+                             <dl>
+                                <dd>
+                                    Country </dd>
+                                <dt>
+                                    @Html.DisplayFor(n => n.COUNTRY)</dt>
+                            </dl>
+                             <dl>
+                                <dd>
+                                    Post Box No </dd>
+                                <dt>
+                                    @Html.DisplayFor(n => n.POBOXNO)</dt>
+                            </dl>
+
+                        <dl>
+                            <dd>
+                                Finance Year
+                            </dd>
+                            <dt>
+                                @Html.DisplayFor(n => n.FinaceYear.Value.ToString("dd/MM/yyyy"))
+                            </dt>
+                        </dl>
+                        <dl>
+                            <dd>
+                                Host Name
+                            </dd>
+                            <dt>
+                                @Html.DisplayFor(n => n.HostName)
+                            </dt>
+                        </dl>
+
+                            <dl>
+                                <dd>
+                                    Status</dd>
+                                <dt>
+                                    @{if (Model.STATUS == true)
+                                      {<label>Active</label>}
+                                      else
+                                      {<label>In Active</label>}}
+                                </dt>
+                            </dl>
+                           
+                            <div class="btn1 btn1-form">
+                                <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                            </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

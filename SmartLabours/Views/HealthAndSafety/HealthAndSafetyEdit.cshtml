@@ -1,0 +1,114 @@
+﻿@model SmartLabours.Models.TBL_HealthAndSafety 
+@{
+    ViewBag.Title = "HealthAndSafetyEdit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<link href="~/Content/themes/base/base.css" rel="stylesheet" />
+
+<script type="text/javascript">
+    function PreviousPage() {
+        window.location = "/HealthAndSafety/HealthAndSafetyList";
+    }
+  
+</script>
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                    Health And Safety Edit
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1" >
+                    <b>
+                        <label id="lblErrormsg" >
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="suss_mesg" id="msShow2" >
+                    <b>
+                        <label id="lblError1" >
+                        </label>
+                    </b>
+                </div>
+                <div class="fld_fd">
+                    @using (Html.BeginForm("HealthAndSafetyEdit", "HealthAndSafety", FormMethod.Post, new { id = "FrmHealthAndSafetyEdit", @class = "form-horizontal", enctype = "multipart/form-data", autocomplete = "off" }))
+                    {                      
+                            <dl>
+                              <dd>
+                                Name
+                               </dd> 
+                            <dt>
+                                @Html.DisplayFor(model => model.Name)
+                            </dt>
+                        </dl>
+
+                            <dl>
+                                <dd>
+                                      Comments
+                                </dd>
+                                <dt>
+                                    @Html.TextAreaFor(model => model.Comments, new { placeholder = "Enter Comments", @class = "form-control", style = "height:80px" })
+                                    <span class="error">
+                                       
+                                    </span>
+                                </dt>
+                            </dl>
+                        
+                         <dl style="padding-top:7px">
+                           <dd>
+                               <span style="color:red;padding-right :2px;"> * </span> Approval Status
+                           </dd>
+                           <dt>
+                               @{if (Model.Approve == true)                             
+                               {
+                                    @Html.RadioButtonFor(model => model.Approve, true, new { @checked = true,@disabled="disabled" })
+                                       <label>
+                                   Approve
+                               </label>
+                               @Html.RadioButtonFor(model => model.Approve, false,new{@disabled="disabled"})
+                               <label>
+                                   Decline
+                               </label>
+                               }
+                               else
+                               {
+                               @Html.RadioButtonFor(model => model.Approve, true, new { @checked = true})
+                                <label>
+                                   Approve
+                               </label>
+                               @Html.RadioButtonFor(model => model.Approve, false)
+                               <label>
+                                   Decline
+                               </label>
+                               }   
+                                                     
+                           
+                               }
+                           </dt>
+                        </dl>
+                        
+
+
+                            @Html.HiddenFor(model => model.HSId)
+                        
+                            <div class="btn1 btn1-form">
+                                <input type="submit" value="Save" title="Save" />
+                                <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                            </div>
+                       
+
+                    }
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

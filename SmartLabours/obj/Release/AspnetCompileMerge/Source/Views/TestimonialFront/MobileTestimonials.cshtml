@@ -1,0 +1,255 @@
+﻿
+@{ ViewBag.Title = "Testimonial";
+    Layout = "~/Views/Shared/_AccountMenuLayout.cshtml";}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<script type="text/javascript">
+$(document).ready(function () {        
+        
+        var spage=@ViewBag.CurrentPage; 
+        var lpage=@ViewBag.TotalPages; 
+        var footer='';                
+        
+        if (lpage>1) {
+             footer = createfooter(@ViewBag.TotalPages, 1);
+            
+             $("#page").append(footer);
+             
+              $("#page"+spage).removeClass('active');
+              $("#page"+spage).addClass('active');
+        }
+
+        
+
+         $('#backpage').click(function () {
+            
+            if (spage>1) {
+               
+                $("#backpage").attr("href", "/Testimonials/"+(spage-1));
+            } 
+            else{
+                    return false;
+                //$("#backpage").attr("href", "/PopularCourses");
+            }
+        });
+
+         $('#nextpage').click(function () {
+            if (spage<lpage) {
+               
+                $("#nextpage").attr("href", "/Testimonials/"+(spage+1));
+            }
+            else{
+                    return false;
+                //$("#nextpage").attr("href", "/PopularCourses/"+lpage);
+            }
+        });
+
+     
+
+    });
+
+    function createfooter(count, page) {        
+
+        var back='';
+        var next='';
+
+        var spage=@ViewBag.CurrentPage; 
+        var lpage=@ViewBag.TotalPages;      
+
+        var epage=spage+3;        
+        var next=spage+1;
+
+        var footer = "<li><a id='backpage' title='Back' href='#' class='pager-prev'>Prev</a></li>";
+
+        if(spage <= lpage)
+        {
+            if (spage>=4) {
+               
+                nspage=spage-1; 
+                epage=spage+2;
+
+                if(epage > lpage){
+                                
+                    epage=lpage;  
+                     var pcount=epage-nspage;
+                       // alert("Co -> "+pcount);
+                    if(pcount>=1){
+                     nspage=epage-3;                   
+                    }  
+                }  
+                       
+                for (var i = nspage; i <= epage ; i++) {
+                    footer += "<li id='page"+i+"'><a    href=/Testimonials/"+i+">" + i + "</a></li>";
+                 }
+            }
+            else{
+                    //alert('fff');
+                 for (var i = 1; i <= lpage ; i++) {
+                    footer += "<li id='page"+i+"'><a   href=/Testimonials/"+i+">" + i + "</a></li>";
+                 }
+            }
+        }
+        else{
+
+            for (var i = 1; i <= lpage; i++) {
+                footer += "<li id='page"+i+"' ><a href=/Testimonials/"+i+">" + i + "</a></li>";
+            }
+        }
+        
+        
+        footer+="<li><a id='nextpage' title='Next' href='/Testimonials/'"+next+"' class='pager-next'>Next</a></li>";
+        return footer;
+    }
+
+</script>
+<div class="main">
+    <div class="inner_titlebg">
+        <div class="wrapper">
+            <h2>
+                Testimonial</h2>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div class="inner_contentarea1 clearfix">
+            @*<p class="testimonial_des">
+                Generate lorem ipsum in paragraphs words or sentences the exact amount of text,
+                and the exact amount of text, and it had the html tags included.had the html tags
+                included Generate lorem ipsum in paragraphs the exact amount of text, and it had
+                the html</p>*@
+            <ul class="testimonialpage_list clearfix">
+                @{List<SmartLabours.Models.TBL_TESTIMONIAL_SMT> lstofTestimonial = new List<SmartLabours.Models.TBL_TESTIMONIAL_SMT>();
+
+                  lstofTestimonial = ViewBag.Testimonial as List<SmartLabours.Models.TBL_TESTIMONIAL_SMT>;
+                  
+                }
+                @if (ViewBag.Testimonial != null)
+                {
+                    foreach (var items in lstofTestimonial)
+                    {
+                    <li>
+                        <img src="../../Uplodify/TestimonialImages/@items.Image" width="128px" height="130px" alt="" />
+                        <h3>
+                            @Html.DisplayFor(modelitem => items.Name)</h3>
+                        <span>@Html.DisplayFor(modelitem => items.Designation)</span>
+                        @if (items.Description != null)
+                        {
+                        if (items.Description.Length > 275)
+                        {
+                            var content = items.Description.Substring(0, 272) + "...." + "</p>";
+                            var content1 = items.Description.Substring(273) + "...." + "</p>";
+                            @Html.Raw(content)
+                            @*<span style="display:none;">  @Html.Raw(content1)</span>*@
+                        }
+                        else
+                        {
+                            @Html.Raw(items.Description)
+                        }
+                        }
+                        <a href="javascript:void(0);" class="more" title="More">+ More</a> </li>
+                    }
+                }
+@* <li>
+                    <img src="images/img2.jpg" />
+                    <h3>
+                        Erik Reagan</h3>
+                    <span>Co-Founder, Operations Director</span>
+                    <p>
+                        It is a long established fact that a reader will be distracted by readable content
+                        of a page when looking at its layout.point of using Lorem Ipsum is that it has a
+                        more-or-less normal of letters, as opposed to using here, content here', making
+                        it look like readable English</p>
+                    <a href="#" class="more" title="More">+ More</a> </li>
+                <li>
+                    <img src="images/img3.jpg" />
+                    <h3>
+                        Erik Reagan</h3>
+                    <span>Co-Founder, Operations Director</span>
+                    <p>
+                        It is a long established fact that a reader will be distracted by readable content
+                        of a page when looking at its layout.point of using Lorem Ipsum is that it has a
+                        more-or-less normal of letters, as opposed to using here, content here', making
+                        it look like readable English</p>
+                    <a href="#" class="more" title="More">+ More</a> </li>
+                <li>
+                    <img src="images/img1.jpg" />
+                    <h3>
+                        Erik Reagan</h3>
+                    <span>Co-Founder, Operations Director</span>
+                    <p>
+                        It is a long established fact that a reader will be distracted by readable content
+                        of a page when looking at its layout.point of using Lorem Ipsum is that it has a
+                        more-or-less normal of letters, as opposed to using here, content here', making
+                        it look like readable English</p>
+                    <a href="#" class="more" title="More">+ More</a> </li>
+                <li>
+                    <img src="images/img2.jpg" />
+                    <h3>
+                        Erik Reagan</h3>
+                    <span>Co-Founder, Operations Director</span>
+                    <p>
+                        It is a long established fact that a reader will be distracted by readable content
+                        of a page when looking at its layout.point of using Lorem Ipsum is that it has a
+                        more-or-less normal of letters, as opposed to using here, content here', making
+                        it look like readable English</p>
+                    <a href="#" class="more" title="More">+ More</a> </li>
+                <li>
+                    <img src="images/img3.jpg" />
+                    <h3>
+                        Erik Reagan</h3>
+                    <span>Co-Founder, Operations Director</span>
+                    <p>
+                        It is a long established fact that a reader will be distracted by readable content
+                        of a page when looking at its layout.point of using Lorem Ipsum is that it has a
+                        more-or-less normal of letters, as opposed to using here, content here', making
+                        it look like readable English</p>
+                    <a href="#" class="more" title="More">+ More</a> </li>
+                <li>
+                    <img src="images/img1.jpg" />
+                    <h3>
+                        Erik Reagan</h3>
+                    <span>Co-Founder, Operations Director</span>
+                    <p>
+                        It is a long established fact that a reader will be distracted by readable content
+                        of a page when looking at its layout.point of using Lorem Ipsum is that it has a
+                        more-or-less normal of letters, as opposed to using here, content here', making
+                        it look like readable English</p>
+                    <a href="#" class="more" title="More">+ More</a> </li>
+                <li>
+                    <img src="images/img2.jpg" />
+                    <h3>
+                        Erik Reagan</h3>
+                    <span>Co-Founder, Operations Director</span>
+                    <p>
+                        It is a long established fact that a reader will be distracted by readable content
+                        of a page when looking at its layout.point of using Lorem Ipsum is that it has a
+                        more-or-less normal of letters, as opposed to using here, content here', making
+                        it look like readable English</p>
+                    <a href="#" class="more" title="More">+ More</a> </li>
+                <li>
+                    <img src="images/img3.jpg" />
+                    <h3>
+                        Erik Reagan</h3>
+                    <span>Co-Founder, Operations Director</span>
+                    <p>
+                        It is a long established fact that a reader will be distracted by readable content
+                        of a page when looking at its layout.point of using Lorem Ipsum is that it has a
+                        more-or-less normal of letters, as opposed to using here, content here', making
+                        it look like readable English</p>
+                    <a href="#" class="more" title="More">+ More</a> </li>*@
+            </ul>
+            <ul class="pagination testpager clearfix" id="page">
+                @* <li><a href="#">Prev</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">Next</a></li>*@
+            </ul>
+        </div>
+    </div>
+</div>

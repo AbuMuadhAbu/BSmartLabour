@@ -1,0 +1,340 @@
+<table width='95%' border='0' cellspacing='0' cellpadding='0' >
+<tr bgcolor='52719D' > 
+<td height='19' width='5%' align ='center'><b><font face='Arial, Helvetica, sans-serif' color='#FFFFFF'>Date&nbsp;</font></td>
+<td height='19' width='10%' ><b><font color='#FFFFFF' face='Arial, Helvetica, sans-serif' >Task Name </font></b></td>
+<td height='19' width='5%' ><b><font face='Arial, Helvetica, sans-serif' size='2' color='#FFFFFF'>Task Status</font></td>
+<td height='19' width='10%' align ='center'><b><font face='Arial, Helvetica, sans-serif' color='#FFFFFF'>Executive </font></td>
+<td height='19' width='5%' ><b><font face='Arial, Helvetica, sans-serif' size='2' color='#FFFFFF'>Time</font></td>
+<td height='19' width='30%' ><b><font color='#FFFFFF' face='Arial, Helvetica, sans-serif'>Remarks</font></b></td>
+</tr><tr bgcolor='#E5EAF0'> 
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/21/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Project Management & tasks&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pending&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Diwakarnath Gandhi.K.G. &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>2</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#fffffb' align='left'>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/31/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Project Management & tasks&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pending&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Diwakarnath Gandhi.K.G. &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>2</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#E5EAF0'> 
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/4/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Project Management & tasks&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pending&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Diwakarnath Gandhi.K.G. &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>3</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#fffffb' align='left'>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/10/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Project Management & tasks&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pending&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Diwakarnath Gandhi.K.G. &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>2</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#E5EAF0'> 
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/17/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Project Management & tasks&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pending&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Diwakarnath Gandhi.K.G. &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>2</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#fffffb' align='left'>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/20/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Project Management & tasks&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pending&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Diwakarnath Gandhi.K.G. &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>2</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#E5EAF0'> 
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/9/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Project Management & tasks&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pending&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Diwakarnath Gandhi.K.G. &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>2</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#fffffb' align='left'>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/13/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Project Management & tasks&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pending&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Diwakarnath Gandhi.K.G. &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>3</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#E5EAF0'> 
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/3/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Project Management & tasks&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pending&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Diwakarnath Gandhi.K.G. &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>2</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#fffffb' align='left'>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/30/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Project Management & tasks&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pending&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Diwakarnath Gandhi.K.G. &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>2</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#E5EAF0'> 
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/24/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Project Management & tasks&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pending&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Diwakarnath Gandhi.K.G. &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>3</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#fffffb' align='left'>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/6/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Project Management & tasks&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pending&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Diwakarnath Gandhi.K.G. &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>2</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#E5EAF0'> 
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/12/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Project Management & tasks&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pending&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Diwakarnath Gandhi.K.G. &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>3</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#fffffb' align='left'>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/19/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Project Management & tasks&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pending&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Diwakarnath Gandhi.K.G. &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>3</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#E5EAF0'> 
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/2/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Project Management & tasks&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pending&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Diwakarnath Gandhi.K.G. &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>2</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#fffffb' align='left'>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/18/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Project Management & tasks&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pending&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Diwakarnath Gandhi.K.G. &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>2</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#E5EAF0'> 
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/11/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Project Management & tasks&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pending&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Diwakarnath Gandhi.K.G. &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>3</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#fffffb' align='left'>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/23/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Project Management & tasks&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pending&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Diwakarnath Gandhi.K.G. &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>3</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#E5EAF0'> 
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/5/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Project Management & tasks&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pending&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Diwakarnath Gandhi.K.G. &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>2</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#fffffb' align='left'>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/3/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Code Review, Client Call and Support - Suresh WMS&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Completed&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Suresh.R &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>2</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#E5EAF0'> 
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/4/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>WMS Transaction Page Changes&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Inprogress&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pricilla Prem Latha.A &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>6</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Checked Moved WMS Transaction in Beta.
+
+Changed JG Grid Design list Page
+Transaction --> CFS --> Job List
+Transaction --> Update BE Number
+
+
+Created two tab approved and un approved tab and resolved issues on click 
+Add new Job in JobList Details
+
+________________________________________
+Changing Design in Add New Job Module in Transaction-->JobList Details
+&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#fffffb' align='left'>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/13/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>WMS Transaction Page Changes&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Inprogress&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pricilla Prem Latha.A &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Redesigning Edit Screen for Import,Export,Copacking Job for the tab of Job Details&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#E5EAF0'> 
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/19/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>WMS Transaction Page Changes&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Inprogress&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pricilla Prem Latha.A &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>8</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>
+MFC Transaction -- jobDetails -- Submenu (Carrier) 
+1) Changed into JQ Grid.
+2) Done Edit functionality in JQ Grid(Both export and import)
+3) Done Delete Functionality in JQ Grid.(Both export and import)
+4) Redesigned for Add new Carrier for Import.
+
+  
+Redesigning for Add New Carrier for Export..
+&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#fffffb' align='left'>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/24/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>WMS Transaction Page Changes&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Inprogress&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pricilla Prem Latha.A &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>8</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>1)	Fixed Issue of confliction JQuery version between Date time picker and New Pop up(Alert Message) in  Job details.
+2)	Checked Functionality of Job detail add,edit for import,export and copacking in job details.
+3)	 Done all alert Message to new pop up window in job details.
+1)	Fixed Issue of confliction JQuery version between JQ Grid and New Pop up(Alert Message)  in  Job details in Freight and Document.
+2)	Done all alert Message to new pop up window in Freight and Documents.
+&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#E5EAF0'> 
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/5/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>WMS Transaction Page Changes&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Inprogress&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pricilla Prem Latha.A &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>7</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Transaction --> JobList -->AddJob Changing Designing.
+Master --> operation -->Delivery Address- Changed 24 hours format. Company name and co ordination position moved up. Changed design issues and alignment.
+Master--> Operation-->Pack key Issues checking.
+&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#fffffb' align='left'>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/14/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>WMS Transaction Page Changes&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Inprogress&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pricilla Prem Latha.A &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>8</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>
+Redesigning Edit Screen for Import,Export,Copacking Job for the tab of Job Details.
+
+Redesigning View Screen for Import,Export,Copacking Job for the tab of Job Details.
+
+&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#E5EAF0'> 
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/20/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>WMS Transaction Page Changes&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Inprogress&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pricilla Prem Latha.A &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>100</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>
+Redesigning Edit/Add Screen for Sub Job in Job Details
+
+Review with Suresh Sir for Further Changes.
+
+Verifying the Stab WMS for Process of Job Transaction import.
+Checked WSScan Web services in Import job.
+Checked how implement Date picker to JQ Grid.
+&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#fffffb' align='left'>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/25/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>WMS Transaction Page Changes&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Inprogress&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pricilla Prem Latha.A &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>100</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Implemented Multiple Selection for Charges. 
+Resolve issues again in Conflict in Freight and Document Sub menu.&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#E5EAF0'> 
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/2/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>WMS Transaction Page Changes&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Inprogress&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pricilla Prem Latha.A &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>8</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Transaction --> Transport -->Monitor --> New Request
+Checked query for Transport Monitor -- > Transport Pending.
+Integrated WMS Transaction With WMS Master. Resolved Issues JQuery designing while integration.
+.
+&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#fffffb' align='left'>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/11/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>WMS Transaction Page Changes&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Inprogress&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pricilla Prem Latha.A &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>7</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Transction -- Job List Details -->From Job Details List Page, Edit icon should go to Edit screen of Job Details. Query string encryption through JQ Grid.
+Redesigning Edit Screen for Import Job for the tab of Job Details.
+&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#E5EAF0'> 
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/17/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>WMS Transaction Page Changes&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Inprogress&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pricilla Prem Latha.A &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>8</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>
+Redesigning Sub Menu Freight & Documents in Job List.
+
+Redesigning Sub Menu Carrier, In Carrier Changed Grid into JQ Grid.
+&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#fffffb' align='left'>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/21/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>WMS Transaction Page Changes&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Inprogress&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pricilla Prem Latha.A &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>8</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Redesigning Grid to JQ Grid for Freight and Documents.
+Implemented Date time picker inside JQ Grid in Freight and Documents.(Transaction Import)
+Implemented Two Static Dropdown inside JQ Grid in Freight and Document. (Transaction Import)
+
+Worked with JQ Grid Drop down selection index changed event in Freight and documents.
+&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#E5EAF0'> 
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/3/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>WMS Transaction Page Changes&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Inprogress&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pricilla Prem Latha.A &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Checked Moved WMS Transaction in Beta.
+
+Changed JG Grid Design
+Transaction --> Stock
+•	Transfer List
+•	Transfer Confirm/Cancel
+•	CheckList
+•	Check Confirm/Cancal
+•	Check Variance
+(All Transaction file path given to vishnu to move Beta)
+&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#fffffb' align='left'>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/12/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>WMS Transaction Page Changes&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Inprogress&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pricilla Prem Latha.A &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>4</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Redesigning Edit Screen for Import,Export,Copacking Job for the tab of Job Details.&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#E5EAF0'> 
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/18/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>WMS Transaction Page Changes&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Inprogress&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pricilla Prem Latha.A &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>8</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>MFC Transaction -- jobDetails -- Submenu (Carrier) 
+1) Changed into JQ Grid.
+2) Done Edit functionality in JQ Grid(Both export and import)
+3) Done Delete Functionality in JQ Grid.(Both export and import)
+4) Redesigned for Add new Carrier for Import.
+5) Redesigning for Add New Carrier for Export.
+&nbsp;</font></TD></tr>
+</tr><tr bgcolor='#fffffb' align='left'>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>5/23/2016&nbsp;</font></TD>
+<td width='25%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>WMS Transaction Page Changes&nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Inprogress&nbsp;</font></TD>
+<td width='10%' align='center'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Pricilla Prem Latha.A &nbsp;</font></TD>
+<td width='5%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>8</font></TD>
+<td width='30%' align='left'><font face='Arial, Helvetica, sans-serif' size='2' color='#000000'>Redesigning Grid to JQ Grid for Freight and Documents.
+Implemented Date time picker inside JQ Grid in Freight and Documents.(Transaction Import)
+Implemented Two Static Dropdown inside JQ Grid in Freight and Document. (Transaction Import)
+
+Worked with JQ Grid Drop down selection index changed event in Freight and documents.
+&nbsp;</font></TD></tr>
+</tr></table>

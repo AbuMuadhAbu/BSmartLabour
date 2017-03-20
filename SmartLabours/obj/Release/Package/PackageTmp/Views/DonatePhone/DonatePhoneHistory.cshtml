@@ -1,0 +1,147 @@
+﻿@model IEnumerable<SmartLabours.Models.DonatePhone>
+@{
+    ViewBag.Title = "DonatePhoneHistory";
+    Layout = "~/Views/Shared/_AccountMenuLayout.cshtml";
+}
+                      @* Google Analytics COde  *@
+                      <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+                      <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+                      <!-- End here -->
+
+<div class="main">
+    <div class="inner_titlebg">
+        <div class="wrapper">
+            <h2>
+                Account Sponsor</h2>
+          
+        </div>
+    </div>
+    <div class="wrapper">
+        <div class="inner_contentarea1 clearfix">
+            <div class="left_menu">
+                <ul>                    
+                    <li><a href="/SponsorAccount/ProfileDetails" title="Profile Details">Profile Details</a></li>
+                    <li><a href="/SponsorAccount/Notification" title="Notification">Notification</a></li>
+                    <li><a href="/Donatephone/DonatePhone" title="Participation Form">Participation Phone Form</a></li>
+                    <li class="active"><a href="/Donatephone/DonatePhoneHistory" title="Phone Request History">Participation Phone History</a></li>
+                    <li ><a href="/Donatephone/OtherDonationHistory" title="Phone Request History">Other Participation History</a></li>
+                    <li><a href="/SponsorAccount/SponsorDonationWebsite" title="Participation To website"> Participation To Website</a></li>
+                    <li ><a href="/SponsorAccount/PostTestimonial" title="Post Testimonial">Post Testimonial</a></li>
+                    <li><a href="/HelpDesk/HelpDeskAdd1" title="Help Desk">Help Desk</a></li>  
+                    <li><a href="/HelpDesk/HelpDeskSponsorList" title="Help Desk">Help Desk List</a></li>
+                </ul>
+            </div>
+            <div class="right_content">
+                <h2>
+                    Donate Phone History</h2>
+                <div class="phone_history">
+                    <table>
+                        <tr>
+                            <th class="sno">
+                                S.No
+                            </th>
+                            <th>
+                                Donate ID<br>
+                                    </th>
+                            <th>
+                                Phone
+                                Details
+                            </th>
+                            <th>
+                                IMEA<br>
+                                Number
+                            </th>
+                            <th>
+                                Phone
+                                <br>
+                                Color
+                            </th>
+                            <th>
+                                Donatephone<br>
+                                Date
+                            </th>
+                            <th>
+                                Courier Name
+                                <br>
+                                & Details
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                        </tr>
+                        @{int sno = 0;}
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="sno">@(sno = sno + 1)
+                                </td>
+                                <td>
+                                    @{ 
+                            string a = "", donateID = "";
+
+                            a = Convert.ToString(item.DonateID);
+                            donateID = "DONATE000".PadRight(6) + a;
+                            // donateID = "DONATE000".PadRight(6)+a;
+                                    }
+                                    <label>
+                                        @donateID
+                                    </label>
+                                       </td>
+                                <td>  @item.BrandName -
+                            @item.ModelNo
+                                </td>
+                                <td>@item.IMEANumber
+                                </td>
+                                <td>@item.PhoneColor
+                                </td>
+                                <td>@Html.DisplayFor(modelitem => item.DonatedDate)
+                                </td>
+                                <td>@Html.Raw(item.CourierDetail)
+                                </td>
+                                <td>
+                                    @if (item.IsPhoneConfirmation == false)
+                                    {
+                                        <label>
+                                            Awaiting Labour’s Approval </label>
+    
+                        
+                                    }
+                                    else if (item.IsPhoneConfirmation == true && item.CourierDetail != null && item.IsPhoneAcceptedByAdmin == false)
+                                    {
+                                        <label>
+                                            transit</label>
+                                    }
+                                    else if (item.IsPhoneConfirmation == true && item.IsPhoneAcceptedByAdmin == true && item.IsPhoneAssignedToLabour == false)
+                                    {
+                                        <label>
+                                            Received</label>
+                                    }
+                                    else if (item.IsPhoneConfirmation == true && item.IsPhoneAcceptedByAdmin == true && item.IsPhoneAssignedToLabour == true)
+                                    {
+                                        <label>
+                                            Your Phone assigned to Labour</label>
+                                    }
+                                    else
+                                    {
+                                        <label>
+                                            Rejected</label>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+                @*<div class="disputed_panel clearfix">
+					<div class="checkbox">
+							<input type="checkbox" /> <label>Select Check box of the transaction to be disputed</label>						
+					</div>
+					<div class="submit">
+							<input type="submit" value="Dispute Transaction" />
+					</div>
+				</div>*@
+            </div>
+        </div>
+       
+
+    </div>
+    <</div>

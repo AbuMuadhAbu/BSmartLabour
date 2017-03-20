@@ -1,0 +1,104 @@
+﻿ @model IEnumerable<SmartLabours.Models.TBL_Temp> 
+@{
+    Layout = null;
+  }
+
+                       @* Google Analytics COde  *@
+                       <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+                       <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+                       <!-- End here -->
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.11.0.min.js"></script>
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Elk</title>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var interval = 1000;  // 1000 = 1 second, 3000 = 3 seconds
+            function doAjax() {
+            }
+
+
+            $("#btn_Done").click(function () {
+                debugger
+                $.ajax({
+                    url: '@Url.Action("Tempp", "ContactUs")',
+                    dataType: "json",
+                    cache: false,
+                    type: "get",
+                    data: { id: $("#lbl_id").text(), comments: $("#txtarea").val() }
+                }).done(function (data) {
+                     debugger
+                    response(data);
+
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row" style="text-align:center">
+            <label  class="form-control" style="color:green" id="lbl_id">  @ViewBag.MobileDisplay </Label>          
+            </div>
+
+            <div class="row">
+                <div class="col-md-5"><textarea rows="4" cols="50" id="txtarea" class="form-control"></textarea></div>
+                <div class="col-md-2"></div>
+                <div class="col-md-5"> <input type="button" value="Done" title="Done" id="btn_Done" class="btn-success"/> </div>
+            </div>
+
+            <div class="row">
+
+                <table class="table-responsive">
+
+                    @foreach (var item in Model)
+                    {
+                        <tr class="row">
+                       
+                            @{
+
+                        if (@item.FIRSTNAME.Trim()=="1".Trim())
+                        {
+                            <td style="text-align:left">
+                                @Html.TextAreaFor(modelItem => item.COMMENTS, new { disabled = "disabled", @class = "form-control" })
+                                <span style="font-size: 8px; color: pink">
+                                    @if (@item.CREATEDDATE.HasValue)
+                                    {
+                                        @item.CREATEDDATE.Value.ToString("HH:mm");
+                                    }
+                                </span>
+                            </td>
+                        }
+                        else 
+                        {
+                            <td style="text-align:right">
+
+                                @Html.TextAreaFor(modelItem => item.COMMENTS, new { disabled = "disabled" })
+                                <span style="font-size:8px;color:pink">
+                                    @if (@item.CREATEDDATE.HasValue)
+                                    {
+                                        @item.CREATEDDATE.Value.ToString("HH:mm");
+                                    }
+                                </span>
+                            </td>
+
+                        }
+                            }
+
+                        </tr>
+                    }
+
+                </table>
+
+            </div>
+
+        </div>
+</body>
+</html>

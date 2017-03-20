@@ -1,0 +1,456 @@
+﻿
+    @model IEnumerable <SmartLabours.Models.TBL_HealthAndSafety>
+      @{
+    ViewBag.Title = "LaboursRewardPointsList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+       }
+
+
+    <style type="text/css" >
+
+        .left{
+            line-height:28px;
+        }
+
+    </style>
+
+    @* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+        @section Scripts {
+      
+
+            @* Check Organization Sub Admin Script*@
+            <script type="text/javascript">
+                var SearchText = '@ViewData["SearchText"]';
+
+
+                $(document).ready(function () {
+                   
+                    BindSerachCondtionText();
+
+                    $("#ddlSearchBy").change(function() {
+                       // debugger
+                        $("#txtSearch").val('');
+                        if($('option:selected', this).text()=="Reward Points")
+                        {
+                            BindSearchConditionStatus();
+                        }
+                        else{
+                            BindSerachCondtionText();
+                        }
+                    });
+
+                    function BindSearchConditionStatus()
+                    {
+                        var ddlSearchCondition = $("[id*=ddlSearchCondition]");
+                        ddlSearchCondition.empty().append('<option selected="selected" value="50">Greater Than</option>');
+                        ddlSearchCondition.append('<option value="51">Less Than</option>');
+                        ddlSearchCondition.append('<option value="52">Equal To</option>');
+                        //$("#txtSearch").prop("disabled",true);
+                    }
+
+                    function BindSerachCondtionText()
+                    {
+                        var ddlSearchCondition = $("[id*=ddlSearchCondition]");
+                        ddlSearchCondition.empty().append('<option selected="selected" value="1">Begins With</option>');
+                        ddlSearchCondition.append('<option value="2">Exactly Match</option>');
+                        ddlSearchCondition.append('<option value="3">Found Anywhere</option>');
+                        //$("#txtSearch").prop("disabled",false);
+                    }
+
+
+
+                    $('.hidenID').hide()
+                    $('.hidenImagePath').hide()
+                    // End heree
+
+
+                    if (SearchText.length != 0) {     
+                        
+                        $("#txtSearch").val(SearchText.split(',')[0]);
+                   
+                        if(SearchText.split(',')[1]=="50" || SearchText.split(',')[1]=="51"||SearchText.split(',')[1]=="52")
+                        {
+                            BindSearchConditionStatus();
+                        }
+                        else{
+                            BindSerachCondtionText();
+                        }
+                        $("#ddlSearchCondition").val(SearchText.split(',')[1]);
+                        $("#ddlSearchBy").val(SearchText.split(',')[2]);
+
+                        var count = @(ViewBag.TotalRecordcount);
+
+                        if(parseInt(count) >0)
+                        {
+                            $("#lblErrormsg").removeAttr("style").hide();
+                            //document.getElementById('lblErrormsg').style.display = 'none';
+
+                        }
+                        else
+                        {
+                            $("#lblErrormsg").removeAttr("style").show();
+                            $("#noRecordbutton").removeAttr("style").hide();
+
+                        }
+                    }
+
+                    var someNumericValue = @(ViewBag.totalnumber);
+
+                    if(parseInt(someNumericValue)>1)
+                    {
+                        $("#divPager").removeAttr("style").show();
+                        // document.getElementById('divPager').style.display = 'block';
+                    }
+                    else
+                    {
+                        $("#divPager").removeAttr("style").hide();
+
+                        // document.getElementById('divPager').style.display = 'none';
+                    }
+                    var currentpage = @(ViewBag.CurrentPage);
+
+                    if(currentpage==1)
+                    {
+                        $("#FirstPage").removeAttr("style").hide();
+                        // document.getElementById('FirstPage').style.display = 'none';
+
+                    }
+                    if(currentpage==someNumericValue)
+                    {
+                        $("#lastPage").removeAttr("style").hide();
+                    }
+
+                    var pagenumberid="page"+currentpage;
+
+                    $('#'+pagenumberid).addClass("one_no selected");
+                });
+
+             
+
+                // select all Items in List to Delete
+                function checkAll(thisobj) {
+
+                    var chk = document.getElementsByName("chkname");
+                    for (var i = 0; i < chk.length; i++) {
+                        if (chk[i].type == 'checkbox') {
+                            if (thisobj.checked) {
+                                chk[i].checked = true;
+                            }
+                            else {
+                                chk[i].checked = false;
+                            }
+                        }
+                    }
+                }
+
+                //Go to Particular page
+                function GotoPage(evt) {
+                    var intTotPageCount = 0;
+                    var intPgtxt = document.getElementById('Pgtxt').value;
+                    intTotPageCount = document.getElementById('hidtotPg').value;
+
+                    if (intPgtxt != "") {
+                        if (parseInt(intPgtxt) < 1 || (isNaN(intTotPageCount))) {
+                            alert("Please enter numeric value");
+                            document.getElementById("Pgtxt").value = "";
+                            evt.preventDefault();
+
+                        } else if ((parseInt(intPgtxt) > parseInt(intTotPageCount)) || (isNaN(intTotPageCount))) {
+                            alert("Requesting page number is invalid.Total page(s) available is " + intTotPageCount);
+                            document.getElementById("Pgtxt").value = "";
+                            evt.preventDefault();
+                        }
+                        if (window.txtSearch.length == 0 || typeof (window.txtSearch.length) === "undefined") {
+                            if ((parseInt(intPgtxt) <= parseInt(intTotPageCount)) || (isNaN(intTotPageCount))) {
+                                $("#anchgoto").attr("href", $("#anchgoto").attr("href") + parseInt(intPgtxt));
+                            }
+                        }
+                        else {
+                            $("#anchgoto").attr("href", $("#anchgoto").attr("href") + parseInt(intPgtxt) + '?search=' + window.txtSearch);
+                        }
+                    }
+                    else {
+                        alert("Please enter numeric value");
+                    }
+                }
+
+                // Allow only numeric
+                function numericFilter(txb) {
+                    txb.value = txb.value.replace(/[^\0-9]/ig, "");
+                }
+
+                // Paging The Grid
+                function Paging(anchPaging) {
+                    //  debugger
+                    //element.txtSearch.value.length;
+                    if (window.txtSearch.length == 0 || typeof (window.txtSearch.length) ==="undefined") {
+                        return ;
+                    }
+                    $(anchPaging).attr("href", $(anchPaging).attr("href") + '?search=' + window.txtSearch);
+
+                }
+
+                // Serach Button Click Event
+                function Search(eve) {
+
+                    if (document.getElementById("txtSearch").value.length != 0) {
+
+                        var searchtext = document.getElementById("txtSearch").value + ',' + document.getElementById("ddlSearchCondition").value + ',' + document.getElementById("ddlSearchBy").value;
+
+                        $("#anhSearch").attr("href", $("#anhSearch").attr("href") + '?search=' + searchtext);
+
+                    }
+                    else {
+                        alert("Search text Cannot be Empty");
+                        eve.preventDefault();
+                    }
+                }
+
+                @* Status*@
+            </script>
+        }
+
+        <style type="text\css">
+            .left {
+                text-align: "left";
+            }
+
+            .Center {
+                text-align: "center";
+            }
+        </style>
+
+        <div class="content">
+            <div class="wrapper">
+                <input type="hidden" id="StrImage" name="StrImage" value="no" />
+                <ul class="breadcrumbs-list clearfix">
+                    @*<li><a href="javascript:voi(0);">Others</a></li>*@
+                    <li><a href="/RewardPoints/LaboursRewardPointsList">Reward Points</a></li>
+                    <li> Labour Reward Point List </li>
+                </ul>
+                <asp:label id="lbldisplay" >
+                </asp:label>
+                <div class="sarh">
+                    <div class="search">
+                        <b>Search By</b>
+                        <select id="ddlSearchBy">
+                            <option value="1">Emirates ID</option>
+                            <option value="2">Name</option>
+                            <option value="3">Organization</option>
+                            <option value="4">Reward Points</option>
+
+
+                        </select>
+                        <select id="ddlSearchCondition">
+                            <option value="1">
+                                Begins With
+                            </option>
+                            <option value="2">
+                                Exactly Match
+                            </option>
+                            <option value="3">
+                                Found Anywhere
+                            </option>
+                        </select>
+                        <input id="txtSearch" type="text" />
+                        <a href="/RewardPoints/LaboursRewardPointsList/@ViewBag.CurrentPage" class="green" onclick="Search(event);" id="anhSearch">Search</a>
+                        <a href="/RewardPoints/LaboursRewardPointsList/1" class="green">Clear</a>
+                    </div>
+
+                </div>
+                <div class="continn">  
+                    <div>
+                        <h3>
+                            <label id="lblHeading" text="Labours Reward Point" >
+                                Labours Reward Point List
+                            </label>
+                        </h3>                     
+                    </div>
+                    <div class="clr">
+
+                    </div>
+                    <div class="error_mesg" id="msShow1" >
+                        <b>
+                            <label id="lblErrormsg"  style="display:none;">
+                                No records found
+                            </label>
+                        </b>
+                    </div>
+                    <div class="suss_mesg" id="msShow2" >
+                        <b>
+                            <label id="lblError1" >
+                                @ViewBag.messagealert
+                            </label>
+                        </b>
+                    </div>
+
+
+                    <div class="posit">
+                        <div class="posit_hd">
+                            <table width="954" border="0" cellspacing="0" cellpadding="1">
+                                <tr>
+                                    <td width="50" class="Center" style=" padding-left: 7px !important;">
+                                        S.No.
+                                    </td>
+                                    <td width="150" class="left">
+                                        Emirates ID
+                                    </td>
+                                    <td width="250" class="left">
+                                        Name
+                                    </td>
+                                    <td width="250" class="left">
+                                        Organization
+                                    </td>
+                                    <td width="80" class="left">
+                                        Reward Points
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="posit_bt">
+
+                            @{ int sno = (@ViewBag.CurrentPage) * 10 - 10;
+
+                            }
+
+                            <table width="954" border="0" cellspacing="0" cellpadding="1">
+                                @foreach (var item in Model)
+                                {
+                                    sno = sno + 1;
+                                    <tr class="posit_txt">
+                                        <td width="50" class="Center" style=" padding-left: 7px !important;">
+                                            @(sno)
+                                        </td>
+
+                                        <td width="150" class="left">
+                                            @Html.DisplayFor(modelItem => item.LabourID)
+                                        </td>
+                                        <td width="250" class="left">
+                                            @Html.DisplayFor(modelItem => item.Name)  
+                                        </td> 
+                                        <td width="250" class="left">
+                                            @Html.DisplayFor(modelItem => item.OrgName)
+                                        </td>
+                                        <td width="60" class="right">
+                                            @Html.DisplayFor(modelItem => item.RewardPoint)
+                                        </td>
+                                        <td width="20"></td>
+                                    </tr>
+                                }
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="btns">
+                        <div id="Divpager" style="display: none" >
+                            <span style="color: Red; font-weight: bold; padding-left: 450px">
+                                No record found
+                            </span>
+                        </div>
+                        <div class="btns-lft">
+                            <div id="divPager" class="pagelist1" >
+                                <div class="pagging_inner">
+
+                                    <div class="page_txt_main_lt">
+                                        <div class="page_txt2">
+
+                                            Page @ViewBag.CurrentPage of @ViewBag.totalnumber
+                                        </div>
+                                    </div>
+
+                                    <div class="page_txt_main_rt">
+                                        <div class="go_but">
+                                            <a href="/RewardPoints/LaboursRewardPointsList/" id="anchgoto" class="go" tabindex="12"
+                                               onclick="GotoPage(event);" style="height: 15px; font: 11px;
+                                        color: #fff;">Go</a>
+                                        </div>
+                                        <div class="page_box_new" style="width: 50px;">
+                                            <div class="page_box">
+                                                <input type="text" maxlength="3" id="Pgtxt" tabindex="11" onkeyup="numericFilter(this);" />
+                                            </div>
+                                        </div>
+                                        <div class="page_txt_3">
+                                            Go to Page
+                                        </div>
+                                        <div class="page end" id="lastPage">   
+                                            @Html.ActionLink("Last", "LaboursRewardPointsList", new { id = @ViewBag.totalnumber }, new { @name = "anchLast" })
+
+                                        </div>
+                                        <div class="page_no">
+
+                                            <table>
+                                                <tr align="center">
+                                                    @{ int currentpageid = (@ViewBag.CurrentPage);
+                                                     int totalrecord = (@ViewBag.totalnumber);
+                                                     if (currentpageid <= 3)
+                                                     {
+                                                         if (totalrecord < 10)
+                                                         {
+
+
+
+
+                                                             for (int i = 0; i < ViewBag.totalnumber; i++)
+                                                             {
+                                                                <td align="center">
+                                                                    @Html.ActionLink((i + 1).ToString(), "LaboursRewardPointsList", new { id = i + 1 }, new { onclick = "Paging(this);", @id = "page" + (i + 1) })
+                                                                </td>
+                                                             }
+
+                                                         }
+                                                         else
+                                                         {
+                                                             for (int i = 0; i < 10; i++)
+                                                             {
+                                                                <td align="center">
+                                                                    @Html.ActionLink((i + 1).ToString(), "LaboursRewardPointsList", new { id = i + 1 }, new { onclick = "Paging(this);", @id = "page" + (i + 1) })
+                                                                </td>
+                                                             }
+                                                         }
+
+
+                                                     }
+                                                     else
+                                                     {
+                                                         int Startlevel = currentpageid - 3;
+                                                         int levelcount = 1;
+
+                                                         for (int i = Startlevel; i < totalrecord; i++)
+                                                         {
+                                                             if (levelcount <= 10)
+                                                             {
+                                                                <td align="center">
+                                                                    @Html.ActionLink((i + 1).ToString(), "LaboursRewardPointsList", new { id = i + 1 }, new { onclick = "Paging(this);", @id = "page" + (i + 1) })
+                                                                </td>
+                                                                 levelcount++;
+                                                             }
+                                                         }
+                                                     }
+
+                                                    }
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="page start" style="margin-top: 2px;" id="FirstPage">
+
+                                            @Html.ActionLink("First", "LaboursRewardPointsList", new { id = 1 }, new { @name = "anchFirst" })
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <input id="hidtotPg" type="hidden" value="@ViewBag.totalnumber" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btns-rgt1" id="noRecordbutton">
+                        <a href="/RewardPoints/UpdateRewardPoints" id="lnkAdd" class="green1">EDIT REWARD POINT</a>
+                       @* <a href="javascript:void(0);" id="lnkBtndelete"  class="green1" onclick="Delete();">Delete</a>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+

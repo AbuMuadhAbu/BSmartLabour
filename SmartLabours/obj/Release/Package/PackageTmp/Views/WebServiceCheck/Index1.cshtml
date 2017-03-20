@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Index1";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Index1</h2>
+
+<script>
+ $(document).ready(function () {
+    $('#save').click(function (e)
+    {
+        CalluploaderHandler();
+    });
+});
+
+function CalluploaderHandler()
+ {
+    debugger
+    $.ajax({
+                type: "POST",
+                url: "/PostTestimonialUpload.ashx",
+                contentType: "multipart/form-data",
+                success: OnComplete,
+                error: OnFail
+            });
+    return false;
+}
+function OnComplete(result) {
+    alert('Success');
+}
+
+function OnFail(result) {
+    alert('Request failed');
+}
+</script>
+
+File Upload:
+<form  enctype="multipart/form-data" method="post">
+    @*<form action="/SmartLabourServices.svc/AttachFilesName" enctype="multipart/form-data" method="post">*@
+    <input type="text" name="subject" /><br />
+    <input type="text" name="content" /><br />
+    <input type="file" name="filedata" /><br />
+    <input type="file" name="filedata" /><br />
+    <input type="submit" value="UploadImage" id="save" />
+</form>

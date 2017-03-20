@@ -1,0 +1,297 @@
+﻿
+@model SmartLabours.Models.TBL_TESTIMONIAL_SMT
+@{
+    ViewBag.Title = "Testimonial Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<script src="../../Content/Admin/ckeditor/ckeditor.js" type="text/javascript"></script>
+
+
+<link rel="stylesheet" type="text/css" href="../../Uplodify/css/uploadify.css" />
+@*<script type="text/javascript" src="../../Uplodify/scripts/jquery-1.3.2.min.js"></script>*@
+<script type="text/javascript" src="../../Uplodify/scripts/jquery.uploadify.js"></script>
+<link href="../../video-js/video-js.css" rel="stylesheet" type="text/css">
+  <!-- video.js must be in the <head> for older IEs to work. -->
+<script src="../../video-js/video.js"></script>
+
+  <!-- Unless using the CDN hosted version, update the URL to the Flash SWF -->
+<script>
+    videojs.options.flash.swf = "../../video-js/video-js.swf";
+</script>
+<script src="../../flowplayer/flowplayer-3.2.12.min.js"></script>
+
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var imageName = $("#Image").val();
+       // alert(imageName);
+        if (imageName != "") {
+            $("#BannerImage1").css("display", "none");
+           // alert("Hi");
+
+        }
+    });
+    function switchImgae(arg) {
+
+        if (arg == 1) {
+            $('#Image').val('');
+
+            $("#BannerImage").css("display", "none");
+            $("#changeImage").css("display", "none");
+            $("#BannerImage1").css("display", "block");
+        }
+    }
+
+</script>
+
+
+<script type="text/javascript">
+    
+    $(document).ready(function () {
+
+        //  var PromoVideo = "";
+        //$("#PROMO_VIDEO").val(PromoVideo);
+
+        //        $('a#RemoveVideo').click(function () {
+        //            if (document.getElementById("videoFile").value.length != 0) {
+        //                $("#YesNoMessageType").val("PromoVideo");
+        //                $("#YesNoMessageUserID").val($(this).parent().find("input").val());
+        //                $("#coursecurriculam").find("h2").html("Are you sure want to remove the promo video ");
+        //                $('.fancy-box-curriculam').trigger('click');
+        //            }
+        //        });
+
+        $("#fileHomeVideo").fileUpload({
+            'uploader': '/Uplodify/scripts/uploader.swf',
+            'cancelImg': '/Uplodify/images/cancel.png',
+            'buttonText': 'Promo Video',
+            'buttonImg': '/Uplodify/images/upload-video.png',
+            'script': '/Uplodify/testimonialvideo.ashx',
+            'folder': 'uploads',
+            'fileDesc': 'Videos',
+            'fileExt': '*.mp4;*.3gp;*.divx;*.webm;*.amv;*.avi;*.moov;*.mpg;*.mov;*.rm;*.mkv;*.flv;',
+            'scriptData': { 'Type': 'home' },
+            'multi': true,
+            'auto': true,
+            'onComplete': function (event, queueID, fileObj, reposnse, data) {
+
+                if (reposnse != "") {
+                    $("#videoFile").val(reposnse);
+                   // document.forms[0].submit();
+                }
+                else {
+                    alert(reposnse);
+                }
+            }
+        });
+    });
+
+
+   
+    
+</script>
+
+ <script type="text/javascript">
+     function callFlowPlayer(mp4url) {
+         var urlplayer = "/Uplodify/Uploads/" + mp4url;
+         flowplayer("flash-player", "../../flowplayer/flowplayer-3.2.16.swf", {
+             clip: {
+                 url: urlplayer,
+                 autoPlay: false,
+                 autoBuffering: true,
+                 scaling: 'fit'
+             },
+             canvas: {
+                 backgroundColor: "#000000",
+                 backgroundGradient: "none"
+             }
+         });
+     }
+    </script>
+<script type="text/javascript">
+
+    
+    
+    function readURL(input) {
+
+        var file1 = input.value;
+
+        if (input.files && input.files[0]) {
+            var file = input.files[0];
+            var extension = file1.substr((file1.toLowerCase().lastIndexOf('.') + 1));
+
+            switch (extension.toLowerCase()) {
+
+                case 'jpg':
+                case 'png':
+                case 'gif':
+                case 'jpeg':
+
+                    flag = true;
+                    break;
+                default:
+                    flag = false;
+            }
+
+            if (flag == false) {
+                alert("You can upload only jpg,png,gif extension file");
+                document.getElementById("Image").value = "";
+                return false;
+            }
+
+        }
+        else {
+            return false;
+        }
+    }
+
+    function PreviousPage() {
+
+        window.location = "/Testimonial/Testimonial_List";
+    }
+
+</script>
+
+<div class="content">
+    <div class="wrapper">
+       
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                   Testimonial Edit
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1" >
+                    <b>
+                        <label id="lblErrormsg" >
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="suss_mesg" id="msShow2" >
+                    <b>
+                        <label id="lblError1" >
+                        </label>
+                    </b>
+                </div>
+                <div class="fld_fd">
+                    @using (Html.BeginForm("Testimonial_Edit", "Testimonial", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div>
+                            <dl>
+                                <dd>
+                                    Title</dd><dt>
+                                        @Html.EditorFor(model => model.Title)
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.Title)
+                                        </span></dt>
+                            </dl>
+                            <dl>
+                                <dd>
+                                    Name</dd><dt>
+                                      @Html.EditorFor(model=> model.Name)
+                                                <span class="error" id="idArticalDate">
+                                            @Html.ValidationMessageFor(model => model.Name)
+                                        </span></dt>
+                            </dl>
+                             <dl>
+                                <dd>
+                                    Designation</dd><dt>
+                                      @Html.EditorFor(model=> model.Designation)
+                                                <span class="error" >
+                                            @Html.ValidationMessageFor(model => model.Designation)
+                                        </span></dt>
+                            </dl>
+                           
+                            <dl>
+                                <dd>
+                                     Image</dd><dt>
+                                     <dt>
+                                   
+                                         <img src="../..//Uplodify/TestimonialImages/@Model.Image" id="BannerImage" alt="bannerimage" height="100px" width="100px" />
+                                    <a class="green" onclick="switchImgae(1)" href="javascript:void(0);" id="changeImage">Change Image</a>
+                                    @*<input type="file" id="Image1" name="image1"  onchange="readURL1(this)" />*@
+                                     <input type="file" id="BannerImage1" name="BannerImage1" style="display:none;" onchange="readURL1(this)" />
+                                   
+                                    @Html.HiddenFor(model => model.Image)
+                           </dt>
+                                        @* <input type="file" id="Image" name="Image" onchange="readURL(this)" />
+                                    
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.Image)
+                                        </span>*@</dt>
+                            </dl>
+                           <dl><dd></dd></dl>
+                           <dl>
+                                <dd>
+                                    Video</dd><dt>
+                                      
+                                            <div class="promo-video">
+                            <!-- Video 1 -->
+                                 @{
+                        if (Model != null && Model.Mp4filename != null && Model.Mp4filename != string.Empty)
+                                {
+                                <div>
+                                <video id="homevideo" class="video-js vjs-default-skin " + controls preload="none" width="100%" height="200" >
+                                <source type="video/mp4" src="/Uplodify/Testimonialvideo/@Model.Mp4filename"></source>
+                                <source type="video/webm" src="/Uplodify/Testimonialvideo/@Model.Webmfilename"></source>
+                                </video>
+                                </div>
+                                }    
+                                }
+                               <input type="file" id="fileHomeVideo" /> 
+                            <!-- Video 1 -->                     
+                             @Html.HiddenFor(x=>Model.videoFile)
+     
+                        </div>
+                        
+                                            </dt>
+                            </dl>
+                           
+                            <dl>
+                                <dd>
+                                    Description</dd><dt>
+                                    <div style ="width:600px;float:left;text-align:left;padding-bottom:10px;">
+                                        @Html.TextAreaFor(model => model.Description, new { @class = "ckeditor" })
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.Description)
+                                        </span>
+                                        </div></dt>
+                            </dl>
+                               <dl>
+                                <dd>
+                                    Status</dd><dt>
+                                        @Html.RadioButtonFor(model => model.Status, true, new { @checked = true })
+                                        <label>
+                                            Active</label>
+                                        @Html.RadioButtonFor(model => model.Status, false)
+                                        <label>
+                                            InActive</label>
+                                    </dt>
+                            </dl>
+                            <div class="btn1 btn1-form">
+                                <input type="submit" value="Save" title="Save" />
+                                <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                            </div>
+                        </div>
+    
+                    }
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+
+

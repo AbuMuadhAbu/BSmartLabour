@@ -1,0 +1,76 @@
+﻿@model SmartLabours.Models.TBL_CourseContentFolderMaster
+@{
+    ViewBag.Title = "Category View";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script type="text/javascript">
+    function PreviousPage() {
+
+        window.location = "/CourseContentUpload/CourseContentsFolderList";
+    }
+
+</script>
+<!-- Google Analytics Code -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End Here  -->
+
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                    Course Content Directory View
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="fld_fd view-blk">
+                  
+
+                    @if (HttpContext.Current.Session["USERID"].ToString() == "1")
+                    {
+
+                        <dl>
+                            <dd>
+                                Organization
+                            </dd>
+                            <dt>
+                                @Html.DisplayFor(n => n.Organizations.OrganisationName)
+                            </dt>
+                        </dl>
+
+                    }
+
+                    <dl>
+                        <dd>
+                            Directory
+                        </dd>
+                        <dt>
+                            @Html.DisplayFor(n => n.FolderName)
+                        </dt>
+
+                    </dl>
+
+                    <dl>
+                        <dd>
+                            File Type
+                        </dd>
+                        <dt>
+                            @{if (Model.FileTypes == true)
+                            {<label>Audio</label>}
+                            else
+                            {<label>Image</label>}}
+                        </dt>
+                    </dl>
+
+                    <div class="btn1 btn1-form">
+                        <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+

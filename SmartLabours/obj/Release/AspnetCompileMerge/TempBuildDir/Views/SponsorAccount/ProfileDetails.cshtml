@@ -1,0 +1,728 @@
+﻿@model SmartLabours.Models.Sponsor
+@{
+    ViewBag.Title = "ProfileDetails";
+    Layout = "~/Views/Shared/_AccountMenuLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+
+<style type="text/css" >
+
+    .textarea
+    {
+        height:30px !important;
+    }
+
+</style>
+
+<script type="text/javascript">
+
+    var Text = '@ViewData["postphone"]';
+
+    function Validate(e) {
+
+      //  debugger
+        if ($("#Details").valid()) {
+            //Do ajax stuff
+        }
+
+        var sex = $("#Sex").val();
+        if (sex == 0) {
+            $("#idSex").css({ display: "block" });
+            // return false;
+
+        }
+        var day = $("#Day").val();
+        if (day == 0) {
+
+            $("#idDay").css({ display: "block" });
+            // return false;
+        }
+        var Month = $("#Month").val();
+        if (Month == 0) {
+
+            $("#idYear").css({ display: "block" });
+            // return false;
+        }
+        var Year = $("#Year").val();
+        if (Year == 0) {
+
+            $("#idYear").css({ display: "block" });
+            //return false;
+        }
+        if (Month == 2) {
+            if (day <= 29) {
+            }
+            else {
+                alert("Please Select correct date")
+                //return false;
+            }
+        }
+        if ($("#CountryCode").val() == "" || $("#PhoneNumber").val() == "") {
+            $("#ErrorPhone").text('Please Enter Country Code & Phone Number');
+        }
+        else {
+            $("#ErrorPhone").text('');
+        }
+
+
+        if ($("#Orgname").val() == "") {  //
+            $("#ErrorOrg").text('Please Select Organization');
+            // return false;
+        }
+        else {
+            $("#ErrorOrg").text('');
+        }
+
+
+        //  e.preventDefault();
+        (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
+        return true;
+    }
+
+    $(document).ready(function () {
+
+
+        try {
+            $("input[type='text']").each(function () {
+                $(this).attr("autocomplete", "off");
+            });
+        }
+        catch (e)
+        { }
+
+
+          
+            $('#Orgname').autocomplete(
+                  {
+                      source: function (request, response) {
+                          //debugger
+                          $.ajax({
+                              url: '@Url.Action("OrgNameAutoComplete", "Sponsor")',
+                              dataType: "json",
+                              cache: false,
+                              type: "get",
+                              data: { term: request.term }
+                          }).done(function (data) {
+                              // debugger
+                              response(data);
+                          });
+                      }
+                  });
+      
+
+
+   $('#Country').autocomplete(
+    {
+        source: function (request, response) {
+            //debugger
+            $.ajax({
+                url: '@Url.Action("GetCountryNameAutoComplete", "Labour")',
+                dataType: "json",
+                cache: false,
+                type: "get",
+                data: { term: request.term }
+            }).done(function (data) {
+                // debugger
+                response(data);
+
+            });
+        },
+
+        change: function (event, ui) {
+            $.ajax({
+                url: '@Url.Action("GetCountryCode", "Labour")',
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                type: "get",
+                data: { Country: $("#Country").val() },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    if (data != '') {
+                        $("#txtCountryCode").text(data);  //CountryCode
+                        $("#CountryCode").val(data);
+
+                    }
+                    else {
+                        $("#txtCountryCode").text('');
+                        $("#CountryCode").val('');
+
+                    }
+                }
+            });
+        }
+
+    });
+
+       // debugger
+
+        var donate = '@ViewBag.messagealert';
+        // alert(donate);
+        if (donate != "") {
+            alert(donate);
+        }
+
+        var Testimonial = '@ViewBag.Testimonialalert'
+
+        if (Testimonial != "") {
+            alert(Testimonial);
+        }
+
+     
+        var Alert = '@ViewBag.happinessalert';
+       // alert("1")
+        if (Alert != "") {
+            if (Alert == "Alert" && $('#happiness_View').val() == '') {
+                $('#happiness_View').val('Alert');
+                $('#onload').click();
+            }
+        }
+
+    });
+
+    $(function () {
+        $("#DOB").datepicker({ maxDate: '0' });
+    });
+
+    $(document).ready(function () {
+              
+        function PhoneAndCodeChange() {
+            if ($("#CountryCode").val() == "" || $("#PhoneNumber").val() == "") {
+                $("#ErrorPhone").text('Please Enter Country Code & Phone Number');
+            }
+            else {
+                $("#ErrorPhone").text('');
+            }
+        }
+
+
+        $("#EmiratesId").bind("paste", function (e) {
+            e.preventDefault();
+            return false;
+        });
+
+        $("#EmiratesId").keypress(function (event) {
+            if (!IsAlphaNumeric(event)) {
+                event.preventDefault();
+                return false;
+            }
+            return true;
+        });
+
+
+        $("#CountryCode").keydown(function (e) {
+            AllowNumericOnly(e);
+            PhoneAndCodeChange();
+        });
+
+        $("#Pincode").keydown(function (e) {
+            AllowNumericOnly(e);
+        });
+
+        $("#PhoneNumber").focusout(function () {
+            PhoneAndCodeChange();
+        });
+        $("#CountryCode").focusout(function () {
+            PhoneAndCodeChange();
+        });
+
+        
+        $("#PhoneNumber").keydown(function (e) {
+            AllowNumericOnly(e);
+            PhoneAndCodeChange();
+        });
+
+        $("#State").keypress(function (event) {
+            if (!AllowAlphaOnly(event)) {
+                event.preventDefault();
+                return false;
+            }
+            return true;
+        });
+
+        $("#City").keypress(function (event) {
+            if (!AllowAlphaOnly(event)) {
+                event.preventDefault();
+                return false;
+            }
+            return true;
+        });
+
+        $("#Country").keypress(function (event) {
+            if (!AllowAlphaOnly(event)) {
+                event.preventDefault();
+                return false;
+            }
+            return true;
+        });
+        $("#Orgname").keypress(function (e) {
+            if (!((e.which >= 65 && e.which <= 90) || (e.which >= 97 && e.which <= 122) || e.which == 8 || e.which == 44 || e.which == 39 || e.which == 45 || e.which == 95 || e.which == 38 || e.which == 46 || (e.which >= 48 && e.which <= 57))) {
+                e.preventDefault();
+                return false;
+            }
+            return true;
+        });
+
+        $("#Name").keypress(function (event) {
+            if (!AllowAlphaOnly(event)) {
+                event.preventDefault();
+                return false;
+            }
+            return true;
+        });
+
+
+
+        if (Text == "1") {
+            alert("Thank you for Donating Smartphone...Your phone posted successfully..");
+        }
+
+        var a = document.getElementById("Password").value;
+
+        document.getElementById("ConfirmPassword").value = a;
+
+        var SearchText = '@TempData["currentgetid"]';
+
+        $("#" + SearchText).addClass("active");
+
+
+
+        $("#EmailID").blur(function () {
+
+            if ($("#EmailID").val() != '' & $("#EmailID").val() != null) {
+                var url = "/sponsor/CheckEmailId";
+
+                $.post(url, { EmailId: $("#EmailID").val() }, function (data) {
+                    if (data != "") {
+                        $("#EmailID").val('');
+                        $("#EmailIdExists").html(data);
+                    }
+                    else {
+                        $("#EmailIdExists").html(data);
+                    }
+
+                });
+            }
+        });
+
+
+    });
+
+
+
+    function numericFilter(txb) {
+        txb.value = txb.value.replace(/[^\0-9]/ig, "");
+    }
+
+//    //To upload Image
+//    function uploadimage(input) {
+
+//        var file1 = input.value;
+
+//        if (input.files && input.files[0]) {
+//            var file = input.files[0];
+//            var extension = file1.substr((file1.toLowerCase().lastIndexOf('.') + 1));
+//            switch (extension.toLowerCase()) {
+
+//                case 'jpg':
+//                case 'png':
+//                case 'gif':
+//                case 'jpeg':
+
+
+//                    flag = true;
+//                    break;
+//                default:
+//                    flag = false;
+//            }
+
+//            if (flag == false) {
+//                alert("You can upload only jpg,png,gif extension file");
+//                document.getElementById("UploadImage").value = "";
+//                return false;
+//            }
+//            else {
+//                document.getElementById("sponsorImage").value = input.value;
+//            }
+
+//        }
+//    }
+
+
+//    function ChangeImage(type) {
+//        if (type == "1") {
+//            document.getElementById("sponsorImage").value = "";
+//            document.getElementById('chngimg').style.display = 'none';
+//            document.getElementById("UploadImage").style.display = '';
+//            document.getElementById('bannerimage').style.display = 'none';
+//        }
+//    }
+
+</script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {     
+       
+        //if ($('#happiness_View').val() == "")
+        //{
+        //    $('#happiness_View').val('Alert');
+
+        //}
+
+
+        $("#Country").change(function () {
+           // debugger
+            if ($("#Country").val() != "") {
+                /****** Bind State Name ***************/
+                $("#State").empty();
+                $("#City").empty();
+                $("#City").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+                $("#State").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+              //  debugger
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: '@Url.Action("getState", "Labour")',
+                        dataType: 'json',
+                        data: { CountryName: $("#Country").val() },
+                        success: function (Countries) {
+                            // debugger
+                            $.each(Countries, function (i, provider) {
+                                $("#State").append('<option value="' + provider.Value + '">' + provider.Text + '</option>');
+                            });
+                        },
+                        error: function (Countries) {
+                            // debugger
+                        }
+                    });
+                /********* Bind Country Code *******/
+                $.ajax(
+                   {
+                       type: 'POST',
+                       url: '@Url.Action("GetCountryCode", "Labour")',
+                       dataType: 'json',
+                       data: { CountryName: $("#Country").val() },
+                       success: function (data) {
+                           if (data != '') {
+                               $("#txtCountryCode").text(data);  //CountryCode
+                               $("#CountryCode").val(data);
+
+                           }
+                           else {
+                               $("#txtCountryCode").text('');
+                               $("#CountryCode").val('');
+
+                           }
+                       }
+                   });
+
+            }
+        });
+
+
+        $("#State").change(function () {
+
+            if ($("#State").val() != "") {
+                $("#City").empty();
+                $("#City").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: '@Url.Action("getCity", "Labour")',
+                        dataType: 'json',
+                        data: { StateName: $("#State").val() },
+                        success: function (Countries) {
+                            // debugger
+                            $.each(Countries, function (i, provider) {
+                                $("#City").append('<option value="' + provider.Value + '">' + provider.Text + '</option>');
+                            });
+                        }
+                    });
+            }
+
+        });
+    });
+
+</script>
+
+<div class="main">
+
+	<div class="inner_titlebg">
+		<div class="wrapper">
+			<h2>Account Sponsor</h2>          
+		</div>
+	</div>
+
+    <div class="wrapper">
+
+	<div class="inner_contentarea1 clearfix">
+
+		<div class="left_menu">	
+            		
+			<ul>
+			        <li class="active"> <a href="/SponsorAccount/ProfileDetails" title="Profile Details">Profile Details</a></li>
+                    <li><a href="/SponsorAccount/Notification" title="Notification">Notification</a></li>
+                    <li><a href="/Donatephone/DonatePhone" title="Participation Form">Participation Phone Form</a></li>
+                    <li ><a href="/Donatephone/DonatePhoneHistory" title="Phone Request History">Participation Phone History</a></li>
+                    <li ><a href="/Donatephone/OtherDonationHistory" title="Phone Request History">Other Participation History</a></li>
+                    <li><a href="/SponsorAccount/SponsorDonationWebsite" title="Participation To website"> Participation To Website</a></li>
+                    <li ><a href="/SponsorAccount/PostTestimonial" title="Post Testimonial">Post Testimonial</a></li>
+                    <li><a href="/HelpDesk/HelpDeskAdd1" title="Help Desk">Help Desk</a></li> 
+                <li><a href="/HelpDesk/HelpDeskSponsorList" title="Help Desk">Help Desk List</a></li>
+		</ul>
+
+		</div>	
+
+		<div class="right_content">
+
+				<h2>Welcome @Session["FUSERNAME"]</h2>
+
+                  @using (Html.BeginForm("ProfileDetails", "SponsorAccount", FormMethod.Post, new { enctype = "multipart/form-data",id="Details" }))
+                  {
+                   @Html.ValidationSummary(true)
+   
+				   <div class="acc_profile">
+
+					<div class="input">
+						<label>Name</label>
+					
+                        @Html.TextBoxFor(n => n.Name, new { maxlength = 35 })
+                         <span class="error_msg">
+                            @Html.ValidationMessageFor(model => model.Name)
+                        </span>
+					</div>
+
+                    <div class="input">
+						<label> Emirates ID</label>
+						@Html.TextBoxFor(n => n.EmiratesId, new { maxlength = 20 })
+                         <span class="error_msg">
+                            @Html.ValidationMessageFor(model => model.EmiratesId)
+                        </span>
+                           <span class="error_msg" id="LabourIdExists">
+                        </span>
+					</div>
+
+					<div class="input">
+						<label> Email ID</label>
+						@Html.TextBoxFor(n => n.EmailID, new { maxlength = 55 })
+                         <span class="error_msg">
+                            @Html.ValidationMessageFor(model => model.EmailID)
+                     
+                        </span>
+                           <span class="error_msg" id="EmailIdExists">
+                        </span>
+					</div>               
+
+					<div class="input">
+						<label>Date Of Birth</label>
+		
+                      <input id="DOB" name="DOB" value="@Model.DOB.ToString("yyyy-MM-dd")"  />
+                       
+                             <span class="error_msg">
+                            @Html.ValidationMessageFor(model => model.DOB)
+                        </span>
+                    
+					</div>
+
+					<div class="input">
+						<label>Sex</label>
+						
+                        @if (Model.Sex == "1")
+                        {
+                            <select id="sex" name="sex">
+							<option selected>Male</option>
+							<option>Female</option>
+						</select>
+                        }
+                        else
+                        {
+                               <select id="Female" name="sex">
+							<option >Male</option>
+							<option selected>Female</option>
+						</select>
+                        }
+                        <span class="error_msg" id="idSex" style="display: none;">
+                            Please Select Sex
+                            @Html.ValidationMessageFor(model => model.Sex)
+                        </span>                          
+                                     
+					</div>                   
+
+                    <div class="input">
+                        <label>
+                            Organization
+                        </label>
+                    
+                            @if (Model.OrgId != 1 || Model.ChangeStatus == 1)
+                            {
+                           @Html.TextBoxFor(model => model.OrgName, new { maxlength = 35, id = "TextOrgName", disabled = "disabled" })
+                            }
+                            else
+                            {
+                                   @Html.TextBoxFor(model => model.OrgName, new { maxlength = 35, id = "Orgname" })
+                            }
+                         @Html.HiddenFor(model => model.sponsorImage)
+                            <span class="error_msg">
+                                <label id="ErrorOrg" class="errorLabel">@ViewBag.OrgMsg</label> 
+                            </span>
+                        </div>
+
+           <div class=" clearfix">
+               <div class="input textarea">
+                   <label>
+                       Enter Your Address
+                   </label>
+                   @Html.TextAreaFor(model => Model.Address1, new { placeholder = "Building Number, Building Name, Street Name", Maxlength = 200, @class = "textarea" })
+
+
+               </div>
+               <div class="input textarea">
+                   @Html.TextAreaFor(model => Model.Address2, new { placeholder = "Floor,Apartment Number, Area", Maxlength = 200, @class = "textarea" })
+
+                   <span class="error_msg">
+                       @Html.ValidationMessageFor(model => model.Address1)
+                   </span>
+                   @Html.HiddenFor(n => n.UserID)
+                   @Html.HiddenFor(model => model.Password)
+                   @Html.HiddenFor(model => model.ConfirmPassword)
+               </div>
+           </div>         
+                                        
+
+                    <div class="input">
+                        <div>
+                            <label>
+                                Country
+                            </label>
+                        </div>
+                        @Html.DropDownListFor(model => model.Country, (SelectList)ViewBag.CountryList, "Select", new { @class = "drop_down" })
+                        @*@Html.TextBoxFor(model => model.Country, new { maxlength = 35 })*@
+                        <span class="error_msg">
+                            @Html.ValidationMessageFor(model => model.Country)
+
+                      
+                        </span>
+                    </div>
+                       
+           <div class="input">
+               <div>
+                   <label>
+                       State
+                   </label>
+               </div>
+               @Html.DropDownListFor(model => model.State, (SelectList)ViewBag.StateList, "Select", new { @class = "drop_down" })
+               @*@Html.TextBoxFor(model => model.State, new { maxlength = 35 })*@
+               <span class="error_msg">
+                   @Html.ValidationMessageFor(model => model.State)
+               </span>
+           </div>
+           <div class="input">
+               <div>
+                   <label>
+                       City
+                   </label>
+               </div>
+               @Html.DropDownListFor(model => model.City, (SelectList)ViewBag.CityList, "Select", new { @class = "drop_down" })
+               @*@Html.TextBoxFor(model => model.City, new { maxlength = 35 })*@
+               <span class="error_msg">
+                   @Html.ValidationMessageFor(model => model.City)
+
+               </span>
+           </div>
+
+
+                     @*<div class="input">
+                        
+                        @if (Model.sponsorImage != null)
+                                    {
+                            <label>Image</label>
+                                       <div id="bannerimage" class="thump-img" >
+                                            <img src="../../Content/Front/Images/sponsorImage/@Model.sponsorImage" style="width:100px; height:100px;" class="thump-img" />
+                                        </div>
+                                        <a class="green green-img" id="chngimg" onclick="ChangeImage(1)" href="javascript:void(0);">
+                                            Change Image</a>
+                                        <input type="file" id="UploadImage" name="UploadImage" onchange="uploadimage(this);"
+                                            style="display: none;" />
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(m => m.sponsorImage)
+                                        </span>
+                                    }
+                        else
+                        {
+                                        <input type="file" id="UploadImage" name="UploadImage" onchange="uploadimage(this);" />
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(m => m.sponsorImage)
+                                        </span>
+                        }
+                                         </div>*@
+                       
+
+
+
+                  
+                
+
+                   
+                    <div class="input">
+                        <label>
+                            Phone Number
+                        </label>
+                        @*<span id="txtCountryCode" class="Form-Control">@Html.DisplayFor(model => model.CountryCode, new { @id="DisplayNameCode"})</span>*@
+                        <div class="Phone_C_CodeDetails">
+                            @Html.TextBoxFor(model => model.CountryCode, new { maxlength = "6", @id = "CountryCode", Style = "width: 10%!important;float:left" })
+                            @Html.TextBoxFor(model => model.PhoneNumber, new { maxlength = "13", @id = "PhoneNumber", @class = "PhoneNumberDetails" })
+                        </div>
+                        <span class="error_msg">
+                            <label id="ErrorPhone" class="errorLabel"></label> 
+                           </span> 
+                        </div> 
+
+          
+
+                          @*<div class="input">
+						<label> Phone No</label>
+                              <span id="txtCountryCode" class="Form-Control">@Html.DisplayFor(model=>model.CountryCode)</span>
+                                @Html.HiddenFor(model => model.CountryCode, new { @id="CountryCode"})
+						@Html.TextBoxFor(n => n.PhoneNumber , new { Style = "width: 255px;!important" })
+                         <span class="error_msg">
+                            @Html.ValidationMessageFor(model => model.PhoneNumber)
+                        </span>
+					</div>*@
+
+           <div class="input PinInput">
+               <label>Pincode</label>
+               @Html.TextBoxFor(n => n.Pincode, new { maxlength = 10 })
+               <span class="error_msg">
+                   @Html.ValidationMessageFor(model => model.Pincode)
+               </span>
+           </div>
+
+		
+
+                    <div class="checkbox">
+                        @Html.CheckBoxFor(n => n.IsDisplayNameAccepted)
+					  <label>
+                                Display name in website</label>
+                        </div>
+
+					<div class="submit">
+                        <input type="submit" value="Update Details" onclick="return Validate(this);" />
+					</div>
+
+				</div>
+                      
+                  }
+                  
+		</div>
+
+	</div>     
+
+
+    </div>
+ </div>

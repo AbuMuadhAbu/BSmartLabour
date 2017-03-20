@@ -1,0 +1,184 @@
+﻿/*@charset "utf-8";*/
+/* CSS Document */
+/* font face updated */
+.normal {
+	margin:0px auto 0;
+	background-color:#ffffff;
+	padding:20px;
+	
+	font-size:13px !important;
+}
+.normal label{
+	float:left;
+	font:normal 14px/18px Arial, Helvetica, sans-serif;
+	display:block;
+	width:170px;
+	color:#333;
+	font-size:13px !important;
+}
+.normal .input{
+	margin-bottom:20px;
+}
+.normal .text input{
+	border:1px solid #D8D8D8;
+	width:250px;
+	padding:3px 5px;
+}
+.normal .input span.info {
+	color:#666666;
+	font-size:13px;
+	line-height:18px;
+	display:block;
+	margin-left:170px;
+}
+.grounp-checkbox div.checkbox,.grounp-checkbox div.checkbox  input,.grounp-checkbox div.checkbox  label  {
+	float:left;
+	width:auto;
+	font-size:12px;
+}
+.grounp-checkbox div.checkbox  label{
+	width:70px;
+}
+.grounp-checkbox {
+	margin-bottom:20px;
+	width:700px;
+}
+.package-select 
+{
+	margin-top:10px;
+}
+div.fld_fd  div.package-select label 
+{
+	width:113px;
+}
+div.fld_fd div.package-select .lang span label 
+{
+	width:80px;
+}
+.grounp-checkbox div.checkbox {
+	width:96px;
+	margin-bottom:7px;
+}
+.grounp-checkbox-right {
+	float:left;
+	width:414px;
+}
+.normal .submit input{
+	background: none repeat scroll 0 0 #CE3137;
+	border-radius: 5px 5px 5px 5px;
+	font-size: 13px;
+	border: 1px solid #000000;
+	color: #FFFFFF;
+	padding:2px 3px 3px;
+	width:65px;
+	/*float:left;*/
+	font: bold 13px/18px arial;
+	text-align:center;
+	cursor:pointer;
+	#padding-bottom:0px;
+}
+.normal .submit  a {
+	background: none repeat scroll 0 0 #CE3137;
+	border-radius: 5px 5px 5px 5px;
+	text-decoration:none;
+	font-size: 13px;
+	border: 1px solid #000000;
+	color: #FFFFFF;
+	padding:3px 3px 3px;
+	margin-left:10px;
+	width:59px;
+	display:block;
+	float:left;
+	font: bold 13px/18px arial;
+	text-align:center;
+}
+.normal input[type="checkbox"] {
+	margin-right:5px;
+}
+.normal .submit  a:hover,.normal .submit input:hover {
+	background-color:#FF0000;
+}
+.normal .grounp-textbox label,.normal .grounp-textbox .text input,.price-right {
+	float:left;	
+}
+.normal .price-right{
+	width:450px;
+}
+.normal .grounp-textbox .input {
+	width:450px;
+	clear:both;
+	margin-bottom:20px;
+}
+.normal .grounp-textbox .text input {
+	width:100px;
+	margin-right:20px;
+}
+.normal .grounp-textbox .input label {
+	width:70px;
+	font-size:12px;
+}
+.normal .grounp-textbox .input label.save {
+	width:45px;
+}
+.grounp-textbox {
+	
+}
+.grounp-textbox {
+	
+}
+/* channel*/
+    
+    .lang
+    {
+        float:left;
+        width:500px;
+    }
+     
+    .lang span input
+    {
+        float:left;
+    }
+   /* .add-channel .lang lable
+    {
+           float:left;
+           width:60px !important;
+    }
+    .act_ive table tr td
+    {
+        float:left;
+        width:150px!important;
+    }
+    .act_ive table tr td input
+    {
+        float:left;
+    }
+    .act_ive table tr td lable
+    {
+        float:left;
+        width:60px!important;
+    }*/
+/* channel*/
+
+/*clearfix*/
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+ 
+.clearfix {
+	/*display: inline-block;*/
+}
+ 
+html[xmlns] .clearfix {
+	display: block;
+}
+ 
+* html .clearfix {
+	height: 1%;
+}
+/*clearfix-end*/
+

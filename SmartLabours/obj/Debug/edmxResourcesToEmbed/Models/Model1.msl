@@ -1,0 +1,747 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="smartlaboursModelStoreContainer" CdmEntityContainer="SmartLabourEntities">
+    <EntitySetMapping Name="CourseCompletionStatus">
+      <EntityTypeMapping TypeName="smartlaboursModel.CourseCompletionStatu">
+        <MappingFragment StoreEntitySet="CourseCompletionStatus">
+          <ScalarProperty Name="CourseCompletionStatusID" ColumnName="CourseCompletionStatusID" />
+          <ScalarProperty Name="LabourID" ColumnName="LabourID" />
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="IsStarted" ColumnName="IsStarted" />
+          <ScalarProperty Name="IsFinished" ColumnName="IsFinished" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Courses">
+      <EntityTypeMapping TypeName="smartlaboursModel.Cours">
+        <MappingFragment StoreEntitySet="Courses">
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+          <ScalarProperty Name="CourseTypeID" ColumnName="CourseTypeID" />
+          <ScalarProperty Name="MutlticourseDesc" ColumnName="MutlticourseDesc" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
+          <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
+          <ScalarProperty Name="MODIFIEDBY" ColumnName="MODIFIEDBY" />
+          <ScalarProperty Name="MODIFIEDDATE" ColumnName="MODIFIEDDATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CourseTypes">
+      <EntityTypeMapping TypeName="smartlaboursModel.CourseType">
+        <MappingFragment StoreEntitySet="CourseTypes">
+          <ScalarProperty Name="CourseTypeID" ColumnName="CourseTypeID" />
+          <ScalarProperty Name="CourseTypeName" ColumnName="CourseTypeName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DonatePhones">
+      <EntityTypeMapping TypeName="smartlaboursModel.DonatePhone">
+        <MappingFragment StoreEntitySet="DonatePhones">
+          <ScalarProperty Name="DonateID" ColumnName="DonateID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+          <ScalarProperty Name="ModelNo" ColumnName="ModelNo" />
+          <ScalarProperty Name="PhoneColor" ColumnName="PhoneColor" />
+          <ScalarProperty Name="IMEANumber" ColumnName="IMEANumber" />
+          <ScalarProperty Name="PhoneOwnerName" ColumnName="PhoneOwnerName" />
+          <ScalarProperty Name="ContactDetail" ColumnName="ContactDetail" />
+          <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Pincode" ColumnName="Pincode" />
+          <ScalarProperty Name="CourierDetail" ColumnName="CourierDetail" />
+          <ScalarProperty Name="IsPhoneAcceptedByAdmin" ColumnName="IsPhoneAcceptedByAdmin" />
+          <ScalarProperty Name="IsPhoneAssignedToLabour" ColumnName="IsPhoneAssignedToLabour" />
+          <ScalarProperty Name="DonatedDate" ColumnName="DonatedDate" />
+          <ScalarProperty Name="IsPhoneconfirmation" ColumnName="IsPhoneconfirmation" />
+          <ScalarProperty Name="AlternateAddress" ColumnName="AlternateAddress" />
+          <ScalarProperty Name="AlternatePhoneNumber" ColumnName="AlternatePhoneNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Labours">
+      <EntityTypeMapping TypeName="smartlaboursModel.Labour">
+        <MappingFragment StoreEntitySet="Labours">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="LabourID" ColumnName="LabourID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="SERVICEPROVIDERID" ColumnName="SERVICEPROVIDERID" />
+          <ScalarProperty Name="Address1" ColumnName="Address1" />
+          <ScalarProperty Name="Address2" ColumnName="Address2" />
+          <ScalarProperty Name="Address3" ColumnName="Address3" />
+          <ScalarProperty Name="Pincode" ColumnName="Pincode" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="LabourImage" ColumnName="LabourImage" />
+          <ScalarProperty Name="DeviceToken" ColumnName="DeviceToken" />
+          <ScalarProperty Name="DeviceType" ColumnName="DeviceType" />
+          <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
+          <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
+          <ScalarProperty Name="MODIFIEDBY" ColumnName="MODIFIEDBY" />
+          <ScalarProperty Name="MODIFIEDDATE" ColumnName="MODIFIEDDATE" />
+          <ScalarProperty Name="IsDisplayNameAccepted" ColumnName="IsDisplayNameAccepted" />
+          <ScalarProperty Name="SERVICETYPEID" ColumnName="SERVICETYPEID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PageMaps">
+      <EntityTypeMapping TypeName="smartlaboursModel.PageMap">
+        <MappingFragment StoreEntitySet="PageMap">
+          <ScalarProperty Name="IMAPID" ColumnName="IMAPID" />
+          <ScalarProperty Name="VUSERTYPE" ColumnName="VUSERTYPE" />
+          <ScalarProperty Name="Bstatus" ColumnName="Bstatus" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="ipageid" ColumnName="ipageid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PhoneAsssignedToLabours">
+      <EntityTypeMapping TypeName="smartlaboursModel.PhoneAsssignedToLabour">
+        <MappingFragment StoreEntitySet="PhoneAsssignedToLabours">
+          <ScalarProperty Name="PhoneAssignedID" ColumnName="PhoneAssignedID" />
+          <ScalarProperty Name="DonateID" ColumnName="DonateID" />
+          <ScalarProperty Name="RequestPhoneID" ColumnName="RequestPhoneID" />
+          <ScalarProperty Name="LabourID" ColumnName="LabourID" />
+          <ScalarProperty Name="AssignedDate" ColumnName="AssignedDate" />
+          <ScalarProperty Name="IsTimeExpired" ColumnName="IsTimeExpired" />
+          <ScalarProperty Name="IsPhoneAccepted" ColumnName="IsPhoneAccepted" />
+          <ScalarProperty Name="CourierDetail" ColumnName="CourierDetail" />
+          <ScalarProperty Name="IsLabourReceivedPhone" ColumnName="IsLabourReceivedPhone" />
+          <ScalarProperty Name="DeliveredDate" ColumnName="DeliveredDate" />
+          <ScalarProperty Name="IsExpiredPhoneAssigned" ColumnName="IsExpiredPhoneAssigned" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestPhones">
+      <EntityTypeMapping TypeName="smartlaboursModel.RequestPhone">
+        <MappingFragment StoreEntitySet="RequestPhones">
+          <ScalarProperty Name="RequestPhoneID" ColumnName="RequestPhoneID" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="AlternatePhoneNumber" ColumnName="AlternatePhoneNumber" />
+          <ScalarProperty Name="MailId" ColumnName="MailId" />
+          <ScalarProperty Name="LabourID" ColumnName="LabourID" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="NewAddress" ColumnName="NewAddress" />
+          <ScalarProperty Name="RequestedDate" ColumnName="RequestedDate" />
+          <ScalarProperty Name="RequestStatus" ColumnName="RequestStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sponsors">
+      <EntityTypeMapping TypeName="smartlaboursModel.Sponsor">
+        <MappingFragment StoreEntitySet="Sponsors">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Address1" ColumnName="Address1" />
+          <ScalarProperty Name="Address2" ColumnName="Address2" />
+          <ScalarProperty Name="Address3" ColumnName="Address3" />
+          <ScalarProperty Name="Pincode" ColumnName="Pincode" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="ConfirmPassword" ColumnName="ConfirmPassword" />
+          <ScalarProperty Name="IsDisplayNameAccepted" ColumnName="IsDisplayNameAccepted" />
+          <ScalarProperty Name="EmiratesId" ColumnName="EmiratesId" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="SponsorImage" ColumnName="SponsorImage" />
+          <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
+          <ScalarProperty Name="Homecontent" ColumnName="Homecontent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_ABOUTUS_SMT">
+      <EntityTypeMapping TypeName="smartlaboursModel.TBL_ABOUTUS_SMT">
+        <MappingFragment StoreEntitySet="TBL_ABOUTUS_SMT">
+          <ScalarProperty Name="ABOUTUSID" ColumnName="ABOUTUSID" />
+          <ScalarProperty Name="SHORTDESC" ColumnName="SHORTDESC" />
+          <ScalarProperty Name="FULLDESCRIPTION" ColumnName="FULLDESCRIPTION" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
+          <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_AdminCONTACTUS_SMT">
+      <EntityTypeMapping TypeName="smartlaboursModel.TBL_AdminCONTACTUS_SMT">
+        <MappingFragment StoreEntitySet="TBL_AdminCONTACTUS_SMT">
+          <ScalarProperty Name="CONTACTUSID" ColumnName="CONTACTUSID" />
+          <ScalarProperty Name="POBOXNO" ColumnName="POBOXNO" />
+          <ScalarProperty Name="ADDRESS1" ColumnName="ADDRESS1" />
+          <ScalarProperty Name="ADDRESS2" ColumnName="ADDRESS2" />
+          <ScalarProperty Name="PHONENO" ColumnName="PHONENO" />
+          <ScalarProperty Name="CITY" ColumnName="CITY" />
+          <ScalarProperty Name="COUNTRY" ColumnName="COUNTRY" />
+          <ScalarProperty Name="EMAILID" ColumnName="EMAILID" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
+          <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_ADMINLOGIN_SMT">
+      <EntityTypeMapping TypeName="smartlaboursModel.TBL_ADMINLOGIN_SMT">
+        <MappingFragment StoreEntitySet="TBL_ADMINLOGIN_SMT">
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
+          <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+          <ScalarProperty Name="USEREMAIL" ColumnName="USEREMAIL" />
+          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+          <ScalarProperty Name="USERTYPE" ColumnName="USERTYPE" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="LASTLOGIN" ColumnName="LASTLOGIN" />
+          <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
+          <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
+          <ScalarProperty Name="MODIFIEDBY" ColumnName="MODIFIEDBY" />
+          <ScalarProperty Name="MODIFIEDDATE" ColumnName="MODIFIEDDATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_Answer_SMT">
+      <EntityTypeMapping TypeName="smartlaboursModel.TBL_Answer_SMT">
+        <MappingFragment StoreEntitySet="TBL_Answer_SMT">
+          <ScalarProperty Name="AnswerID" ColumnName="AnswerID" />
+          <ScalarProperty Name="AnswerDesc" ColumnName="AnswerDesc" />
+          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+          <ScalarProperty Name="IsCorrect" ColumnName="IsCorrect" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_Artical_SMT">
+      <EntityTypeMapping TypeName="smartlaboursModel.TBL_Artical_SMT">
+        <MappingFragment StoreEntitySet="TBL_Artical_SMT">
+          <ScalarProperty Name="ArticalID" ColumnName="ArticalID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ArticalDate" ColumnName="ArticalDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Homecontent" ColumnName="Homecontent" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_Banner_SMT">
+      <EntityTypeMapping TypeName="smartlaboursModel.TBL_Banner_SMT">
+        <MappingFragment StoreEntitySet="TBL_Banner_SMT">
+          <ScalarProperty Name="BannerId" ColumnName="BannerId" />
+          <ScalarProperty Name="BannerTitle" ColumnName="BannerTitle" />
+          <ScalarProperty Name="BannerImage" ColumnName="BannerImage" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_COMMENTS_SMT">
+      <EntityTypeMapping TypeName="smartlaboursModel.TBL_COMMENTS_SMT">
+        <MappingFragment StoreEntitySet="TBL_COMMENTS_SMT">
+          <ScalarProperty Name="COMMENTSID" ColumnName="COMMENTSID" />
+          <ScalarProperty Name="ARTICALID" ColumnName="ARTICALID" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="APPROVED" ColumnName="APPROVED" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
+          <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_CONTACTUS_SMT">
+      <EntityTypeMapping TypeName="smartlaboursModel.TBL_CONTACTUS_SMT">
+        <MappingFragment StoreEntitySet="TBL_CONTACTUS_SMT">
+          <ScalarProperty Name="CONTACTID" ColumnName="CONTACTID" />
+          <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
+          <ScalarProperty Name="LASTNAME" ColumnName="LASTNAME" />
+          <ScalarProperty Name="EMAILID" ColumnName="EMAILID" />
+          <ScalarProperty Name="PHONENO" ColumnName="PHONENO" />
+          <ScalarProperty Name="COMMENTS" ColumnName="COMMENTS" />
+          <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
+          <ScalarProperty Name="REVIEW" ColumnName="REVIEW" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_COURSEDTL_SMT">
+      <EntityTypeMapping TypeName="smartlaboursModel.TBL_COURSEDTL_SMT">
+        <MappingFragment StoreEntitySet="TBL_COURSEDTL_SMT">
+          <ScalarProperty Name="COURSEDTLID" ColumnName="COURSEDTLID" />
+          <ScalarProperty Name="COURSEID" ColumnName="COURSEID" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
+          <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
+          <ScalarProperty Name="MODIFIEDBY" ColumnName="MODIFIEDBY" />
+          <ScalarProperty Name="MODIFIEDDATE" ColumnName="MODIFIEDDATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_DISBUTETRANSACTION_SMT">
+      <EntityTypeMapping TypeName="smartlaboursModel.TBL_DISBUTETRANSACTION_SMT">
+        <MappingFragment StoreEntitySet="TBL_DISBUTETRANSACTION_SMT">
+          <ScalarProperty Name="DisbuteID" ColumnName="DisbuteID" />
+          <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+          <ScalarProperty Name="FeedBack" ColumnName="FeedBack" />
+          <ScalarProperty Name="REVIEW" ColumnName="REVIEW" />
+          <ScalarProperty Name="Createddate" ColumnName="Createddate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_MODULES_SMT">
+      <EntityTypeMapping TypeName="smartlaboursModel.TBL_MODULES_SMT">
+        <MappingFragment StoreEntitySet="TBL_MODULES_SMT">
+          <ScalarProperty Name="IPAGEID" ColumnName="IPAGEID" />
+          <ScalarProperty Name="VPAGELABEL" ColumnName="VPAGELABEL" />
+          <ScalarProperty Name="IPARENTID" ColumnName="IPARENTID" />
+          <ScalarProperty Name="PAGENAME" ColumnName="PAGENAME" />
+          <ScalarProperty Name="IPRIORITY" ColumnName="IPRIORITY" />
+          <ScalarProperty Name="HMS_IMS" ColumnName="HMS_IMS" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
+          <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
+          <ScalarProperty Name="MODIFIEDBY" ColumnName="MODIFIEDBY" />
+          <ScalarProperty Name="MODIFIEDDATE" ColumnName="MODIFIEDDATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_PAGE_USER_MAP_SMT">
+      <EntityTypeMapping TypeName="smartlaboursModel.TBL_PAGE_USER_MAP_SMT">
+        <MappingFragment StoreEntitySet="TBL_PAGE_USER_MAP_SMT">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="IMAPID" ColumnName="IMAPID" />
+          <ScalarProperty Name="ipageid" ColumnName="ipageid" />
+          <ScalarProperty Name="VUSERTYPE" ColumnName="VUSERTYPE" />
+          <ScalarProperty Name="Bstatus" ColumnName="Bstatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_Question_SMT">
+      <EntityTypeMapping TypeName="smartlaboursModel.TBL_Question_SMT">
+        <MappingFragment StoreEntitySet="TBL_Question_SMT">
+          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+          <ScalarProperty Name="QuestionDesc" ColumnName="QuestionDesc" />
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="CreditPoints" ColumnName="CreditPoints" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_REQUESTFAMILYSETTINGS_SMT">
+      <EntityTypeMapping TypeName="smartlaboursModel.TBL_REQUESTFAMILYSETTINGS_SMT">
+        <MappingFragment StoreEntitySet="TBL_REQUESTFAMILYSETTINGS_SMT">
+          <ScalarProperty Name="REQUESTPHONEFAMILID" ColumnName="REQUESTPHONEFAMILID" />
+          <ScalarProperty Name="REQUESTFAMILYSTATUS" ColumnName="REQUESTFAMILYSTATUS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_SERVICEPLAN_SMT">
+      <EntityTypeMapping TypeName="smartlaboursModel.TBL_SERVICEPLAN_SMT">
+        <MappingFragment StoreEntitySet="TBL_SERVICEPLAN_SMT">
+          <ScalarProperty Name="SERVICEPLANID" ColumnName="SERVICEPLANID" />
+          <ScalarProperty Name="SERVICETYPEID" ColumnName="SERVICETYPEID" />
+          <ScalarProperty Name="SERVICEPROVIDERID" ColumnName="SERVICEPROVIDERID" />
+          <ScalarProperty Name="PLANNAEME" ColumnName="PLANNAEME" />
+          <ScalarProperty Name="VALUEOFPLAN" ColumnName="VALUEOFPLAN" />
+          <ScalarProperty Name="Validity" ColumnName="Validity" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="CREDITPOINTS" ColumnName="CREDITPOINTS" />
+          <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
+          <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
+          <ScalarProperty Name="MODIFIEDBY" ColumnName="MODIFIEDBY" />
+          <ScalarProperty Name="MODIFIEDDATE" ColumnName="MODIFIEDDATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_SERVICEPROVIDER_SMT">
+      <EntityTypeMapping TypeName="smartlaboursModel.TBL_SERVICEPROVIDER_SMT">
+        <MappingFragment StoreEntitySet="TBL_SERVICEPROVIDER_SMT">
+          <ScalarProperty Name="SERVICEPROVIDERID" ColumnName="SERVICEPROVIDERID" />
+          <ScalarProperty Name="SERVICEPROVIDER" ColumnName="SERVICEPROVIDER" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
+          <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
+          <ScalarProperty Name="MODIFIEDBY" ColumnName="MODIFIEDBY" />
+          <ScalarProperty Name="MODIFIEDDATE" ColumnName="MODIFIEDDATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_SERVICETYPE_SMT">
+      <EntityTypeMapping TypeName="smartlaboursModel.TBL_SERVICETYPE_SMT">
+        <MappingFragment StoreEntitySet="TBL_SERVICETYPE_SMT">
+          <ScalarProperty Name="SERVICETYPEID" ColumnName="SERVICETYPEID" />
+          <ScalarProperty Name="SERVICETYPENAME" ColumnName="SERVICETYPENAME" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
+          <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
+          <ScalarProperty Name="MODIFIEDBY" ColumnName="MODIFIEDBY" />
+          <ScalarProperty Name="MODIFIEDDATE" ColumnName="MODIFIEDDATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_Sponsor_Notifications">
+      <EntityTypeMapping TypeName="smartlaboursModel.TBL_Sponsor_Notifications">
+        <MappingFragment StoreEntitySet="TBL_Sponsor_Notifications">
+          <ScalarProperty Name="NotifyID" ColumnName="NotifyID" />
+          <ScalarProperty Name="DonateID" ColumnName="DonateID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="IsPhoneConfirmation" ColumnName="IsPhoneConfirmation" />
+          <ScalarProperty Name="IsCourrierconfirmation" ColumnName="IsCourrierconfirmation" />
+          <ScalarProperty Name="IsPhoneAcceptedByAdmin" ColumnName="IsPhoneAcceptedByAdmin" />
+          <ScalarProperty Name="IsPhoneAssignedToLabour" ColumnName="IsPhoneAssignedToLabour" />
+          <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_SPONSOROTHERDONATION_SMT">
+      <EntityTypeMapping TypeName="smartlaboursModel.TBL_SPONSOROTHERDONATION_SMT">
+        <MappingFragment StoreEntitySet="TBL_SPONSOROTHERDONATION_SMT">
+          <ScalarProperty Name="SponsorDonateId" ColumnName="SponsorDonateId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="DonateType" ColumnName="DonateType" />
+          <ScalarProperty Name="DonateAmount" ColumnName="DonateAmount" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_TERMSANDCONDITION_SMT">
+      <EntityTypeMapping TypeName="smartlaboursModel.TBL_TERMSANDCONDITION_SMT">
+        <MappingFragment StoreEntitySet="TBL_TERMSANDCONDITION_SMT">
+          <ScalarProperty Name="TermsandConditionId" ColumnName="TermsandConditionId" />
+          <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+          <ScalarProperty Name="FullDecription" ColumnName="FullDecription" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
+          <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_TESTIMONIAL_SMT">
+      <EntityTypeMapping TypeName="smartlaboursModel.TBL_TESTIMONIAL_SMT">
+        <MappingFragment StoreEntitySet="TBL_TESTIMONIAL_SMT">
+          <ScalarProperty Name="TestimonialId" ColumnName="TestimonialId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="VideoFile" ColumnName="VideoFile" />
+          <ScalarProperty Name="Oggfilename" ColumnName="Oggfilename" />
+          <ScalarProperty Name="Webmfilename" ColumnName="Webmfilename" />
+          <ScalarProperty Name="MP4filename" ColumnName="MP4filename" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="HomeContent" ColumnName="HomeContent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_VOUCHER_SMT">
+      <EntityTypeMapping TypeName="smartlaboursModel.TBL_VOUCHER_SMT">
+        <MappingFragment StoreEntitySet="TBL_VOUCHER_SMT">
+          <ScalarProperty Name="VOUCHERID" ColumnName="VOUCHERID" />
+          <ScalarProperty Name="SERVICEPLANID" ColumnName="SERVICEPLANID" />
+          <ScalarProperty Name="SERVICEPROVIDERID" ColumnName="SERVICEPROVIDERID" />
+          <ScalarProperty Name="CODES" ColumnName="CODES" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
+          <ScalarProperty Name="CREATEDATE" ColumnName="CREATEDATE" />
+          <ScalarProperty Name="MODIFIEDBY" ColumnName="MODIFIEDBY" />
+          <ScalarProperty Name="MODIFIEDDATE" ColumnName="MODIFIEDDATE" />
+          <ScalarProperty Name="IsVoucherAssigned" ColumnName="IsVoucherAssigned" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TestResults">
+      <EntityTypeMapping TypeName="smartlaboursModel.TestResult">
+        <MappingFragment StoreEntitySet="TestResults">
+          <ScalarProperty Name="TestID" ColumnName="TestID" />
+          <ScalarProperty Name="LabourID" ColumnName="LabourID" />
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+          <ScalarProperty Name="AnswerID" ColumnName="AnswerID" />
+          <ScalarProperty Name="IsCorrect" ColumnName="IsCorrect" />
+          <ScalarProperty Name="CreditPoints" ColumnName="CreditPoints" />
+          <ScalarProperty Name="IsSubmitted" ColumnName="IsSubmitted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VoucherAssignedToLabours">
+      <EntityTypeMapping TypeName="smartlaboursModel.VoucherAssignedToLabour">
+        <MappingFragment StoreEntitySet="VoucherAssignedToLabour">
+          <ScalarProperty Name="VoucherAssignID" ColumnName="VoucherAssignID" />
+          <ScalarProperty Name="VOUCHERID" ColumnName="VOUCHERID" />
+          <ScalarProperty Name="LabourID" ColumnName="LabourID" />
+          <ScalarProperty Name="AssignedDate" ColumnName="AssignedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="view_AvailStock">
+      <EntityTypeMapping TypeName="smartlaboursModel.view_AvailStock">
+        <MappingFragment StoreEntitySet="view_AvailStock">
+          <ScalarProperty Name="Avail_stock" ColumnName="Avail_stock" />
+          <ScalarProperty Name="SERVICEPROVIDERID" ColumnName="SERVICEPROVIDERID" />
+          <ScalarProperty Name="SERVICEPLANID" ColumnName="SERVICEPLANID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="view_plandetails">
+      <EntityTypeMapping TypeName="smartlaboursModel.view_plandetails">
+        <MappingFragment StoreEntitySet="view_plandetails">
+          <ScalarProperty Name="PLANNAEME" ColumnName="PLANNAEME" />
+          <ScalarProperty Name="VALUEOFPLAN" ColumnName="VALUEOFPLAN" />
+          <ScalarProperty Name="SERVICEPROVIDER" ColumnName="SERVICEPROVIDER" />
+          <ScalarProperty Name="SERVICETYPENAME" ColumnName="SERVICETYPENAME" />
+          <ScalarProperty Name="SERVICEPROVIDERID" ColumnName="SERVICEPROVIDERID" />
+          <ScalarProperty Name="SERVICEPLANID" ColumnName="SERVICEPLANID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="view_TotalStock">
+      <EntityTypeMapping TypeName="smartlaboursModel.view_TotalStock">
+        <MappingFragment StoreEntitySet="view_TotalStock">
+          <ScalarProperty Name="Tot_Stock" ColumnName="Tot_Stock" />
+          <ScalarProperty Name="SERVICEPROVIDERID" ColumnName="SERVICEPROVIDERID" />
+          <ScalarProperty Name="SERVICEPLANID" ColumnName="SERVICEPLANID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="view_UsedStock">
+      <EntityTypeMapping TypeName="smartlaboursModel.view_UsedStock">
+        <MappingFragment StoreEntitySet="view_UsedStock">
+          <ScalarProperty Name="Used_stock" ColumnName="Used_stock" />
+          <ScalarProperty Name="SERVICEPROVIDERID" ColumnName="SERVICEPROVIDERID" />
+          <ScalarProperty Name="SERVICEPLANID" ColumnName="SERVICEPLANID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AssignVoucherForCreditPoints" FunctionName="smartlaboursModel.Store.AssignVoucherForCreditPoints" />
+    <FunctionImportMapping FunctionImportName="Pro_AcceptPhone" FunctionName="smartlaboursModel.Store.Pro_AcceptPhone" />
+    <FunctionImportMapping FunctionImportName="Pro_AssignExpiredPhone" FunctionName="smartlaboursModel.Store.Pro_AssignExpiredPhone" />
+    <FunctionImportMapping FunctionImportName="Pro_AssignPhoneToLabour" FunctionName="smartlaboursModel.Store.Pro_AssignPhoneToLabour" />
+    <FunctionImportMapping FunctionImportName="Pro_AssignVoucher" FunctionName="smartlaboursModel.Store.Pro_AssignVoucher" />
+    <FunctionImportMapping FunctionImportName="Pro_AssignVoucher_V1" FunctionName="smartlaboursModel.Store.Pro_AssignVoucher_V1" />
+    <FunctionImportMapping FunctionImportName="Pro_AssignVoucherPoints" FunctionName="smartlaboursModel.Store.Pro_AssignVoucherPoints" />
+    <FunctionImportMapping FunctionImportName="pro_DisbutedTransactionList" FunctionName="smartlaboursModel.Store.pro_DisbutedTransactionList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="smartlaboursModel.pro_DisbutedTransactionList_Result">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+          <ScalarProperty Name="LabourID" ColumnName="LabourID" />
+          <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+          <ScalarProperty Name="PhoneColor" ColumnName="PhoneColor" />
+          <ScalarProperty Name="IMEANumber" ColumnName="IMEANumber" />
+          <ScalarProperty Name="ModelNo" ColumnName="ModelNo" />
+          <ScalarProperty Name="CourierDetail" ColumnName="CourierDetail" />
+          <ScalarProperty Name="DeliveredDate" ColumnName="DeliveredDate" />
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+          <ScalarProperty Name="PhoneStatus" ColumnName="PhoneStatus" />
+          <ScalarProperty Name="FeedBack" ColumnName="FeedBack" />
+          <ScalarProperty Name="REVIEW" ColumnName="REVIEW" />
+          <ScalarProperty Name="DisbuteID" ColumnName="DisbuteID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Pro_GetVoucherCount" FunctionName="smartlaboursModel.Store.Pro_GetVoucherCount">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="smartlaboursModel.Pro_GetVoucherCount_Result">
+          <ScalarProperty Name="PLANNAEME" ColumnName="PLANNAEME" />
+          <ScalarProperty Name="VALUEOFPLAN" ColumnName="VALUEOFPLAN" />
+          <ScalarProperty Name="SERVICEPROVIDER" ColumnName="SERVICEPROVIDER" />
+          <ScalarProperty Name="SERVICETYPENAME" ColumnName="SERVICETYPENAME" />
+          <ScalarProperty Name="Tot_Stock" ColumnName="Tot_Stock" />
+          <ScalarProperty Name="Used_stock" ColumnName="Used_stock" />
+          <ScalarProperty Name="Avail_stock" ColumnName="Avail_stock" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pro_LabourNotification_List" FunctionName="smartlaboursModel.Store.pro_LabourNotification_List">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="smartlaboursModel.pro_LabourNotification_List_Result">
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="EmiratesID" ColumnName="EmiratesID" />
+          <ScalarProperty Name="RequestPhoneID" ColumnName="RequestPhoneID" />
+          <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+          <ScalarProperty Name="ModelNo" ColumnName="ModelNo" />
+          <ScalarProperty Name="IMEANumber" ColumnName="IMEANumber" />
+          <ScalarProperty Name="Phonecolor" ColumnName="Phonecolor" />
+          <ScalarProperty Name="PhoneNumber1" ColumnName="PhoneNumber1" />
+          <ScalarProperty Name="AlternatePhoneNumber" ColumnName="AlternatePhoneNumber" />
+          <ScalarProperty Name="MailId" ColumnName="MailId" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="NewAddress" ColumnName="NewAddress" />
+          <ScalarProperty Name="IsLabourReceivedPhone" ColumnName="IsLabourReceivedPhone" />
+          <ScalarProperty Name="IsPhoneAccepted" ColumnName="IsPhoneAccepted" />
+          <ScalarProperty Name="CourierDetail" ColumnName="CourierDetail" />
+          <ScalarProperty Name="AssignedDate" ColumnName="AssignedDate" />
+          <ScalarProperty Name="DeliveredDate" ColumnName="DeliveredDate" />
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="RequestedDate" ColumnName="RequestedDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pro_LabourNotificationPhone_List" FunctionName="smartlaboursModel.Store.pro_LabourNotificationPhone_List">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="smartlaboursModel.pro_LabourNotificationPhone_List_Result">
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="EmiratesID" ColumnName="EmiratesID" />
+          <ScalarProperty Name="RequestPhoneID" ColumnName="RequestPhoneID" />
+          <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+          <ScalarProperty Name="ModelNo" ColumnName="ModelNo" />
+          <ScalarProperty Name="PhoneColor" ColumnName="PhoneColor" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="RequestedDate" ColumnName="RequestedDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pro_LabourPhoneRequestcount" FunctionName="smartlaboursModel.Store.pro_LabourPhoneRequestcount">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="smartlaboursModel.pro_LabourPhoneRequestcount_Result">
+          <ScalarProperty Name="count" ColumnName="count" />
+          <ScalarProperty Name="LabourID" ColumnName="LabourID" />
+          <ScalarProperty Name="IsLabourReceivedPhone" ColumnName="IsLabourReceivedPhone" />
+          <ScalarProperty Name="RequestStatus" ColumnName="RequestStatus" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pro_PhoneAcceptedLabourHistory" FunctionName="smartlaboursModel.Store.pro_PhoneAcceptedLabourHistory">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="smartlaboursModel.pro_PhoneAcceptedLabourHistory_Result">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+          <ScalarProperty Name="PhoneColor" ColumnName="PhoneColor" />
+          <ScalarProperty Name="IMEANumber" ColumnName="IMEANumber" />
+          <ScalarProperty Name="ModelNo" ColumnName="ModelNo" />
+          <ScalarProperty Name="CourierDetail" ColumnName="CourierDetail" />
+          <ScalarProperty Name="DeliveredDate" ColumnName="DeliveredDate" />
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+          <ScalarProperty Name="PhoneStatus" ColumnName="PhoneStatus" />
+          <ScalarProperty Name="IsLabourReceivedPhone" ColumnName="IsLabourReceivedPhone" />
+          <ScalarProperty Name="IsTimeExpired" ColumnName="IsTimeExpired" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pro_PhoneAssigned_Labour" FunctionName="smartlaboursModel.Store.pro_PhoneAssigned_Labour">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="smartlaboursModel.pro_PhoneAssigned_Labour_Result">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="LabourID" ColumnName="LabourID" />
+          <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+          <ScalarProperty Name="PhoneColor" ColumnName="PhoneColor" />
+          <ScalarProperty Name="IMEANumber" ColumnName="IMEANumber" />
+          <ScalarProperty Name="ModelNo" ColumnName="ModelNo" />
+          <ScalarProperty Name="CourierDetail" ColumnName="CourierDetail" />
+          <ScalarProperty Name="DeliveredDate" ColumnName="DeliveredDate" />
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+          <ScalarProperty Name="IsLabourReceivedPhone" ColumnName="IsLabourReceivedPhone" />
+          <ScalarProperty Name="IsPhoneAccepted" ColumnName="IsPhoneAccepted" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pro_PhoneAvailable" FunctionName="smartlaboursModel.Store.pro_PhoneAvailable">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="smartlaboursModel.pro_PhoneAvailable_Result">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+          <ScalarProperty Name="PhoneColor" ColumnName="PhoneColor" />
+          <ScalarProperty Name="IMEANumber" ColumnName="IMEANumber" />
+          <ScalarProperty Name="ModelNo" ColumnName="ModelNo" />
+          <ScalarProperty Name="CourierDetail" ColumnName="CourierDetail" />
+          <ScalarProperty Name="DeliveredDate" ColumnName="DeliveredDate" />
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+          <ScalarProperty Name="DaysLeft" ColumnName="DaysLeft" />
+          <ScalarProperty Name="AssignedDate" ColumnName="AssignedDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pro_Request_History" FunctionName="smartlaboursModel.Store.pro_Request_History">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="smartlaboursModel.pro_Request_History_Result">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+          <ScalarProperty Name="PhoneColor" ColumnName="PhoneColor" />
+          <ScalarProperty Name="IMEANumber" ColumnName="IMEANumber" />
+          <ScalarProperty Name="ModelNo" ColumnName="ModelNo" />
+          <ScalarProperty Name="CourierDetail" ColumnName="CourierDetail" />
+          <ScalarProperty Name="DeliveredDate" ColumnName="DeliveredDate" />
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Pro_RequestPending" FunctionName="smartlaboursModel.Store.Pro_RequestPending" />
+    <FunctionImportMapping FunctionImportName="pro_RequestPhone_List" FunctionName="smartlaboursModel.Store.pro_RequestPhone_List">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="smartlaboursModel.pro_RequestPhone_List_Result">
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="EmiratesID" ColumnName="EmiratesID" />
+          <ScalarProperty Name="RequestPhoneID" ColumnName="RequestPhoneID" />
+          <ScalarProperty Name="RequestStatus" ColumnName="RequestStatus" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="RequestedDate" ColumnName="RequestedDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pro_RequestPhoneTransaction_List" FunctionName="smartlaboursModel.Store.pro_RequestPhoneTransaction_List">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="smartlaboursModel.pro_RequestPhoneTransaction_List_Result">
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="EmiratesID" ColumnName="EmiratesID" />
+          <ScalarProperty Name="RequestPhoneID" ColumnName="RequestPhoneID" />
+          <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+          <ScalarProperty Name="ModelNo" ColumnName="ModelNo" />
+          <ScalarProperty Name="IMEANumber" ColumnName="IMEANumber" />
+          <ScalarProperty Name="Phonecolor" ColumnName="Phonecolor" />
+          <ScalarProperty Name="PhoneNumber1" ColumnName="PhoneNumber1" />
+          <ScalarProperty Name="AlternatePhoneNumber" ColumnName="AlternatePhoneNumber" />
+          <ScalarProperty Name="MailId" ColumnName="MailId" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="NewAddress" ColumnName="NewAddress" />
+          <ScalarProperty Name="IsLabourReceivedPhone" ColumnName="IsLabourReceivedPhone" />
+          <ScalarProperty Name="IsPhoneAccepted" ColumnName="IsPhoneAccepted" />
+          <ScalarProperty Name="CourierDetail" ColumnName="CourierDetail" />
+          <ScalarProperty Name="AssignedDate" ColumnName="AssignedDate" />
+          <ScalarProperty Name="DeliveredDate" ColumnName="DeliveredDate" />
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="RequestedDate" ColumnName="RequestedDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Pro_Voucher_Labour" FunctionName="smartlaboursModel.Store.Pro_Voucher_Labour">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="smartlaboursModel.Pro_Voucher_Labour_Result">
+          <ScalarProperty Name="VOUCHERID" ColumnName="VOUCHERID" />
+          <ScalarProperty Name="CODES" ColumnName="CODES" />
+          <ScalarProperty Name="VALUEOFPLAN" ColumnName="VALUEOFPLAN" />
+          <ScalarProperty Name="Validity" ColumnName="Validity" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Pro_VoucherKitty" FunctionName="smartlaboursModel.Store.Pro_VoucherKitty">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="smartlaboursModel.Pro_VoucherKitty_Result">
+          <ScalarProperty Name="CompletedCourse" ColumnName="CompletedCourse" />
+          <ScalarProperty Name="TotalPoints" ColumnName="TotalPoints" />
+          <ScalarProperty Name="PointsToRedeemed" ColumnName="PointsToRedeemed" />
+          <ScalarProperty Name="VoucherEarned" ColumnName="VoucherEarned" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="PROC_DASHBOADLATESTCOUNT" FunctionName="smartlaboursModel.Store.PROC_DASHBOADLATESTCOUNT" />
+    <FunctionImportMapping FunctionImportName="PROC_MULTIPLEQUESTION" FunctionName="smartlaboursModel.Store.PROC_MULTIPLEQUESTION">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="smartlaboursModel.PROC_MULTIPLEQUESTION_Result">
+          <ScalarProperty Name="Courseid" ColumnName="Courseid" />
+          <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="updateVoucherAssigned" FunctionName="smartlaboursModel.Store.updateVoucherAssigned" />
+  </EntityContainerMapping>
+</Mapping>

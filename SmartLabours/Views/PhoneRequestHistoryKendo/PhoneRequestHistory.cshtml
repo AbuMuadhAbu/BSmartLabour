@@ -1,0 +1,46 @@
+﻿
+    @{
+        ViewBag.Title = "Phone Request History";
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+
+<style type="text/css">
+ 
+    .k-filter-row .k-dropdown-operator {
+        display: none !important;
+    }
+
+    /* End  */
+</style>
+
+    @* Google Analytics COde  *@
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+    <!-- End here -->
+    <div class="content">
+        <div class="wrapper">
+            <ul class="breadcrumbs-list clearfix">
+                @*<li><a href="javascript:voi(0);">Others</a></li>*@
+                <li><a href="/PhoneRequestHistory/PhoneRequestHistory">   Phone Request History</a></li>
+                <li>
+                    Phone Request History List
+                </li>
+            </ul>
+            <label id="lbldisplay">
+            </label>
+            <div class="continn">
+                <h3>
+                    <label id="lblHeading" text="Banner List">
+                        Phone Request History
+                    </label>
+                </h3>
+                <div class="clr">
+                </div>
+                <div>
+                    <div id="dvPhoneRequestHistory">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>

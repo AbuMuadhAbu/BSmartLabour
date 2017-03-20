@@ -1,0 +1,100 @@
+﻿@model SmartLabours.Models.TBL_SERVICEPLAN_SMT
+@{
+    ViewBag.Title = "Service Plan View";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<div class="content">
+        <div class="wrapper">
+            <div class="continn">
+                <h3>
+                    Service Plan View
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="fld_fd view-blk">
+                    <dl>
+                        <dd>
+                            Service Type:</dd>
+                        <dt>
+                            @Html.DisplayFor(model => model.servicetype.SERVICETYPENAME)
+                        </dt>
+                    </dl>
+
+                    <dl>
+                        <dd>
+                            Is Telecome Operator :
+                        </dd>
+                        <dt>
+                            @{if (Model.serviceprovider.IsTelcomOperator == true)
+                            {<label>Yes</label>}
+                            else
+                            {<label>No</label>}}
+                        </dt>
+                    </dl>
+
+
+
+
+                    <dl>
+                        <dd>
+                            Service Provider:</dd>
+                        <dt>
+                            @Html.DisplayFor(model=>model.serviceprovider.SERVICEPROVIDER)
+                        </dt>
+                    </dl>
+                    <dl>
+                        <dd>
+                           Service Plan
+                        </dd>
+                         <dt>
+                        @Html.DisplayFor(model => model.PLANNAEME)
+                        </dt>
+                    </dl>
+                    <dl>
+                        <dd>
+                         Value of Plan:
+                        </dd>
+                        <dt>
+                            @Html.DisplayFor(model => model.VALUEOFPLAN)
+                        </dt>
+                    </dl>
+                     <dl>
+                        <dd>
+                         Credit Points:
+                        </dd>
+                        <dt>
+                            @Html.DisplayFor(model => model.CREDITPOINTS)
+                        </dt>
+                    </dl>
+                       <dl>
+                        <dd>
+                         Validity of Plan:
+                        </dd>
+                        <dt>
+                            @Html.DisplayFor(model => model.VALIDITY)
+                        </dt>
+                    </dl>
+                      <dl>
+                        <dd>
+                            Status :</dd>
+                        <dt>
+                          @{if(Model.STATUS==true){<label>Active</label>}
+             else
+             {<label>In Active</label>}}
+                        </dt>
+                             </dl>
+                  
+                </div>
+                <div class="btn1">
+                    <a href="/ServicePlan/ServicePlan_List" title="Back" class="green">Back</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>

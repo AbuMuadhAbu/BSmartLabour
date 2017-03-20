@@ -1,0 +1,55 @@
+﻿ @model IEnumerable<SmartLabours.Models.TBL_HelpDeskMaster>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <script src="~/Content/Front/js/jquery.fancybox.js"> </script>
+        <link href="~/Content/Front/css/jquery.fancybox.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.js"></script>
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <div>
+@foreach (var item in Model)
+            {
+
+        <div class="Homeimg_div">  
+                    
+            <a class="play fancybox" href="#Home-1" id="BtnHomeVideo" data-fancybox-height="500" data-fancybox-width="200">
+                <img src="~/Content/front/images/video.png" />             
+            </a>
+
+        </div>
+
+        <div id="Home-1" class="video-lightbox" >
+
+            <video width="320" height="240" id="HomeVideo" controls>               
+               <source src="~/Uplodify/Testimonialvideo/@items.FileName" type="video/mp4">
+               <source src="~/Uplodify/Testimonialvideo/@items.FileName" type="video/webm"> 
+            </video>
+
+        </div>
+       }
+
+    </div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+
+    });
+
+</script>

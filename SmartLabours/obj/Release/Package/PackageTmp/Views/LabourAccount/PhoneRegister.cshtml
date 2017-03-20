@@ -1,0 +1,232 @@
+﻿@model SmartLabours.Models.RequestPhone
+@{
+    ViewBag.Title = "Smart Labour - Request Phone";
+    Layout = "~/Views/Shared/_AccountMenuLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        //$("#ConfirmAddress").prop("checked", true);
+
+        $("#ConfirmAddressid").attr("checked", true);
+
+        $("#NewAddress").attr('readonly', true);
+
+        $('input[type="checkbox"]').change(function () {
+
+            if ($(this).attr('id') == "NewAddressid") {
+                $("#ConfirmAddressid").attr("checked", false);
+
+                $("#NewAddress").attr('readonly', false);
+            }
+            else {
+                $("#NewAddress").attr("checked", false);
+
+                $("#NewAddress").attr('readonly', false);
+
+            }
+            //var check = $(this).prop('checked');
+            //console.log("Change: " + name + " to " + check);
+        });
+
+
+        var count = '@ViewBag.RequestCount';
+
+
+        if (parseInt(count) == 2) {
+            $("#phoneRequestlabel").html("No Available Request !!");
+            $("#Requestphone").css('display', 'none');
+           
+            
+        }
+        else if (parseInt(count) == 1) {
+            $("#phoneRequest").html("1 Available Request !!");
+            $("#RequestStatus").val("Family");
+            $("#changeTitle").html("Request For A Family")
+
+        }
+        else {
+            $("#phoneRequest").html("You can raise two requests from your account");
+            $("#RequestStatus").val("self");
+            $("#changeTitle").html("Request for a phone")
+
+        }
+
+
+
+    });
+
+    function numericFilter(txb) {
+        txb.value = txb.value.replace(/[^\0-9]/ig, "");
+    }
+
+    function Validation() {
+
+        var alertTrue = false;
+
+        if (document.getElementById("NewAddressid").checked == true) {
+
+            if (document.getElementById("NewAddress").value == "") {
+                $("#AlternateAddress").css('display', 'block');
+                alertTrue = true;
+
+            }
+        }
+
+        if (alertTrue == false) {
+
+            var currenttaburl = '/LabourAccount/PhoneRegister';
+            $.ajax({
+                url: currenttaburl,
+                data: $('form').serialize(),
+                type: 'POST',
+                success: function (d) {
+                    if (d == "success") {
+                        alert("Your Phone Request Send Successfully....");
+
+                        window.location.href = "/LabourAccount/ProfileDetails";
+                    }
+                    else {
+                        alert("Already you have a Pending Request");
+
+                    }
+
+                }
+            });
+
+        }
+
+
+
+
+
+
+
+    }
+</script>
+<div class="main">
+    <div class="inner_titlebg">
+        <div class="wrapper">
+            <h2>
+                Account Labour</h2>
+           
+        </div>
+    </div>
+    @using (Html.BeginForm("PhoneRegister", "LabourAccount", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="wrapper">
+            <div class="inner_contentarea1 clearfix">
+                <div class="left_menu">
+                    <ul>
+                        <li><a href="/LabourAccount/ProfileDetails" title="Profile Details">Profile Details</a></li>
+                        <li><a href="/LabourAccount/Notification" title="Notification">Notification</a></li>
+                        <li class="active"><a href="javascript:void(0);" onclick="Reueststatus();" title="Phone Request Form">
+                            Phone Request Form</a></li>
+                        <li><a href="/LabourAccount/PhoneRequestHistory" title="Phone Request History">Phone
+                            Request History</a></li>
+                             <li><a href="/LabourAccount/PostTestimonial" title="Post Testimonial">Post Testimonial
+                           </a></li>
+                        <li><a href="/HelpDesk/HelpDeskAdd2" title="Help Desk">Help Desk</a></li>
+                        <li><a href="/HelpDesk/HelpDeskLabourList" title="Help Desk">Help Desk List</a></li>
+                    </ul>
+                </div>
+                <div class="right_content">
+                    <h2 id="changeTitle">
+                        Request for a phone</h2>
+                    <div class="request_form">
+                        <div class="input available_txt">
+                            <label id="phoneRequestlabel">
+                                @ViewBag.messagealert
+                            </label>
+                        </div>
+                        <div id="Requestphone">                            
+                                @*<div class="input">   <label>
+                                Your Name</label>
+                            <input type="text"  name="YourName" id="YourName" /> </div>*@                            
+                            <div class="input available_txt">
+                                <label id="phoneRequest">
+                                    2 Available Request !!
+                                </label>
+                            </div>
+                            <div class="input">
+                                <label>
+                                    Your Phone Number</label>
+                                @Html.TextBoxFor(n => n.PhoneNumber, new { onkeyup = "numericFilter(this);", @readonly = true })
+                                <span class="error_msg">
+                                    @Html.ValidationMessageFor(model => model.PhoneNumber)
+                                </span>
+                            </div>
+                            <div class="input">
+                                <label>
+                                    Alternate Phone Number</label>
+                                @Html.TextBoxFor(n => n.AlternatePhoneNumber, new { onkeyup = "numericFilter(this);" })
+                                <span class="error_msg">
+                                    @Html.ValidationMessageFor(model => model.AlternatePhoneNumber)
+                                </span>
+                            </div>
+                            <div class="input">
+                                <label>
+                                    Your Email ID</label>
+                                @Html.TextBoxFor(n => n.MailId, new { @readonly = true })
+                                <span class="error_msg">
+                                    @Html.ValidationMessageFor(model => model.MailId)
+                                </span>
+                            </div>
+                            <div class="input">
+                                <label>
+                                    Emirates ID</label>
+                                @Html.TextBoxFor(n => n.LabourID, new { @readonly = true })
+                                <span class="error_msg">
+                                    @Html.ValidationMessageFor(model => model.LabourID)
+                                </span>
+                            </div>
+                            <div class="clearfix">
+                                <div class="input textarea">
+                                    <div class="clearfix">
+                                        <input type="checkbox" id="ConfirmAddressid" name="ConfirmAddressid" value="ConfirmAddress">
+                                        <label>
+                                            Confirm Address</label></div>
+                                    @Html.TextAreaFor(n => n.Address, new { @readonly = true })
+                                    <span class="error_msg">
+                                        @Html.ValidationMessageFor(model => model.Address)
+                                    </span>
+                                </div>
+                                <div class="input textarea">
+                                    <div class="clearfix">
+                                        <input type="checkbox" id="NewAddressid" name="NewAddressid" value="NewAddressaaaa">
+                                        <label>
+                                            Alternate / New Address</label></div>
+                                    @Html.TextAreaFor(n => n.NewAddress)
+                                    <span class="error_msg" id="AlternateAddress" style="display: none;">Please Enter the
+                                        Alternate Address </span>
+                                </div>
+                            </div>
+                         
+
+                            @Html.HiddenFor(model => model.RequestStatus)
+                            <div class="submit default">
+                                <input type="hidden" id="requestStatus" />
+                                 <a title="Save Changes" href="javascript:void(0)" id="submit_profile" type="submit" onclick="Validation();" class="save-changes-btn">Submit</a>
+			
+                                @*<input type="submit" value="Submit" onclick="Validation();" />*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+       
+
+        </div>
+        
+        
+    }
+</div>

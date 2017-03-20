@@ -1,0 +1,393 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<style type="text/css">
+
+    .continn {
+        width: 1200px;
+        margin-left: -100px;
+    }
+
+    .clsTd {
+        border-radius: 10px !important;
+        width: 33.33%;
+        text-align: center;
+    }
+
+    .ClsTr {
+        height: 70px;
+    }
+
+    .TopMenu {
+        height: 45px !important;
+    }
+
+    .Double-Left {
+        float: left;
+        margin-left: 50px;
+    }
+
+    .Double-Right {
+        float: right;
+        margin-right: 50px;
+    }
+
+    .td-space {
+        width: 10px !important;
+        background-color: #fff !important;
+    }
+
+    .td-title {
+        float: left;
+        padding-top: 6%;
+        padding-left: 5%;
+        font-size: 15px !important;
+        line-height: 0px;
+    }
+
+    .container {
+        font: normal 13px arial;
+    }
+    #foo {
+        width: 54px;
+        height: 54px;
+        position: fixed;
+        bottom: 20px;
+        left: 15px;
+        background-color: #c50408;
+        padding: 10px;
+    } 
+</style>
+
+<link href="~/Content/fafa.css" rel="stylesheet" />
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <ul class="breadcrumbs-list clearfix">
+                @*<li><a href="javascript:voi(0);">Others</a></li>*@
+                <li><a href="/Smart/Dashboard">Dashboard</a></li>
+                <li>Smart Labour Dashboard</li>
+            </ul>
+            <fieldset>
+                <legend></legend>
+                <h3>
+                    Smart Labour Dashboard
+                </h3>
+                <div class="clr2">
+                </div>
+                @{
+                    SmartLabours.Models.SmartLabourEntities dbEntites = new SmartLabours.Models.SmartLabourEntities();
+
+                    List<SmartLabours.Models.DonatePhone> lstofDonatephone = new List<SmartLabours.Models.DonatePhone>();
+
+                    List<SmartLabours.Models.Labour> lstoflabour = new List<SmartLabours.Models.Labour>();
+
+                    List<SmartLabours.Models.Sponsor> lstofsponsor = new List<SmartLabours.Models.Sponsor>();
+
+                    List<SmartLabours.Models.TBL_COMMENTS_SMT> lstofArticalComments = new List<SmartLabours.Models.TBL_COMMENTS_SMT>();
+
+                    List<SmartLabours.Models.TBL_TESTIMONIAL_SMT> lstoftestimonial = new List<SmartLabours.Models.TBL_TESTIMONIAL_SMT>();
+
+                    List<SmartLabours.Models.RequestPhone> lstofRequestphone = new List<SmartLabours.Models.RequestPhone>();
+                    
+                    Int32 orgiid = Convert.ToInt32(TempData["lastOrgId"]);
+                    
+                    int iuserid = Convert.ToInt32(base.Session["USERID"].ToString());
+                    
+                    }
+
+                <table class="dashboard-table" cellspacing="10">
+
+                    <tr class="dashboard-head">
+                        <td class="clsTd">
+
+                            <div style="float: left; padding-left: 3%"><span class="fa fa-mobile-phone fa-4x"></span></div>
+                            <div style="float:left;padding-top:6%;padding-left:5%" class="td-title"> <span>Donate Form Request </span> </div>
+
+                        </td>
+                        <td class="td-space"></td>
+                        <td class="clsTd">
+                            <div style="float: left; padding-left: 3%"><span class="fa fa-list-alt fa-3x"></span></div>
+                            <div style="float:left;padding-top:6%;padding-left:5%" class="td-title"> <span>Articles </span> </div>
+
+
+                        </td>
+                        <td class="td-space"></td>
+                        <td class="clsTd">
+                            <div style="float: left; padding-left: 3%"><span class="fa fa-video-camera fa-3x"></span></div>
+                            <div style="float:left;padding-top:6%;padding-left:5%" class="td-title"> <span>Testimonials </span> </div>
+
+                        </td>
+
+                    </tr>
+
+                    <tr class="ClsTr">
+                        <td class="clsTd" style="text-align:center">
+                         
+                            @{
+                                 Int64 Donateformcount =0;
+                                   if (iuserid == 1)
+                                   {
+                                       Donateformcount = dbEntites.DonatePhone.Where(n => n.IsPhoneConfirmation == false && n.CourierDetail == null).ToList().Count();
+                                    }
+                                    else
+                                   {
+                                       Donateformcount = (from n in dbEntites.DonatePhone  join
+                                                              m in dbEntites.Sponsor on n.UserID equals m.UserID
+                                                          where m.OrgId == orgiid
+                                                          select n).Count();                           
+                                           //(n => n.IsPhoneConfirmation == false && n.CourierDetail == null).ToList().Count(); 
+                                    }
+                            }
+                            <div style="text-align:center">
+                                <label style="text-align:center">Awaiting for Approval </label>
+                                <div><label style="font-size:2em;color:saddlebrown">@Donateformcount</label></div>
+                            </div>
+
+                        </td>
+                        <td class="td-space"></td>
+                        <td class="clsTd" style="text-align:center">
+                            @{
+                                Int64 ArticalCommentscount = dbEntites.Comments.Where(n => n.APPROVED == false).ToList().Count();
+                            }
+                            <label>
+                                Awaiting for Approval Comments
+                            </label>
+                            <div><label style="font-size:2em;color:saddlebrown">@ArticalCommentscount</label></div>
+
+                        </td>
+                        <td class="td-space"></td>
+                        <td class="clsTd" style="text-align:center">
+                            @{
+                                Int64 Testimonialcount = dbEntites.Testimonial.Where(n => n.Homecontent == false).ToList().Count();
+                            }
+                            <label>Awaiting for Post  </label>
+                            <div><label style="font-size:2em;color:saddlebrown">@Testimonialcount</label></div>
+
+                        </td>
+                    </tr>
+
+                    <tr><td></td></tr>
+
+                    <tr class="dashboard-head">
+                        <td class="clsTd">
+                            <div style="float: left; padding-left: 3%"><span class="fa fa-mobile-phone fa-4x"></span></div>
+                            <div style="float:left;padding-top:6%;padding-left:5%" class="td-title"> <span>Sponsor Request </span> </div>
+
+                        </td>
+                        <td class="td-space"></td>
+                        <td class="clsTd">
+
+                            <div style="float: left; padding-left: 3%"><span class="fa fa-male fa-3x"></span></div>
+                            <div style="float:left;padding-top:6%;padding-left:5%" class="td-title"> <span>Labours </span> </div>
+                            <div style="float:right;padding:10px">
+                                <a href="/Smartusers/Labour_List" class="fa fa-external-link-square faa-pulse animated" title="Labour List">  </a>
+                            </div>
+                        </td>
+                        <td class="td-space"></td>
+                        <td class="clsTd">
+                            <div style="float: left; padding-left: 3%"><span class="fa fa-user fa-3x"></span></div>
+                            <div style="float:left;padding-top:6%;padding-left:5%" class="td-title"> <span>Sponsors </span> </div>
+
+                            <div style="float:right;padding:10px">
+                                <a href="/Smartusers/Sponsor_List" class="fa fa-external-link-square faa-pulse animated" title="Sponsor List"></a>
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    <tr class="ClsTr">
+
+                        <td class="clsTd">
+                            @{
+                                Int64 SponsorRequestcount = dbEntites.DonatePhone.Where(n => n.IsPhoneConfirmation == true && n.CourierDetail != null && n.IsPhoneAcceptedByAdmin == false).ToList().Count();
+                            }
+                            <label>Phone Requests  </label>
+                            <div><label style="font-size:2em;color:saddlebrown">@SponsorRequestcount</label></div>
+
+                        </td>
+                        <td class="td-space"></td>
+                        <td class="clsTd" style="text-align:center">
+                            @*     Labours count*@
+                            @{
+                                Int64 Labourusercount = 0;
+                                if (iuserid == 1)
+                                {
+                                    Labourusercount = dbEntites.Labours.Where(n => n.STATUS == true).ToList().Count();
+                                }
+                                else
+                                {
+                                    Labourusercount = dbEntites.Labours.Where(n => n.STATUS == true && n.OrgId == orgiid).ToList().Count();
+                                }
+                            }
+                            <div style="float:left" class="Double-Left">
+                                <label>
+                                    Active Labours
+                                </label>
+                                <div><label style="font-size:2em;color:saddlebrown">@Labourusercount</label></div>
+
+                                @{
+                                    Int64 Labouroneweakcount = dbEntites.Labours.Where(n => n.STATUS == true).ToList().Count();
+                                }
+
+                            </div>
+                            <div style="float:right;text-align:center" class="Double-Right">
+                                <label>
+                                    Total Labours
+                                </label>
+                                <div><label style="font-size:2em;color:saddlebrown">@ViewBag.lastweakcount</label></div>
+
+                            </div>
+
+                        </td>
+                        <td class="td-space"></td>
+                        <td class="clsTd">
+                            @*     Sponsor user count*@
+                            @{
+                                Int64 Sponsorusercount = 0;
+                                if (iuserid == 1)
+                                {
+
+                                    Sponsorusercount = dbEntites.Sponsor.Where(n => n.Status == true).ToList().Count();
+                                }
+                                else
+                                {
+                                    Sponsorusercount = dbEntites.Sponsor.Where(n => n.Status == true && n.OrgId == orgiid).ToList().Count();
+                                }
+                            }
+                            <div style="float:left" class="Double-Left">
+                                <label>
+                                    Active Sponsors
+                                </label>
+                                <div><label style="font-size:2em;color:saddlebrown">@Sponsorusercount</label></div>
+
+                                @{
+                                    Int64 sponsoroneweakcount = dbEntites.Labours.Where(n => n.STATUS == true).ToList().Count();
+                                }
+                            </div>
+                            <div style="float:right;text-align:center" class="Double-Right">
+                                <label>
+                                    Total Sponsors
+                                </label>
+                                <div><label style="font-size:2em;color:saddlebrown">@ViewBag.lastweaksponsorcount</label></div>
+
+                            </div>
+
+                        </td>
+
+
+                    </tr>
+
+                    <tr><td></td></tr>
+
+                    <tr class="dashboard-head">
+
+                        <td class="clsTd">
+                            <div style="float: left; padding-left: 3%"><span class="fa fa-bell-o fa-3x"></span></div>
+                            <div style="float:left;padding-top:6%;padding-left:5%" class="td-title"> <span>Accept Phone Notification </span> </div>
+                        </td>
+                        <td class="td-space"></td>
+                        <td class="clsTd">
+                            <div style="float: left; padding-left: 3%"><span class="fa fa-plus-square-o fa-4x"></span></div>
+                            <div style="float:left;padding-top:6%;padding-left:5%" class="td-title"> <span>Labours Credit Points </span> </div>
+                        </td>
+                        <td class="td-space"></td>
+                        <td class="clsTd">
+                            <div style="float: left; padding-left: 3%"><span class="fa fa-gift fa-3x"></span></div>
+                            <div style="float:left;padding-top:6%;padding-left:5%" class="td-title"> <span>Vouchers </span> </div>
+                        </td>
+
+                    </tr>
+
+                    <tr class="ClsTr">
+                        <td class="clsTd">
+                            @{
+                                Int64 LabourRequestcount = 0;
+                          
+                                if (iuserid == 1)
+                                {
+                                LabourRequestcount = dbEntites.phoneAssigntolabour.Where(n => n.IsPhoneAccepted == true && n.CourierDetail == null && n.IsLabourReceivedPhone == false).ToList().Count();
+                                }
+                                else
+                                {
+                                    LabourRequestcount = (from n in dbEntites.phoneAssigntolabour
+                                                          join
+                                                              m in dbEntites.Labours on n.LabourID equals m.LabourID
+                                                          where n.IsPhoneAccepted == true && n.CourierDetail == null && n.IsLabourReceivedPhone == false && m.OrgId == orgiid
+                                                          select n).Count();
+                                                          
+                                                              //.Where(n => n.IsPhoneAccepted == true && n.CourierDetail == null && n.IsLabourReceivedPhone == false).ToList().Count();
+                                }
+                            }
+                            <label>Count  </label>
+                            <div><label style="font-size:2em;color:saddlebrown">@LabourRequestcount</label></div>
+
+                        </td>
+                        <td class="td-space"></td>
+
+                        <td class="clsTd">
+                            
+                            <div style="float:left" class="Double-Left">
+                                <label>
+                                    Total 
+                                </label>
+                                <div><label style="font-size:2em;color:saddlebrown">@ViewBag.TotalLabourCredits</label></div>
+                            </div>
+                            <div style="float:right;text-align:center" class="Double-Right">
+                                <label>
+                                    Points yet to be redeemed
+                                </label>
+                                <div>
+                                    <label style="font-size:2em;color:saddlebrown">@ViewBag.PointsYetRedeemed</label>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="td-space"></td>
+                        <td class="clsTd">
+                            <div style="float:left" class="Double-Left">
+                                <label>
+                                    Total Count
+                                </label>
+                                <div><label style="font-size:2em;color:saddlebrown">@ViewBag.TotalVoucherCount</label></div>
+                            </div>
+                            <div style="float:right;text-align:center" class="Double-Right">
+                                <label>
+                                    Latest Earned Count
+                                </label>
+                                <div><label style="font-size:2em;color:saddlebrown">@ViewBag.LatestVouchers</label></div>
+
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" >
+
+    $(document).ready(function () {
+       
+        var Alert = '@ViewBag.happinessalert';
+     
+        if (Alert != "") {
+            if (Alert == "Alert" ) {
+               
+                $('#onload').click();
+            }
+        }
+
+    });
+
+
+</script>

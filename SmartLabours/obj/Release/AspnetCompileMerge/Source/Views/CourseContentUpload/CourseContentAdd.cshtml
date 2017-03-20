@@ -1,0 +1,271 @@
+﻿
+@model SmartLabours.Models.TBL_CourseContentsMaster
+@{
+    ViewBag.Title = "Course Content Add";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->]
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/cupertino/jquery-ui.css" />
+<style type="text/css">
+    .CheckBoxClass {
+        width: 15px !important;
+    }
+
+    input[type='file']{
+        width:218px !important;
+    }
+</style>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#FileUpload").submit(function (e) {
+
+            var status = 0;
+
+            
+            if ($("#Orgname").val() == "" ) {
+                $("#lblOrgError").text('Please Select Organization');
+                status = 1;
+            }
+            else {
+                $("#lblErrormsg").text('');
+            }
+
+            if ($("#ImageUpload").val() == "" && $("#AudioUpload").val() == "") {
+                $("#lblErrormsg").text('Please Select Image or Audio');
+                status = 1;
+            }
+            else {
+                $("#lblErrormsg").text('');
+            }
+   
+
+            if (status == 1) {
+                e.preventDefault(e);
+            }
+            else {
+                return true;
+            }
+        });
+
+
+
+        $("#Orgname").keypress(function (e) {
+            //if (!((e.which >= 65 && e.which <= 90) || (e.which >= 97 && e.which <= 122) || e.which == 8 || e.which == 44 || e.which == 39 || e.which == 45 || e.which == 95 || e.which == 38 || e.which == 46 || (e.which >= 48 && e.which <= 57))) {
+            //    e.preventDefault();
+            //    return false;
+            //}
+            $('#lblOrgError').text('');
+            //return true;
+
+        });
+  
+        $('#Orgname').autocomplete({
+
+            source: function (request, response) {
+                $.ajax({
+                    url: '@Url.Action("OrgNameAutoComplete", "OrganizationSubAdmin")',
+                    dataType: "json",
+                    cache: false,
+                    delay: 10,
+                    type: "get",
+                    data: { term: request.term }
+                }).done(function (data) {
+                    response(data);
+                });
+            },
+
+            change: function (event, ui)
+            {
+                if ($('#Orgname').val() != '') {
+                    $('#lblOrgError').text('');
+                    $.ajax({
+                        url: '@Url.Action("CheckOrganizationName", "Organization")',
+                        dataType: "json",
+                        cache: false,
+                        type: "get",
+                        data: { OrgName: $('#Orgname').val() },
+                        success: function (data) {
+
+                            if (data != '1') {
+
+                                $('#lblOrgError').text(data);
+                            }
+                            else {
+                                $('#lblOrgError').text('');
+                            }
+                        },
+                        error: function (data) {
+                        }
+                    });
+                }
+
+                else
+                {
+                    $('#lblOrgError').text('');
+                    //  $('#lblOrgError').text('Please Select Organization');
+                }
+            }
+        });
+
+       
+    });
+
+
+
+
+
+    function validate_Imagefileupload(fileName) {
+     // debugger
+        if (fileName == '') {
+                return false;
+            }
+            var allowedFiles = [".jpg",".jpeg"];
+            var fileUpload = $("#ImageUpload").val();
+            var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
+            if (!regex.test(fileUpload)) {
+                $("#lblImageError").text('Please Upload .jpg or .jpeg file formats only');
+                $("#ImageUpload").val('');
+                return false;
+            }
+            $("#lblImageError").text('');
+            return true;
+        //var allowed_extensions = new Array("jpg", "jpeg");
+        //var file_extension = fileName.split('.').pop(); // split function will split the filename by dot(.), and pop function will pop the last element from the array which will give you the extension as well. If there will be no extension then it will return the filename.
+
+        //for (var i = 0; i <= allowed_extensions.length; i++) {
+        //    if (allowed_extensions[i] == file_extension) {
+        //        return true; // valid file extension
+        //    }
+        //}
+        //alert('Only .jpg or .jpeg format to be allowed.');
+        //return false;
+    }
+
+    function validate_Audiofileupload(fileName) {
+        if (fileName == '') {
+            return false;
+        }
+        var allowedFiles = [".mp3", ".wav"];
+        var fileUpload = $("#AudioUpload").val();
+        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
+        if (!regex.test(fileUpload)) {
+            $("#lblAudioError").text('Please Upload .mp3 or .wav file formats only');
+            $("#AudioUpload").val('');
+            //  alert("Please Upload .jpg or .jpeg file formats only");          
+            return false;
+        }
+        $("#lblAudioError").text('');
+        return true;
+    }
+
+    function numericFilter(txb)
+    {
+        txb.value = txb.value.replace(/[^\0-9]/ig, "");
+    }
+
+    function PreviousPage()
+    {
+        window.location = "/CourseContentUpload/CourseContentList";
+     
+    }
+
+</script>
+
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                    Course Content Add
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1" >
+                    <b>
+                        <label id="lblErrormsg" >
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="suss_mesg" id="msShow2" >
+                    <b>
+                        <label id="lblError1" >
+                        </label>
+                    </b>
+                </div>
+                <div class="fld_fd">
+                    @using (Html.BeginForm("CourseContentAdd", "CourseContentUpload", FormMethod.Post, new {@id="FileUpload", enctype = "multipart/form-data" }))
+                    {
+                        <div>
+
+                            @{
+                                if (HttpContext.Current.Session["USERID"].ToString() == "1")
+                                {
+                                    <dl>
+                                        <dd>
+                                            <span style="color:white;padding-right :2px;"> * </span>   Organization
+                                        </dd>
+                                        <dt>
+                                            @Html.TextBoxFor(model => model.OrgName, new { maxlength = 35, id = "Orgname" })
+                                            <span class="error">
+                                                <label id="lblOrgError" ></label>
+                                            </span>
+
+                                        </dt>
+                                    </dl>
+
+                                }
+                            }
+
+
+                            <dl style="width: 500px;">
+                                <dd>
+                                    <span style="color:white;padding-right :2px;"> * </span>    Course Image
+                                </dd>
+                                <dt style="width: 260px;">
+                                    <span style="width: 200px;">                                     
+                                        <input type="file" id="ImageUpload" name="ImageFiles" onchange="return validate_Imagefileupload(this)" multiple />
+                                    </span>
+                                    <span class="error">
+                                        <label id="lblImageError"></label>
+                                    </span>
+                                </dt>
+                            </dl>
+
+
+                            <dl style="width: 500px;">
+                                <dd>
+                                    <span style="color:white;padding-right :2px;"> * </span>    Course Audio
+                                </dd>
+                                <dt style="width: 260px;">
+                                    <span style="width: 200px;">
+                                        <input type="file" id="AudioUpload" name="AudioFiles" onchange="return validate_Audiofileupload(this)" />
+                                    </span>
+                                    <span class="error">
+                                        <label id="lblAudioError"></label>
+                                    </span>
+                                </dt>
+                            </dl>
+                          
+                            <div class="btn1 btn1-form">
+                                <input type="submit" value="Save" title="Save" />
+                                <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+

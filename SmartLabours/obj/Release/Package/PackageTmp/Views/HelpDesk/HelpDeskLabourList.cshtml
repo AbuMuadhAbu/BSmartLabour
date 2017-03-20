@@ -1,0 +1,327 @@
+﻿ @model IEnumerable<SmartLabours.Models.TBL_HelpDeskMaster>
+@{
+    ViewBag.Title = "Labour Help Desk List";
+    Layout = "~/Views/Shared/_AccountMenuLayout.cshtml";
+}     
+          
+                       @* Google Analytics COde  *@
+                       <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+                       <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+                       <!-- End here -->
+
+
+                 @*<script src="//code.jquery.com/jquery-1.10.2.js"></script>*@
+                       <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+                       <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+                
+
+    <style type="text/css" >
+        /*.myClass {
+            margin:0 auto;
+        }*/
+        .ui-widget-header{
+            border:1px solid #a6c9e2 !important;
+            background:#deedf7 url(images/ui-bg_highlight-soft_100_deedf7_1x100.png) 50% 50% repeat-x !important;
+        }
+        .myClass
+        {
+            border-color:#6d1b81 !important;
+        }
+        .ui-dialog .ui-dialog-titlebar-close span {
+            margin:-8px !important;
+        }
+        #txtDescription {
+            height:60px !important; 
+            margin-left:10px;          
+        }
+        
+    </style>
+
+    <script type="text/javascript">
+
+        function Reopen(HelpDeskId) {
+            $('#txtHelpDeskId').val(HelpDeskId);
+            $("#ReopenDialog").dialog("open");
+        }
+
+        function CloseReOpenDialog(){
+             $("#ReopenDialog").dialog("close");  
+        }
+
+        function SaveReopenDescription()
+        {
+            //debugger
+            if (($('#txtDescription').val().trim()) == '')
+            {
+                $('#DescriptionError').text('Please enter the Description');
+                return false;
+            }
+            else{
+                $.ajax({
+                    url: '@Url.Action("HelpDeskReopen", "HelpDesk")',
+                    cache: false,
+                    type: "post",
+                    data: { HelpDeskId: $('#txtHelpDeskId').val(), Description: $('#txtDescription').val() },
+                    success: function (data) {                 
+                        window.location = "/HelpDesk/HelpDeskLabourList";
+                        // debugger
+                    },
+                    error: function (data) {
+                       // debugger
+                    }
+                });
+            }
+        }
+
+        function Close(HelpDeskId) {
+            if (confirm("Are you sure to close the issue?") == true) {
+                $.ajax({
+                    url: '@Url.Action("HelpDeskClose", "HelpDesk")',
+                    cache: false,
+                    type: "post",
+                    data: { HelpDeskId: HelpDeskId },
+                    success: function (data) {
+                        alert('Help Desk Closed.');
+                        window.location = "/HelpDesk/HelpDeskLabourList";
+                    },
+                    error: function (data) {
+
+
+                    }
+                });
+            }
+        }
+            
+        function ViewIssue(HelpDeskId)
+        {    
+                        $.ajax({
+                            url: '@Url.Action("HelpDeskLogDetails", "HelpDesk")',
+                            cache: false,
+                            type: "post",
+                            data: { HelpDeskId: HelpDeskId, User: 'L' },
+                            success: function (data) {                              
+                                $("#HelDeskList").empty();
+                                $("#HelDeskList").append(data);
+                                $("#HelDeskList").dialog("open");
+                               
+                            },
+                            error: function (data) {
+                                $("#HelDeskList").empty();
+                               // debugger
+                                // alert("Ther was Processing Errorsearch");
+                            }
+                        });
+                   
+
+        }
+
+        $(document).ready(function () {
+            var Testimonial = '@ViewBag.Testimonialalert'
+
+            if (Testimonial != "") {
+                alert(Testimonial);
+            }
+
+            $('#txtDescription').keypress(function () {
+                $('#DescriptionError').text('');
+            });
+            
+            $("#HelDeskList").dialog({
+
+                modal: true,
+                autoOpen: false,
+                title: "Help Desk Details",
+                width: 1250,
+                height: 350,
+                dialogClass: "myClass"
+
+                //modal: true,
+                //autoOpen: false,
+                //title: "Help Desk Details",
+                //width: 1250,
+                //height: 350,   
+                //position: [null, 32],
+                //dialogClass: "myClass",
+                //resizable: false,
+                //show: 'fade',
+            });
+
+            $("#ReopenDialog").dialog({
+
+                modal: true,
+                autoOpen: false,
+                title: "Re-Open the issue",
+                width: 550,
+                height: 200,
+                dialogClass: "myClass"
+
+                //modal: true,
+                //autoOpen: false,
+                //title: "Help Desk Details",
+                //width: 1250,
+                //height: 350,   
+                //position: [null, 32],
+                //dialogClass: "myClass",
+                //resizable: false,
+                //show: 'fade',
+            });
+
+        });
+
+    </script>
+
+    <style type="text/css">
+
+        .scrollTable{
+            height:500px;
+            overflow-y:scroll;
+           
+        }
+
+    </style>
+
+    <div class="main">
+        <div class="inner_titlebg">
+            <div class="wrapper">
+                <h2>Help Desk List</h2>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="inner_contentarea1 clearfix">
+                <div class="left_menu">
+                    <ul>
+                        <li><a href="/LabourAccount/ProfileDetails" title="Profile Details">Profile Details</a></li>
+                        <li><a href="/LabourAccount/Notification" title="Notification">Notification</a></li>
+                        <li><a href="javascript:void(0);" onclick="Reueststatus();" title="Phone Request Form">Phone Request Form</a></li>
+                        <li ><a href="/LabourAccount/PhoneRequestHistory" title="Phone Request History">Phone Request History</a></li>
+                        <li><a href="/LabourAccount/PostTestimonial" title="Post Testimonial">Post Testimonial </a></li>
+                        <li><a href="/HelpDesk/HelpDeskAdd2" title="Help Desk">Help Desk</a></li>
+                        <li class="active"><a href="/HelpDesk/HelpDeskLabourList" title="Help Desk">Help Desk List</a></li>
+                    </ul>
+                </div>
+                <div class="right_content">
+                   
+                    <div class="phone_history scrollTable">
+
+                        <table >
+                            <thead>
+                                <tr>                              
+                                    <th class="sno">S.No</th>
+                                    <th>TokenID</th>
+                                    <th>Issue Type</th>
+                                    <th>Priority</th>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th>Responsible</th>
+                                    <th>Status</th>
+                                    <th class="Disputed">View <br /></th>
+                                    <th class="Disputed">Re Open <br /></th>
+                                    <th class="Disputed">Close <br /></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{int sno = 0;}
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="sno"> @(sno = sno + 1) </td>
+                                        <td> @Html.DisplayFor(modelitem => item.TokenID)   </td>
+                                        <td> @Html.DisplayFor(modelitem => item.IssueType) </td>
+                                        <td> @Html.DisplayFor(modelitem => item.IssuePriority) </td>
+                                        <td> @Html.DisplayFor(modelitem => item.StrEDC) </td>
+                                        <td> @Html.DisplayFor(modelitem => item.Description) </td>
+                                        <td> @Html.DisplayFor(modelitem => item.Responsible) </td>
+                                        <td> @Html.DisplayFor(modelitem => item.IssueStatus) </td>
+
+                                        <td>
+                                            <div class="checkbox ui-icon-extlink">
+                                                <a href="javascript:void(0)" id="LnkBtnView" onclick="ViewIssue('@item.HelpDeskId') ">
+                                                    <img src="../../content/admin/images/icons/view.gif" title="View" alt="" border="0" width="20px" />
+
+                                                </a>
+
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <a href="javascript:void(0)" id="LnkBtnView" onclick="Reopen('@item.HelpDeskId')" class="ui-icon-extlink">
+                                                    <img src="../../content/admin/images/icons/reload.png" title="View" alt="" border="0" width="20px" />
+
+                                                </a>
+
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <a href="javascript:void(0)" id="LnkBtnView" onclick="Close('@item.HelpDeskId')"  class="ui-icon-extlink">
+                                                    <img src="../../content/admin/images/icons/close.png" title="View" alt="" border="0" width="20px" />
+
+                                                </a>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+</table>
+
+</div>
+
+                    </div>
+                </div>
+
+
+
+
+            </div>
+    </div>
+
+    <div id="HelDeskList" style="display:none"></div>
+
+    <div id="ReopenDialog" style="display:none">
+
+        <div class="acc_profile">
+            <table>
+                <tbody>
+
+                    <tr >
+                        <td style="vertical-align:middle !important" ><label>  Description <span style="float:right; font-size: 17px;color:red">*</span> </label></td>
+                        <td>
+                            <div>
+                                <textarea rows="4" cols="50" name="Description" id="txtDescription"> </textarea>
+                            </div>
+                          
+                            
+                        </td>    
+                      
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td>
+                            <div style="margin-left:10px;">
+                                <label id="DescriptionError" class="errorLabel"></label>
+                               
+                                <input type="text" id="txtHelpDeskId" style="display:none" />
+                            </div>
+
+                        </td>
+                        <td><label style="color:white">..</label></td>
+
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td>
+                            <div class="submit" style="width:100%;text-align:center ">
+                                <input type="button" value="Re-Open" onclick="SaveReopenDescription()" />
+                                <input class="cancel" type="button" value="Cancel" onclick="CloseReOpenDialog()" />
+                            </div>
+                        </td>      
+
+                    </tr>
+                </tbody>
+              </table> 
+                
+</div>
+        </div>

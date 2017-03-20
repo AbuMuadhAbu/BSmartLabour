@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_MenuLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<div class="main">
+<div class="inner_titlebg">
+	<div class="wrapper">
+		<h2>Register</h2>
+	</div>
+</div>	
+<div class="wrapper">	
+	<div class="inner_contentarea1 clearfix">
+		<div class="contact_panel register_panel clearfix">
+			<div class="input">
+				<label>Name</label>
+				<input type="text" />
+			</div>
+			<div class="input">
+				<label>Emirates ID</label>
+				<input type="text" />
+			</div>
+			<div class="input">
+				<label>Phone Number</label>
+				<input type="text" />
+			</div>
+			<div class="input dob">
+				<label>Date of Birth</label>
+				<select>
+					<option>DD</option>
+					<option>01</option>
+				</select>
+				<select>
+					<option>MM</option>
+					<option>01</option>
+				</select>
+				<select>
+					<option>YYYY</option>
+					<option>2015</option>
+				</select>
+			</div>
+			<div class="input">
+				<label>Sex</label>
+				<select>
+					<option>Male</option>
+					<option>Female</option>
+				</select>
+			</div>
+			<div class="input">
+				<label>Password</label>
+				<input type="password" />
+			</div>
+			<div class="input">
+				<label>Confirm Password</label>
+				<input type="password" />
+			</div>
+			<div class="input">
+				<label>Telecom Operator</label>
+				<select>
+					<option>Vodafone</option>
+					<option>Aricel</option>
+				</select>
+			</div>
+			<div class="clearfix">
+			<div class="input textarea">
+				<label>Enter Your Address</label>
+				<textarea></textarea>
+			</div>
+			</div>
+			<div class="clearfix">
+			<div class="checkbox">
+				<input type="checkbox" /> <label>Accept Terms & Conditions</label>
+			</div>
+			<div class="checkbox">
+				<input type="checkbox" /> <label>Accept Terms & Conditions</label>
+			</div>
+			</div>
+			<div class="submit default">
+				<input type="Submit" value="Submit" /> <input class="cancel" type="button" value="Cancel" />
+			</div>
+		</div>
+	</div>
+</div>	
+</div>	

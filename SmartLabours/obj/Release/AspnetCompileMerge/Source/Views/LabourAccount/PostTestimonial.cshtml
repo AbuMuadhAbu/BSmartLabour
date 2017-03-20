@@ -1,0 +1,241 @@
+﻿@model SmartLabours.Models.TBL_TESTIMONIAL_SMT
+@{
+    ViewBag.Title = "PostTestimonial";
+    Layout = "~/Views/Shared/_AccountMenuLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<link rel="stylesheet" type="text/css" href="~/Uplodify/css/uploadify.css" />
+<script type="text/javascript" src="~/Uplodify/scripts/jquery.uploadify.js"></script>
+<link href="~/video-js/video-js.css" rel="stylesheet" type="text/css">
+  <!-- video.js must be in the <head> for older IEs to work. -->
+<script src="~/video-js/video.js"></script>
+
+  <!-- Unless using the CDN hosted version, update the URL to the Flash SWF -->
+<script>
+    videojs.options.flash.swf = "~/video-js/video-js.swf";
+</script>
+<script src="~/flowplayer/flowplayer-3.2.12.min.js"></script>
+
+@Styles.Render("~/Content/Front/css")
+@Scripts.Render("~/Content/Front/js")
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#fileHomeVideo").fileUpload({
+            'uploader': '/Uplodify/scripts/uploader.swf',
+            'cancelImg': '/Uplodify/images/cancel.png',
+            'buttonText': 'Promo Video',
+            'buttonImg': '/Uplodify/images/upload-video.png',
+            'script': '/Uplodify/testimonialvideo.ashx',
+            'folder': 'uploads',
+            'fileDesc': 'Videos',
+            'fileExt': '*.mp4;*.3gp;*.divx;*.webm;*.amv;*.avi;*.moov;*.mpg;*.mov;*.rm;*.mkv;*.flv;',
+            'scriptData': { 'Type': 'home' },
+            'multi': true,
+            'auto': true,
+            'onComplete': function (event, queueID, fileObj, reposnse, data) {
+
+                if (reposnse != "") {
+                    $("#videoFile").val(reposnse);
+                    //document.forms[0].submit();
+                }
+                else {
+                    alert(reposnse);
+                }
+            }
+        });
+    });
+
+
+   
+    
+</script>
+
+ <script type="text/javascript">
+     function callFlowPlayer(mp4url) {
+         var urlplayer = "/Uplodify/Uploads/" + mp4url;
+         flowplayer("flash-player", "~/flowplayer/flowplayer-3.2.16.swf", {
+             clip: {
+                 url: urlplayer,
+                 autoPlay: false,
+                 autoBuffering: true,
+                 scaling: 'fit'
+             },
+             canvas: {
+                 backgroundColor: "#000000",
+                 backgroundGradient: "none"
+             }
+         });
+     }
+    </script>
+<script type="text/javascript">
+    function readURL(input) {
+
+        var file1 = input.value;
+
+        if (input.files && input.files[0]) {
+            var file = input.files[0];
+            var extension = file1.substr((file1.toLowerCase().lastIndexOf('.') + 1));
+
+            switch (extension.toLowerCase()) {
+
+                case 'jpg':
+                case 'png':
+                case 'gif':
+                case 'jpeg':
+
+                    flag = true;
+                    break;
+                default:
+                    flag = false;
+            }
+
+            if (flag == false) {
+                alert("You can upload only jpg,png,gif extension file");
+                document.getElementById("Image").value = "";
+                return false;
+            }
+
+        }
+        else {
+            return false;
+        }
+    }
+
+    function PreviousPage() {
+
+        window.location = "/Testimonial/Testimonial_List";
+    }
+
+</script>
+
+<div class="main">
+    <div class="inner_titlebg">
+        <div class="wrapper">
+            <h2>
+                Account Labour</h2>
+            
+        </div>
+    </div>
+    @using (Html.BeginForm("PostTestimonial", "LabourAccount", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="wrapper">
+            <div class="inner_contentarea1 clearfix">
+                <div class="left_menu">
+                    <ul>
+                        <li><a href="/LabourAccount/ProfileDetails" title="Profile Details">Profile Details</a></li>
+                        <li><a href="/LabourAccount/Notification" title="Notification">Notification</a></li>
+                        <li ><a href="javascript:void(0);" onclick="Reueststatus();" title="Phone Request Form">
+                            Phone Request Form</a></li>
+                        <li><a href="/LabourAccount/PhoneRequestHistory" title="Phone Request History">Phone
+                            Request History</a></li>
+                            <li class="active"><a href="/PostTestimonial" title="Post Testimonial">Post Testimonial
+                           </a></li>
+                        <li><a href="/HelpDesk/HelpDeskAdd2" title="Help Desk">Help Desk</a></li>
+                        <li><a href="/HelpDesk/HelpDeskLabourList" title="Help Desk">Help Desk List</a></li>
+
+                    </ul>
+                </div>
+                <div class="right_content">
+                    <h2 id="changeTitle">
+                        POST TESTIMONIAL</h2>
+                    <div class="request_form">
+                        <div class="input available_txt">
+                            <label id="phoneRequestlabel" style="color:Red;">
+                                @ViewBag.messagealert
+                            </label>
+                        </div>
+                        <div id="Requestphone">
+                  
+                            <div class="input">
+                                <label>
+                                    Title</label>
+                                @Html.TextBoxFor(n => n.Title)
+                                <span class="error_msg">
+                                    @Html.ValidationMessageFor(model => model.Title)
+                                </span>
+                            </div>
+                            <div class="input">
+                                <label>
+                                    Name</label>
+                                @Html.TextBoxFor(n => n.Name)
+                                <span class="error_msg">
+                                    @Html.ValidationMessageFor(model => model.Name)
+                                </span>
+                            </div>
+							<div class="clearfix">
+                            <div class="input">
+                                <label>
+                                    Designation</label>
+                                @Html.TextBoxFor(n => n.Designation)
+                                <span class="error_msg">
+                                    @Html.ValidationMessageFor(model => model.Designation)
+                                </span>
+                            </div>
+                            <div class="input">
+                                <label>
+                                    Image</label>
+                               <input type="file" id="Image" name="Image" onchange="readURL(this)" />
+                                        
+                            </div>
+							</div>
+                            <div class="clearfix">
+                            <div class="input">
+                                <label>
+                                    Video</label>
+                                <div class="promo-video">
+                            <!-- Video 1 -->
+                                @{
+                        if (Model != null && Model.Mp4filename!= null && Model.Mp4filename != string.Empty)
+                                {
+                                <div>
+                                <video id="homevideo" class="video-js vjs-default-skin " + controls preload="none" width="100%" height="200" >
+                                <source type="video/mp4" src="/Uplodify/Testimonialvideo/@Model.Mp4filename"></source>
+                                <source type="video/webm" src="/Uplodify/Testimonialvideo/@Model.Webmfilename"></source>
+                                </video>
+                                </div>
+                                }    
+                                }
+                                <input type="file" id="fileHomeVideo" /> 
+                            <!-- Video 1 -->                     
+                             @Html.HiddenFor(x=>Model.videoFile)
+     
+                        </div>
+                                        
+                            </div>
+                                <div class="input textarea">
+                                    <div class="clearfix">
+                                             <label>
+                                            Description</label></div>
+                                    @Html.TextAreaFor(n => n.Description)
+                                    <span class="error_msg">
+                                        @Html.ValidationMessageFor(model => model.Description)
+                                    </span>
+                                </div>
+                                  @Html.HiddenFor(model => model.Status, false)
+                               
+                            </div>
+                         
+
+                            @Html.HiddenFor(x => Model.Status)
+                            <div class="submit default">
+                                <input type="hidden" id="requestStatus" />
+                                <input type="submit" value="Submit"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+    }
+</div>
+

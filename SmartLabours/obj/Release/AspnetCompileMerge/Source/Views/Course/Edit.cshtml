@@ -1,0 +1,562 @@
+﻿@model SmartLabours.Models.Course
+@{
+    ViewBag.Title = "Course Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+
+<script src="../../Content/Admin/ckeditor/ckeditor.js" type="text/javascript"></script>
+<link href="~/Content/themes/base/jquery.ui.base.css" rel="stylesheet" />
+<link href="~/Content/themes/base/jquery.ui.autocomplete.css" rel="stylesheet" />
+<style type="text/css">
+
+    .IsEmbededUrl
+    {
+        padding-left:10px;
+    }
+
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        $("#CatrgoryName").keypress(function (event) {
+            if (!AllowAlphaOnly(event)) {
+                event.preventDefault();
+                return false;
+            }
+            return true;
+        });
+
+
+        $('#Orgname').autocomplete(
+          {
+              source: function (request, response) {
+                  // debugger
+                  $.ajax({
+                      url: '@Url.Action("OrgNameAutoComplete", "OrganizationSubAdmin")',
+                      dataType: "json",
+                      cache: false,
+                      type: "get",
+                      data: { term: request.term }
+                  }).done(function (data) {
+                      //debugger
+                      response(data);
+                  });
+              }, change: function (event, ui) {  //CheckOrganizationName
+                  if ($('#Orgname').val() != '') {
+                      $.ajax({
+                          url: '@Url.Action("CheckOrganizationName", "Organization")',
+                          dataType: "json",
+                          cache: false,
+                          type: "get",
+                          data: { OrgName: $('#Orgname').val() },
+                          success: function (data) {
+                              if (data != '1') {
+                                  $('#lblErrormsg').text(data);
+                              }
+                              else {
+                                  $('#lblErrormsg').text('');
+                                  $("#CategoryId").empty();
+                                  $("#CategoryId").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+                                  var Orgname = $('#Orgname').val();
+                                  $.ajax(
+                                      {
+                                          type: 'POST',
+                                          url: '@Url.Action("GetCategory", "Category")',
+                                          dataType: 'json',
+                                          data: { Orgname: Orgname },
+                                          success: function (providers) {
+                                              $.each(providers, function (i, provider) {
+                                                  $("#CategoryId").append('<option value="' + provider.Value + '">' + provider.Text + '</option>');
+                                              });
+                                          }, error: function (providers) {
+
+                                          }
+                                      });
+                              }
+                          },
+                          error: function (data) {
+
+                          }
+                      });
+                  }
+              }
+
+          });
+
+
+       $('#CategoryId').change(function () {
+         //  debugger
+            $("#SubCategoryId").empty();
+            $("#SubCategoryId").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+            var Category = $('#CategoryId').val();
+            if (Category !="")
+            {
+              $('#lblCategoryError').text('');
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: '@Url.Action("GetSubCategory", "Category")',
+                    dataType: 'json',
+                    data: { CategoryId: Category },
+                    success: function (providers) {
+                       // debugger
+                        $.each(providers, function (i, provider) {
+                            $("#SubCategoryId").append('<option value="' + provider.Value + '">' + provider.Text + '</option>');
+                        });
+                    }, error: function (providers) {
+                        // debugger
+                    }
+                });
+
+                 $.ajax({
+                               type: 'POST',
+                               url: '@Url.Action("SubCategoryCount", "Category")',
+                               dataType: 'json',
+                               data: { CategoryId: Category },
+                               success: function (providers) {
+                                   if (providers > 0) {
+                                     //  debugger
+                                       $('#lblSubCategoryCount').text(providers);
+                                       $("#SubCategoryId").prop("disabled", false);
+                                   }
+                                   else {
+                                      // debugger
+
+                                       $('#lblSubCategoryCount').text('');
+                                       $("#SubCategoryId").prop("disabled", true);
+                                   }
+                               }, error: function (providers) {
+                                   //  debugger
+                               }
+                           });
+            }
+
+        });
+
+        $('#SubCategoryId').change(function () {
+            if ($('#SubCategoryId').val() > 0 && $('#SubCategoryId').val()!="")
+             {
+               $('#lblSubCategoryCount').text('');              
+             }
+        });
+
+
+    });
+
+    </script>
+
+<script type="text/javascript">
+    function PreviousPage() {
+        window.location = "/Course/List";
+    }
+    $(document).ready(function () {
+
+        $("#CourseForm").submit(function (e) {
+           // debugger
+            $('#lblDescriptionError').text('');
+            var val = $('#RbtEmbeded')[0].checked;
+            var vlaue = $('input[name=IsEmbededURL]:checked').val()
+            var status = false;
+            if ($('#txtEmbededURL').val() == '' && val == true) {
+
+                $('#lblDescriptionError').text('Please Enter Description');
+                status = true;
+            }
+
+            if ($('#CategoryId').val() == 0 || $('#CategoryId').val() == "") {
+                $('#lblCategoryError').text('Please select category');
+                status = true;
+            }
+            else if ($('#CategoryId').val() != 0 && $('#CategoryId').val() != "") {
+                $('#lblCategoryError').text('');
+            }
+            if (($("#lblSubCategoryCount").text() != "" ) && ($('#SubCategoryId').val() == "" || $('#SubCategoryId').val() == 0)) {
+                $("#lblSubCategoryError").text('Please select Sub Category');
+                status = true;
+            }
+            else if ($('#SubCategoryId').text() == "" || $("#lblSubCategoryCount").val() == "" )  {
+                $("#lblSubCategoryError").text('');
+            }
+
+            if (status) {
+                e.preventDefault(e);
+            }
+        });
+
+
+        $('#SubCategoryId').change(function () {
+            if ($('#SubCategoryId').val() == 0 || $('#SubCategoryId').val()=="") {
+                $('#lblSubCategoryCount').text('');
+                $("#SubCategoryId").prop("disabled", true);
+            }
+        });
+
+
+        var a = $("#SubCatrgoryName").val();
+        var b=$("#lblSubCategoryError").val() ;
+      //  debugger
+        if (a == '' && b== '')
+        {
+            $("#SubCatrgoryName").prop("disabled", true);
+        }
+        bindkeys();
+
+
+
+        $('.IsEmbededUrl').change(function () {
+            //debugger
+            var val = $(this).val();
+            if (val == 'True') {
+                $('#txtEmbededURL').show();
+                $('#divHtmlPage').hide();
+                $('#HdnEmbeded').val('true');
+            }
+            else {
+                $('#txtEmbededURL').hide();
+                $('#multiplecourse').html('');
+                $('#divHtmlPage').show();
+                $('#HdnEmbeded').val('false');
+            }
+
+        });
+    });
+
+    function bindkeys() {
+       // debugger
+        var IsEmbededURL = document.getElementById("HdnEmbeded").value;     
+        var Attributehdnkeys = document.getElementById("MutlticourseDesc").value;
+        if (IsEmbededURL == 'True') {
+            $('#txtEmbededURL').val(Attributehdnkeys);
+            $('#divHtmlPage').hide();
+        }
+        else
+        {
+            $('#txtEmbededURL').hide();
+            $('#multiplecourse').html('');
+            var KeyTitleSplit1 = Attributehdnkeys.split('~');
+            var KeywordsHtmls = "";
+            var oldDivID = "";
+            for (var j = 0; j < KeyTitleSplit1.length; j++) {
+
+                if (KeyTitleSplit1[j] != '') {
+                    var keysplit1 = KeyTitleSplit1[j];
+                    var Description = keysplit1;
+                    var ProKeyID = $('#multiplecourse').children().last().attr('id');
+                    var keyInt = 1;
+                    if (ProKeyID != null) {
+                        keyInt = parseInt(ProKeyID.split('_')[1], 10) + 1;
+                    }
+
+                    var newProKeyID = "MULTIDESC_" + keyInt;
+                    var newProKeyID1 = "COURSEFULLDESC_" + keyInt;
+                    var KeywordsHtmls = "<div id=\"" + newProKeyID1 + "\" class=\"licenseform-input\"><label> </label><div style =\"width:600px;float:left;text-align:left;padding-bottom:10px;\">"
+                                + "<textarea  name=\"MULTIDESC\" id=\"" + newProKeyID + "\" class=\"ckeditor\"></textarea></div><a onclick=\"removecourse(this);\" href='javascript:void(0);'style=\"padding-left:550px; clear: both;float: left;padding-bottom: 10px;\" class=\"remove\">Remove</a> </div>";
+                    $('#multiplecourse').append(KeywordsHtmls);
+                    var editor = CKEDITOR.replace(newProKeyID);
+                    document.getElementById(newProKeyID).value = editor.getData();
+                    document.getElementById(newProKeyID).value = Description;
+                }
+
+            }
+        }
+  
+    }
+
+    function GetMultipleCourse() {
+        var image = "";
+
+        var hdnKeys = "";
+        var dynamicid = "";
+        var Editorval = "";
+        var Editorimage = "";
+        if($('#HdnEmbeded').val()=='true')
+        {
+
+        }
+        $("div[id^='multiplecourse'] div").each(function (i) {
+
+            var ProfeatureID = $(this).attr("id");
+            if (ProfeatureID != null && ProfeatureID != null) {
+                var n = ProfeatureID.search('COURSEFULLDESC');
+                if (n > -1) {
+                      if (ProfeatureID != null) {
+                          dynamicid = parseInt(ProfeatureID.split('_')[1], 10);
+                          }
+                    var setFuldesc = "MULTIDESC_" + dynamicid;
+                    Editorval = CKEDITOR.instances[setFuldesc].getData();
+                    hdnKeys = hdnKeys + "~" + Editorval;
+                   if (hdnKeys != '') {
+                        document.getElementById("hdnKeywords").value = hdnKeys;
+
+                    }
+                }
+                else {
+
+                }
+            }
+        });
+
+    }
+
+    function AddMultiplecourse() {
+        var ProKeyID = $('#multiplecourse').children().last().attr('id');
+        var keyInt = 1;
+        if (ProKeyID != null) {
+            keyInt = parseInt(ProKeyID.split('_')[1], 10) + 1;
+
+        }
+        var newProKeyID = "MULTIDESC_" + keyInt;
+        var newProKeyID1 = "COURSEFULLDESC_" + keyInt;
+        var KeywordsHtmls = "<div id=\"" + newProKeyID1 + "\" class=\"licenseform-input\"><label> </label><div style =\"width:600px;float:left;text-align:left;padding-bottom:10px;\">"
+                            + "<textarea  name=\"MULTIDESC\" id=\"" + newProKeyID + "\" class=\"ckeditor\"></textarea></div><a onclick=\"removecourse(this);\" href='javascript:void(0);' class=\"remove\" style=\"padding-left:550px; clear: both;float: left;padding-bottom: 10px;\">Remove</a> </div>";
+        $('#multiplecourse').append(KeywordsHtmls);
+        var editor = CKEDITOR.replace(newProKeyID);
+        document.getElementById(newProKeyID).value = editor.getData();
+    }
+
+    function removecourse(KeyID) {
+        $(KeyID).parent('div').remove();
+    }
+
+</script>
+
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                    Edit Course
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1" >
+                    <b>
+                        <label id="lblErrormsg" >
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="suss_mesg" id="msShow2" >
+                    <b>
+                        <label id="lblError1" >
+                        </label>
+                    </b>
+                </div>
+                <div class="fld_fd">
+                    @using (Html.BeginForm("Edit", "course", FormMethod.Post, new {@id="CourseForm", enctype = "multipart/form-data" }))
+                    {
+                        <div>
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span>   Course Level</dd><dt>
+                                        <div class="drop-down">
+                                            @Html.DropDownList("CourseTypeID", (SelectList)ViewBag.CourseTypelst, "Select", new { @class = "drop_down" })
+                                        </div>
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.CourseTypeID)
+                                        </span></dt>
+                            </dl>
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span>   Course </dd><dt>
+                                         @Html.TextBoxFor(model => model.CourseName)
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.CourseName)
+                                        </span></dt>
+                            </dl>
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span>   Organization 
+                                </dd>
+
+                                <dt>
+
+                                    @{
+                        if (HttpContext.Current.Session["USERID"].ToString() == "1")
+                                        {
+                                                @Html.TextBoxFor(model => model.OrganisationName, new { maxlength = 35, id = "Orgname" })
+                                                        @*  @Html.DropDownList("OrgId", (SelectList)ViewBag.GetOrganizationNamelist, "Select", new { @class = "drop_down" })*@
+                                                    
+                                        }
+                                        else
+                                        {
+                                                @Html.TextBox("OrgId", (string)ViewBag.GetOrganizationName, new { id = "txtOrgName", disabled = "disabled" })
+                                        }
+                                    }
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.OrganisationName)
+                                    </span>
+
+                                </dt>
+                            </dl>
+
+
+                             <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span>   Language
+                                </dd>
+                                <dt>
+                                    <div class="drop-down">
+                                     
+                                           @Html.DropDownListFor(Model => Model.Language, (SelectList)ViewBag.GetLanguageList, "Select", new { @class = "drop_down" })
+                                    </div>
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.Language)                                 
+                                    </span>
+                                </dt>
+                            </dl>
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span>   Category
+                                </dd>
+                                <dt>
+                                    <div class="drop-down">
+                                        @Html.DropDownListFor(Model => Model.CategoryId, (SelectList)ViewBag.CategoryList, "Select", new { @class = "drop_down" })
+
+                                    </div>
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.CategoryName)
+                                        <label id="lblCategoryError" ></label>
+                                    </span>
+                                </dt>
+                            </dl>
+
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;">  </span>   Sub Category
+                                </dd>
+                                <dt>
+                                    <div class="drop-down">
+                                        @Html.DropDownListFor(Model => Model.SubCategoryId, (SelectList)ViewBag.SubCategoryList, "Select", new { @class = "drop_down" })
+
+                                    </div>
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.SubCategoryId)
+                                        <label id="lblSubCategoryError"></label>
+                                        <label id="lblSubCategoryCount" style="display:none"></label>
+                                    </span>
+                                </dt>
+                            </dl>
+
+
+                            @*<dl>
+                                <dd>
+                                     Sub Category
+                                </dd>
+                                <dt>
+                                    @Html.TextBoxFor(model => model.SubCategoryName, new { maxlength = 50, id = "SubCatrgoryName" })
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.SubCategoryName)
+                                          <label id="lblSubCategoryError" >
+                            @ViewBag.SubCategoryMsg
+                        </label>
+                                    </span>
+                                </dt>
+                            </dl>*@
+
+
+
+                              <dl>
+                                <dd>
+                                   Question Title</dd><dt>
+                                         @Html.EditorFor(model => model.QuestionTitle)
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.QuestionTitle)
+                                        </span></dt>
+                            </dl>
+
+
+
+
+
+                            <dl>
+                                <dd>
+                                    Is Embeded URL
+                                </dd>
+                                <dt>
+                                    @Html.RadioButtonFor(model => model.IsEmbededURL, true, new { @checked = true, @class = "IsEmbededUrl",@style="margin-left:5px",@id="RbtEmbeded" })
+                                    <label>
+                                        Yes
+                                    </label>
+                                    @Html.RadioButtonFor(model => model.IsEmbededURL, false, new { @class = "IsEmbededUrl", @style = "margin-left:35px" })
+                                    <label>
+                                        No
+                                    </label>
+                                </dt>
+                            </dl>
+
+                            <dl>
+                                <dd>
+                                    Show All Organization
+                                </dd>
+                                <dt>
+                                    @Html.RadioButtonFor(model => model.ShowAllOrg, true, new { @checked = true, @class = "RadioBtn", @style = "margin-left:5px", @id = "RbtShowAllOrg" })
+                                    <label>
+                                        Show
+                                    </label>
+                                    @Html.RadioButtonFor(model => model.ShowAllOrg, false, new { @class = "RadioBtn", @style = "margin-left:35px", @id = "RbtNotAllOrg" })
+                                    <label>
+                                        Hide
+                                    </label>
+                                </dt>
+                            </dl>
+
+
+
+                            <dl>
+                                <dd>
+                                    Description
+                                </dd>
+                                <dt>
+                                    @Html.HiddenFor(model => model.hdnKeywords)
+                                    @Html.HiddenFor(model => model.MutlticourseDesc)
+                                    @Html.HiddenFor(model => model.IsEmbededURL, new {@id="HdnEmbeded" })
+                                    <div class="licenseform-input" id="divHtmlPage">
+
+                                        <div id="multiplecourse">
+                                        </div>
+
+                                        <input type="button" value="Add Page" onclick="AddMultiplecourse();" style="width:230px" />
+                                    </div>
+                                    @Html.TextBoxFor(model => model.MutlticourseDescURL, new { @id = "txtEmbededURL", maxlength = 200 })
+                                    <span class="error"><label id="lblDescriptionError">                 </label></span>
+                                </dt>
+                            </dl>
+
+                          
+                            <br />
+                            <dl>
+                                <dd>
+                                    Status</dd><dt>
+                                        @Html.RadioButtonFor(model => model.STATUS, true, new { @checked = true, @style = "margin-left:5px" })
+                                        <label>
+                                            Active</label>
+                                        @Html.RadioButtonFor(model => model.STATUS, false,new{@style="margin-left:24px" })
+                                        <label>
+                                            InActive</label>
+                                    </dt>
+                            </dl>
+                            <div class="btn1 btn1-form">
+                                <input type="submit" value="Save" title="Save" onclick="GetMultipleCourse();" />
+                                <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                            </div>
+                        </div>
+    
+                    }
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,128 @@
+﻿@model SmartLabours.Models.TBL_HelpDeskMaster
+@{
+    ViewBag.Title = "Help Desk View";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+
+<script type="text/javascript">
+
+    function Download(FileName) {      
+        var Path1 = '@Url.Content("~/HelpDeskFiles/")'
+        window.location.href = Path1 + FileName;
+    }
+
+</script>
+
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <h3>
+                Help Desk View
+            </h3>
+            <div class="clr2">
+            </div>
+            <div class="fld_fd view-blk">
+    <dl>
+        <dd>
+            EmiratesID :
+        </dd>
+        <dt>
+            @Html.DisplayFor(model => model.EmiratesID)
+        </dt>
+    </dl>
+
+    <dl>
+        <dd>
+            Token ID :
+        </dd>
+        <dt>
+            @Html.DisplayFor(model => model.TokenID)
+        </dt>
+    </dl>
+
+    <dl>
+        <dd>
+            Issue Type :
+        </dd>
+        <dt>
+            @Html.DisplayFor(model => model.IssueType)
+        </dt>
+    </dl>
+
+
+    <dl>
+        <dd>
+            Priority :
+        </dd>
+        <dt>
+            @Html.DisplayFor(model => model.IssuePriority)
+        </dt>
+    </dl>
+
+
+
+    <dl>
+        <dd>
+            Description :
+        </dd>
+        <dt>
+            @Html.DisplayFor(model => model.Description)
+        </dt>
+    </dl>
+
+
+    <dl>
+        <dd>
+            Status :
+        </dd>
+        <dt>
+            @Html.DisplayFor(model => model.IssueStatus)
+        </dt>
+    </dl>
+
+                <dl>
+                    <dd>
+                        User Type :
+                    </dd>
+                    <dt>
+                        @if (Model.UserType == "L")
+                        {
+                          <label >Labour</label>
+                        }
+                        else
+                        {
+                            <label>Sponsor</label>
+                        }
+                     
+                    </dt>
+                </dl>
+
+    @if (Model.FileName != string.Empty)
+    {
+        <dl>
+            <dd> File :
+                </dd>
+            <dt>
+                <a href="javascript:void(0)" id="LnkBtnDownload" onclick="Download('@Model.FileName')">
+                    <img src="../../content/admin/images/icons/download-icon.png" title="Download" alt="" border="0" width="20px" />
+                </a>
+            </dt>
+              
+            </dl>
+                }
+
+        </div>
+            <div class="btn1">
+                <a href="/HelpDesk/HelpDeskMaster" title="Back" class="green">Back</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+

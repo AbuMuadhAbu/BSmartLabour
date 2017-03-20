@@ -1,0 +1,781 @@
+﻿@model SmartLabours.Models.Course
+@{
+    ViewBag.Title = "Course Add";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+
+<script src="~/Content/Admin/ckeditor/ckeditor.js" type="text/javascript"></script>
+<link href="~/Content/themes/base/jquery.ui.base.css" rel="stylesheet" />
+<link href="~/Content/themes/base/jquery.ui.autocomplete.css" rel="stylesheet" />
+
+
+<link href="~/Content/Multi/jquery.multiselect.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css" />
+<script src="~/Content/Multi/jquery.multiselect.js"></script>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        $("#OrgName1").multiselect();
+        $(".MultiOrg").css("display", "none");
+
+        $("#CourseForm").submit(function (e) {          
+           // debugger
+            GetMultipleCourse();
+            $('#lblDescriptionError').text('');
+            var val = $('#RbtEmbeded')[0].checked;
+            var val2 = $('#RbtNotEmbeded')[0].checked;
+            var vlaue = $('input[name=IsEmbededURL]:checked').val()
+            var status = false;
+            if ($('#txtEmbededURL').val() == '' && val == true) {
+
+                $('#lblDescriptionError').text('Please Enter Description');
+                status = true;
+            }
+
+            if ($('#CategoryId').val() == 0 || $('#CategoryId').val() == "") {
+                $('#lblCategoryError').text('Please select category');
+                status = true;
+            }
+            else if ($('#CategoryId').val() != 0 && $('#CategoryId').val() != "") {
+                $('#lblCategoryError').text('');
+            }
+            if (($("#lblSubCategoryCount").text() != "" || $("#lblSubCategoryCount").text() > 0) && ($('#SubCategoryId').val() == "" || $('#SubCategoryId').val() == 0)) {
+                $("#lblSubCategoryError").text('Please select Sub Category');
+                status = true;
+            }
+            else if ($('#SubCategoryId').val() == "" && ($("#lblSubCategoryCount").val() == 0 || $("#lblSubCategoryCount").val() == "")) {
+                $("#lblSubCategoryError").text('');
+            }
+           // debugger
+            if (($('#hdnKeywords').val() == 0 || $('#hdnKeywords').val() == "") && val2==true) {
+               // debugger
+                $('#lblContentError').text('Please enter html content');
+                status = true;
+            }
+            else if ($('#hdnKeywords').val() != 0 && $('#hdnKeywords').val() != "") {
+               // debugger
+                $('#lblContentError').text('');
+            }
+
+            if (   $('#CourseError').val()!='')
+            {
+                status = true;
+            }
+           
+
+            if (status) {
+                e.preventDefault(e);
+            }
+         
+        });
+     
+        bindkeys();
+
+
+        $("#CourseName").keypress(function (event) {  
+            $('#lblCourseError').text('');
+            $('#CourseError').val('');
+            return true;
+        });
+
+
+
+
+        $('#Orgname').autocomplete(
+           {
+               source: function (request, response) {
+                   // debugger
+                   $.ajax({
+                       url: '@Url.Action("OrgNameAutoComplete", "OrganizationSubAdmin")',
+                       dataType: "json",
+                       cache: false,
+                       type: "get",
+                       data: { term: request.term }
+                   }).done(function (data) {
+                       //debugger
+                       response(data);
+                   });
+               }, change: function (event, ui) {
+                   if ($('#Orgname').val() != '') {
+                       $.ajax({
+                           url: '@Url.Action("CheckOrganizationName", "Organization")',
+                           dataType: "json",
+                          
+                           cache: false,
+                           type: "get",
+                           data: { OrgName: $('#Orgname').val() },
+                           success: function (data) {
+                               // debugger
+                               if (data != '1') {
+                                  
+                                   $('#lblErrormsg').text(data);
+                               }
+                               else {
+                                   $('#lblErrormsg').text('');
+                                   $('#AllOrgId').val($('#Orgname').val() + ",");
+                                   $("#CategoryId").empty(); //GetAllCategory
+                                   $("#CategoryId").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+                                   var Orgname = $('#Orgname').val() ;
+                                   //  debugger
+                                   $.ajax(
+                                       {
+                                           type: 'POST',
+                                           url: '@Url.Action("GetCategory", "Category")',
+                                           dataType: 'json',
+                                           data: { Orgname: Orgname },
+                                           success: function (providers) {
+                                               //debugger
+                                              // alert("Inside");
+                                               $.each(providers, function (i, provider) {
+                                                   //alert(provider.Value);
+                                                   $("#CategoryId").append('<option value="' + provider.Value + '">' + provider.Text + '</option>');
+                                               });
+                                           }, error: function (providers) {
+                                               // debugger
+                                              // alert("Error");
+                                           }
+                                       });
+                               }
+                           },
+                           error: function (data) {
+                               // debugger
+                           }
+                       });
+                   }
+               }
+
+           });
+
+        $('#CourseName').focusout(function () {
+           // alert("Change");          
+            GetOrganizations();
+        });
+
+        $('#CourseName').change(function () {           
+            CheckCourseName();
+         
+            GetOrganizations();
+        });
+  
+        $('#CategoryId').change(function () {
+            // debugger
+            $('#HdnEmbeded').val('true');
+            $("#SubCategoryId").empty();
+            $("#SubCategoryId").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+            var Category = $('#CategoryId').val();
+            if (Category != "" )
+            {
+                $('#lblCategoryError').text('');
+         
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: '@Url.Action("GetSubCategory", "Category")',
+                    dataType: 'json',
+                    data: { CategoryId: Category },
+                    success: function (providers)
+                    {
+                        $.each(providers, function (i, provider)
+                        {
+                            $("#SubCategoryId").append('<option value="' + provider.Value + '">' + provider.Text + '</option>');
+                        });
+                    }, error: function (providers) {
+                       //  debugger
+                    }
+                });
+
+                 $.ajax({
+                               type: 'POST',
+                               url: '@Url.Action("SubCategoryCount", "Category")',
+                               dataType: 'json',
+                               data: { CategoryId: Category },
+                               success: function (providers) {
+                                   if (providers > 0)
+                                   {
+                                       $('#lblSubCategoryCount').text(providers);
+                                       $("#SubCategoryId").prop("disabled", false);
+                                   }
+                                   else
+                                   {                                    
+                                       $('#lblSubCategoryCount').text('');
+                                       $("#SubCategoryId").prop("disabled", true);
+                                   }
+                               }, error: function (providers) {
+                                     
+                               }
+                           });
+            }
+
+        });
+
+        $('#SubCategoryId').change(function () {
+
+            if ($('#SubCategoryId').val() == 0 || $('#SubCategoryId').val() == "") {
+                $('#lblSubCategoryCount').text('');               
+            }
+
+        });
+
+        $('#divHtmlPage').hide();
+        $('.IsEmbededUrl').change(function () {
+           //ebugger
+            var val = $(this).val();
+            if (val == 'True') {
+                $('#txtEmbededURL').show();
+                $('#divHtmlPage').hide();
+                $('#HdnEmbeded').val('true');
+            }
+            else {
+                $('#txtEmbededURL').hide();
+                $('#multiplecourse').html('');
+                $('#divHtmlPage').show();
+                $('#HdnEmbeded').val('false');
+            }
+
+        });
+
+
+
+        //$('.IsEmbededUrl').change(function () {
+        //    //debugger
+        //    var val = $(this).val();
+        //    if (val=='True')
+        //    {
+        //        $('#txtEmbededURL').show();
+        //        $('#divHtmlPage').hide();
+        //    }
+        //    else
+        //    {
+        //        $('#txtEmbededURL').hide();
+        //        $('#multiplecourse').html('');
+        //        $('#divHtmlPage').show();
+        //    }
+          
+        //});
+
+
+    });
+
+    function CheckCourseName()
+    {
+        //debugger
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("CheckCourseName", "Course")',
+            dataType: 'json',
+            data: { Orgname: $('#Orgname').val(), CourseName: $('#CourseName').val() },
+            success: function (Course) {
+                //debugger
+                if (Course == '1') {
+
+                    $('#lblCourseError').text('Course Name Already Exists');
+                    $('#CourseError').val('123');
+                    
+                    return false;
+                }
+                else {
+                    //debugger
+                    $('#lblCourseError').text('');
+                    $('#CourseError').val('');
+                    return true;
+                }
+            }, error: function (Course) {
+                //debugger
+                return true;
+            }
+        });
+
+    }
+
+   
+
+    function bindkeys() {
+       //  debugger
+        var IsEmbededURL = document.getElementById("HdnEmbeded").value;
+        var Attributehdnkeys = document.getElementById("MutlticourseDesc").value;
+        if (IsEmbededURL == 'True') {
+            $('#txtEmbededURL').val(Attributehdnkeys);
+            $('#divHtmlPage').hide();
+        }
+        else {
+            $('#txtEmbededURL').hide();
+            $('#multiplecourse').html('');
+            var KeyTitleSplit1 = Attributehdnkeys.split('~');
+            var KeywordsHtmls = "";
+            var oldDivID = "";
+            for (var j = 0; j < KeyTitleSplit1.length; j++) {
+
+                if (KeyTitleSplit1[j] != '') {
+                    var keysplit1 = KeyTitleSplit1[j];
+                    var Description = keysplit1;
+                    var ProKeyID = $('#multiplecourse').children().last().attr('id');
+                    var keyInt = 1;
+                    if (ProKeyID != null) {
+                        keyInt = parseInt(ProKeyID.split('_')[1], 10) + 1;
+                    }
+
+                    var newProKeyID = "MULTIDESC_" + keyInt;
+                    var newProKeyID1 = "COURSEFULLDESC_" + keyInt;
+                    var KeywordsHtmls = "<div id=\"" + newProKeyID1 + "\" class=\"licenseform-input\"><label> </label><div style =\"width:600px;float:left;text-align:left;padding-bottom:10px;\">"
+                                + "<textarea  name=\"MULTIDESC\" id=\"" + newProKeyID + "\" class=\"ckeditor\"></textarea></div><a onclick=\"removecourse(this);\" href='javascript:void(0);'style=\"padding-left:550px; clear: both;float: left;padding-bottom: 10px;\" class=\"remove\">Remove</a> </div>";
+                    $('#multiplecourse').append(KeywordsHtmls);
+                    var editor = CKEDITOR.replace(newProKeyID);
+                    document.getElementById(newProKeyID).value = editor.getData();
+                    document.getElementById(newProKeyID).value = Description;
+                }
+
+            }
+        }
+
+    }
+
+    function GetMultipleCourse() {
+        var image = "";
+
+        var hdnKeys = "";
+        var dynamicid = "";
+        var Editorval = "";
+        var Editorimage = "";
+        if ($('#HdnEmbeded').val() == 'true') {
+
+        }
+        $("div[id^='multiplecourse'] div").each(function (i) {
+
+            var ProfeatureID = $(this).attr("id");
+            if (ProfeatureID != null && ProfeatureID != null) {
+                var n = ProfeatureID.search('COURSEFULLDESC');
+                if (n > -1) {
+                    if (ProfeatureID != null) {
+                        dynamicid = parseInt(ProfeatureID.split('_')[1], 10);
+                    }
+                    var setFuldesc = "MULTIDESC_" + dynamicid;
+                    Editorval = CKEDITOR.instances[setFuldesc].getData();
+                    hdnKeys = hdnKeys + "~" + Editorval;
+                    if (hdnKeys != '') {
+                        document.getElementById("hdnKeywords").value = hdnKeys;
+
+                    }
+                }
+                else {
+
+                }
+            }
+        });
+
+    }
+
+
+
+    function GetOrganizations() {
+        //  debugger
+       // alert("GetOrganizations");
+        var OrgName = "";
+        var val = $("#txtHide").val();
+        //alert("GetOrganizations_" + val);
+        
+        if (val == '1') {
+            //alert("Inside_" + val);
+            $('#OrgName1 :selected').each(function (i, selected) {
+                OrgName = OrgName + $(selected).text() + ",";
+            });
+            //alert("Inside_" + OrgName);
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: '@Url.Action("GetAllCategory", "Course")',
+                    dataType: 'json',
+                    data: { Orgname: OrgName },
+                    success: function (providers) {
+                        $("#SubCategoryId").empty();
+                        $("#SubCategoryId").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+                        $("#CategoryId").empty();
+                        $("#CategoryId").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+                        $.each(providers, function (i, provider) {
+                            $("#CategoryId").append('<option value="' + provider.Value + '">' + provider.Text + '</option>');
+                        });
+                        //alert("Binded" + OrgName);
+                    }, error: function (providers) {
+                        //alert("Error" + providers.Value);
+                    }
+                });
+
+        }
+        else {
+            OrgName = $('#Orgname').val();
+            $('#AllOrgId').val(OrgName + ',');
+        }
+       
+        
+       
+        //debugger
+    }
+
+    function onchangeevent() {
+      //  debugger
+    }
+
+    function GetMultipleCourse() {
+       //ebugger
+        var image = "";       
+        var hdnKeys = "";
+        var dynamicid = "";
+        var Editorval = "";
+        var Editorimage = "";
+       
+        var IsEmbededURL = $('#HdnEmbeded').val();
+       // var Attributehdnkeys = document.getElementById("MutlticourseDesc").value;
+        if (IsEmbededURL == 'true') {
+           // $('#txtEmbededURL').val(Attributehdnkeys);
+            document.getElementById("hdnKeywords").value = $('#txtEmbededURL').val();
+        }
+        else
+        {
+        $("div[id^='multiplecourse'] div").each(function (i) {
+           
+            var ProfeatureID = $(this).attr("id");
+            //  alert(ProfeatureID);
+            if (ProfeatureID != null && ProfeatureID != null) {
+                var n = ProfeatureID.search('COURSEFULLDESC');
+                if (n > -1) {
+                    // alert(ProfeatureID);
+
+                    if (ProfeatureID != null) {
+                        dynamicid = parseInt(ProfeatureID.split('_')[1], 10);
+
+                    }
+                    var setFuldesc = "MULTIDESC_" + dynamicid;
+                    Editorval = CKEDITOR.instances[setFuldesc].getData();
+                    //  alert(CKEDITOR.instances[setFuldesc].getData());
+                    //alert(Editorval);
+                  
+                    hdnKeys = hdnKeys + "~" + Editorval;
+                    // alert(hdnKeys);
+                 
+                    if (hdnKeys != '') {
+                        document.getElementById("hdnKeywords").value = hdnKeys;
+                        // alert(document.getElementById("hdnKeywords").value);
+                    }
+                }
+                else {
+                    //alert("Hi jeeva");
+                    //  hdnKeys = hdnKeys + "|" + KeyID + "!" + KeyVal;
+                }
+            }
+
+        });
+        }
+
+    }
+
+    function AddMultiplecourse() {
+        var ProKeyID = $('#multiplecourse').children().last().attr('id');
+
+        var keyInt = 1;
+        if (ProKeyID != null) {
+            keyInt = parseInt(ProKeyID.split('_')[1], 10) + 1;
+
+        }
+        var newProKeyID = "MULTIDESC_" + keyInt;
+        var newProKeyID1 = "COURSEFULLDESC_" + keyInt;
+         var KeywordsHtmls = "<div id=\"" + newProKeyID1 + "\" class=\"licenseform-input\"><label> </label><div style =\"width:600px;float:left;text-align:left;padding-bottom:10px;\">"
+                            + "<textarea  name=\"MULTIDESC\" id=\"" + newProKeyID + "\" class=\"ckeditor\"></textarea></div> <a style=\"padding-left:550px; clear: both;float: left;padding-bottom: 10px;\" onclick=\"removecourse(this);\" href='javascript:void(0);' class=\"remove\">Remove</a></div>";
+
+        $('#multiplecourse').append(KeywordsHtmls);
+        var editor = CKEDITOR.replace(newProKeyID);
+        document.getElementById(newProKeyID).value = editor.getData();
+    }
+
+    function removecourse(KeyID)
+    {
+    $(KeyID).parent('div').remove();
+    }
+
+</script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#txtHide").val("0");
+
+        $('.RadioBtn').change(function () {
+            $('#Orgname').val('');
+            $('#CourseName').val('');
+            $("#SubCategoryId").empty();
+            $("#SubCategoryId").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+            $("#CategoryId").empty();
+            $("#CategoryId").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+            var val = $(this).val();
+            if (val == 'True') {
+                $(".MultiOrg").css("display", "block");
+                $(".OrgClass").css("display", "none");
+                $("#txtHide").val("1");
+            }
+            else {
+                $(".MultiOrg").css("display", "none");
+                $(".OrgClass").css("display", "block");
+                $("#txtHide").val("0");
+            }
+        });
+      
+    });
+  
+    </script>
+
+<style type="text/css" >
+    .MultiOrg
+    {
+        display:none;
+    }
+   
+</style>
+
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                     Add Course
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1" >
+                    <b>
+                        <label id="lblErrormsg" >
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="suss_mesg" id="msShow2" >
+                    <b>
+                        <label id="lblError1" >
+                        </label>
+                    </b>
+                </div>
+                <div class="fld_fd">
+                    @using (Html.BeginForm("Add", "course", FormMethod.Post, new { @id = "CourseForm", enctype = "multipart/form-data" }))
+                    {
+                        <script type="text/javascript">
+                            function PreviousPage() {
+                                //alert("hi");
+                                window.location = "/Course/List";
+                                //        alert(window.location);
+                            }
+
+                         </script>
+
+                        <div>
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span>    Course Level</dd><dt>
+                                      <span class="drop-down">
+                            @Html.DropDownList("CourseTypeID", (SelectList)ViewBag.CourseTypelst, "Select", new { @class = "drop_down" })    
+                            </span>
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.CourseTypeID)
+                                        </span></dt>
+                            </dl>
+                      
+
+                            <dl>
+                                <dd>
+                                    Show All 
+                                </dd>
+                                <dt>
+                                    @Html.RadioButtonFor(model => model.ShowAllOrg, true, new { @checked = true, @class = "RadioBtn", @style = "margin-left:5px", @id = "RbtShowAllOrg" })
+                                    <input id="txtHide" style="display:none" />
+                                    <label>
+                                        Yes
+                                    </label>
+                                    @Html.RadioButtonFor(model => model.ShowAllOrg, false, new { @class = "RadioBtn", @style = "margin-left:35px", @id = "RbtNotAllOrg" })
+                                    <label>
+                                        No
+                                    </label>
+                                </dt>
+                            </dl>
+
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;">  </span>   Organization 
+                                </dd>
+                                <dt>
+                                  
+                                    @{
+                                    if (HttpContext.Current.Session["USERID"].ToString() == "1")
+                                        {
+                                                @Html.TextBoxFor(model => model.OrganisationName, new { maxlength = 35, id = "Orgname" ,@class="OrgClass" })
+                                              
+                                        
+                                          }
+                                        else
+                                        {
+                                                @Html.TextBoxFor(model => model.OrganisationName,  new { id = "txtOrgName", disabled = "disabled", @class = "OrgClass" })
+                                            // @Html.HiddenFor(model => model.OrganisationName)
+                                        }
+                                        <span class="MultiOrg">
+                                            @Html.DropDownList("OrgName", ViewBag.OrganizationList as MultiSelectList, new { id = "OrgName1", @class = "form-control ", data_placeholder = "Select Organization", @multiple = "multiple" })
+                                        </span>
+                                       <span class="error">
+                                        @Html.ValidationMessageFor(model => model.OrganisationName)
+                                    </span>
+                                    }
+                                
+                                    
+                                </dt>
+                            </dl>
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span>  Course
+                                </dd>
+                                <dt>
+                                    @Html.TextBoxFor(model => model.CourseName)
+                                   
+                                    <span class="error">
+                                        <input type="text" id="CourseError" style="display:none" />
+                                        @Html.ValidationMessageFor(model => model.CourseName)
+                                        <label id="lblCourseError"></label>
+                                    </span>
+                                </dt>
+                            </dl>
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span>   Language
+                                </dd>
+                                <dt>
+                                    <div class="drop-down">
+
+                                      @Html.DropDownListFor(Model => Model.Language, (SelectList)ViewBag.GetLanguageList, "Select", new { @class = "drop_down" })
+
+                                    </div>
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.Language)                                 
+                                    </span>
+                                </dt>
+                            </dl>
+                                                        
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span>   Category
+                                </dd>
+                                <dt>
+                                    <div class="drop-down">
+                                        @Html.DropDownListFor(Model => Model.CategoryId, (SelectList)ViewBag.CategoryList, "Select", new { @class = "drop_down" })
+
+                                    </div>
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.CategoryName)
+                                        <label id="lblCategoryError" ></label>
+                                    </span>
+                                </dt>
+                            </dl>
+
+
+
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;">  </span>  Sub Category
+                                </dd>
+                                <dt>
+                                    <div class="drop-down">
+                                        @Html.DropDownListFor(Model => Model.SubCategoryId, (SelectList)ViewBag.SubCategoryList, "Select", new { @class = "drop_down" })
+
+                                    </div>
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.SubCategoryId)
+                                        <label id="lblSubCategoryError"></label>
+                                        <label id="lblSubCategoryCount" style="display:none"></label>
+                                    </span>
+                                </dt>
+                            </dl>
+
+
+
+                            <dl>
+                                <dd>
+                                   Question Title</dd><dt>
+                                         @Html.TextBoxFor(model => model.QuestionTitle,new { maxlength = 50})
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.QuestionTitle)
+                                        </span></dt>
+                            </dl>
+
+                            
+                            <dl>
+                                <dd>
+                                    Is Embeded URL
+                                </dd>
+                                <dt>                                   
+                                    @Html.RadioButtonFor(model => model.IsEmbededURL, true, new { @checked = true, @class = "IsEmbededUrl", @style = "margin-left:5px", @id = "RbtEmbeded" })
+                                    <label>
+                                        Yes
+                                    </label>
+                                    @Html.RadioButtonFor(model => model.IsEmbededURL, false, new { @class = "IsEmbededUrl", @style = "margin-left:35px", @id = "RbtNotEmbeded" })
+                                    <label>
+                                        No
+                                    </label>
+                                </dt>
+                            </dl>
+
+
+                            
+
+                            <dl>
+                            <dd>
+                            Description
+                            </dd>
+                            <dt>
+                             <div class="licenseform-input" id="divHtmlPage">
+                        
+                            <div id="multiplecourse"> 
+                            </div>
+                       
+                                 <input type="button" value="Add Page" onclick="AddMultiplecourse();" style="width:230px" />
+                                 <span class="error">  <label id="lblContentError"> </label> </span>
+
+</div>@Html.HiddenFor(model => model.AllOrgId)
+                                @Html.HiddenFor(model => model.MutlticourseDesc)
+                                @Html.HiddenFor(model => model.IsEmbededURL, new { @id = "HdnEmbeded" })
+                                @Html.TextBoxFor(model => model.MutlticourseDesc, new {@id="txtEmbededURL",maxlength=200 })
+                                <span class="error">
+                                <label id="lblDescriptionError" style="color:red !important">  </label></span>
+                               
+                            </dt>
+                            </dl>
+                          
+                               <dl>
+                                <dd>
+                                    Status</dd><dt>
+                                     @Html.HiddenFor(m => m.hdnKeywords)
+                                        @Html.RadioButtonFor(model => model.STATUS, true, new { @checked = true, @style = "margin-left:5px" })
+                                        <label>
+                                            Active</label>
+                                        @Html.RadioButtonFor(model => model.STATUS, false, new { @style = "margin-left:24px"})
+                                        <label>
+                                            InActive</label>
+                                    </dt>
+                            </dl>
+                            <div class="btn1 btn1-form">
+                                <input type="submit" value="Save" title="Save" onclick="GetMultipleCourse();" />
+                                <input type="button" value="Back" title="Back" onclick="PreviousPage();" />                               
+                            </div>
+                        </div>
+    
+                    }
+                </div>
+            </fieldset>
+             
+        </div>
+    </div>
+</div>

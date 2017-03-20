@@ -1,0 +1,138 @@
+﻿@{
+    ViewBag.Title = "Demo";
+}
+<h2>
+    Demo</h2>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //    $.ajax({
+        //    url: "http://192.169.236.190/smartlabourservices.svc/dowork/123",
+        //   type: "POST",
+        //   data: JSON.stringify(whatever),
+        //    headers: {
+        //      "Content-Type": "application/json",
+        //      "X-HTTP-Method-Override": "PUT" },
+        //       })
+
+        debugger;
+//        $.ajax({
+//            type: "POST",
+//            url: "http://192.169.236.190/Home/Signout",
+//            data: {},
+//            datatype: "json",
+//            error: function (xhr, status, error) {
+//                alert(error);
+//            },
+//            success: function (res) {
+//                alert(res);
+//                // window.location.href = "/";
+//                // window.location.href = res;
+//                // alert(res);
+//            }
+
+//        });
+
+//        var AddStudentToDepartment = " http://localhost:17177/SmartLabourServices.svc/dowork1";
+//        var jData = {};
+//        jData.LabourID = '123';
+//       
+//        $.ajax({
+//            cache: false,
+//            type: "GET",
+//            async: false,
+//            url: AddStudentToDepartment,
+//           
+//            contentType: "application/json",
+//            dataType: "json",
+//            success: function (department) {
+//                alert(department);
+//            },
+//            error: function (xhr) {
+//                alert(xhr.responseText);
+//            }
+//        });
+    });
+
+
+    function readURL1(input) {
+        debugger;
+        var url = "http://192.169.236.190/Home/SaveProfileImagejson";
+        //var url = "http://localhost:17177/Home/SaveProfileImagejson";
+        if (input.files && input.files[0]) {
+            var file = input.files[0];
+
+            if (file.type.match('image.*')) {
+                try {
+                   
+                    var xhr = new XMLHttpRequest();
+                    var fd = new FormData();
+                    fd.append("LabourID","123")
+                    fd.append("file", file);
+                    xhr.open("POST", url, true);
+                    xhr.send(fd);
+                    xhr.addEventListener("load", function (event) {
+                        alert(event);
+                        alert(event.target.response);
+                        //  document.getElementById("hdnprofileimageurl").value = event.target.response;
+
+                    }, false);
+                }
+                catch (ex) {
+                }
+            } else {
+                // However you want to handle error that dropped file wasn't an image
+            }
+            var reader = new FileReader();
+
+            
+            if (!val.match(/(?:gif|jpg|png|bmp)$/)) {
+                alert("inputted file path is not an image!");
+             
+                return false;
+            }
+            else {
+
+                reader.onload = function (e) {
+                   
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    }
+</script>
+   <input type="file" name="ProfileImageFile" id="ProfileImageFile" class="uploader"
+                                                    title="Image Uploader" onchange="readURL1(this)"/>
+
+
+
+
+
+<style type="text/css">
+
+
+.tooltip{
+    display: inline;
+    position: relative;
+}
+
+
+.tooltip:hover:after{
+    background: #333;
+    background: rgba(0,0,0,.8);
+    border-radius: 5px;
+    bottom: 26px;
+    color: #fff;
+    content: attr(title);
+    left: 20%;
+    padding: 5px 15px;
+    position: absolute;
+    z-index: 98;
+    width: 220px;
+}
+
+
+</style>
+
+<a title="This is some information for our tooltip.This is some information for our tooltip.This is some information for our tooltip.This is some information for our tooltip.This is some information for our tooltip.This is some information for our tooltip.This is some information for our tooltip." class="tooltip">CSS3 Tooltip</a>
+

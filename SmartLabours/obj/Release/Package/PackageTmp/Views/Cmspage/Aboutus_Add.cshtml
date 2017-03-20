@@ -1,0 +1,109 @@
+﻿@model SmartLabours.Models.TBL_ABOUTUS_SMT
+@{
+    ViewBag.Title = "Aboutus_Add";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<script src="../../Content/Admin/ckeditor/ckeditor.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+   
+    window.onload = function () {
+
+        var editor = CKEDITOR.replace('FULLDESCRIPTION');
+        editor.on('blur', function (evt) {
+            document.getElementById('FULLDESCRIPTION').value = evt.editor.getData();
+            if (document.getElementById('FULLDESCRIPTION').value != "") {
+
+                $("#errorbanner").css({ display: "none" });
+            }
+            else {
+                $("#errorbanner").css({ display: "block" });
+            }
+        });
+
+
+    };
+
+
+    function PreviousPage() {
+        window.location.href = "/Cmspage/Aboutus_List";
+    }
+
+</script>
+
+<div class="content">
+    <div class="wrapper">
+       <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                   About Us Add 
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1" >
+                    <b>
+                        <label id="lblErrormsg" >
+                           
+                        </label>
+                    </b>
+                </div>
+                <div class="suss_mesg" id="msShow2" >
+                    <b>
+                        <label id="lblError1" >
+                        </label>
+                    </b>
+                </div>
+                <div class="fld_fd">
+                    @using (Html.BeginForm("Aboutus_Add", "Cmspage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div>
+                            <dl>
+                                <dd>
+                                    Short Description</dd><dt>
+                                        @Html.TextAreaFor(model => model.SHORTDESC, new { @cols = "20", @rows = "2" })
+                                        <span class="error">
+                                            @Html.ValidationMessageFor(model => model.SHORTDESC)
+                                        </span></dt>
+                            </dl>
+                            <dl id="idcourie">
+                                <dd>
+                                    Full Description</dd><dt>
+                                        <div style="width: 600px; float: left; text-align: left; padding-bottom: 10px;">
+                                            @Html.TextAreaFor(model => model.FULLDESCRIPTION)
+                                            <span class="error" id="errorbanner" style="display:none;">
+                                            Please Enter Description
+                                                @Html.ValidationMessageFor(model => model.FULLDESCRIPTION)                                            </span>
+                                        </div>
+                                    </dt>
+                            </dl>
+                            
+                               <dl>
+                                <dd>
+                                    Status</dd><dt>
+                                        @Html.RadioButtonFor(model => model.STATUS, true, new { @checked = true })
+                                        <label>
+                                            Active</label>
+                                        @Html.RadioButtonFor(model => model.STATUS, false)
+                                        <label>
+                                            InActive</label>
+                                    </dt>
+                            </dl>
+                            <div class="btn1 btn1-form">
+                                <input type="submit" value="Save" title="Save" />
+                                <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                            </div>
+                        </div>
+    
+                    }
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

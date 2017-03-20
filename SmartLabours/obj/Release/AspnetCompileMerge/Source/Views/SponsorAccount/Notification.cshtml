@@ -1,0 +1,122 @@
+﻿@model IEnumerable<SmartLabours.Models.DonatePhone>
+@{
+    ViewBag.Title = "Notification";
+    Layout = "~/Views/Shared/_AccountMenuLayout.cshtml";
+}
+
+                      @* Google Analytics COde  *@
+                      <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+                      <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+                      <!-- End here -->
+
+<div class="main">
+	<div class="inner_titlebg">
+		<div class="wrapper">
+			<h2>Account Sponsor</h2>
+          
+		</div>
+	</div>
+
+<div class="wrapper">
+	<div class="inner_contentarea1 clearfix">
+		<div class="left_menu">			
+			<ul>
+		<li><a href="/SponsorAccount/ProfileDetails" title="Profile Details">Profile Details</a></li>
+                    <li class="active"><a href="/SponsorAccount/Notification" title="Notification">Notification</a></li>
+                    <li><a href="/Donatephone/DonatePhone" title="Participation Form">Participation Phone Form</a></li>
+                    <li ><a href="/Donatephone/DonatePhoneHistory" title="Phone Request History">Participation Phone History</a></li>
+                    <li ><a href="/Donatephone/OtherDonationHistory" title="Phone Request History">Other Participation History</a></li>
+                    <li><a href="/SponsorAccount/SponsorDonationWebsite" title="Participation To website"> Participation  To Website</a></li>
+                    <li ><a href="/SponsorAccount/PostTestimonial" title="Post Testimonial">Post Testimonial</a></li>
+                    <li><a href="/HelpDesk/HelpDeskAdd1" title="Help Desk">Help Desk</a></li>  
+                <li><a href="/HelpDesk/HelpDeskSponsorList" title="Help Desk">Help Desk List</a></li>
+				
+			</ul>
+		</div>	
+		<div class="right_content">
+				<h2>Notifications</h2>
+				<ul class="notification_list">
+                @{
+                    List<SmartLabours.Models.TBL_Sponsor_Notifications> Lstofsponsor = new List<SmartLabours.Models.TBL_Sponsor_Notifications>();
+                    Lstofsponsor = ViewBag.Notification as List<SmartLabours.Models.TBL_Sponsor_Notifications>;
+                    int count =Convert.ToInt32(Model.ToList().Count);
+                    }
+                @if (count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        if (Lstofsponsor != null)
+                        {
+                            Lstofsponsor = Lstofsponsor.Where(n => n.DonateID == item.DonateID).OrderByDescending(n => n.CREATEDDATE).ToList();
+                            if (Lstofsponsor.Count > 0)
+                            {
+                                for (var i = 0; i < Lstofsponsor.Count; i++)
+                                {
+                      
+					@:<li class="clearfix">
+
+                                    string mydate = Convert.ToString(Lstofsponsor[i].CREATEDDATE);
+
+
+                                    DateTime time = DateTime.Parse(mydate);
+                                    string date = Convert.ToString(time.ToString("dd-MMM-yyyy", System.Globalization.CultureInfo.InvariantCulture));
+                                    string format = "am";
+                                    int hour = time.Hour;
+                                    int min = time.Minute;
+                                    if (hour > 11) { format = "pm"; }
+                                    if (hour > 12) { hour = hour - 12; }
+                                    if (hour == 0) { hour = 12; }
+                                    if (min < 10)
+                                    {
+                                        min = 0 + min;
+                                    }
+                                    var exacttime = hour + "." + min + " " + format;
+                                    string datetime = date + " , " + exacttime;
+                    
+                    
+						@:<h3>@item.BrandName - @item.ModelNo <span>Posted on @datetime</span></h3>
+						
+                                    if (Lstofsponsor[i].IsPhoneConfirmation == false && Lstofsponsor[i].IsCourrierconfirmation == false)
+                                    {
+                        <p>
+                        Awaiting for Admin Approval
+                        </p>
+                                    }
+                                    else if (Lstofsponsor[i].IsPhoneConfirmation == true && Lstofsponsor[i].IsCourrierconfirmation == true && Lstofsponsor[i].IsPhoneAcceptedByAdmin == false)
+                                    {
+                            <p>In transit</p>
+                                    }
+                                    else if (Lstofsponsor[i].IsPhoneConfirmation == true && Lstofsponsor[i].IsPhoneAcceptedByAdmin == true && Lstofsponsor[i].IsPhoneAssignedToLabour == false)
+                                    {
+                            <p>Received</p>
+                                    }
+                                    else if (Lstofsponsor[i].IsPhoneConfirmation == true && Lstofsponsor[i].IsPhoneAcceptedByAdmin == true && Lstofsponsor[i].IsPhoneAssignedToLabour == true)
+                                    {
+                            <p>Your Phone Assigned to Labour</p>
+                                    }
+                                    else
+                                    {
+                                       <label>Rejected</label>
+                                    }
+                                }
+                            }
+                      
+					@:</li>
+                    }
+                        Lstofsponsor = ViewBag.Notification as List<SmartLabours.Models.TBL_Sponsor_Notifications>;
+                    }
+                }
+                   else
+                    {
+                    <label>No notifi found</label>
+                    }
+                   
+					
+				</ul>
+		</div>
+	</div>
+
+   
+</div>	
+
+</div>

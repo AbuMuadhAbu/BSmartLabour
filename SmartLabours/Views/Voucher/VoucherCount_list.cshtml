@@ -1,0 +1,157 @@
+﻿@model IEnumerable<SmartLabours.Models.VoucherCount>
+    @{
+        ViewBag.Title = "Voucher List";
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+                      @* Google Analytics COde  *@
+                      <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+                      <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+                      <!-- End here -->
+
+    <style type="text/css">
+        tr {
+            padding-bottom: 10px;
+        }
+
+        .left {
+            line-height: 28px;
+        }
+
+        .continn {
+            width: 1100px !important;
+            margin-left: -85px;
+        }
+
+        .posit {
+            width: 1100px;
+        }
+
+        .posit_hd {
+            width: 1100px;
+        }
+
+        .posit_bt {
+            width: 1100px;
+        }
+    </style>
+
+
+
+    <div class="content">
+        <div class="wrapper">
+            <label id="lbldisplay" >
+            </label>
+            <div class="sarh">
+                <div class="search"></div>
+            </div>
+            <div class="continn">
+                <h3>
+                    <label id="lblHeading" text="Banner List" >
+                        Voucher Count
+                    </label>
+                </h3>
+
+                <div class="clr">
+                </div>
+
+                <div class="posit">
+
+                    <div class="posit_hd">
+
+                        <table width="1100" border="0" cellspacing="0" cellpadding="1">
+                            <tr>
+                                <td width="60" class="center">
+                                    S.No.
+                                </td>
+                                <td width="5"></td>
+                                <td width="200" class="left">
+                                    Service Provider
+                                </td>
+                                <td width="15"></td>
+                                <td width="200" class="left">
+                                    Service Type
+                                </td>
+                                <td width="15"></td>
+                                <td width="180" class="right">
+                                    Points Labour Earned
+                                </td>
+                                <td width="15"></td>
+                                <td width="160" class="right">
+                                    Points In Voucher
+
+                                </td>
+                                <td width="15"></td>
+                                <td width="130" class="right">
+                                    Points Required
+                                </td>
+                                <td width="15"></td>
+                                <td width="150" class="left">
+                                    Organization
+                                </td>
+                                <td width="15"></td>
+                                <td width="100" class="left">
+                                    Status
+                                </td>
+
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="posit_bt" style=" overflow-y:scroll;overflow-x:hidden;height:500px">
+
+                        <table width="1100" border="0" cellspacing="0" cellpadding="1">
+                            @{ int sno = 0;}
+
+
+                            @foreach (var item in Model)
+                            {
+                                sno = sno + 1;
+                                <tr class="posit_txt">
+                                    <td width="60" class="center">
+                                        @(sno)
+                                    </td>
+                                    <td width="5"></td>
+                                    <td width="200" class="left">
+                                        @Html.DisplayFor(modelItem => item.SERVICEPROVIDER)
+                                    </td>
+                                    <td width="15"></td>
+                                    <td width="200" class="left">
+
+                                        @Html.DisplayFor(modelItem => item.SERVICETYPENAME)
+                                    </td>
+                                    <td width="15"></td>
+                                    <td width="180" class="right">
+                                        @Html.DisplayFor(modelItem => item.PointsLabourEarned)
+                                    </td>
+                                    <td width="15"></td>
+                                    <td width="160" class="right">
+                                        @Html.DisplayFor(modelItem => item.PointsInVoucher)
+                                    </td>
+                                    <td width="15"></td>
+                                    <td width="130" class="right">
+                                        @Html.DisplayFor(modelItem => item.PointsRequired)
+                                    </td>
+                                    <td width="15"></td>
+                                    <td width="150" class="left">
+                                        @Html.DisplayFor(modelItem => item.OrgName)
+                                    </td>
+                                    <td width="15"></td>
+                                    <td width="100" class="left">
+
+                                        @Html.DisplayFor(modelItem => item.Status)
+
+                                    </td>
+
+                                </tr>
+
+                            }
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+

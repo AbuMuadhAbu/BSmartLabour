@@ -1,0 +1,271 @@
+﻿@model SmartLabours.Models.DonatePhone
+@{
+    
+    ViewBag.Title = "Smart Labour - Sponsor Account";
+    Layout = "~/Views/Shared/_AccountMenuLayout.cshtml";
+
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //$("#ConfirmAddress").prop("checked", true);
+
+        $("#ConfirmAddressid").attr("checked", true);
+
+        $("#AlternateAddress").attr('readonly', true);
+
+        $("#chkidPhoneNumber").attr("checked", true);
+
+        $("#AlternatePhoneNumber").attr('readonly', true);
+
+        $("#Address").attr('readonly', true);
+
+        $('input[type="checkbox"]').change(function () {
+
+            if ($(this).attr('id') == "NewAddressid") {
+                $("#ConfirmAddressid").attr("checked", false);
+                $("#Address").attr('readonly', true);
+
+                $("#AlternateAddress").attr('readonly', false);
+            }
+            else if ($(this).attr('id') == "ConfirmAddressid") {
+                $("#NewAddressid").attr("checked", false);
+
+                $("#AlternateAddress").attr('readonly', false);
+
+            }
+            else if ($(this).attr('id') == "chkAlternatePhoneNumber") {
+                $("#AlternatePhoneNumber").attr('readonly', false);
+                $("#chkidPhoneNumber").attr("checked", false);
+                $("#ContactDetail").attr('readonly', true);
+
+            }
+            else {
+                $("#chkidPhoneNumber").attr("checked", true);
+
+                $("#AlternatePhoneNumber").attr('readonly', true);
+                 $("#chkAlternatePhoneNumber").attr("checked", false);
+            }
+            //var check = $(this).prop('checked');
+            //console.log("Change: " + name + " to " + check);
+        });
+
+
+         $("#IMEANumber").blur(function () {
+
+             if ($("#IMEANumber").val() != '' & $("#IMEANumber").val() != null) {
+                 var url = "/DonatePhone/CheckIMEANumber";
+
+                 $.post(url, { IMEANUMBER: $("#IMEANumber").val() }, function (data) {
+                     if (data != "") {
+                         $("#IMEANumber").val('');
+                         $("#EmailIdExists").html(data);
+                     }
+                     else {
+                         $("#EmailIdExists").html(data);
+                     }
+
+                 });
+             }
+         });
+        
+
+         $("#IMEANumber").keydown(function (e) {
+             AllowNumericOnly(e);            
+         });
+
+
+    });
+
+    function numericFilter(txb) {
+        txb.value = txb.value.replace(/[^\0-9]/ig, "");
+    }
+
+    function Validation() {
+       
+        if (document.getElementById("NewAddressid").checked == true) {
+          
+            if (document.getElementById("NewAddress").value =="") {
+                $("#AlternateAddress").css('display', 'block');
+            return false;
+            }
+            else {
+                $("#AlternateAddress").css('display', 'block');
+                return true;
+            }
+      }
+    }
+</script>
+<div class="main">
+    <div class="inner_titlebg">
+        <div class="wrapper">
+            <h2>
+                Donate Phone</h2>
+           
+        </div>
+    </div>
+    @using (Html.BeginForm("DonatePhone", "DonatePhone", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="wrapper">
+            <div class="inner_contentarea1 clearfix">
+                <div class="left_menu">
+                    <ul>
+                       <li><a href="/SponsorAccount/ProfileDetails" title="Profile Details">Profile Details</a></li>
+                    <li><a href="/SponsorAccount/Notification" title="Notification">Notification</a></li>
+                    <li class="active"><a href="/Donatephone/DonatePhone" title="Participation Form">Participation Phone Form</a></li>
+                    <li ><a href="/Donatephone/DonatePhoneHistory" title="Phone Request History">Participation Phone History</a></li>
+                    <li><a href="/Donatephone/OtherDonationHistory" title="Phone Request History">Other Participation History</a></li>
+                    <li><a href="/SponsorAccount/SponsorDonationWebsite" title="Participation To website"> Participation To Website</a></li>
+                    <li><a href="/SponsorAccount/PostTestimonial" title="Post Testimonial">Post Testimonial</a></li>
+                        <li><a href="/HelpDesk/HelpDeskAdd1" title="Help Desk">Help Desk</a></li>  
+                        <li><a href="/HelpDesk/HelpDeskSponsorList" title="Help Desk">Help Desk List</a></li>
+                    </ul>
+                </div>
+                <div class="right_content">
+                    <h2>
+                        Donate Phone</h2>
+                    <div class="request_form">
+                        <div class="input">
+                            <label>
+                                Brand Name
+                            </label>
+                            @Html.TextBoxFor(model => model.BrandName)
+                            <span class="error_msg">
+                                @Html.ValidationMessageFor(model => model.BrandName)
+                            </span>
+                        </div>
+                        @*<div class="input">
+                            <label id="phoneRequest">
+                               </label>
+                         
+                        </div>*@
+                        <div class="input">
+                            <label>
+                                Model No</label>
+                            @Html.TextBoxFor(model => model.ModelNo)
+                            <span class="error_msg">
+                                @Html.ValidationMessageFor(model => model.ModelNo)
+                            </span>
+                        </div>
+                        <div class="input">
+                            <label>
+                                Phone Color</label>
+                            @Html.TextBoxFor(model => model.PhoneColor)
+                            <span class="error_msg">
+                                @Html.ValidationMessageFor(model => model.PhoneColor)
+                            </span>
+                        </div>
+                        <div class="input">
+                            <label>
+                                IMEA Number</label>
+                            @Html.TextBoxFor(model => model.IMEANumber, new { maxlength = 15 })
+                            <label>
+                                Find IMEA Number (Type *#06#)</label>
+                            <span class="error_msg">
+                                @Html.ValidationMessageFor(model => model.IMEANumber)
+                            </span>
+                                  <span class="error_msg" id="EmailIdExists">
+                        </span>
+                        </div>
+                      @*  <div class="input">
+                            <label>
+                                Your Phone Number</label>
+                            @Html.TextAreaFor(model => model.ContactDetail)
+                            <span class="error_msg">
+                                @Html.ValidationMessageFor(model => model.ContactDetail)
+                            </span>
+                        </div>
+                        <div class="input">
+                                <label> @*<input type="checkbox" id="idAlternatePhonenumber" name="idAlternatePhonenumber"
+                                    value="AlternatePhoneNumber">
+                               
+                                    Alternate Phone Number</label>
+                            @Html.TextBoxFor(model => model.AlternatePhoneNumber)
+                            <span class="error_msg">
+                                @Html.ValidationMessageFor(model => model.EmailID)
+                            </span>
+                        </div>
+                      *@   
+                      
+                      <div class="clearfix">
+                         <div class="input  ">
+                                <div class="clearfix">
+                                    <input type="checkbox" id="chkidPhoneNumber" class="inline_checkbox" name="PhoneNo" value="phonenumber">
+                                    <label>
+                                           Your Phone Number</label></div>
+                                                            @Html.TextBoxFor(model => model.ContactDetail, new { onkeyup = "numericFilter(this);", @readonly = true })
+                            <span class="error_msg">
+                                    @Html.ValidationMessageFor(model => model.ContactDetail)
+                                </span>
+                            </div>
+                     
+                            <div class="input">
+                                <div class="clearfix">
+                                    <input type="checkbox" id="chkAlternatePhoneNumber" class="inline_checkbox"  name="PhoneNo" value="AlterPhoneNumber">
+                                    <label>
+                                           Alternate Phone Number</label></div>
+                                                            @Html.TextBoxFor(model => model.AlternatePhoneNumber, new { onkeyup = "numericFilter(this);" })
+                            <span class="error_msg">
+                                    @Html.ValidationMessageFor(model => model.AlternatePhoneNumber)
+                                </span>
+                            </div>
+                       </div>
+                        <div class="input">
+                            <label>
+                                Phone Owner Name
+                            </label>
+                            @Html.TextBoxFor(model => model.PhoneOwnerName)
+                            <span class="error_msg">
+                                @Html.ValidationMessageFor(model => model.PhoneOwnerName)
+                            </span>
+                        </div>
+                        <div class="clearfix">
+                            <div class="input textarea">
+                                <div class="clearfix">
+                                <input type="checkbox" id="ConfirmAddressid" name ="ConfirmAddress" value="ConfirmAddress" >
+                                    
+                                    @*<input type="checkbox" id="chkaddress">*@
+                                    <label>
+                                        Address</label></div>
+                                @Html.TextAreaFor(model => model.Address)
+                                <span class="error_msg">
+                                    @Html.ValidationMessageFor(model => model.Address)
+                                </span>
+                            </div>
+                            <div class="input textarea">
+                                <div class="clearfix">
+                                    <input type="checkbox" id="NewAddressid" name="Address" value="NewAddress">
+                                    <label>
+                                        Alternate / New Address</label></div>
+                                @Html.TextAreaFor(n => n.AlternateAddress)
+                                <span class="error_msg" id="AlternateAddress" style="display: none;">Please Enter the
+                                    Alternate Address </span>
+                            </div>
+                            @*<div class="input">
+                            <label>
+                                Pincode </label>
+                           @Html.TextBoxFor(model => model.Pincode)
+                            <span class="error_msg">
+                            @Html.ValidationMessageFor(model => model.Pincode)
+                        </span>
+                        </div>
+*@
+                        </div>
+                        <div class="submit default">
+                            <input type="submit" value="Submit" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+    }
+</div>

@@ -1,0 +1,107 @@
+﻿
+@model SmartLabours.Models.TBL_RewardPointMaster
+@{
+    ViewBag.Title = "UpdateRewardPoints";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+<script type="text/javascript">
+     //Send to Previous page
+    function PreviousPage() {
+        window.location = "/RewardPoints/LaboursRewardPointsList";
+    }
+    $(document).ready(function () {
+
+        $("#RewardPoint").keydown(function (e) {
+            AllowNumericOnly(e);
+        });
+        function AllowNumericOnly(e) {
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+              (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+              (e.keyCode >= 35 && e.keyCode <= 40)) {
+                return;
+            }
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        }
+    });    //Contact number Only Allowed Numeric
+   
+</script>
+
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                   Update Reward Point
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1" >
+                    <b>
+                        <label id="lblErrormsg" >
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="suss_mesg" id="msShow2" >
+                    <b>
+                        <label id="lblError1" >
+                        </label>
+                    </b>
+                </div>
+                <div class="fld_fd">
+                    @using (Html.BeginForm("UpdateRewardPoints", "RewardPoints", FormMethod.Post, new { id = "UpdateRewardPoints", @class = "form-horizontal", enctype = "multipart/form-data", autocomplete = "off" }))
+                    {
+                        <div>
+                            <dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span>  Reward Points
+                                </dd>
+                                <dt>
+                                    @Html.TextBoxFor(model => model.RewardPoint, new { maxlength = 5 })
+                                    @Html.HiddenFor(model => model.RewardPointId)
+                                    <span class="error">
+                                        @Html.ValidationMessageFor(model => model.RewardPoint)
+                                    </span>
+                                </dt>
+                            </dl>
+
+                            @*<dl>
+                                <dd>
+                                    <span style="color:red;padding-right :2px;"> * </span>   Organization Name
+                                </dd>
+                                <dt>
+                                    @{
+                        if (HttpContext.Current.Session["USERID"].ToString() == "1")
+                        {
+                            @Html.TextBoxFor(model => model.OrgName, new { maxlength = 35, id = "Orgname" })
+
+
+                        }
+                        else
+                        {
+                            @Html.TextBox("OrgId", (string)ViewBag.GetOrganizationName, new { id = "txtOrgName", disabled = "disabled" })
+                        }
+
+                                    }
+                                </dt>
+                            </dl>*@
+                        
+                            <div class="btn1 btn1-form">
+                                <input type="submit" value="Save" title="Save" />
+                                <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

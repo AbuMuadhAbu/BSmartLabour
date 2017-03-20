@@ -1,0 +1,128 @@
+﻿
+@model SmartLabours.Models.TBL_TESTIMONIAL_SMT
+@{
+    ViewBag.Title = "Testimonial View";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<link rel="stylesheet" type="text/css" href="~/Uplodify/css/uploadify.css" />
+<script type="text/javascript" src="~/Uplodify/scripts/jquery.uploadify.js"></script>
+<link href="~/video-js/video-js.css" rel="stylesheet" type="text/css">
+  <!-- video.js must be in the <head> for older IEs to work. -->
+<script src="../../video-js/video.js"></script>
+
+  <!-- Unless using the CDN hosted version, update the URL to the Flash SWF -->
+<script>
+    videojs.options.flash.swf = "~/video-js/video-js.swf";
+</script>
+<script src="~/flowplayer/flowplayer-3.2.12.min.js"></script>
+<script type="text/javascript">
+    function PreviousPage() {
+
+        window.location = "/Testimonial/Testimonial_List";
+    }
+
+</script>
+
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                    Testimonial View
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="fld_fd view-blk">
+
+                    <dl>
+                        <dd>
+                            Title</dd>
+                        <dt>   <div style ="width:600px;float:left;text-align:left;padding-bottom:10px;">
+                            @Html.DisplayFor(n => n.Title)</div></dt>
+                    </dl>
+                    <dl>
+                        <dd>
+                            Name</dd>
+                        <dt>
+                            @Html.DisplayFor(n => n.Name)</dt>
+                    </dl>
+                    <dl>
+                        <dd>
+                            Image </dd>
+                        <dt>
+                            <img src="~/Uplodify/TestimonialImages/@Model.Image" height="100px" width="100px" />
+            
+                            </dt>
+                    </dl>
+                    <dl>
+                        <dd>
+                            video </dd>
+                        <dt> <div class="promo-video">
+                            <!-- Video 1 -->
+                                   @{
+                                       if (Model != null && Model.Mp4filename != null && Model.Mp4filename != string.Empty)
+                                {
+                                <div>
+                                <video id="homevideo" class="video-js vjs-default-skin " + controls preload="none" width="100%" height="200" >
+                                <source type="video/mp4" src="~/Uplodify/Testimonialvideo/@Model.Mp4filename"></source>
+                                <source type="video/webm" src="~/Uplodify/Testimonialvideo/@Model.Mp4filename"></source>
+                                <a id="flash-player" style="width:100%; height:250;display:block"></a>
+                                @*<script>
+                                    flowplayer("flash-player", "../../flowplayer/flowplayer-3.2.16.swf", {
+                                        clip: {
+                                            url: "/Uplodify/Testimonialvideo/@Model.Mp4filename",
+                                            autoPlay: false,
+                                            autoBuffering: true,
+                                            scaling: 'fit'
+                                        },
+                                        canvas: {
+                                            backgroundColor: "#000000",
+                                            backgroundGradient: "none"
+                                        }
+                                    });
+                                </script>*@ 
+                                </video>
+                                </div>
+                                }    
+                                }
+                                    <!-- Video 1 -->                     
+                             @Html.HiddenFor(x=>Model.videoFile)
+        </div>
+                            </dt>
+                    </dl>                    
+                    <dl>
+                        <dd>
+                            Description</dd>
+                        <dt>
+                         <div style ="width:600px;float:left;text-align:left;padding-bottom:10px;">
+                                   
+                            @Html.Raw(Model.Description)
+                            </div>
+                        </dt>
+                    </dl>                    
+                    <dl>
+                        <dd>
+                            Status</dd>
+                        <dt>
+                            @{if (Model.Status == true)
+                              {<label>Active</label>}
+                              else
+                              {<label>In Active</label>}}
+                        </dt>
+                    </dl>
+
+                    <div class="btn1 btn1-form">
+                            <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

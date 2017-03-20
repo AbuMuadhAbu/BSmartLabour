@@ -1,0 +1,632 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="smartlaboursModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="smartlaboursModelStoreContainer">
+    <EntitySet Name="CourseCompletionStatus" EntityType="smartlaboursModel.Store.CourseCompletionStatus" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Courses" EntityType="smartlaboursModel.Store.Courses" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CourseTypes" EntityType="smartlaboursModel.Store.CourseTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DonatePhones" EntityType="smartlaboursModel.Store.DonatePhones" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Labours" EntityType="smartlaboursModel.Store.Labours" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PageMap" EntityType="smartlaboursModel.Store.PageMap" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PhoneAsssignedToLabours" EntityType="smartlaboursModel.Store.PhoneAsssignedToLabours" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RequestPhones" EntityType="smartlaboursModel.Store.RequestPhones" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Sponsors" EntityType="smartlaboursModel.Store.Sponsors" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBL_ABOUTUS_SMT" EntityType="smartlaboursModel.Store.TBL_ABOUTUS_SMT" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBL_AdminCONTACTUS_SMT" EntityType="smartlaboursModel.Store.TBL_AdminCONTACTUS_SMT" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBL_ADMINLOGIN_SMT" EntityType="smartlaboursModel.Store.TBL_ADMINLOGIN_SMT" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBL_Answer_SMT" EntityType="smartlaboursModel.Store.TBL_Answer_SMT" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBL_Artical_SMT" EntityType="smartlaboursModel.Store.TBL_Artical_SMT" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBL_Banner_SMT" EntityType="smartlaboursModel.Store.TBL_Banner_SMT" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBL_COMMENTS_SMT" EntityType="smartlaboursModel.Store.TBL_COMMENTS_SMT" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBL_CONTACTUS_SMT" EntityType="smartlaboursModel.Store.TBL_CONTACTUS_SMT" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBL_COURSEDTL_SMT" EntityType="smartlaboursModel.Store.TBL_COURSEDTL_SMT" store:Type="Tables" store:Schema="dbo" store:Name="TBL_COURSEDTL_SMT">
+      <DefiningQuery>SELECT 
+      [TBL_COURSEDTL_SMT].[COURSEDTLID] AS [COURSEDTLID], 
+      [TBL_COURSEDTL_SMT].[COURSEID] AS [COURSEID], 
+      [TBL_COURSEDTL_SMT].[DESCRIPTION] AS [DESCRIPTION], 
+      [TBL_COURSEDTL_SMT].[CREATEDBY] AS [CREATEDBY], 
+      [TBL_COURSEDTL_SMT].[CREATEDDATE] AS [CREATEDDATE], 
+      [TBL_COURSEDTL_SMT].[MODIFIEDBY] AS [MODIFIEDBY], 
+      [TBL_COURSEDTL_SMT].[MODIFIEDDATE] AS [MODIFIEDDATE]
+      FROM [dbo].[TBL_COURSEDTL_SMT] AS [TBL_COURSEDTL_SMT]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="TBL_DISBUTETRANSACTION_SMT" EntityType="smartlaboursModel.Store.TBL_DISBUTETRANSACTION_SMT" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBL_MODULES_SMT" EntityType="smartlaboursModel.Store.TBL_MODULES_SMT" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBL_PAGE_USER_MAP_SMT" EntityType="smartlaboursModel.Store.TBL_PAGE_USER_MAP_SMT" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBL_Question_SMT" EntityType="smartlaboursModel.Store.TBL_Question_SMT" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBL_REQUESTFAMILYSETTINGS_SMT" EntityType="smartlaboursModel.Store.TBL_REQUESTFAMILYSETTINGS_SMT" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBL_SERVICEPLAN_SMT" EntityType="smartlaboursModel.Store.TBL_SERVICEPLAN_SMT" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBL_SERVICEPROVIDER_SMT" EntityType="smartlaboursModel.Store.TBL_SERVICEPROVIDER_SMT" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBL_SERVICETYPE_SMT" EntityType="smartlaboursModel.Store.TBL_SERVICETYPE_SMT" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBL_Sponsor_Notifications" EntityType="smartlaboursModel.Store.TBL_Sponsor_Notifications" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBL_SPONSOROTHERDONATION_SMT" EntityType="smartlaboursModel.Store.TBL_SPONSOROTHERDONATION_SMT" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBL_TERMSANDCONDITION_SMT" EntityType="smartlaboursModel.Store.TBL_TERMSANDCONDITION_SMT" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBL_TESTIMONIAL_SMT" EntityType="smartlaboursModel.Store.TBL_TESTIMONIAL_SMT" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBL_VOUCHER_SMT" EntityType="smartlaboursModel.Store.TBL_VOUCHER_SMT" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TestResults" EntityType="smartlaboursModel.Store.TestResults" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="VoucherAssignedToLabour" EntityType="smartlaboursModel.Store.VoucherAssignedToLabour" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="view_AvailStock" EntityType="smartlaboursModel.Store.view_AvailStock" store:Type="Views" store:Schema="dbo" store:Name="view_AvailStock">
+      <DefiningQuery>SELECT 
+      [view_AvailStock].[Avail_stock] AS [Avail_stock], 
+      [view_AvailStock].[SERVICEPROVIDERID] AS [SERVICEPROVIDERID], 
+      [view_AvailStock].[SERVICEPLANID] AS [SERVICEPLANID]
+      FROM [dbo].[view_AvailStock] AS [view_AvailStock]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="view_plandetails" EntityType="smartlaboursModel.Store.view_plandetails" store:Type="Views" store:Schema="dbo" store:Name="view_plandetails">
+      <DefiningQuery>SELECT 
+      [view_plandetails].[PLANNAEME] AS [PLANNAEME], 
+      [view_plandetails].[VALUEOFPLAN] AS [VALUEOFPLAN], 
+      [view_plandetails].[SERVICEPROVIDER] AS [SERVICEPROVIDER], 
+      [view_plandetails].[SERVICETYPENAME] AS [SERVICETYPENAME], 
+      [view_plandetails].[SERVICEPROVIDERID] AS [SERVICEPROVIDERID], 
+      [view_plandetails].[SERVICEPLANID] AS [SERVICEPLANID]
+      FROM [dbo].[view_plandetails] AS [view_plandetails]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="view_TotalStock" EntityType="smartlaboursModel.Store.view_TotalStock" store:Type="Views" store:Schema="dbo" store:Name="view_TotalStock">
+      <DefiningQuery>SELECT 
+      [view_TotalStock].[Tot_Stock] AS [Tot_Stock], 
+      [view_TotalStock].[SERVICEPROVIDERID] AS [SERVICEPROVIDERID], 
+      [view_TotalStock].[SERVICEPLANID] AS [SERVICEPLANID]
+      FROM [dbo].[view_TotalStock] AS [view_TotalStock]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="view_UsedStock" EntityType="smartlaboursModel.Store.view_UsedStock" store:Type="Views" store:Schema="dbo" store:Name="view_UsedStock">
+      <DefiningQuery>SELECT 
+      [view_UsedStock].[Used_stock] AS [Used_stock], 
+      [view_UsedStock].[SERVICEPROVIDERID] AS [SERVICEPROVIDERID], 
+      [view_UsedStock].[SERVICEPLANID] AS [SERVICEPLANID]
+      FROM [dbo].[view_UsedStock] AS [view_UsedStock]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+  <EntityType Name="CourseCompletionStatus">
+    <Key>
+      <PropertyRef Name="CourseCompletionStatusID" />
+    </Key>
+    <Property Name="CourseCompletionStatusID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="LabourID" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="CourseID" Type="int" Nullable="false" />
+    <Property Name="IsStarted" Type="bit" />
+    <Property Name="IsFinished" Type="bit" />
+  </EntityType>
+  <EntityType Name="Courses">
+    <Key>
+      <PropertyRef Name="CourseID" />
+    </Key>
+    <Property Name="CourseID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CourseName" Type="nvarchar" MaxLength="100" />
+    <Property Name="CourseTypeID" Type="int" Nullable="false" />
+    <Property Name="MutlticourseDesc" Type="nvarchar(max)" />
+    <Property Name="STATUS" Type="bit" />
+    <Property Name="CREATEDBY" Type="nvarchar" MaxLength="50" />
+    <Property Name="CREATEDDATE" Type="datetime" />
+    <Property Name="MODIFIEDBY" Type="nvarchar" MaxLength="50" />
+    <Property Name="MODIFIEDDATE" Type="datetime" />
+  </EntityType>
+  <EntityType Name="CourseTypes">
+    <Key>
+      <PropertyRef Name="CourseTypeID" />
+    </Key>
+    <Property Name="CourseTypeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CourseTypeName" Type="nvarchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="DonatePhones">
+    <Key>
+      <PropertyRef Name="DonateID" />
+    </Key>
+    <Property Name="DonateID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="BrandName" Type="varchar" MaxLength="1000" />
+    <Property Name="ModelNo" Type="varchar" MaxLength="100" />
+    <Property Name="PhoneColor" Type="nvarchar" MaxLength="200" />
+    <Property Name="IMEANumber" Type="nvarchar" MaxLength="500" />
+    <Property Name="PhoneOwnerName" Type="nvarchar" MaxLength="500" />
+    <Property Name="ContactDetail" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmailID" Type="nvarchar" MaxLength="200" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="Pincode" Type="nchar" MaxLength="10" />
+    <Property Name="CourierDetail" Type="nvarchar(max)" />
+    <Property Name="IsPhoneAcceptedByAdmin" Type="bit" />
+    <Property Name="IsPhoneAssignedToLabour" Type="bit" />
+    <Property Name="DonatedDate" Type="datetime" />
+    <Property Name="IsPhoneconfirmation" Type="bit" />
+    <Property Name="AlternateAddress" Type="nvarchar(max)" />
+    <Property Name="AlternatePhoneNumber" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Labours">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="LabourID" Type="varchar" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="300" />
+    <Property Name="EmailID" Type="nvarchar" Nullable="false" MaxLength="300" />
+    <Property Name="Password" Type="nvarchar" MaxLength="300" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="DOB" Type="datetime" />
+    <Property Name="Sex" Type="varchar" MaxLength="10" />
+    <Property Name="SERVICEPROVIDERID" Type="int" />
+    <Property Name="Address1" Type="varchar" MaxLength="1000" />
+    <Property Name="Address2" Type="varchar" MaxLength="1000" />
+    <Property Name="Address3" Type="varchar" MaxLength="1000" />
+    <Property Name="Pincode" Type="nvarchar" MaxLength="50" />
+    <Property Name="STATUS" Type="bit" />
+    <Property Name="LabourImage" Type="nvarchar" MaxLength="200" />
+    <Property Name="DeviceToken" Type="nvarchar(max)" />
+    <Property Name="DeviceType" Type="nvarchar" MaxLength="50" />
+    <Property Name="CREATEDBY" Type="nvarchar" MaxLength="50" />
+    <Property Name="CREATEDDATE" Type="datetime" />
+    <Property Name="MODIFIEDBY" Type="nvarchar" MaxLength="50" />
+    <Property Name="MODIFIEDDATE" Type="datetime" />
+    <Property Name="IsDisplayNameAccepted" Type="bit" />
+    <Property Name="SERVICETYPEID" Type="int" />
+  </EntityType>
+  <EntityType Name="PageMap">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="IMAPID" Type="int" Nullable="false" />
+    <Property Name="VUSERTYPE" Type="nvarchar" MaxLength="50" />
+    <Property Name="Bstatus" Type="bit" />
+    <Property Name="id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ipageid" Type="bigint" />
+  </EntityType>
+  <EntityType Name="PhoneAsssignedToLabours">
+    <Key>
+      <PropertyRef Name="PhoneAssignedID" />
+    </Key>
+    <Property Name="PhoneAssignedID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="DonateID" Type="int" Nullable="false" />
+    <Property Name="RequestPhoneID" Type="int" Nullable="false" />
+    <Property Name="LabourID" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="AssignedDate" Type="date" Nullable="false" />
+    <Property Name="IsTimeExpired" Type="bit" />
+    <Property Name="IsPhoneAccepted" Type="bit" />
+    <Property Name="CourierDetail" Type="nvarchar(max)" />
+    <Property Name="IsLabourReceivedPhone" Type="bit" />
+    <Property Name="DeliveredDate" Type="datetime" />
+    <Property Name="IsExpiredPhoneAssigned" Type="bit" />
+  </EntityType>
+  <EntityType Name="RequestPhones">
+    <Key>
+      <PropertyRef Name="RequestPhoneID" />
+    </Key>
+    <Property Name="RequestPhoneID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
+    <Property Name="AlternatePhoneNumber" Type="varchar" MaxLength="50" />
+    <Property Name="MailId" Type="varchar" MaxLength="300" />
+    <Property Name="LabourID" Type="varchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="NewAddress" Type="nvarchar(max)" />
+    <Property Name="RequestedDate" Type="datetime" />
+    <Property Name="RequestStatus" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Sponsors">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" MaxLength="300" />
+    <Property Name="EmailId" Type="nvarchar" MaxLength="300" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="300" />
+    <Property Name="DOB" Type="datetime" />
+    <Property Name="Sex" Type="nvarchar" MaxLength="30" />
+    <Property Name="Address1" Type="nvarchar(max)" />
+    <Property Name="Address2" Type="nvarchar" MaxLength="300" />
+    <Property Name="Address3" Type="nvarchar" MaxLength="300" />
+    <Property Name="Pincode" Type="nvarchar" MaxLength="300" />
+    <Property Name="Password" Type="nvarchar" MaxLength="300" />
+    <Property Name="ConfirmPassword" Type="nvarchar" MaxLength="300" />
+    <Property Name="IsDisplayNameAccepted" Type="bit" />
+    <Property Name="EmiratesId" Type="varchar" MaxLength="50" />
+    <Property Name="status" Type="bit" />
+    <Property Name="SponsorImage" Type="nvarchar" MaxLength="200" />
+    <Property Name="CREATEDDATE" Type="datetime" />
+    <Property Name="Homecontent" Type="bit" />
+  </EntityType>
+  <EntityType Name="TBL_ABOUTUS_SMT">
+    <Key>
+      <PropertyRef Name="ABOUTUSID" />
+    </Key>
+    <Property Name="ABOUTUSID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="SHORTDESC" Type="nvarchar" MaxLength="2000" />
+    <Property Name="FULLDESCRIPTION" Type="nvarchar(max)" />
+    <Property Name="STATUS" Type="bit" />
+    <Property Name="CREATEDDATE" Type="datetime" />
+    <Property Name="CREATEDBY" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TBL_AdminCONTACTUS_SMT">
+    <Key>
+      <PropertyRef Name="CONTACTUSID" />
+    </Key>
+    <Property Name="CONTACTUSID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="POBOXNO" Type="nvarchar" MaxLength="100" />
+    <Property Name="ADDRESS1" Type="nvarchar" MaxLength="300" />
+    <Property Name="ADDRESS2" Type="nvarchar" MaxLength="350" />
+    <Property Name="PHONENO" Type="nvarchar" MaxLength="400" />
+    <Property Name="CITY" Type="nvarchar" MaxLength="50" />
+    <Property Name="COUNTRY" Type="nvarchar" MaxLength="50" />
+    <Property Name="EMAILID" Type="nvarchar" MaxLength="200" />
+    <Property Name="STATUS" Type="bit" />
+    <Property Name="CREATEDDATE" Type="datetime" />
+    <Property Name="CREATEDBY" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TBL_ADMINLOGIN_SMT">
+    <Key>
+      <PropertyRef Name="USERID" />
+    </Key>
+    <Property Name="USERID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="USERNAME" Type="nvarchar" MaxLength="50" />
+    <Property Name="USEREMAIL" Type="nvarchar" MaxLength="50" />
+    <Property Name="PASSWORD" Type="nvarchar" MaxLength="50" />
+    <Property Name="USERTYPE" Type="int" />
+    <Property Name="STATUS" Type="bit" />
+    <Property Name="LASTLOGIN" Type="datetime" />
+    <Property Name="CREATEDBY" Type="nvarchar" MaxLength="50" />
+    <Property Name="CREATEDDATE" Type="datetime" />
+    <Property Name="MODIFIEDBY" Type="nvarchar" MaxLength="50" />
+    <Property Name="MODIFIEDDATE" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TBL_Answer_SMT">
+    <Key>
+      <PropertyRef Name="AnswerID" />
+    </Key>
+    <Property Name="AnswerID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="AnswerDesc" Type="nvarchar" MaxLength="500" />
+    <Property Name="QuestionID" Type="int" />
+    <Property Name="IsCorrect" Type="bit" />
+  </EntityType>
+  <EntityType Name="TBL_Artical_SMT">
+    <Key>
+      <PropertyRef Name="ArticalID" />
+    </Key>
+    <Property Name="ArticalID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="nvarchar" MaxLength="400" />
+    <Property Name="ShortDescription" Type="nvarchar" MaxLength="2000" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="ArticalDate" Type="datetime" />
+    <Property Name="Status" Type="bit" />
+    <Property Name="Homecontent" Type="bit" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TBL_Banner_SMT">
+    <Key>
+      <PropertyRef Name="BannerId" />
+    </Key>
+    <Property Name="BannerId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="BannerTitle" Type="nvarchar" MaxLength="300" />
+    <Property Name="BannerImage" Type="nvarchar" MaxLength="800" />
+    <Property Name="Status" Type="bit" />
+  </EntityType>
+  <EntityType Name="TBL_COMMENTS_SMT">
+    <Key>
+      <PropertyRef Name="COMMENTSID" />
+    </Key>
+    <Property Name="COMMENTSID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ARTICALID" Type="int" />
+    <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="3000" />
+    <Property Name="APPROVED" Type="bit" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="CREATEDDATE" Type="datetime" />
+    <Property Name="CREATEDBY" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TBL_CONTACTUS_SMT">
+    <Key>
+      <PropertyRef Name="CONTACTID" />
+    </Key>
+    <Property Name="CONTACTID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FIRSTNAME" Type="nvarchar" MaxLength="100" />
+    <Property Name="LASTNAME" Type="nvarchar" MaxLength="100" />
+    <Property Name="EMAILID" Type="nvarchar" MaxLength="50" />
+    <Property Name="PHONENO" Type="nvarchar" MaxLength="30" />
+    <Property Name="COMMENTS" Type="nvarchar" MaxLength="2000" />
+    <Property Name="CREATEDDATE" Type="datetime" />
+    <Property Name="REVIEW" Type="nvarchar" MaxLength="400" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'smartlabours.dbo.TBL_COURSEDTL_SMT' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="TBL_COURSEDTL_SMT">
+    <Key>
+      <PropertyRef Name="COURSEDTLID" />
+    </Key>
+    <Property Name="COURSEDTLID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="COURSEID" Type="int" />
+    <Property Name="DESCRIPTION" Type="nvarchar(max)" />
+    <Property Name="CREATEDBY" Type="nvarchar" MaxLength="50" />
+    <Property Name="CREATEDDATE" Type="datetime" />
+    <Property Name="MODIFIEDBY" Type="nvarchar" MaxLength="50" />
+    <Property Name="MODIFIEDDATE" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TBL_DISBUTETRANSACTION_SMT">
+    <Key>
+      <PropertyRef Name="DisbuteID" />
+    </Key>
+    <Property Name="DisbuteID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="TransactionId" Type="int" />
+    <Property Name="FeedBack" Type="nvarchar" MaxLength="300" />
+    <Property Name="REVIEW" Type="nvarchar" MaxLength="500" />
+    <Property Name="Createddate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TBL_MODULES_SMT">
+    <Key>
+      <PropertyRef Name="IPAGEID" />
+    </Key>
+    <Property Name="IPAGEID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="VPAGELABEL" Type="nvarchar" MaxLength="50" />
+    <Property Name="IPARENTID" Type="int" />
+    <Property Name="PAGENAME" Type="nvarchar" MaxLength="50" />
+    <Property Name="IPRIORITY" Type="int" />
+    <Property Name="HMS_IMS" Type="nvarchar" MaxLength="50" />
+    <Property Name="STATUS" Type="bit" />
+    <Property Name="CREATEDBY" Type="nvarchar" MaxLength="50" />
+    <Property Name="CREATEDDATE" Type="datetime" />
+    <Property Name="MODIFIEDBY" Type="nvarchar" MaxLength="50" />
+    <Property Name="MODIFIEDDATE" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TBL_PAGE_USER_MAP_SMT">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" Nullable="false" />
+    <Property Name="IMAPID" Type="int" Nullable="false" />
+    <Property Name="ipageid" Type="int" Nullable="false" />
+    <Property Name="VUSERTYPE" Type="nvarchar" MaxLength="50" />
+    <Property Name="Bstatus" Type="bit" />
+  </EntityType>
+  <EntityType Name="TBL_Question_SMT">
+    <Key>
+      <PropertyRef Name="QuestionID" />
+    </Key>
+    <Property Name="QuestionID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="QuestionDesc" Type="nvarchar" MaxLength="1000" />
+    <Property Name="CourseID" Type="int" />
+    <Property Name="CreditPoints" Type="int" />
+  </EntityType>
+  <EntityType Name="TBL_REQUESTFAMILYSETTINGS_SMT">
+    <Key>
+      <PropertyRef Name="REQUESTPHONEFAMILID" />
+    </Key>
+    <Property Name="REQUESTPHONEFAMILID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="REQUESTFAMILYSTATUS" Type="bit" />
+  </EntityType>
+  <EntityType Name="TBL_SERVICEPLAN_SMT">
+    <Key>
+      <PropertyRef Name="SERVICEPLANID" />
+    </Key>
+    <Property Name="SERVICEPLANID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="SERVICETYPEID" Type="int" />
+    <Property Name="SERVICEPROVIDERID" Type="int" />
+    <Property Name="PLANNAEME" Type="nvarchar" MaxLength="150" />
+    <Property Name="VALUEOFPLAN" Type="nvarchar" MaxLength="150" />
+    <Property Name="Validity" Type="nvarchar" MaxLength="150" />
+    <Property Name="STATUS" Type="bit" />
+    <Property Name="CREDITPOINTS" Type="int" />
+    <Property Name="CREATEDBY" Type="nvarchar" MaxLength="50" />
+    <Property Name="CREATEDDATE" Type="datetime" />
+    <Property Name="MODIFIEDBY" Type="nvarchar" MaxLength="50" />
+    <Property Name="MODIFIEDDATE" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TBL_SERVICEPROVIDER_SMT">
+    <Key>
+      <PropertyRef Name="SERVICEPROVIDERID" />
+    </Key>
+    <Property Name="SERVICEPROVIDERID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="SERVICEPROVIDER" Type="nvarchar" MaxLength="200" />
+    <Property Name="STATUS" Type="bit" />
+    <Property Name="CREATEDBY" Type="nvarchar" MaxLength="50" />
+    <Property Name="CREATEDDATE" Type="datetime" />
+    <Property Name="MODIFIEDBY" Type="nvarchar" MaxLength="50" />
+    <Property Name="MODIFIEDDATE" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TBL_SERVICETYPE_SMT">
+    <Key>
+      <PropertyRef Name="SERVICETYPEID" />
+    </Key>
+    <Property Name="SERVICETYPEID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="SERVICETYPENAME" Type="nvarchar" MaxLength="200" />
+    <Property Name="STATUS" Type="bit" />
+    <Property Name="CREATEDBY" Type="nvarchar" MaxLength="50" />
+    <Property Name="CREATEDDATE" Type="datetime" />
+    <Property Name="MODIFIEDBY" Type="nvarchar" MaxLength="50" />
+    <Property Name="MODIFIEDDATE" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TBL_Sponsor_Notifications">
+    <Key>
+      <PropertyRef Name="NotifyID" />
+    </Key>
+    <Property Name="NotifyID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="DonateID" Type="int" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="IsPhoneConfirmation" Type="bit" />
+    <Property Name="IsCourrierconfirmation" Type="bit" />
+    <Property Name="IsPhoneAcceptedByAdmin" Type="bit" />
+    <Property Name="IsPhoneAssignedToLabour" Type="bit" />
+    <Property Name="CREATEDDATE" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TBL_SPONSOROTHERDONATION_SMT">
+    <Key>
+      <PropertyRef Name="SponsorDonateId" />
+    </Key>
+    <Property Name="SponsorDonateId" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="DonateType" Type="nvarchar" MaxLength="50" />
+    <Property Name="DonateAmount" Type="decimal" />
+    <Property Name="Description" Type="nvarchar" MaxLength="2000" />
+    <Property Name="Comments" Type="nvarchar" MaxLength="2000" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TBL_TERMSANDCONDITION_SMT">
+    <Key>
+      <PropertyRef Name="TermsandConditionId" />
+    </Key>
+    <Property Name="TermsandConditionId" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ShortDescription" Type="nvarchar" MaxLength="2000" />
+    <Property Name="FullDecription" Type="nvarchar(max)" />
+    <Property Name="STATUS" Type="bit" />
+    <Property Name="CREATEDDATE" Type="datetime" />
+    <Property Name="CREATEDBY" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TBL_TESTIMONIAL_SMT">
+    <Key>
+      <PropertyRef Name="TestimonialId" />
+    </Key>
+    <Property Name="TestimonialId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="nvarchar" MaxLength="500" />
+    <Property Name="Name" Type="nvarchar" MaxLength="300" />
+    <Property Name="Designation" Type="nvarchar" MaxLength="300" />
+    <Property Name="Image" Type="nvarchar" MaxLength="500" />
+    <Property Name="VideoFile" Type="nvarchar" MaxLength="2000" />
+    <Property Name="Oggfilename" Type="nvarchar" MaxLength="2000" />
+    <Property Name="Webmfilename" Type="nvarchar" MaxLength="2000" />
+    <Property Name="MP4filename" Type="nvarchar" MaxLength="2000" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Status" Type="bit" />
+    <Property Name="HomeContent" Type="bit" />
+  </EntityType>
+  <EntityType Name="TBL_VOUCHER_SMT">
+    <Key>
+      <PropertyRef Name="VOUCHERID" />
+    </Key>
+    <Property Name="VOUCHERID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="SERVICEPLANID" Type="int" />
+    <Property Name="SERVICEPROVIDERID" Type="int" Nullable="false" />
+    <Property Name="CODES" Type="nvarchar" MaxLength="50" />
+    <Property Name="STATUS" Type="bit" />
+    <Property Name="CREATEDBY" Type="nvarchar" MaxLength="50" />
+    <Property Name="CREATEDATE" Type="datetime" />
+    <Property Name="MODIFIEDBY" Type="nvarchar" MaxLength="50" />
+    <Property Name="MODIFIEDDATE" Type="datetime" />
+    <Property Name="IsVoucherAssigned" Type="bit" />
+  </EntityType>
+  <EntityType Name="TestResults">
+    <Key>
+      <PropertyRef Name="TestID" />
+    </Key>
+    <Property Name="TestID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="LabourID" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="CourseID" Type="int" Nullable="false" />
+    <Property Name="QuestionID" Type="int" Nullable="false" />
+    <Property Name="AnswerID" Type="int" Nullable="false" />
+    <Property Name="IsCorrect" Type="bit" />
+    <Property Name="CreditPoints" Type="int" />
+    <Property Name="IsSubmitted" Type="bit" />
+  </EntityType>
+  <EntityType Name="VoucherAssignedToLabour">
+    <Key>
+      <PropertyRef Name="VoucherAssignID" />
+    </Key>
+    <Property Name="VoucherAssignID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="VOUCHERID" Type="int" Nullable="false" />
+    <Property Name="LabourID" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="AssignedDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'smartlabours.dbo.view_AvailStock' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="view_AvailStock">
+    <Key>
+      <PropertyRef Name="SERVICEPROVIDERID" />
+    </Key>
+    <Property Name="Avail_stock" Type="int" />
+    <Property Name="SERVICEPROVIDERID" Type="int" Nullable="false" />
+    <Property Name="SERVICEPLANID" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'smartlabours.dbo.view_plandetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="view_plandetails">
+    <Key>
+      <PropertyRef Name="SERVICEPROVIDERID" />
+    </Key>
+    <Property Name="PLANNAEME" Type="nvarchar" MaxLength="150" />
+    <Property Name="VALUEOFPLAN" Type="nvarchar" MaxLength="150" />
+    <Property Name="SERVICEPROVIDER" Type="nvarchar" MaxLength="200" />
+    <Property Name="SERVICETYPENAME" Type="nvarchar" MaxLength="200" />
+    <Property Name="SERVICEPROVIDERID" Type="int" Nullable="false" />
+    <Property Name="SERVICEPLANID" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'smartlabours.dbo.view_TotalStock' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="view_TotalStock">
+    <Key>
+      <PropertyRef Name="SERVICEPROVIDERID" />
+    </Key>
+    <Property Name="Tot_Stock" Type="int" />
+    <Property Name="SERVICEPROVIDERID" Type="int" Nullable="false" />
+    <Property Name="SERVICEPLANID" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'smartlabours.dbo.view_UsedStock' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="view_UsedStock">
+    <Key>
+      <PropertyRef Name="SERVICEPROVIDERID" />
+    </Key>
+    <Property Name="Used_stock" Type="int" />
+    <Property Name="SERVICEPROVIDERID" Type="int" Nullable="false" />
+    <Property Name="SERVICEPLANID" Type="int" />
+  </EntityType>
+  <Function Name="AssignVoucherForCreditPoints" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LabourID" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="Pro_AcceptPhone" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LabourId" Type="varchar" Mode="In" />
+    <Parameter Name="IsPhoneAccepted" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="Pro_AssignExpiredPhone" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="Pro_AssignPhoneToLabour" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="Pro_AssignVoucher" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="Pro_AssignVoucher_V1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="Pro_AssignVoucherPoints" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="pro_DisbutedTransactionList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="Pro_GetVoucherCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="pro_LabourNotification_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LabourId" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="pro_LabourNotificationPhone_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LabourID" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="pro_LabourPhoneRequestcount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LabourId" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="pro_PhoneAcceptedLabourHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LabourId" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="pro_PhoneAssigned_Labour" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="pro_PhoneAvailable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LabourId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pro_Request_History" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LabourId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="Pro_RequestPending" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LabourId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pro_RequestPhone_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="pro_RequestPhoneTransaction_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PhoneAssignId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Pro_Voucher_Labour" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LabourID" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="Pro_VoucherKitty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="labourID" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="PROC_DASHBOADLATESTCOUNT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Type" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="PROC_MULTIPLEQUESTION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="updateVoucherAssigned" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <!--Errors Found During Generation:
+      warning 6013: The table/view 'smartlabours.dbo.Page' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="Page">
+        <Property Name="PageID" Type="int" />
+        <Property Name="PageTitle" Type="nvarchar" MaxLength="200" />
+        <Property Name="PageDescription" Type="nvarchar(max)" />
+        <Property Name="CourseID" Type="int" />
+      </EntityType>-->
+</Schema>

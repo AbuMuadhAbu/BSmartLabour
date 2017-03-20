@@ -1,0 +1,515 @@
+﻿@model SmartLabours.Models.DonatePhone
+@{
+    ViewBag.Title = "Add Courier Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@* Google Analytics COde  *@
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTWMKL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-PTWMKL');</script>
+<!-- End here -->
+
+<script type="text/javascript">
+   
+    window.onload = function () {
+
+        //var editor = CKEDITOR.replace('CourierDetail');
+        //editor.on('blur', function (evt) {
+        //    document.getElementById('CourierDetail').value = evt.editor.getData();
+        //    if (document.getElementById('CourierDetail').value != "") {
+
+        //        $("#errorbanner").css({ display: "none" });
+        //    }
+        //    else {
+        //        $("#errorbanner").css({ display: "block" });
+        //    }
+        //});
+
+
+    };
+
+    $(document).ready(function () {
+
+        $('#State').keypress(function () {
+            $("#errorbannerState").css({ display: "none" });
+        });
+        $('#City').keypress(function () {
+            $("#errorbannerCity").css({ display: "none" });
+        });
+        $('#Country').keypress(function () {
+            $("#errorbannerCountry").css({ display: "none" });
+        });
+
+        $("#Pincode").keydown(function (e) {
+            AllowNumericOnly(e);
+            $("#errorbannerPincode").css({ display: "none" });
+        });
+
+        $('#CourierDetail').keypress(function () {
+            $("#errorbanner").css({ display: "none" });
+        });
+
+
+    });
+
+
+    function checkvalidation() {
+
+       // debugger
+        var AdminAccept1 = $("#IsPhoneConfirmation").val();
+        //alert(AdminAccept1);
+        if (AdminAccept1 == "True") {
+            var status = 0;
+           // alert("Hi");
+           // var Editorval = CKEDITOR.instances["CourierDetail"].getData();
+
+
+            if ($('#CourierDetail').val() != "") {
+               // status = 0;
+            }
+            else {
+                $("#errorbanner").css({ display: "block" });
+
+                status = 1;
+            }
+
+
+            if ($("#Country").val() == "" || $("#Country").val() == "0") {
+                $("#ErrorCountry").text('Please Select the Country');
+                status = 1;
+            }
+            else {
+                $("#ErrorCountry").text('');
+
+            }
+
+
+            if ($("#State").val() == "" || $("#State").val() == "0") {
+                $("#ErrorState").text('Please Select the State');
+                status = 1;
+            }
+            else {
+                $("#ErrorState").text('');
+            }
+
+
+            if ($("#City").val() == "" || $("#City").val() == "0") {
+                $("#ErrorCity").text('Please Select the City');
+                status = 1;
+            }
+            else {
+                $("#ErrorCity").text('');
+            }
+          
+
+
+            if ($('#Pincode').val() != '') {
+                // status = 0;
+            }
+            else {
+                $("#errorbannerPincode").css({ display: "block" });
+                status = 1;
+            }
+
+            if (status==1)
+            {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+//        else {
+//            alert("dmoe");
+//        }
+//        
+    }
+
+    function PreviousPage() {
+        window.location = "/Donatephone/List";
+    }
+
+    $(document).ready(function () {
+
+        $('input[type="checkbox"]').change(function () {
+
+            if ($(this).attr('id') == "idAccept") {
+                $("#idReject").attr("checked", false);
+
+                $(".idcourie").css('display', 'block');
+
+                $("#IsPhoneConfirmation").val(true);
+
+            }
+            else if ($(this).attr('id') == "idAcceptsmartphone") {
+
+
+                if (document.getElementById("idAcceptsmartphone").checked == true) {
+
+                    $("#IsPhoneAcceptedByAdmin").val(true);
+
+                }
+                else {
+
+                    $("#IsPhoneAcceptedByAdmin").val(false);
+
+                }
+            }
+            else {
+                $("#idAccept").attr("checked", false);
+                $(".idcourie").css('display', 'none');
+
+                $("#IsPhoneConfirmation").val(false);
+
+
+            }
+
+            //var check = $(this).prop('checked');
+            //console.log("Change: " + name + " to " + check);
+        });
+
+        var confirmation = $("#IsPhoneConfirmation").val();
+      
+        if (confirmation == "True") {
+            $("#idAccept").attr("checked", true);
+        }
+        else {
+           // $("#idReject").attr("checked", true);
+            $(".idcourie").css('display', 'none');
+
+
+        }
+        var AdminAccept = $("#IsPhoneAcceptedByAdmin").val();
+        // alert(AdminAccept);
+        if (AdminAccept == "True") {
+            // $("#idReject").attr("checked", true);
+            $("#idAcceptsmartphone").attr("checked", true);
+            $("#idAccept").attr("disabled", true);
+            $("#idrejectsponsor").css('display', 'none');
+        }
+        else {
+            $("#idAcceptsmartphone").attr("checked", false);
+
+        }
+
+
+        $("#Country").change(function () {
+            // debugger
+            if ($("#Country").val() != "") {
+                /****** Bind State Name ***************/
+                $("#State").empty();
+                $("#City").empty();
+                $("#City").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+                $("#State").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+                //  debugger
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: '@Url.Action("getState", "Labour")',
+                        dataType: 'json',
+                        data: { CountryName: $("#Country").val() },
+                        success: function (Countries) {
+                            // debugger
+                            $.each(Countries, function (i, provider) {
+                                $("#ErrorCountry").text('');
+                                $("#State").append('<option value="' + provider.Value + '">' + provider.Text + '</option>');
+                            });
+                        },
+                        error: function (Countries) {
+                            // debugger
+                        }
+                    });
+
+            }
+        });
+
+
+        $("#City").change(function () {
+            $("#ErrorCity").text('');
+        });
+
+        $("#State").change(function () {
+            if ($("#State").val() != "") {
+                $("#City").empty();
+                $("#City").append('<option value="' + 0 + '">' + 'Select' + '</option>');
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: '@Url.Action("getCity", "Labour")',
+                        dataType: 'json',
+                        data: { StateName: $("#State").val() },
+                        success: function (Countries) {
+                            // debugger
+                            $.each(Countries, function (i, provider) {
+                                $("#ErrorState").text('');
+                                $("#City").append('<option value="' + provider.Value + '">' + provider.Text + '</option>');
+                            });
+                        }
+                    });
+            }
+
+        });
+    });
+</script>
+
+<div class="content">
+    <div class="wrapper">
+        <div class="continn">
+            <fieldset>
+                <legend></legend>
+                <h3>
+                    Add sponsor Courier Details
+                </h3>
+                <div class="clr2">
+                </div>
+                <div class="error_mesg" id="msShow1" >
+                    <b>
+                        <label id="lblErrormsg" >
+                            @ViewBag.messagealert
+                        </label>
+                    </b>
+                </div>
+                <div class="suss_mesg" id="msShow2" >
+                    <b>
+                        <label id="lblError1" >
+                        </label>
+                    </b>
+                </div>
+                <div class="fld_fd">
+                    @using (Html.BeginForm("AddCourierDetails", "Donatephone", FormMethod.Post, new { @id="AddCourierDetails", enctype = "multipart/form-data" }))
+                    {  
+                       if (Model.IsPhoneConfirmation == true && Model.CourierDetail != null)
+                      {
+                           <div style="width: 900px; clear:both;">
+                                     
+                                <div style="font-size:larger;width: 600px;">
+                                    Received Smart Phone:
+                             
+                                   <input type="checkbox" id="idAcceptsmartphone" name ="idAcceptsmartphone" >
+                               
+                                    @Html.HiddenFor(model => model.IsPhoneAcceptedByAdmin)
+                                </div>
+                           
+                          
+                            </div>
+                      }
+                      <div style="padding-bottom:25px;"></div>
+                        <div class="fld_fd view-blk">
+                      
+                            <dl>
+                                <dd>
+                                    Emirates ID:</dd>
+                                <dt>
+                                    @Html.DisplayFor(model => model.sponsors.EmiratesId)
+                                </dt>
+                            </dl>
+                            <dl>
+                                <dd>
+                                    Donate Phone ID:</dd>
+                                <dt>
+                                    <label>
+                                        @{ 
+                                            var donateID = ""; string a = "";
+                                            a = Convert.ToString(Model.DonateID);
+                                            donateID = "DONATE000".PadRight(6) + a;
+                                            // donateID = "DONATE000".PadRight(6)+a;
+                                        }
+                                        @donateID
+                                    </label>
+                                </dt>
+                            </dl>
+                            <dl>
+                                <dd>
+                                    Phone Details:</dd>
+                                <dt>
+                                    @Html.DisplayFor(model => model.BrandName)
+                                    - @Html.DisplayFor(model => model.ModelNo)
+                                </dt>
+                            </dl>
+                            <dl>
+                                <dd>
+                                    Phone Color:</dd>
+                                <dt>
+                                    @Html.DisplayFor(model => model.PhoneColor)
+                                </dt>
+                            </dl>
+                            <dl>
+                                <dd>
+                                    IMEA Number:</dd>
+                                <dt>
+                                    @Html.DisplayFor(model => model.IMEANumber)
+                                </dt>
+                            </dl>
+                            <dl>
+                                <dd>
+                                    Phone Owner Name:</dd>
+                                <dt>
+                                    @Html.DisplayFor(model => model.PhoneOwnerName)
+                                </dt>
+                            </dl>
+                              <dl>
+                                <dd>
+                                    Phone No:</dd>
+                                <dt>
+                                    @Html.DisplayFor(model => model.sponsors.PhoneNumber)
+                                </dt>
+                            </dl>
+                            <dl>
+                                <dd>
+                                   Alternate Phone No:</dd>
+                                <dt>
+                                    @Html.DisplayFor(model => model.AlternatePhoneNumber)
+                                </dt>
+                            </dl>
+                            <dl>
+                                <dd>
+                                    Address:</dd>
+                                <dt>
+                                    @Html.DisplayFor(model => model.Address)
+                                </dt>
+                            </dl>
+                              <dl>
+                                <dd>
+                                  Alternate  Address:</dd>
+                                <dt>
+                                    @Html.DisplayFor(model => model.AlternateAddress)
+                                </dt>
+                            </dl>
+                            @*<dl>
+                                <dd>
+                                    Contact Details:</dd>
+                                <dt>
+                                    @Html.DisplayFor(model => model.ContactDetail)
+                                </dt>
+                            </dl>*@
+                            <dl>
+                                <dd>
+                                    Status:</dd>
+                                <dt>
+                                    @if (Model.IsPhoneConfirmation == false && Model.CourierDetail == null || Model.CourierDetail == "")
+                                    {
+                                        <label>
+                                            Awaiting For Your Approval</label>     
+                                    }
+                                    else if (Model.IsPhoneConfirmation == true && Model.CourierDetail != null && Model.IsPhoneAcceptedByAdmin == false)
+                                    {
+                                        <label>
+                                            In transit</label>
+                                    }
+                                    else if (Model.IsPhoneAcceptedByAdmin == true)
+                                    {
+                                        <label>
+                                            Received</label>
+                                    }
+                                    else
+                                    {
+                                        <label>
+                                            Rejected</label>
+                                    }
+                                </dt>
+                            </dl>
+                             
+                                <dl>
+                                <dd>
+                                     Approve Phone:</dd><dt>  <div style="width: 600px; float: left; text-align: left; padding-bottom: 10px;">
+                                     
+                                            <div class="clearfix">
+                                    <input type="checkbox" id="idAccept" name ="IsPhoneConfirmation" value="true">
+                                    <label>
+                                        Approve</label></div>
+
+                                               <div class="clearfix" id="idrejectsponsor">
+                                    <input type="checkbox" id="idReject" name ="IsPhoneConfirmation" value="false">
+                                    <label>
+                                       Reject</label></div>
+                                            @Html.HiddenFor(model => model.IsPhoneConfirmation)
+                                            </div>
+                                    </dt>
+                            </dl>
+                        
+                            <dl class="idcourie">
+                                <dd>
+                                    Courier  Address :</dd><dt>
+                                        <div style="width: 600px; float: left; text-align: left; padding-bottom: 10px;">
+                                            @Html.TextAreaFor(model => model.CourierDetail)
+                                            <span class="error" id="errorbanner" style="display:none;">
+                                            Please Enter Courier Address
+                                                @Html.ValidationMessageFor(model => model.CourierDetail)
+                                            </span>
+                                        </div>
+                                    </dt>
+                            </dl>                     
+
+
+                            <dl class="idcourie">
+                                <dd>
+                                    Country :
+                                </dd>
+                                <dt>
+                                    <div style="width: 600px; float: left; text-align: left; padding-bottom: 10px;">
+                                        @Html.DropDownListFor(model => model.Country, (SelectList)ViewBag.CountryList, "Select", new { @class = "drop_down" })
+                                        <span class="error" >
+                                            <label id="ErrorCountry"></label>
+                                        </span>
+                                    </div>
+                                </dt>
+                            </dl>
+
+                            <dl class="idcourie">
+                                <dd>
+                                    State :
+                                </dd>
+                                <dt>
+                                    <div style="width: 600px; float: left; text-align: left; padding-bottom: 10px;">
+                                        @Html.DropDownListFor(model => model.State, (SelectList)ViewBag.StateList, "Select", new { @class = "drop_down" })
+
+                                        <span class="error">                                           
+                                            <label id="ErrorState"></label>
+                                        </span>
+                                    </div>
+                                </dt>
+                            </dl>
+
+                            <dl class="idcourie">
+                                <dd>
+                                    City :
+                                </dd>
+                                <dt>
+                                    <div style="width: 600px; float: left; text-align: left; padding-bottom: 10px;">
+                                        @Html.DropDownListFor(model => model.City, (SelectList)ViewBag.CityList, "Select", new { @class = "drop_down" })
+                                        <span class="error">
+                                            @*@Html.ValidationMessageFor(model => model.City)*@
+                                            <label id="ErrorCity"></label>
+                                        </span>
+                                    </div>
+                                </dt>
+                            </dl>  
+
+                            <dl class="idcourie">
+                                <dd>
+                                    Pincode :
+                                </dd>
+                                <dt>
+                                    <div style="width: 600px; float: left; text-align: left; padding-bottom: 10px;">
+                                        @Html.TextBoxFor(model => model.Pincode, new { maxlength = "10" })
+                                        <span class="error" id="errorbannerPincode" style="display:none;">
+                                            Please Enter PinCode
+                                        </span>
+                                    </div>
+                                </dt>
+                            </dl>
+
+
+                            @Html.HiddenFor(model => model.Address)
+                            <div class="btn1 btn1-form">
+                                <input type="submit" value="Save" title="Save" onclick="return checkvalidation();" />
+                                <input type="button" value="Back" title="Back" onclick="PreviousPage();" />
+                            </div>
+                        </div>
+    
+                    }
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
